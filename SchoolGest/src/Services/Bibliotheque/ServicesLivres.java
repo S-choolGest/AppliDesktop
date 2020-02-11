@@ -4,12 +4,12 @@
  * and open the template in the editor.
  */
 
-package Bibliotheque.Entite;
+package Services.Bibliotheque;
 
 /**
  *
  * @author william
  */
-public class Bibliotheque {
+public class ServicesLivres {
     
 }

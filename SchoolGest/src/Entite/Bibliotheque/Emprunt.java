@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-package Bibliotheque.Entite;
+package Entite.Bibliotheque;
 
 /**
  *
