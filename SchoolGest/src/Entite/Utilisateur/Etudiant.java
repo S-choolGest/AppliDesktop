@@ -4,7 +4,7 @@ import java.util.*;
 
 public class Etudiant {
 	private int idEtudiant;
-	private int cinEtudiant;
+	private String cinEtudiant;
 	private String nomEtudiant;
 	private String prenomEtudiant;
 	private Date Date_NaissEtudiant;
@@ -15,7 +15,7 @@ public class Etudiant {
 	
 	
 	
-	public Etudiant( int cinEtudiant, String nomEtudiant, String prenomEtudiant, Date date_NaissEtudiant,
+	public Etudiant( String cinEtudiant, String nomEtudiant, String prenomEtudiant, Date date_NaissEtudiant,
 			String emailEtudiant, int num_telEtudiant, String adressEtudiant, NiveauEtudiant niveauEt ) {
 		super();
 		
@@ -52,13 +52,13 @@ public class Etudiant {
 
 
 
-	public int getCinEtudiant() {
+	public String getCinEtudiant() {
 		return cinEtudiant;
 	}
 
 
 
-	public void setCinEtudiant(int cinEtudiant) {
+	public void setCinEtudiant(String cinEtudiant) {
 		this.cinEtudiant = cinEtudiant;
 	}
 
