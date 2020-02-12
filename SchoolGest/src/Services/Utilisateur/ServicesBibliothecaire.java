@@ -47,7 +47,7 @@ public class ServicesBibliothecaire implements IServices.IServices<Bibliothecair
 
     @Override
     public boolean update(Bibliothecaire b) throws SQLException {
-        PreparedStatement pre = con.prepareStatement("update INTO `edutech`.`Bibliothecaire` (`cin`, `nom`, `prenom`, `dateNaissance`, `email`, `numTel`, `adresse`) VALUES (?, ?, ?, ?, ?, ?, ?);");
+        PreparedStatement pre = con.prepareStatement("update `edutech`.`Bibliothecaire` set `cin` = ?, `nom` = ?, `prenom` = ?, `dateNaissance` = ?, `email` = ?, `numTel` = ?, `adresse` = ? where `id` = ?;");
         pre.setString(1, b.getCin());
         pre.setString(2, b.getNom());
         pre.setString(3, b.getPrenom());
@@ -55,12 +55,13 @@ public class ServicesBibliothecaire implements IServices.IServices<Bibliothecair
         pre.setString(5, b.getEmail());
         pre.setInt(6, b.getTel());
         pre.setString(7, b.getAdresse());
+        pre.setInt(8, b.getId());
         return pre.executeUpdate() != 0;
     }
 
     @Override
     public List<Bibliothecaire> readAll() throws SQLException {
-        List<Bibliothecaire> arr = new ArrayList<>();
+        List<Bibliothecaire> listB = new ArrayList<>();
         ste = con.createStatement();
         ResultSet rs = ste.executeQuery("select * from Bibliothecaire");
         while (rs.next()) {
@@ -74,9 +75,9 @@ public class ServicesBibliothecaire implements IServices.IServices<Bibliothecair
             int numtel = rs.getInt(7);
             String adresse = rs.getString(8);
             Bibliothecaire b = new Bibliothecaire(id, cin, nom, prenom, dateNaissance, email, numtel, adresse);
-            arr.add(b);
+            listB.add(b);
         }
-        return arr;
+        return listB;
     }
 
 }

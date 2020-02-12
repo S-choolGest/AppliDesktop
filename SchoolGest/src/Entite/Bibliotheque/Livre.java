@@ -76,6 +76,11 @@ public class Livre {
     public void setTaille(int taille) {
         this.taille = taille;
     }
+
+    @Override
+    public String toString() {
+        return "Livre{" + "id=" + id + ", titre=" + titre + ", editeur=" + editeur + ", auteur=" + auteur + ", dateSortie=" + dateSortie + ", taille=" + taille + '}';
+    }
     
     
 }

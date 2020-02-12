@@ -44,6 +44,10 @@ public class Bibliothecaire {
         this.adresse = adresse;
     }
 
+    public Bibliothecaire(int id) {
+        this.id = id;
+    }
+
     public int getId() {
         return id;
     }
