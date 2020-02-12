@@ -164,7 +164,7 @@ public class Etudiant {
 		int result = 1;
 		result = prime * result + ((Date_NaissEtudiant == null) ? 0 : Date_NaissEtudiant.hashCode());
 		result = prime * result + ((adressEtudiant == null) ? 0 : adressEtudiant.hashCode());
-		result = prime * result + cinEtudiant;
+		result = prime * result + ((cinEtudiant == null) ? 0 : cinEtudiant.hashCode());
 		result = prime * result + ((emailEtudiant == null) ? 0 : emailEtudiant.hashCode());
 		result = prime * result + idEtudiant;
 		result = prime * result + ((niveauEt == null) ? 0 : niveauEt.hashCode());
@@ -195,7 +195,10 @@ public class Etudiant {
 				return false;
 		} else if (!adressEtudiant.equals(other.adressEtudiant))
 			return false;
-		if (cinEtudiant != other.cinEtudiant)
+		if (cinEtudiant == null) {
+			if (other.cinEtudiant != null)
+				return false;
+		} else if (!cinEtudiant.equals(other.cinEtudiant))
 			return false;
 		if (emailEtudiant == null) {
 			if (other.emailEtudiant != null)
@@ -220,6 +223,9 @@ public class Etudiant {
 			return false;
 		return true;
 	}
+
+
+
 	
 	
 	
