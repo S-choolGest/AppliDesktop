@@ -20,6 +20,11 @@ public class Bibliotheque {
         this.nom = nom;
         this.capacite = capacite;
     }
+
+    public Bibliotheque(String nom, int capacite) {
+        this.nom = nom;
+        this.capacite = capacite;
+    }
     
     public String getNom() {
         return nom;

@@ -20,8 +20,9 @@ public class Livre {
     private String categorie;
     private String dateSortie;
     private int taille;
+    private int quantite;
 
-    public Livre(int id, String titre, String editeur, String auteur, String categorie, String dateSortie, int taille) {
+    public Livre(int id, String titre, String editeur, String auteur, String categorie, String dateSortie, int taille, int quantite) {
         this.id = id;
         this.titre = titre;
         this.editeur = editeur;
@@ -29,15 +30,17 @@ public class Livre {
         this.categorie = categorie;
         this.dateSortie = dateSortie;
         this.taille = taille;
+        this.quantite = quantite;
     }
 
-    public Livre(String titre, String editeur, String auteur, String categorie, String dateSortie, int taille) {
+    public Livre(String titre, String editeur, String auteur, String categorie, String dateSortie, int taille, int quantite) {
         this.titre = titre;
         this.editeur = editeur;
         this.auteur = auteur;
         this.categorie = categorie;
         this.dateSortie = dateSortie;
         this.taille = taille;
+        this.quantite = quantite;
     }
 
     public Livre(int id) {
@@ -101,11 +104,17 @@ public class Livre {
         this.categorie = categorie;
     }
 
-    @Override
-    public String toString() {
-        return "Livre{" + "id=" + id + ", titre=" + titre + ", editeur=" + editeur + ", auteur=" + auteur + ", categorie=" + categorie + ", dateSortie=" + dateSortie + ", taille=" + taille + '}';
+    public int getQuantite() {
+        return quantite;
     }
 
-    
+    public void setQuantite(int quantite) {
+        this.quantite = quantite;
+    }
+
+    @Override
+    public String toString() {
+        return "Livre{" + "id=" + id + ", titre=" + titre + ", editeur=" + editeur + ", auteur=" + auteur + ", categorie=" + categorie + ", dateSortie=" + dateSortie + ", taille=" + taille + ", quantite=" + quantite + '}';
+    }
     
 }
