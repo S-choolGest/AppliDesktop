@@ -14,6 +14,7 @@ import java.util.Date;
  */
 public class Livre {
     private int id;
+    private int id_bibliotheque;
     private String titre;
     private String editeur;
     private String auteur;
@@ -22,8 +23,9 @@ public class Livre {
     private int taille;
     private int quantite;
 
-    public Livre(int id, String titre, String editeur, String auteur, String categorie, String dateSortie, int taille, int quantite) {
+    public Livre(int id, int id_bibliotheque, String titre, String editeur, String auteur, String categorie, String dateSortie, int taille, int quantite) {
         this.id = id;
+        this.id_bibliotheque = id_bibliotheque;
         this.titre = titre;
         this.editeur = editeur;
         this.auteur = auteur;
@@ -33,7 +35,8 @@ public class Livre {
         this.quantite = quantite;
     }
 
-    public Livre(String titre, String editeur, String auteur, String categorie, String dateSortie, int taille, int quantite) {
+    public Livre(int id_bibliotheque, String titre, String editeur, String auteur, String categorie, String dateSortie, int taille, int quantite) {
+        this.id_bibliotheque = id_bibliotheque;
         this.titre = titre;
         this.editeur = editeur;
         this.auteur = auteur;
@@ -54,6 +57,14 @@ public class Livre {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public int getId_bibliotheque() {
+        return id_bibliotheque;
+    }
+
+    public void setId_bibliotheque(int id_bibliotheque) {
+        this.id_bibliotheque = id_bibliotheque;
     }
 
     public String getTitre() {
@@ -114,7 +125,8 @@ public class Livre {
 
     @Override
     public String toString() {
-        return "Livre{" + "id=" + id + ", titre=" + titre + ", editeur=" + editeur + ", auteur=" + auteur + ", categorie=" + categorie + ", dateSortie=" + dateSortie + ", taille=" + taille + ", quantite=" + quantite + '}';
+        return "Livre{" + "id=" + id + ", id_bibliotheque=" + id_bibliotheque + ", titre=" + titre + ", editeur=" + editeur + ", auteur=" + auteur + ", categorie=" + categorie + ", dateSortie=" + dateSortie + ", taille=" + taille + ", quantite=" + quantite + '}';
     }
+
     
 }

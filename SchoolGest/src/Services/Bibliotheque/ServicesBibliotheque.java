@@ -47,6 +47,7 @@ public class ServicesBibliotheque implements IServices<Bibliotheque>{
         PreparedStatement pre = con.prepareStatement("update `edutech`.`Bibliotheque` set `nom` = ?, `capacite` = ? where `id` = ?;");
         pre.setString(1, b.getNom());
         pre.setInt(2, b.getCapacite());
+        pre.setInt(3, b.getId());
         return pre.executeUpdate() != 0;
     }
 

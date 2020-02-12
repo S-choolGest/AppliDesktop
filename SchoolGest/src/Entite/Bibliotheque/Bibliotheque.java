@@ -25,6 +25,10 @@ public class Bibliotheque {
         this.nom = nom;
         this.capacite = capacite;
     }
+
+    public Bibliotheque(int id) {
+        this.id = id;
+    }
     
     public String getNom() {
         return nom;
@@ -48,6 +52,11 @@ public class Bibliotheque {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    @Override
+    public String toString() {
+        return "Bibliotheque{" + "id=" + id + ", nom=" + nom + ", capacite=" + capacite + '}';
     }
     
     

@@ -6,14 +6,9 @@
 
 package test.Bibliotheque;
 
-import Entite.Bibliotheque.Bibliotheque;
-import Entite.Bibliotheque.Emprunt;
-import Entite.Bibliotheque.Etat;
-import Entite.Bibliotheque.Livre;
+import Entite.Bibliotheque.*;
 import Entite.Utilisateur.*;
-import Services.Bibliotheque.ServicesBibliotheque;
-import Services.Bibliotheque.ServicesEmprunt;
-import Services.Bibliotheque.ServicesLivres;
+import Services.Bibliotheque.*;
 import Services.Utilisateur.*;
 import java.sql.SQLException;
 import java.util.List;
@@ -62,40 +57,40 @@ public class testBibliotheque {
 //            System.out.println(ex);
 //        }
         
+        ServicesBibliotheque ser = new ServicesBibliotheque();
+        
+        Bibliotheque l1 = new Bibliotheque("bb1", 1000);
+        Bibliotheque l2 = new Bibliotheque("bb2", 505);
+        Bibliotheque l3 = new Bibliotheque(1, "biblio_1", 1200);
+        Bibliotheque l4 = new Bibliotheque(2);
+        
+        try{
+//            ser.ajouter(l2);
+//            ser.ajouter(l1);
+//            ser.update(l3);
+            ser.delete(l4);
+            List<Bibliotheque> list = ser.readAll();
+            System.out.println(list);
+        } catch(SQLException ex){
+            System.out.println(ex);
+        }
+        
 //        ServicesLivres ser = new ServicesLivres();
 //        
-//        Livre l1 = new Livre("aaa", "bbb", "ccc", "ddd", "2020-01-01", 100,12);
-//        Livre l2 = new Livre("aaa2", "bbb2", "ccc2", "ddd2", "1852-01-01", 504,54);
-//        Livre l3 = new Livre(3, "aaa1", "bbb1", "ccc1", "ddd1", "2020-01-01", 600,55);
+//        Livre l1 = new Livre(1, "aaa", "bbb", "ccc", "ddd", "2020-01-01", 100,12);
+//        Livre l2 = new Livre(2, "aaa2", "bbb2", "ccc2", "ddd2", "1852-01-01", 504,54);
+//        Livre l3 = new Livre(4, 1, "aaa1", "bbb1", "ccc1", "ddd1", "2020-01-01", 600,55);
 //        Livre l4 = new Livre(3);
 //        
 //        try{
-////            ser.ajouter(l2);
+//            ser.ajouter(l2);
 ////            ser.ajouter(l1);
-//            ser.update(l3);
+////            ser.update(l3);
 ////            ser.delete(l4);
 //            List<Livre> list = ser.readAll();
 //            System.out.println(list);
 //        } catch(SQLException ex){
 //            System.out.println(ex);
 //        }
-        
-        ServicesBibliotheque ser = new ServicesBibliotheque();
-        
-        Livre l1 = new Livre("aaa", "bbb", "ccc", "ddd", "2020-01-01", 100,12);
-        Livre l2 = new Livre("aaa2", "bbb2", "ccc2", "ddd2", "1852-01-01", 504,54);
-        Livre l3 = new Livre(3, "aaa1", "bbb1", "ccc1", "ddd1", "2020-01-01", 600,55);
-        Livre l4 = new Livre(3);
-        
-        try{
-//            ser.ajouter(l2);
-//            ser.ajouter(l1);
-            //ser.update(l3);
-//            ser.delete(l4);
-            List<Bibliotheque> list = ser.readAll();
-            System.out.println(list);
-        } catch(SQLException ex){
-            System.out.println(ex);
-        }
     }
 }
