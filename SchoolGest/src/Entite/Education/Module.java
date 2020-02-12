@@ -1,23 +1,34 @@
-package Entite.Education;
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 
+package Entite;
+
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ *
+ * @author saghir
+ */
 public class Module {
-	private int idModule;
+        private int idModule;
 	private String nomModule;
 	private int coefModule;
-	public Module(int idModule, String nomModule, int coefModule) {
-		super();
-		this.idModule = idModule;
-		this.nomModule = nomModule;
-		this.coefModule = coefModule;
-	}
-	public Module(String nomModule, int coefModule) {
-		super();
-		this.nomModule = nomModule;
-		this.coefModule = coefModule;
-	}
-	public Module() {
-		super();
-	}
+        List<Matieres> matieres;
+	
+	
+        public Module(String nomModule, int coefModule) {
+        this.matieres=new ArrayList<>();
+        this.nomModule = nomModule;
+        this.coefModule = coefModule;
+        }
+
+    public Module() {
+        this.matieres=new ArrayList<>();
+    }
 	public int getIdModule() {
 		return idModule;
 	}
@@ -69,8 +80,4 @@ public class Module {
 	public String toString() {
 		return "Module [idModule=" + idModule + ", nomModule=" + nomModule + ", coefModule=" + coefModule + "]";
 	}
-	
-	
-	
-
 }

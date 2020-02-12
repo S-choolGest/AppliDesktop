@@ -1,0 +1,66 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
+package Entite;
+
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ *
+ * @author saghir
+ */
+public class Specialites {
+    private int idSpecialite;
+    private String nomSpecialite;
+    private List<Matieres> matieres;
+
+    public Specialites() {
+        this.matieres = new ArrayList<Matieres>();
+    }
+
+    public Specialites(int idSpecialite, String nomSpecialite, List<Matieres> matieres) {
+        this.matieres = matieres;
+        this.idSpecialite = idSpecialite;
+        this.nomSpecialite = nomSpecialite;
+        
+    }
+
+    public int getIdSpecialite() {
+        return idSpecialite;
+    }
+
+    public void setIdSpecialite(int idSpecialite) {
+        this.idSpecialite = idSpecialite;
+    }
+
+    public String getNomSpecialite() {
+        return nomSpecialite;
+    }
+
+    public void setNomSpecialite(String nomSpecialite) {
+        this.nomSpecialite = nomSpecialite;
+    }
+
+    public List<Matieres> getMatieres() {
+        return matieres;
+    }
+
+    public void setMatieres(List<Matieres> matieres) {
+        this.matieres = matieres;
+    }
+
+    @Override
+    public String toString() {
+        String nomMatieres = "";
+        for (Matieres matiere : getMatieres()) {
+            nomMatieres+="NOM: "+matiere.getNomMatiere()+"\n";
+        }
+        return "Specialites{" + "idSpecialite=" + idSpecialite + ", nomSpecialite=" + nomSpecialite + "\n" +nomMatieres + '}';
+    }
+    
+    
+}
