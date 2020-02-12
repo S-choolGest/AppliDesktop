@@ -8,8 +8,10 @@ package test.Bibliotheque;
 
 import Entite.Bibliotheque.Emprunt;
 import Entite.Bibliotheque.Etat;
+import Entite.Bibliotheque.Livre;
 import Entite.Utilisateur.*;
 import Services.Bibliotheque.ServicesEmprunt;
+import Services.Bibliotheque.ServicesLivres;
 import Services.Utilisateur.*;
 import java.sql.SQLException;
 import java.util.List;
@@ -38,19 +40,39 @@ public class testBibliotheque {
 //        } catch (SQLException ex) {
 //            System.out.println(ex);
 //        }
-        ServicesEmprunt ser = new ServicesEmprunt();
         
-        Emprunt e1 = new Emprunt(1, 2, Etat.attente, "2020-01-01", null, null);
-        Emprunt e2 = new Emprunt(4, 45, Etat.rendu, "2019-01-01", null, null);
-        Emprunt e3 = new Emprunt(1, 4, 45, Etat.rendu, "2019-01-01", "2020-01-05", null);
-        Emprunt e4 = new Emprunt(2);
+        
+//        ServicesEmprunt ser = new ServicesEmprunt();
+//        
+//        Emprunt e1 = new Emprunt(1, 2, Etat.attente, "2020-01-01", null, null);
+//        Emprunt e2 = new Emprunt(4, 45, Etat.rendu, "2019-01-01", null, null);
+//        Emprunt e3 = new Emprunt(1, 4, 45, Etat.rendu, "2019-01-01", "2020-01-05", null);
+//        Emprunt e4 = new Emprunt(2);
+//        
+//        try{
+////            ser.ajouter(e2);
+////            ser.ajouter(e1);
+//            //ser.update(e3);
+//            ser.delete(e4);
+//            List<Emprunt> list = ser.readAll();
+//            System.out.println(list);
+//        } catch(SQLException ex){
+//            System.out.println(ex);
+//        }
+        
+        ServicesLivres ser = new ServicesLivres();
+        
+        Livre l1 = new Livre("aaa", "bbb", "ccc", "ddd", "2020-01-01", 100);
+        Livre l2 = new Livre("aaa2", "bbb2", "ccc2", "ddd2", "1852-01-01", 504);
+        Livre l3 = new Livre(1, "aaa1", "bbb1", "ccc1", "ddd1", "2020-01-01", 600);
+        Livre l4 = new Livre(2);
         
         try{
-//            ser.ajouter(e2);
-//            ser.ajouter(e1);
-            //ser.update(e3);
-            ser.delete(e4);
-            List<Emprunt> list = ser.readAll();
+//            ser.ajouter(l2);
+//            ser.ajouter(l1);
+//            ser.update(l3);
+            ser.delete(l4);
+            List<Livre> list = ser.readAll();
             System.out.println(list);
         } catch(SQLException ex){
             System.out.println(ex);

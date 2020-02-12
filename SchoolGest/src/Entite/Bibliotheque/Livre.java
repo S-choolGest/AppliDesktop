@@ -17,17 +17,33 @@ public class Livre {
     private String titre;
     private String editeur;
     private String auteur;
-    private Date dateSortie;
+    private String categorie;
+    private String dateSortie;
     private int taille;
 
-    public Livre(int id, String titre, String editeur, String auteur, Date dateSortie, int taille) {
+    public Livre(int id, String titre, String editeur, String auteur, String categorie, String dateSortie, int taille) {
         this.id = id;
         this.titre = titre;
         this.editeur = editeur;
         this.auteur = auteur;
+        this.categorie = categorie;
         this.dateSortie = dateSortie;
         this.taille = taille;
     }
+
+    public Livre(String titre, String editeur, String auteur, String categorie, String dateSortie, int taille) {
+        this.titre = titre;
+        this.editeur = editeur;
+        this.auteur = auteur;
+        this.categorie = categorie;
+        this.dateSortie = dateSortie;
+        this.taille = taille;
+    }
+
+    public Livre(int id) {
+        this.id = id;
+    }
+    
 
     public int getId() {
         return id;
@@ -61,11 +77,11 @@ public class Livre {
         this.auteur = auteur;
     }
 
-    public Date getDateSortie() {
+    public String getDateSortie() {
         return dateSortie;
     }
 
-    public void setDateSortie(Date dateSortie) {
+    public void setDateSortie(String dateSortie) {
         this.dateSortie = dateSortie;
     }
 
@@ -77,10 +93,19 @@ public class Livre {
         this.taille = taille;
     }
 
+    public String getCategorie() {
+        return categorie;
+    }
+
+    public void setCategorie(String categorie) {
+        this.categorie = categorie;
+    }
+
     @Override
     public String toString() {
-        return "Livre{" + "id=" + id + ", titre=" + titre + ", editeur=" + editeur + ", auteur=" + auteur + ", dateSortie=" + dateSortie + ", taille=" + taille + '}';
+        return "Livre{" + "id=" + id + ", titre=" + titre + ", editeur=" + editeur + ", auteur=" + auteur + ", categorie=" + categorie + ", dateSortie=" + dateSortie + ", taille=" + taille + '}';
     }
+
     
     
 }
