@@ -6,17 +6,17 @@
 
 package schoolgest;
 
-/**
- *
- * @author william
- */
+import Entite.Education.Note;
+import Services.Education.ServicesNote;
+
 public class SchoolGest {
 
-    /**
-     * @param args the command line arguments
-     */
+    
     public static void main(String[] args) {
-        // TODO code application logic here
+    	
+    	 ServicesNote sn = new ServicesNote();
+    	 Note n = new Note("ggggg");
+    	 sn.ajouterNote(n);
     }
     
 }
