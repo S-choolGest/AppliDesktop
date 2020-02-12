@@ -4,12 +4,15 @@
  * and open the template in the editor.
  */
 
-package IServices.Bibliotheque;
+package Entite.Bibliotheque;
 
 /**
  *
  * @author william
  */
-public class IServicesLivres {
-    
+public enum Etat {
+    attente,
+    accepte,
+    refus,
+    rendu;
 }

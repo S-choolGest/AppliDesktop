@@ -158,21 +158,21 @@ public class Etudiant {
 
 
 
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((Date_NaissEtudiant == null) ? 0 : Date_NaissEtudiant.hashCode());
-		result = prime * result + ((adressEtudiant == null) ? 0 : adressEtudiant.hashCode());
-		result = prime * result + cinEtudiant;
-		result = prime * result + ((emailEtudiant == null) ? 0 : emailEtudiant.hashCode());
-		result = prime * result + idEtudiant;
-		result = prime * result + ((niveauEt == null) ? 0 : niveauEt.hashCode());
-		result = prime * result + ((nomEtudiant == null) ? 0 : nomEtudiant.hashCode());
-		result = prime * result + num_telEtudiant;
-		result = prime * result + ((prenomEtudiant == null) ? 0 : prenomEtudiant.hashCode());
-		return result;
-	}
+	//@Override
+//	public int hashCode() {
+//		final int prime = 31;
+//		int result = 1;
+//		result = prime * result + ((Date_NaissEtudiant == null) ? 0 : Date_NaissEtudiant.hashCode());
+//		result = prime * result + ((adressEtudiant == null) ? 0 : adressEtudiant.hashCode());
+//		result = prime * result + cinEtudiant;
+//		result = prime * result + ((emailEtudiant == null) ? 0 : emailEtudiant.hashCode());
+//		result = prime * result + idEtudiant;
+//		result = prime * result + ((niveauEt == null) ? 0 : niveauEt.hashCode());
+//		result = prime * result + ((nomEtudiant == null) ? 0 : nomEtudiant.hashCode());
+//		result = prime * result + num_telEtudiant;
+//		result = prime * result + ((prenomEtudiant == null) ? 0 : prenomEtudiant.hashCode());
+//		return result;
+//	}
 
 
 
