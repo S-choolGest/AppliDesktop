@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-package Entite;
+package Entite.Education;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,7 +17,7 @@ public class Module {
         private int idModule;
 	private String nomModule;
 	private int coefModule;
-        List<Matieres> matieres;
+        List<Matiere> matieres;
 	
 	
         public Module(String nomModule, int coefModule) {

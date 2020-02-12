@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-package Entite;
+package Entite.Education;
 
 import java.io.File;
 

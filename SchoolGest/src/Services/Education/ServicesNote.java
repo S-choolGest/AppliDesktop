@@ -36,17 +36,61 @@ public class ServicesNote implements IServicesNotes{
 	}
 
 	@Override
-	public void modifierEtudiant(Note n) {
+	public void modifierNote(Note n) {
+		try {
+            String requeteUpdate =
+                    "UPDATE note SET typeNote = ? "+"WHERE idNote=1";
+
+            PreparedStatement st =con.prepareStatement(requeteUpdate);
+
+            st.setString(1, n.getTypeNote());
+            
+            
+
+            st.executeUpdate();
+            System.out.println("matiere modifier");
+
+
+        }
+        catch (SQLException ex){
+            System.out.println(ex.getMessage());
+        }
+		
 		
 	}
 
 	@Override
-	public void supprimerEtudiant(Note n) {
+	public void supprimerNote(Note n) {
+		Statement st;
+		try {
+	        String requeteDelete =
+	                "DELETE FROM note where idNote=1";
+	                st =con.createStatement();
+	                st.executeUpdate(requeteDelete);
+	                System.out.println("user supprimée____ "+n.toString());
+	        }
+	        catch (SQLException ex){
+	            System.out.println(ex.getMessage());
+	        }  
 		
 	}
 
 	@Override
-	public void afficherListEtudiant() {
+	public void afficherNote() {
+		ResultSet rs;
+		Statement st;
+        String requete = "select * from note ";
+        try {
+            st =con.createStatement();
+            rs= st.executeQuery(requete);
+            while(rs.next()){
+                System.out.println("ID: "+rs.getString("idNote")+" , Note: "+rs.getString("typeNote"));
+
+               
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ServicesNote.class.getName()).log(Level.SEVERE, null, ex);
+        } 
 		
 	}
 	

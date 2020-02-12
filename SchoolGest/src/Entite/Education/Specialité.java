@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-package Entite;
+package Entite.Education;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,16 +13,16 @@ import java.util.List;
  *
  * @author saghir
  */
-public class SpecialitÃ© {
+public class Specialité {
     private int idSpecialite;
     private String nomSpecialite;
     private List<Matiere> matieres;
 
-    public SpecialitÃ©() {
+    public Specialité() {
         this.matieres = new ArrayList<Matiere>();
     }
 
-    public SpecialitÃ©(int idSpecialite, String nomSpecialite, List<Matiere> matieres) {
+    public Specialité(int idSpecialite, String nomSpecialite, List<Matiere> matieres) {
         this.matieres = matieres;
         this.idSpecialite = idSpecialite;
         this.nomSpecialite = nomSpecialite;
