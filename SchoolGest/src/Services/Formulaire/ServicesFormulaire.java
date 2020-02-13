@@ -41,6 +41,7 @@ public class ServicesFormulaire implements IServicesFormulaire<Formulaire>{
             System.out.println(ex.getMessage());
 
         }
+    }
 
     @Override
     public void delete(Formulaire f) {
@@ -50,7 +51,7 @@ public class ServicesFormulaire implements IServicesFormulaire<Formulaire>{
             PreparedStatement pt = con.prepareStatement(req);
             ste = con.createStatement();
             ste.executeUpdate(req);
-            System.out.println("utilisateur supprimé"+f.toString());
+            System.out.println("utilisateur supprimé" + f.toString());
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
         }
