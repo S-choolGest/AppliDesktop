@@ -34,7 +34,7 @@ public class ServicesFormulaire implements IServicesFormulaire<Formulaire> {
     public void ajouter(Formulaire f) {
         try {
             ste = con.createStatement();
-            String requeteInsert = "INSERT INTO `formulaire` (`idFormulaire`, `descriptionFormulaire`, `dateEnvoi`, `objet`) VALUES (NULL, '" + f.getDescription() + "', '" + f.getObjet() + "',"+f.getDateEnvoi()+");";
+            String requeteInsert = "INSERT INTO formulaire (idFormulaire, descriptionFormulaire, dateEnvoi, objet) VALUES (NULL, '" + f.getDescription() + "', '" + f.getObjet() + "',"+f.getDateEnvoi()+");";
             ste.executeUpdate(requeteInsert);
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
