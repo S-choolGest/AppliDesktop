@@ -7,7 +7,13 @@
 package schoolgest;
 
 import Entite.Education.Note;
+import Entite.Formulaire.Formulaire;
 import Services.Education.ServicesNote;
+import Services.Formulaire.ServicesFormulaire;
+import java.sql.SQLException;
+import java.time.LocalDate;
+import java.util.Date;
+import java.util.List;
 
 public class SchoolGest {
 
@@ -19,8 +25,9 @@ public class SchoolGest {
     	 sn.ajouterNote(n);
     	 //sn.modifierNote(n);
     	// sn.supprimerNote(n);
-    	 sn.afficherNote();
-    	 
+    	 sn.afficherNote(); 
+       
     }
+    
     
 }
