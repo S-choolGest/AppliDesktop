@@ -21,10 +21,10 @@ public class SchoolGest {
     public static void main(String[] args) {
     	
     	 ServicesNote sn = new ServicesNote();
-    	 Note n = new Note("chet9il");
+    	 Note n = new Note("texte");
     	 sn.ajouterNote(n);
     	 //sn.modifierNote(n);
-    	// sn.supprimerNote(n);
+    	 //sn.supprimerNote(n);
     	 sn.afficherNote(); 
        
     }
