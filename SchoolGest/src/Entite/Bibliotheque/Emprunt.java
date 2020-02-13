@@ -7,6 +7,7 @@
 package Entite.Bibliotheque;
 
 import java.util.Date;
+import java.util.Objects;
 
 /**
  *
@@ -103,6 +104,42 @@ public class Emprunt {
     @Override
     public String toString() {
         return "Emprunt{" + "id=" + id + ", idEmprunteur=" + idEmprunteur + ", idLivre=" + idLivre + ", etat=" + etat + ", dateEmprunt=" + dateEmprunt + ", dateConfirmation=" + dateConfirmation + ", dateRendu=" + dateRendu + '}';
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Emprunt other = (Emprunt) obj;
+        if (this.idEmprunteur != other.idEmprunteur) {
+            return false;
+        }
+        if (this.idLivre != other.idLivre) {
+            return false;
+        }
+        if (this.etat != other.etat) {
+            return false;
+        }
+        if (!Objects.equals(this.dateEmprunt, other.dateEmprunt)) {
+            return false;
+        }
+        if (!Objects.equals(this.dateConfirmation, other.dateConfirmation)) {
+            return false;
+        }
+        if (!Objects.equals(this.dateRendu, other.dateRendu)) {
+            return false;
+        }
+        return true;
     }
     
 }

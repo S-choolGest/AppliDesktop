@@ -10,6 +10,7 @@ import Utils.DataBase;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  *
@@ -26,6 +27,7 @@ public class ServicesBibliothecaire implements IServices.IServices<Bibliothecair
 
     @Override
     public boolean ajouter(Bibliothecaire b) throws SQLException {
+        if(search(b) == null){
         PreparedStatement pre = con.prepareStatement("insert INTO `edutech`.`Bibliothecaire` (`cin`, `nom`, `prenom`, `dateNaissance`, `email`, `numTel`, `adresse`) VALUES (?, ?, ?, ?, ?, ?, ?);");
         pre.setString(1, b.getCin());
         pre.setString(2, b.getNom());
@@ -36,6 +38,9 @@ public class ServicesBibliothecaire implements IServices.IServices<Bibliothecair
         pre.setInt(6, b.getTel());
         pre.setString(7, b.getAdresse());
         return pre.executeUpdate() != 0;
+        }
+        System.out.println("Bibliothecaire existant !!!");
+        return false;
     }
 
     @Override
@@ -79,5 +84,21 @@ public class ServicesBibliothecaire implements IServices.IServices<Bibliothecair
         }
         return listB;
     }
-
+    
+    @Override
+    public List<Bibliothecaire> search(String t) throws SQLException {
+        List<Bibliothecaire> bibliothecaires = new ArrayList<>();
+        bibliothecaires = readAll();
+        List<Bibliothecaire> bib = bibliothecaires.stream()
+                .filter(a -> a.getCin().contains(t) || a.getNom().contains(t) || a.getPrenom().contains(t) || a.getDateNaissance().contains(t) || a.getEmail().contains(t) || a.getAdresse().contains(t) || String.valueOf(a.getTel()).startsWith(t))
+                .collect(Collectors.toList());
+        return bib;
+    }
+    
+    public Bibliothecaire search(Bibliothecaire b) throws SQLException {
+        List<Bibliothecaire> listE = new ArrayList<>();
+        listE = readAll();
+        Bibliothecaire result = listE.stream().filter(a -> a.equals(b)).findAny().orElse(null);
+        return result;
+    }
 }

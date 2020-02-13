@@ -18,4 +18,5 @@ public interface IServices<T> {
     boolean delete(T t) throws SQLException;
     boolean update(T t) throws SQLException;
     List<T> readAll() throws SQLException;
+    List<T> search(String t) throws SQLException;
 }

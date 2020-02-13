@@ -14,6 +14,7 @@ import Utils.DataBase;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  *
@@ -30,6 +31,17 @@ public class ServicesEmprunt implements IServices<Emprunt>{
 
     @Override
     public boolean ajouter(Emprunt e) throws SQLException {
+        List<Emprunt> listE = readAll();
+        long nbr = listE.stream().filter(a -> a.getIdEmprunteur() == e.getIdEmprunteur()).count();
+        if(nbr >= 3){
+            System.out.println("max de livres empruntes!!!");
+            return false;
+        }
+        Emprunt emp = listE.stream().filter(a -> a.getIdEmprunteur() == e.getIdEmprunteur() && a.getIdLivre() == e.getIdLivre() && a.getEtat().toString()!= "rendu").findAny().orElse(null);
+        if(emp != null){
+            System.out.println("livre deja emprunte !!!");
+            return false;
+        }
         PreparedStatement pre = con.prepareStatement("insert INTO `edutech`.`emprunt` (`idemprunteur`, `idlivre`, `etat`, `dateEmprunt`, `dateConfirmation`, `dateRendu`) VALUES (?, ?, ?, ?, ?, ?);");
         pre.setInt(1, e.getIdEmprunteur());
         pre.setInt(2, e.getIdLivre());
@@ -77,6 +89,16 @@ public class ServicesEmprunt implements IServices<Emprunt>{
             listE.add(b);
         }
         return listE;
+    }
+
+    @Override
+    public List<Emprunt> search(String t) throws SQLException {
+        List<Emprunt> emprunts = new ArrayList<>();
+        emprunts = readAll();
+        List<Emprunt> emp = emprunts.stream()
+                .filter(a -> a.getEtat().toString().contains(t) || a.getDateEmprunt().contains(t) || a.getDateConfirmation().contains(t) || a.getDateRendu().contains(t))
+                .collect(Collectors.toList());
+        return emp;
     }
     
 }

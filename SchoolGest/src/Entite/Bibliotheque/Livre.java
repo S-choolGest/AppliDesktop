@@ -7,6 +7,7 @@
 package Entite.Bibliotheque;
 
 import java.util.Date;
+import java.util.Objects;
 
 /**
  *
@@ -126,6 +127,36 @@ public class Livre {
     @Override
     public String toString() {
         return "Livre{" + "id=" + id + ", id_bibliotheque=" + id_bibliotheque + ", titre=" + titre + ", editeur=" + editeur + ", auteur=" + auteur + ", categorie=" + categorie + ", dateSortie=" + dateSortie + ", taille=" + taille + ", quantite=" + quantite + '}';
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Livre other = (Livre) obj;
+        if (this.id_bibliotheque != other.id_bibliotheque) {
+            return false;
+        }
+        if (!Objects.equals(this.titre, other.titre)) {
+            return false;
+        }
+        if (!Objects.equals(this.editeur, other.editeur)) {
+            return false;
+        }
+        if (!Objects.equals(this.auteur, other.auteur)) {
+            return false;
+        }
+        if (!Objects.equals(this.dateSortie, other.dateSortie)) {
+            return false;
+        }
+        if (this.taille != other.taille) {
+            return false;
+        }
+        return true;
     }
 
     

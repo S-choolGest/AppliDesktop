@@ -3,9 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package Services.Bibliotheque;
 
+import Entite.Bibliotheque.Bibliotheque;
 import Entite.Bibliotheque.Emprunt;
 import Entite.Bibliotheque.Etat;
 import Entite.Bibliotheque.Livre;
@@ -15,12 +15,13 @@ import java.sql.*;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  *
  * @author william
  */
-public class ServicesLivres implements IServices<Livre>{
+public class ServicesLivres implements IServices<Livre> {
 
     private Connection con;
     private Statement ste;
@@ -28,18 +29,49 @@ public class ServicesLivres implements IServices<Livre>{
     public ServicesLivres() {
         con = DataBase.getInstance().getConnection();
     }
-    
+
     @Override
     public boolean ajouter(Livre l) throws SQLException {
-        PreparedStatement pre = con.prepareStatement("insert INTO `edutech`.`livre` (`id_bibliotheque`, `titre`, `auteur`, `editeur`, `categorie`, `datesortie`, `taille`, `quantite`) VALUES (?, ?, ?, ?, ?, ?, ?, ?);");
-        pre.setInt(1, l.getId_bibliotheque());
-        pre.setString(2, l.getTitre());
-        pre.setString(3, l.getAuteur());
-        pre.setString(4, l.getEditeur());
-        pre.setString(5, l.getCategorie());
-        pre.setString(6, l.getDateSortie());
-        pre.setInt(7, l.getTaille());
-        pre.setInt(8, l.getQuantite());
+        ServicesBibliotheque ser = new ServicesBibliotheque();
+        Bibliotheque b = new Bibliotheque(l.getId_bibliotheque());
+        if(nbreLivre(b) >= ser.search(b).getCapacite()){
+            System.out.println("bibliotheque pleine !!!");
+            return false;
+        }
+        List<Livre> livres = new ArrayList<>();
+        livres = readAll();
+        Livre livr = livres.stream().filter(a -> a.equals(l)).findAny().orElse(null);
+        if (livr == null) {
+            PreparedStatement pre = con.prepareStatement("insert INTO `edutech`.`livre` (`id_bibliotheque`, `titre`, `auteur`, `editeur`, `categorie`, `datesortie`, `taille`, `quantite`) VALUES (?, ?, ?, ?, ?, ?, ?, ?);");
+            pre.setInt(1, l.getId_bibliotheque());
+            pre.setString(2, l.getTitre());
+            pre.setString(3, l.getAuteur());
+            pre.setString(4, l.getEditeur());
+            pre.setString(5, l.getCategorie());
+            pre.setString(6, l.getDateSortie());
+            pre.setInt(7, l.getTaille());
+            pre.setInt(8, l.getQuantite());
+            return pre.executeUpdate() != 0;
+        } else {
+            if (l.getCategorie().equals(livr.getCategorie())) {
+                return ajouter(livr, l.getQuantite());
+            } else {
+                System.out.println("livre deja exitant dans categorie " + livr.getCategorie() + "\n");
+            }
+        }
+        return false;
+    }
+
+    public boolean ajouter(Livre l, int qte) throws SQLException {
+        ServicesBibliotheque ser = new ServicesBibliotheque();
+        Bibliotheque b = new Bibliotheque(l.getId_bibliotheque());
+        if(nbreLivre(b)+qte > ser.search(b).getCapacite()){
+            System.out.println("bibliotheque pleine !!!");
+            return false;
+        }
+        PreparedStatement pre = con.prepareStatement("update `edutech`.`livre` set `quantite` = ? where `id` = ?;");
+        pre.setInt(1, qte + l.getQuantite());
+        pre.setInt(2, l.getId());
         return pre.executeUpdate() != 0;
     }
 
@@ -80,10 +112,32 @@ public class ServicesLivres implements IServices<Livre>{
             String datesortie = rs.getString(7);
             int taille = rs.getInt(8);
             int quantite = rs.getInt(9);
-            Livre l = new Livre(id, id_bibliotheque, titre, auteur, editeur, categorie, datesortie, taille, quantite);
+            Livre l = new Livre(id, id_bibliotheque, titre, editeur, auteur, categorie, datesortie, taille, quantite);
             listE.add(l);
         }
         return listE;
     }
-    
+
+    public List<Livre> search(Livre l) throws SQLException {
+        List<Livre> listE = new ArrayList<>();
+        listE = readAll();
+        List<Livre> result = listE.stream().filter(a -> a.equals(l)).collect(Collectors.toList());
+        return result;
+    }
+
+    @Override
+    public List<Livre> search(String t) throws SQLException {
+        List<Livre> livres = new ArrayList<>();
+        livres = readAll();
+        List<Livre> livr = livres.stream()
+                .filter(a -> a.getTitre().contains(t) || a.getAuteur().contains(t) || a.getCategorie().contains(t) || a.getDateSortie().contains(t) || String.valueOf(a.getTaille()).startsWith(t))
+                .collect(Collectors.toList());
+        return livr;
+    }
+   
+    public int nbreLivre(Bibliotheque b) throws SQLException{
+        List<Livre> listB = readAll();
+        List<Livre> livres = listB.stream().filter(a -> a.getId_bibliotheque()== b.getId()).collect(Collectors.toList());
+        return livres.stream().mapToInt(a->a.getQuantite()).sum();
+    }
 }

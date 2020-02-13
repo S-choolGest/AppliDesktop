@@ -8,6 +8,7 @@ package Entite.Utilisateur;
 
 import java.time.LocalDate;
 import java.util.Date;
+import java.util.Objects;
 
 /**
  *
@@ -115,6 +116,45 @@ public class Bibliothecaire {
     @Override
     public String toString() {
         return "Bibliothecaire{" + "id=" + id + ", cin=" + cin + ", nom=" + nom + ", prenom=" + prenom + ", dateNaissance=" + dateNaissance + ", email=" + email + ", tel=" + tel + ", adresse=" + adresse + '}';
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Bibliothecaire other = (Bibliothecaire) obj;
+        if (!Objects.equals(this.cin, other.cin)) {
+            return false;
+        }
+        if (!Objects.equals(this.nom, other.nom)) {
+            return false;
+        }
+        if (!Objects.equals(this.prenom, other.prenom)) {
+            return false;
+        }
+        if (!Objects.equals(this.dateNaissance, other.dateNaissance)) {
+            return false;
+        }
+        if (!Objects.equals(this.email, other.email)) {
+            return false;
+        }
+        if (this.tel != other.tel) {
+            return false;
+        }
+        if (!Objects.equals(this.adresse, other.adresse)) {
+            return false;
+        }
+        return true;
     }
     
 }
