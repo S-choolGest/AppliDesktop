@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Iservice.Formulaire;
+package IServices.Formulaire;
 
 import java.sql.SQLException;
 
