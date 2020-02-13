@@ -3,19 +3,19 @@ package Entite.Education;
 public class Salle {
 	private int idSalle;
 	private String nomSalle;
-	private boolean DisponibilitéSalle;
+	private boolean DisponibiliteSalle;
 	private int nbPlace;
-	public Salle(int idSalle, String nomSalle, boolean disponibilitéSalle, int nbPlace) {
+	public Salle(int idSalle, String nomSalle, boolean disponibiliteSalle, int nbPlace) {
 		super();
 		this.idSalle = idSalle;
 		this.nomSalle = nomSalle;
-		DisponibilitéSalle = disponibilitéSalle;
+		DisponibiliteSalle = disponibiliteSalle;
 		this.nbPlace = nbPlace;
 	}
-	public Salle(String nomSalle, boolean disponibilitéSalle, int nbPlace) {
+	public Salle(String nomSalle, boolean disponibiliteSalle, int nbPlace) {
 		super();
 		this.nomSalle = nomSalle;
-		DisponibilitéSalle = disponibilitéSalle;
+		DisponibiliteSalle = disponibiliteSalle;
 		this.nbPlace = nbPlace;
 	}
 	public Salle() {
@@ -33,11 +33,11 @@ public class Salle {
 	public void setNomSalle(String nomSalle) {
 		this.nomSalle = nomSalle;
 	}
-	public boolean isDisponibilitéSalle() {
-		return DisponibilitéSalle;
+	public boolean isDisponibiliteSalle() {
+		return DisponibiliteSalle;
 	}
-	public void setDisponibilitéSalle(boolean disponibilitéSalle) {
-		DisponibilitéSalle = disponibilitéSalle;
+	public void setDisponibiliteSalle(boolean disponibiliteSalle) {
+		DisponibiliteSalle = disponibiliteSalle;
 	}
 	public int getNbPlace() {
 		return nbPlace;
@@ -49,7 +49,7 @@ public class Salle {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + (DisponibilitéSalle ? 1231 : 1237);
+		result = prime * result + (DisponibiliteSalle ? 1231 : 1237);
 		result = prime * result + idSalle;
 		result = prime * result + nbPlace;
 		result = prime * result + ((nomSalle == null) ? 0 : nomSalle.hashCode());
@@ -64,7 +64,7 @@ public class Salle {
 		if (getClass() != obj.getClass())
 			return false;
 		Salle other = (Salle) obj;
-		if (DisponibilitéSalle != other.DisponibilitéSalle)
+		if (DisponibiliteSalle != other.DisponibiliteSalle)
 			return false;
 		if (idSalle != other.idSalle)
 			return false;
@@ -79,7 +79,7 @@ public class Salle {
 	}
 	@Override
 	public String toString() {
-		return "Salle [idSalle=" + idSalle + ", nomSalle=" + nomSalle + ", DisponibilitéSalle=" + DisponibilitéSalle
+		return "Salle [idSalle=" + idSalle + ", nomSalle=" + nomSalle + ", DisponibiliteSalle=" + DisponibiliteSalle
 				+ ", nbPlace=" + nbPlace + "]";
 	}
 	
