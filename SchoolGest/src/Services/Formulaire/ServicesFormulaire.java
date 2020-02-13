@@ -17,17 +17,16 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-
 /**
  *
  * @author Ahmed
  */
-public class ServicesFormulaire implements IServicesFormulaire<Formulaire>{
-    
+public class ServicesFormulaire implements IServicesFormulaire<Formulaire> {
+
     private Connection con;
     private Statement ste;
-    
-    public ServicesFormulaire(){
+
+    public ServicesFormulaire() {
         con = DataBase.getInstance().getConnection();
     }
 
@@ -59,13 +58,30 @@ public class ServicesFormulaire implements IServicesFormulaire<Formulaire>{
 
     @Override
     public void update(Formulaire f) throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try {
+            String req = "UPDATE Formulaire SET 'descriptionFormulaire'" + f.getDescription() + ",'objet'" + f.getObjet();   //a completer   
+            PreparedStatement ste = con.prepareStatement(req);
+            ste.executeUpdate();
+            System.out.println("Formulaire modifié");
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
     }
 
     @Override
     public List<Formulaire> readall() throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        List<Formulaire> arr = new ArrayList<>();
+        ste = con.createStatement();
+        ResultSet rs = ste.executeQuery("select * from formulaire");
+        while (rs.next()) {
+            int idFormulaire = rs.getInt(1);
+            String description = rs.getString("descriptionFormulaire");
+            Date dateEnvoi = rs.getDate(3);
+            String objet = rs.getString("objet");
+            Formulaire f = new Formulaire(idFormulaire, description, objet, dateEnvoi);
+            arr.add(f);
+        }
+        return arr;
     }
-    
-     
+
 }
