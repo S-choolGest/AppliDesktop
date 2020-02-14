@@ -17,12 +17,19 @@ public class Formulaire {
     private String objet;
     private Date dateEnvoi;
 
+    public Formulaire( String description, String objet) {
+        this.description = description;
+        this.objet = objet;
+    }
+
     public Formulaire(int idFormulaire, String description, String objet, Date dateEnvoi) {
         this.idFormulaire = idFormulaire;
         this.description = description;
         this.objet = objet;
         this.dateEnvoi = dateEnvoi;
     }
+    
+    
 
     public int getIdFormulaire() {
         return idFormulaire;

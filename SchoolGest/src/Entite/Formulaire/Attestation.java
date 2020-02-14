@@ -15,10 +15,12 @@ public class Attestation extends Formulaire {
     
     private int idAttestation;
 
-    public Attestation(int idAttestation, int idFormulaire, String description, String objet, Date dateEnvoi) {
-        super(idFormulaire, description, objet, dateEnvoi);
+    public Attestation(int idAttestation, String description, String objet) {
+        super(description, objet);
         this.idAttestation = idAttestation;
     }
+
+    
 
     public int getIdAttestation() {
         return idAttestation;

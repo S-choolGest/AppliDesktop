@@ -16,7 +16,7 @@ public class Reclamation extends Formulaire{
     private int idReclamation;
 
     public Reclamation(int idReclamation, int idFormulaire, String description, String objet, Date dateEnvoi) {
-        super(idFormulaire, description, objet, dateEnvoi);
+        super( description, objet);
         this.idReclamation = idReclamation;
     }
 
