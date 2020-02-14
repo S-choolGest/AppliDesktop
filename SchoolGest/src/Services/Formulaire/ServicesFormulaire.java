@@ -34,7 +34,7 @@ public class ServicesFormulaire implements IServicesFormulaire<Formulaire> {
     public void ajouter(Formulaire f) {
         try {
             ste = con.createStatement();
-            String requeteInsert = "INSERT INTO formulaire (idFormulaire, descriptionFormulaire, dateEnvoi, objet) VALUES (NULL, '" + f.getDescription() + "', '" + f.getObjet() + "',"+f.getDateEnvoi()+");";
+            String requeteInsert = "INSERT INTO formulaire VALUES (NULL, '" + f.getDescription() + "', '" + f.getObjet() + "',current_timestamp);";
             ste.executeUpdate(requeteInsert);
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
@@ -43,14 +43,13 @@ public class ServicesFormulaire implements IServicesFormulaire<Formulaire> {
     }
 
     @Override
-    public void delete(Formulaire f) {
-        Statement ste;
+    public void delete(int i) {
         try {
-            String req = "delete from Pole where idFormulaire=?";
+            String req = "delete from Formulaire where idFormulaire="+i;
             PreparedStatement pt = con.prepareStatement(req);
-            ste = con.createStatement();
-            ste.executeUpdate(req);
-            System.out.println("utilisateur supprimé" + f.toString());
+            
+            pt.executeUpdate(req);
+            System.out.println("utilisateur supprimé" );
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
         }
@@ -76,9 +75,9 @@ public class ServicesFormulaire implements IServicesFormulaire<Formulaire> {
         while (rs.next()) {
             int idFormulaire = rs.getInt(1);
             String description = rs.getString("descriptionFormulaire");
-            Date dateEnvoi = rs.getDate(3);
             String objet = rs.getString("objet");
-            Formulaire f = new Formulaire(idFormulaire, description, objet, dateEnvoi);
+            Date dateEnvoi = rs.getDate(4);
+            Formulaire f = new Formulaire(idFormulaire, description, objet,dateEnvoi );
             arr.add(f);
         }
         return arr;

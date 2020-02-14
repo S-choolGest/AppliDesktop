@@ -16,7 +16,7 @@ import java.util.List;
 public interface IServicesFormulaire<F> {
     
     public void ajouter(Formulaire f) throws SQLException;
-    public void delete(Formulaire f) throws SQLException;
+    public void delete(int i) throws SQLException;
     public void update(Formulaire f) throws SQLException;
     public List<F>readall() throws SQLException;
 

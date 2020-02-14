@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-package Services.Cours;
+package Services.Education;
 
 import Entite.Cours;
 import IServices.Cours.IserviceCours;

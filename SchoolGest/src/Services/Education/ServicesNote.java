@@ -27,7 +27,7 @@ public class ServicesNote implements IServicesNotes{
 					
 			ste.setString(1, n.getTypeNote());
 			ste.executeUpdate();
-			System.out.println("Note ajouté");
+			System.out.println("Note ajoutï¿½");
 		            
 			} catch (SQLException ex) {
 				Logger.getLogger(ServicesNote.class.getName()).log(Level.SEVERE, null, ex);
@@ -67,7 +67,7 @@ public class ServicesNote implements IServicesNotes{
 	                "DELETE FROM note where idNote=1";
 	                st =con.createStatement();
 	                st.executeUpdate(requeteDelete);
-	                System.out.println("user supprimée____ "+n.toString());
+	                System.out.println("user supprimï¿½e____ "+n.toString());
 	        }
 	        catch (SQLException ex){
 	            System.out.println(ex.getMessage());
