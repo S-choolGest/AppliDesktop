@@ -7,6 +7,7 @@
 package schoolgest;
 
 import Entite.Education.Note;
+import Entite.Formulaire.Attestation;
 import Entite.Formulaire.Formulaire;
 import Services.Education.ServicesNote;
 import Services.Formulaire.ServicesFormulaire;
@@ -23,7 +24,7 @@ public class SchoolGest {
     
     public static void main(String[] args) {
     	
-        try {
+        //try {
             /*
             ServicesNote sn = new ServicesNote();
             Note n = new Note("texte");
@@ -32,8 +33,10 @@ public class SchoolGest {
             //sn.supprimerNote(n);
             sn.afficherNote();
             */
+         
+            /*
             ServicesFormulaire ser = new ServicesFormulaire();
-            
+                
             Formulaire f1 = new Formulaire("test", "description");
             
             ser.ajouter(f1);
@@ -43,6 +46,9 @@ public class SchoolGest {
         } catch (SQLException ex) {
             Logger.getLogger(ex.getMessage());
         }
+            */
+            
+           
 
     }
 
