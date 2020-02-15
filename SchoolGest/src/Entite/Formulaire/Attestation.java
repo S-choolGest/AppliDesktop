@@ -14,11 +14,15 @@ import java.util.Date;
 public class Attestation extends Formulaire {
     
     private int idAttestation;
+    private String fichier;
 
-    public Attestation(int idAttestation, String description, String objet) {
+    public Attestation(int idAttestation, String fichier, String description, String objet) {
         super(description, objet);
         this.idAttestation = idAttestation;
+        this.fichier = fichier;
     }
+
+    
 
     
 
