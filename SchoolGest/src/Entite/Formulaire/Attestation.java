@@ -22,10 +22,6 @@ public class Attestation extends Formulaire {
         this.fichier = fichier;
     }
 
-    
-
-    
-
     public int getIdAttestation() {
         return idAttestation;
     }
@@ -34,10 +30,20 @@ public class Attestation extends Formulaire {
         this.idAttestation = idAttestation;
     }
 
+    public String getFichier() {
+        return fichier;
+    }
+
+    public void setFichier(String fichier) {
+        this.fichier = fichier;
+    }
+
     @Override
     public String toString() {
-        return super.toString()+"Attestation{" + "idAttestation=" + idAttestation + '}';
+        return super.toString()+"Attestation{" + "idAttestation=" + idAttestation + ", fichier=" + fichier + '}';
     }
+
+    
     
     
     
