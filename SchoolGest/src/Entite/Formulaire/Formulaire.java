@@ -13,22 +13,27 @@ import java.util.Date;
  */
 public class Formulaire {
     private int idFormulaire;
-    private String description;
     private String objet;
+    private String description;
+    private boolean validation;
     private Date dateEnvoi;
 
+    public Formulaire() {
+    }
+
+    
     public Formulaire( String description, String objet) {
         this.description = description;
         this.objet = objet;
     }
 
-    public Formulaire(int idFormulaire, String description, String objet, Date dateEnvoi) {
+    public Formulaire(int idFormulaire, String objet, String description, boolean validation, Date dateEnvoi) {
         this.idFormulaire = idFormulaire;
-        this.description = description;
         this.objet = objet;
+        this.description = description;
+        this.validation = validation;
         this.dateEnvoi = dateEnvoi;
     }
-    
     
 
     public int getIdFormulaire() {
@@ -46,6 +51,16 @@ public class Formulaire {
     public Date getDateEnvoi() {
         return dateEnvoi;
     }
+
+    public boolean isValidation() {
+        return validation;
+    }
+
+    public void setValidation(boolean validation) {
+        this.validation = validation;
+    }
+    
+    
 
     public void setIdFormulaire(int idFormulaire) {
         this.idFormulaire = idFormulaire;
@@ -65,8 +80,12 @@ public class Formulaire {
 
     @Override
     public String toString() {
-        return "Formulaire{" + "idFormulaire=" + idFormulaire + ", description=" + description + ", objet=" + objet + ", dateEnvoi=" + dateEnvoi + '}';
+        return "Formulaire{" + "idFormulaire=" + idFormulaire + ", objet=" + objet + ", description=" + description + ", validation=" + validation + ", dateEnvoi=" + dateEnvoi + '}';
     }
+
+    
+    
+    
     
     
 }
