@@ -45,11 +45,11 @@ public class ServicesFormulaire implements IServicesFormulaire<Formulaire> {
     @Override
     public void delete(int i) {
         try {
-            String req = "delete from Formulaire where idFormulaire="+i;
+            String req = "delete from Formulaire where idFormulaire=" + i;
             PreparedStatement pt = con.prepareStatement(req);
-            
+
             pt.executeUpdate(req);
-            System.out.println("utilisateur supprimé" );
+            System.out.println("Formulaire supprimé");
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
         }
@@ -58,7 +58,7 @@ public class ServicesFormulaire implements IServicesFormulaire<Formulaire> {
     @Override
     public void update(Formulaire f) throws SQLException {
         try {
-            String req = "UPDATE Formulaire SET 'descriptionFormulaire'" + f.getDescription() + ",'objet'" + f.getObjet();   //a completer   
+            String req = "UPDATE Formulaire SET 'descriptionFormulaire'" + f.getDescription() + ",'objet'" + f.getObjet() + ";";   //a completer   
             PreparedStatement ste = con.prepareStatement(req);
             ste.executeUpdate();
             System.out.println("Formulaire modifié");
@@ -77,7 +77,7 @@ public class ServicesFormulaire implements IServicesFormulaire<Formulaire> {
             String description = rs.getString("descriptionFormulaire");
             String objet = rs.getString("objet");
             Date dateEnvoi = rs.getDate(4);
-            Formulaire f = new Formulaire(idFormulaire, description, objet,dateEnvoi );
+            Formulaire f = new Formulaire(idFormulaire, description, objet, dateEnvoi);
             arr.add(f);
         }
         return arr;
