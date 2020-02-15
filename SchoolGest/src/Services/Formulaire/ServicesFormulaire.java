@@ -77,10 +77,28 @@ public class ServicesFormulaire implements IServicesFormulaire<Formulaire> {
             String description = rs.getString("descriptionFormulaire");
             String objet = rs.getString("objet");
             Date dateEnvoi = rs.getDate(4);
-            Formulaire f = new Formulaire(idFormulaire, description, objet, dateEnvoi);
+            Formulaire f = new Formulaire(idFormulaire, objet, description, true, dateEnvoi);
             arr.add(f);
         }
         return arr;
     }
+    
+    /*
+    public List<Formulaire> getSimpleEvenementsParMotCle(String motCle) {
+        Statement st;
+        List<Formulaire> ls = new ArrayList();
+        try {
+            st = con.createStatement();
+            String req = "select * from Evenement where descriptionFormulaire like '%" + motCle + "%' or objet like '%" + motCle + "%'";
+            ResultSet rs = st.executeQuery(req);
+            while (rs.next()) {
+                ls.add(new Formulaire(rs.get, req));
+            }
+        } catch (SQLException ex) {
+            System.err.println(ex.getMessage());
+        }
+        return ls;
+    }
+*/
 
 }
