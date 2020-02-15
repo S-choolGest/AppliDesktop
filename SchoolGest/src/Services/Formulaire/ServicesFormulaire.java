@@ -77,8 +77,8 @@ public class ServicesFormulaire implements IServicesFormulaire<Formulaire> {
             String description = rs.getString("descriptionFormulaire");
             String objet = rs.getString("objet");
             Date dateEnvoi = rs.getDate(4);
-            Formulaire f = new Formulaire(idFormulaire, objet, description, true, dateEnvoi);
-            arr.add(f);
+            //Formulaire f = new Formulaire(idFormulaire, objet, description, true, dateEnvoi);
+            //arr.add(f);
         }
         return arr;
     }
