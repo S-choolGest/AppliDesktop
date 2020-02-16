@@ -39,6 +39,13 @@ public class Formulaire {
         this.dateEnvoi = dateEnvoi;
     }
 
+    public Formulaire(String objet, String description, Date dateEnvoi) {
+        this.objet = objet;
+        this.description = description;
+        this.dateEnvoi = dateEnvoi;
+    }
+
+    
     public int getIdFormulaire() {
         return idFormulaire;
     }
