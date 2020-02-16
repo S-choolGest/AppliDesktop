@@ -6,7 +6,7 @@
 
 package Services.Education;
 
-import Entite.Cours;
+import Entite.Education.*;
 import IServices.Cours.IserviceCours;
 import Utils.DataBase;
 import java.io.ByteArrayInputStream;
@@ -57,7 +57,7 @@ public class ServiceCour implements IserviceCours<Object>
             pst =con.prepareStatement(requeteInsert);
 
             pst.setString(1, c.getNomCours());
-            ByteArrayInputStream bais = new ByteArrayInputStream(getByteArrayFromFile(c.getFichier()));
+            ByteArrayInputStream bais = new ByteArrayInputStream(getByteArrayFromFile(c.getChapitre()));
             pst.setBlob(2, bais);
             pst.executeUpdate();
             System.out.println("cours ajouté");
@@ -85,7 +85,7 @@ public class ServiceCour implements IserviceCours<Object>
                 pst =con.prepareStatement(requeteUpdate);
 
                 pst.setString(1, c.getNomCours());
-                ByteArrayInputStream bais = new ByteArrayInputStream(getByteArrayFromFile(c.getFichier()));
+                ByteArrayInputStream bais = new ByteArrayInputStream(getByteArrayFromFile(c.getChapitre()));
             pst.setBlob(2, bais);
 
                 pst.executeUpdate();

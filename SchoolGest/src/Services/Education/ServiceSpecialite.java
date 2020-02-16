@@ -4,13 +4,11 @@
  * and open the template in the editor.
  */
 
-package Services.Cours;
+package Services.Education;
 
-import Entite.Module;
-import Entite.Specialite;
+import Entite.Education.*;
 import Utils.*;
 import java.sql.*;
-import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
