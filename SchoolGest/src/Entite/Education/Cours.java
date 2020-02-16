@@ -15,14 +15,14 @@ import java.io.File;
 public class Cours {
     private int idCours;
     private File chapitre;
-    private String nomChapitre;
+    private String nomCours;
 
     public Cours() {
     }
 
     public Cours(File chapitre, String nomChapitre) {
         this.chapitre = chapitre;
-        this.nomChapitre = nomChapitre;
+        this.nomCours = nomChapitre;
     }
 
     public File getChapitre() {
@@ -33,12 +33,12 @@ public class Cours {
         this.chapitre = chapitre;
     }
 
-    public String getNomChapitre() {
-        return nomChapitre;
+    public String getNomCours() {
+        return nomCours;
     }
 
-    public void setNomChapitre(String nomChapitre) {
-        this.nomChapitre = nomChapitre;
+    public void setNomCours(String nomChapitre) {
+        this.nomCours = nomChapitre;
     }
     
     

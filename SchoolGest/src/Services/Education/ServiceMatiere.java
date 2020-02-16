@@ -4,9 +4,9 @@
  * and open the template in the editor.
  */
 
-package Services.Cours;
+package Services.Education;
 
-import Entite.Matiere;
+import Entite.Education.*;
 import IServices.Cours.IserviceCours;
 import Utils.DataBase;
 import java.sql.Connection;
