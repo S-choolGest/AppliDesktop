@@ -16,7 +16,7 @@ import java.util.stream.Collectors;
  *
  * @author william
  */
-public class ServicesBibliothecaire implements IServices.IServices<Bibliothecaire> {
+public class ServicesBibliothecaire implements IServices.Bibliotheque.IServices<Bibliothecaire> {
 
     private Connection con;
     private Statement ste;
@@ -100,5 +100,10 @@ public class ServicesBibliothecaire implements IServices.IServices<Bibliothecair
         listE = readAll();
         Bibliothecaire result = listE.stream().filter(a -> a.equals(b)).findAny().orElse(null);
         return result;
+    }
+
+    @Override
+    public List<Bibliothecaire> triAll(String t, String ordre) throws SQLException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

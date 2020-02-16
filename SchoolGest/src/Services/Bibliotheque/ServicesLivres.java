@@ -9,11 +9,12 @@ import Entite.Bibliotheque.Bibliotheque;
 import Entite.Bibliotheque.Emprunt;
 import Entite.Bibliotheque.Etat;
 import Entite.Bibliotheque.Livre;
-import IServices.IServices;
+import IServices.Bibliotheque.IServices;
 import Utils.DataBase;
 import java.sql.*;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -34,7 +35,7 @@ public class ServicesLivres implements IServices<Livre> {
     public boolean ajouter(Livre l) throws SQLException {
         ServicesBibliotheque ser = new ServicesBibliotheque();
         Bibliotheque b = new Bibliotheque(l.getId_bibliotheque());
-        if(nbreLivre(b) >= ser.search(b).getCapacite()){
+        if (nbreLivre(b) >= ser.search(b).getCapacite()) {
             System.out.println("bibliotheque pleine !!!");
             return false;
         }
@@ -65,7 +66,7 @@ public class ServicesLivres implements IServices<Livre> {
     public boolean ajouter(Livre l, int qte) throws SQLException {
         ServicesBibliotheque ser = new ServicesBibliotheque();
         Bibliotheque b = new Bibliotheque(l.getId_bibliotheque());
-        if(nbreLivre(b)+qte > ser.search(b).getCapacite()){
+        if (nbreLivre(b) + qte > ser.search(b).getCapacite()) {
             System.out.println("bibliotheque pleine !!!");
             return false;
         }
@@ -134,10 +135,148 @@ public class ServicesLivres implements IServices<Livre> {
                 .collect(Collectors.toList());
         return livr;
     }
-   
-    public int nbreLivre(Bibliotheque b) throws SQLException{
+
+    public int nbreLivre(Bibliotheque b) throws SQLException {
         List<Livre> listB = readAll();
-        List<Livre> livres = listB.stream().filter(a -> a.getId_bibliotheque()== b.getId()).collect(Collectors.toList());
-        return livres.stream().mapToInt(a->a.getQuantite()).sum();
+        List<Livre> livres = listB.stream().filter(a -> a.getId_bibliotheque() == b.getId()).collect(Collectors.toList());
+        return livres.stream().mapToInt(a -> a.getQuantite()).sum();
+    }
+
+    @Override
+    public List<Livre> triAll(String t, String ordre) throws SQLException {
+        if (t == "titre") {
+            if (ordre == "asc") {
+                List<Livre> listE = new ArrayList<>();
+                listE = readAll();
+                List<Livre> livres = listE.stream()
+                        .sorted(Comparator.comparing(Livre::getTitre))
+                        .collect(Collectors.toList());
+                return livres;
+            }
+            if (ordre == "desc") {
+                List<Livre> listE = new ArrayList<>();
+                listE = readAll();
+                List<Livre> livres = listE.stream()
+                        .sorted(Comparator.comparing(Livre::getTitre)
+                        .reversed())
+                        .collect(Collectors.toList());
+                return livres;
+            }
+        }
+        if (t == "auteur") {
+            if (ordre == "asc") {
+                List<Livre> listE = new ArrayList<>();
+                listE = readAll();
+                List<Livre> livres = listE.stream()
+                        .sorted(Comparator.comparing(Livre::getAuteur))
+                        .collect(Collectors.toList());
+                return livres;
+            }
+            if (ordre == "desc") {
+                List<Livre> listE = new ArrayList<>();
+                listE = readAll();
+                List<Livre> livres = listE.stream()
+                        .sorted(Comparator.comparing(Livre::getAuteur)
+                        .reversed())
+                        .collect(Collectors.toList());
+                return livres;
+            }
+        }
+        if (t == "editeur") {
+            if (ordre == "asc") {
+                List<Livre> listE = new ArrayList<>();
+                listE = readAll();
+                List<Livre> livres = listE.stream()
+                        .sorted(Comparator.comparing(Livre::getEditeur))
+                        .collect(Collectors.toList());
+                return livres;
+            }
+            if (ordre == "desc") {
+                List<Livre> listE = new ArrayList<>();
+                listE = readAll();
+                List<Livre> livres = listE.stream()
+                        .sorted(Comparator.comparing(Livre::getEditeur)
+                        .reversed())
+                        .collect(Collectors.toList());
+                return livres;
+            }
+        }
+        if (t == "categorie") {
+            if (ordre == "asc") {
+                List<Livre> listE = new ArrayList<>();
+                listE = readAll();
+                List<Livre> livres = listE.stream()
+                        .sorted(Comparator.comparing(Livre::getCategorie))
+                        .collect(Collectors.toList());
+                return livres;
+            }
+            if (ordre == "desc") {
+                List<Livre> listE = new ArrayList<>();
+                listE = readAll();
+                List<Livre> livres = listE.stream()
+                        .sorted(Comparator.comparing(Livre::getCategorie)
+                        .reversed())
+                        .collect(Collectors.toList());
+                return livres;
+            }
+        }
+        if (t == "dateSortie") {
+            if (ordre == "asc") {
+                List<Livre> listE = new ArrayList<>();
+                listE = readAll();
+                List<Livre> livres = listE.stream()
+                        .sorted(Comparator.comparing(Livre::getDateSortie))
+                        .collect(Collectors.toList());
+                return livres;
+            }
+            if (ordre == "desc") {
+                List<Livre> listE = new ArrayList<>();
+                listE = readAll();
+                List<Livre> livres = listE.stream()
+                        .sorted(Comparator.comparing(Livre::getDateSortie)
+                        .reversed())
+                        .collect(Collectors.toList());
+                return livres;
+            }
+        }
+        if (t == "taille") {
+            if (ordre == "asc") {
+                List<Livre> listE = new ArrayList<>();
+                listE = readAll();
+                List<Livre> livres = listE.stream().sorted(Comparator.comparingInt(Livre::getTaille))
+                        .collect(Collectors.toList());
+                return livres;
+            }
+            if (ordre == "desc") {
+                List<Livre> listE = new ArrayList<>();
+                listE = readAll();
+                List<Livre> livres = listE.stream()
+                        .sorted(Comparator.comparingInt(Livre::getTaille)
+                        .reversed())
+                        .collect(Collectors.toList());
+                return livres;
+            }
+        }
+        if (t == "quantite") {
+            if (ordre == "asc") {
+                List<Livre> listE = new ArrayList<>();
+                listE = readAll();
+                List<Livre> livres = listE.stream()
+                        .sorted(Comparator.comparingInt(Livre::getQuantite))
+                        .collect(Collectors.toList());
+                return livres;
+            }
+            if (ordre == "desc") {
+                List<Livre> listE = new ArrayList<>();
+                listE = readAll();
+                List<Livre> livres = listE.stream()
+                        .sorted(Comparator.comparingInt(Livre::getQuantite)
+                        .reversed())
+                        .collect(Collectors.toList());
+                return livres;
+            }
+        }
+        
+        return null;
     }
 }

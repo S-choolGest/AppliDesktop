@@ -8,7 +8,7 @@ package Services.Bibliotheque;
 
 import Entite.Bibliotheque.Bibliotheque;
 import Entite.Bibliotheque.Livre;
-import IServices.IServices;
+import IServices.Bibliotheque.IServices;
 import Utils.DataBase;
 import java.sql.*;
 import java.sql.Statement;
@@ -94,6 +94,11 @@ public class ServicesBibliotheque implements IServices<Bibliotheque>{
         List<Bibliotheque> listB = readAll();
         Bibliotheque bib = listB.stream().filter(a -> a.getId() == b.getId()).findAny().orElse(null);
         return bib;
+    }
+
+    @Override
+    public List<Bibliotheque> triAll(String t, String ordre) throws SQLException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
 }

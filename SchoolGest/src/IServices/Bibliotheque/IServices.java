@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-package IServices;
+package IServices.Bibliotheque;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -19,4 +19,5 @@ public interface IServices<T> {
     boolean update(T t) throws SQLException;
     List<T> readAll() throws SQLException;
     List<T> search(String t) throws SQLException;
+    List<T> triAll(String t, String ordre) throws SQLException;
 }
