@@ -157,7 +157,6 @@ public class Etudiant {
 	}
 
 
-
 	@Override
 	public int hashCode() {
 		final int prime = 31;
