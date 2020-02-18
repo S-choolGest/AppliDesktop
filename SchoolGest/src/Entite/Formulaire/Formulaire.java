@@ -23,12 +23,13 @@ public class Formulaire {
     public Formulaire() {
     }
 
-    public Formulaire(String objet, String description, String fichier, boolean validation) {
+    public Formulaire(String objet, String description, String fichier) {
         this.objet = objet;
         this.description = description;
         this.fichier = fichier;
-        this.validation = validation;
     }
+
+    
 
     public Formulaire(int idFormulaire, String objet, String description, String fichier, boolean validation, Date dateEnvoi) {
         this.idFormulaire = idFormulaire;
