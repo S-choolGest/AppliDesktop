@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" nodeOrientation="LEFT_TO_RIGHT" prefHeight="500.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Pane layoutY="25.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #2D75E8;" AnchorPane.bottomAnchor="400.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="25.0">
+         <children>
+            <Label layoutX="330.0" layoutY="20.0" text="Gestion des formulaires" textFill="WHITE">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Label>
+         </children>
+      </Pane>
+      <GridPane layoutX="5.0" layoutY="100.0" prefHeight="500.0" prefWidth="910.0" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="100.0">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="890.0" minWidth="10.0" prefWidth="890.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="434.5999755859375" minWidth="0.0" prefWidth="0.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints maxHeight="217.8000244140625" minHeight="0.0" prefHeight="37.800025939941406" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="314.0" minHeight="2.3999877929687514" prefHeight="11.199975585937501" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="345.6000122070312" minHeight="10.0" prefHeight="336.8000244140625" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <HBox prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="2">
+               <GridPane.margin>
+                  <Insets bottom="10.0" />
+               </GridPane.margin>
+               <children>
+                  <TableView fx:id="tableFormulaire" prefHeight="300.0" prefWidth="810.0">
+                    <columns>
+                      <TableColumn fx:id="clFormulaire" prefWidth="79.20001363754272" text="Id Formulaire" />
+                      <TableColumn fx:id="clObjet" prefWidth="158.39998626708984" text="Objet" />
+                        <TableColumn fx:id="clDescription" prefWidth="298.4000549316406" text="Description" />
+                        <TableColumn fx:id="clValidation" minWidth="0.0" prefWidth="88.79998779296875" text="Validation" />
+                        <TableColumn fx:id="clDate" minWidth="1.60003662109375" prefWidth="124.79998779296875" text="Date Envoi" />
+                    </columns>
+                  </TableView>
+                  <AnchorPane prefHeight="200.0" prefWidth="200.0">
+                     <children>
+                        <Button fx:id="btValider" layoutX="21.0" layoutY="61.0" mnemonicParsing="false" onAction="#btValiderOnClick" prefHeight="26.0" prefWidth="98.0" style="-fx-background-color: #2D75E8;" text="valider" textFill="WHITE" AnchorPane.bottomAnchor="243.0" AnchorPane.leftAnchor="21.0" AnchorPane.rightAnchor="21.0" AnchorPane.topAnchor="61.0" />
+                        <Button fx:id="btModifier" layoutX="20.0" layoutY="109.0" mnemonicParsing="false" onAction="#btModifierOnClick" prefHeight="26.0" prefWidth="98.0" style="-fx-background-color: #2D75E8;" text="modifier" textFill="WHITE" />
+                        <Button fx:id="btSupprimer" layoutX="21.0" layoutY="152.0" mnemonicParsing="false" onAction="#btSupprimerOnClick" prefHeight="26.0" prefWidth="98.0" style="-fx-background-color: #2D75E8;" text="Supprimer" textFill="WHITE" />
+                        <Button fx:id="btAjouter" layoutX="21.0" layoutY="258.0" mnemonicParsing="false" onAction="#btAjouterOnClick" prefHeight="26.0" prefWidth="98.0" style="-fx-background-color: #2D75E8;" text="Ajouter" textFill="WHITE" />
+                     </children>
+                  </AnchorPane>
+               </children>
+            </HBox>
+            <HBox prefHeight="100.0" prefWidth="900.0">
+               <children>
+                  <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="5.0" />
+                  <RadioButton fx:id="rbTous" mnemonicParsing="false" onAction="#rbTousOnSelect" selected="true" text="Tous">
+                     <toggleGroup>
+                        <ToggleGroup fx:id="ConsulterValidation" />
+                     </toggleGroup>
+                  </RadioButton>
+                  <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="5.0" />
+                  <RadioButton fx:id="rbValide" mnemonicParsing="false" onAction="#rbValideOnClick" text="valide" toggleGroup="$ConsulterValidation" />
+                  <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="5.0" />
+                  <RadioButton fx:id="rbNonValide" mnemonicParsing="false" onAction="#rbNonValideOnClick" text="Non Valide" toggleGroup="$ConsulterValidation" />
+                  <Pane prefHeight="40.0" prefWidth="30.0">
+                     <children>
+                        <FontAwesomeIcon iconName="SEARCH" layoutX="23.0" layoutY="17.0" />
+                     </children>
+                  </Pane>
+                  <Pane prefHeight="40.0" prefWidth="15.0" />
+                  <TextField fx:id="tfRechecher" onKeyReleased="#tfRechecherOnKeyReleased" prefHeight="25.0" prefWidth="490.0" promptText="Rechercher" />
+                  <Pane prefHeight="40.0" prefWidth="87.0" />
+               </children>
+            </HBox>
+         </children>
+      </GridPane>
+   </children>
+</AnchorPane>
