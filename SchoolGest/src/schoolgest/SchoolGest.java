@@ -3,11 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package schoolgest;
 
 import Entite.Education.Note;
-import Entite.Formulaire.Attestation;
 import Entite.Formulaire.Formulaire;
 import Services.Education.ServicesNote;
 import Services.Formulaire.ServicesFormulaire;
@@ -21,20 +19,18 @@ import java.util.logging.Logger;
 
 public class SchoolGest {
 
-    
-    public static void main(String[] args) {
-    	
-        //try {
-            /*
+	public static void main(String[] args) {
+
+		//try {
+		/*
             ServicesNote sn = new ServicesNote();
             Note n = new Note("texte");
             sn.ajouterNote(n);
             //sn.modifierNote(n);
             //sn.supprimerNote(n);
             sn.afficherNote();
-            */
-         
-            /*
+		 */
+ /*
             ServicesFormulaire ser = new ServicesFormulaire();
                 
             Formulaire f1 = new Formulaire("test", "description");
@@ -46,10 +42,14 @@ public class SchoolGest {
         } catch (SQLException ex) {
             Logger.getLogger(ex.getMessage());
         }
-            */
-            
-           
-
-    }
+		 */
+		ServicesFormulaire ser = new ServicesFormulaire();
+		try {
+			List<Formulaire> list = ser.readall();
+			System.out.println(list);
+		} catch (SQLException ex) {
+			System.out.println(ex);
+		}
+	}
 
 }

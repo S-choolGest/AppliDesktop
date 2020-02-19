@@ -125,7 +125,12 @@ public class ServicesLivres implements IServices<Livre> {
         List<Livre> result = listE.stream().filter(a -> a.equals(l)).collect(Collectors.toList());
         return result;
     }
-
+	public Livre search(int id) throws SQLException {
+        List<Livre> listE = new ArrayList<>();
+        listE = readAll();
+        Livre result = listE.stream().filter(a -> a.getId() == id).findAny().orElse(null);
+        return result;
+    }
     @Override
     public List<Livre> search(String t) throws SQLException {
         List<Livre> livres = new ArrayList<>();

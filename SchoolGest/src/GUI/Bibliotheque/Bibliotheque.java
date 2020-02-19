@@ -31,6 +31,7 @@ public class Bibliotheque extends Application {
         .load(getClass().getResource("home.fxml"));
         Scene scene = new Scene(root);
         Stage.setTitle("Edutech");
+		Stage.setResizable(false);
         scene.setFill(javafx.scene.paint.Color.TRANSPARENT);
         Stage.setScene(scene);
         Stage.show();
