@@ -16,6 +16,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 /**
  *
@@ -153,4 +155,17 @@ public class ServiceMatiere implements IserviceCours<Object> {
             Logger.getLogger(ServiceMatiere.class.getName()).log(Level.SEVERE, null, ex);
         }    }
     
+    
+    public ObservableList<String> readAll() throws SQLException {
+        ObservableList<String> arr = FXCollections.observableArrayList();
+        ste=con.createStatement();
+        ResultSet rs=ste.executeQuery("select * from matiere");
+        while (rs.next()) {                
+                   int id=rs.getInt(1);
+                   String nom = rs.getString(2);
+
+         arr.add(nom);
+         }
+        return arr;
+        }
 }

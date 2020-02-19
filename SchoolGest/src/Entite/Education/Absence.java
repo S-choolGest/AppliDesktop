@@ -1,147 +1,136 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package Entite.Education;
 
-import java.util.*;
+import java.sql.Timestamp;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
-import Entite.Utilisateur.Etudiant;
-
+/**
+ *
+ * @author MehdiS
+ */
 public class Absence {
-	private int idAbsence;
-	private List<Matiere> listMatiere ;
-	private Date DateAbs;
-	private List<Etudiant> listEtudiant;
-	private EtatAbsence etatAbs;
-	
-	
-	public Absence(int idAbsence, List<Matiere> listMatiere, Date dateAbs, List<Etudiant> listEtudiant,
-			EtatAbsence etatAbs) {
-		super();
-		this.idAbsence = idAbsence;
-		this.listMatiere = listMatiere;
-		DateAbs = dateAbs;
-		this.listEtudiant = listEtudiant;
-		this.etatAbs = etatAbs;
-	}
+    private int id;
+    private String matiere;
+    private Timestamp timestamp;
+    private int IdEtudiant;
+    private boolean etat;
 
+    public Absence(int id, String matiere, Timestamp date, boolean etat ) {
+        this.id = id;
+        this.matiere = matiere;
+        this.timestamp = date;
+        this.etat = etat;
+        
+    }
 
-	public Absence() {
-		super();
-	}
+    public Absence(int id, String matiere, Timestamp timestamp,  boolean etat ,int IdEtudiant) {
+        this.id = id;
+        this.matiere = matiere;
+        this.timestamp = timestamp;
+        this.IdEtudiant = IdEtudiant;
+        this.etat = etat;
+    }
 
+    public Absence( String matiere, String date, boolean etat ,int IdEtudiant)  {
+        this.matiere = matiere;
+        try{
+            Date dateTime= new SimpleDateFormat("yyyy/MM/dd hh:mm:ss").parse(date);
+            long dateL = dateTime.getTime();
+            timestamp = new Timestamp(dateL);
+         } catch(ParseException e) {
+             e.printStackTrace();
+        }
+        this.etat = etat;
+        this.IdEtudiant = IdEtudiant;
+    }
 
-	public Absence(List<Matiere> listMatiere, Date dateAbs, List<Etudiant> listEtudiant, EtatAbsence etatAbs) {
-		super();
-		this.listMatiere = listMatiere;
-		DateAbs = dateAbs;
-		this.listEtudiant = listEtudiant;
-		this.etatAbs = etatAbs;
-	}
+    public Absence(String matiere, Timestamp date, boolean etat) {
+        this.matiere = matiere;
+        this.timestamp = date;
+        this.etat = etat;
+    }
 
+    public int getIdEtudiant() {
+        return IdEtudiant;
+    }
+    
+      public String getIdEtudiantS() {
+        return Integer.toString(IdEtudiant);
+    }
+    
+    public String getIdS() {
+        return Integer.toString(id);
+    }
 
-	public int getIdAbsence() {
-		return idAbsence;
-	}
+    public String getMatiere() {
+        return matiere;
+    }
 
+    public String getDate() {
+        return timestamp.toString();
+    }
+    
+    public String getetat(){
+        if(etat == false){
+            return "Justifier";
+        }else
+        return "non Justifier";
+    }
 
-	public void setIdAbsence(int idAbsence) {
-		this.idAbsence = idAbsence;
-	}
+    public void setId(int id) {
+        this.id = id;
+    }
+   
+    public void setMatiere(String matiere) {
+        this.matiere = matiere;
+    }
 
+    public void setDate(Timestamp date) {
+        this.timestamp = date;
+    }
 
-	public List<Matiere> getListMatiere() {
-		return listMatiere;
-	}
+    public void setIdEtudiant(int IdEtudiant) {
+        this.IdEtudiant = IdEtudiant;
+    }
 
+    public void setEtat(boolean etat) {
+        this.etat = etat;
+    }
 
-	public void setListMatiere(List<Matiere> listMatiere) {
-		this.listMatiere = listMatiere;
-	}
+    @Override
+    public String toString() {
+        String Etat ;
+       String result = "Absence{" + "id=" + id + ", matiere=" + matiere + ", date=" + timestamp  ;
+       if(this.etat == false){
+           Etat = "Justifier";
+       }else {
+           Etat = "non Justifier";
+       }
+       
+       return result +",Etat="+ Etat+  " , Etudiant="+IdEtudiant+"}";
+    }
+    
+    public String afficherAbsEtu(){
+        String Etat ;
+       String result = "Absence{" + "matiere=" + matiere + ", date=" + timestamp ;
+       if(this.etat == false){
+           Etat = "Justifier";
+       }else {
+           Etat = "non Justifier";
+       }
+       
+       return result +",Etat="+ Etat +"} ";
+    }
 
-
-	public Date getDateAbs() {
-		return DateAbs;
-	}
-
-
-	public void setDateAbs(Date dateAbs) {
-		DateAbs = dateAbs;
-	}
-
-
-	public List<Etudiant> getListEtudiant() {
-		return listEtudiant;
-	}
-
-
-	public void setListEtudiant(List<Etudiant> listEtudiant) {
-		this.listEtudiant = listEtudiant;
-	}
-
-
-	public EtatAbsence getEtatAbs() {
-		return etatAbs;
-	}
-
-
-	public void setEtatAbs(EtatAbsence etatAbs) {
-		this.etatAbs = etatAbs;
-	}
-
-
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((DateAbs == null) ? 0 : DateAbs.hashCode());
-		result = prime * result + ((etatAbs == null) ? 0 : etatAbs.hashCode());
-		result = prime * result + idAbsence;
-		result = prime * result + ((listEtudiant == null) ? 0 : listEtudiant.hashCode());
-		result = prime * result + ((listMatiere == null) ? 0 : listMatiere.hashCode());
-		return result;
-	}
-
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Absence other = (Absence) obj;
-		if (DateAbs == null) {
-			if (other.DateAbs != null)
-				return false;
-		} else if (!DateAbs.equals(other.DateAbs))
-			return false;
-		if (etatAbs != other.etatAbs)
-			return false;
-		if (idAbsence != other.idAbsence)
-			return false;
-		if (listEtudiant == null) {
-			if (other.listEtudiant != null)
-				return false;
-		} else if (!listEtudiant.equals(other.listEtudiant))
-			return false;
-		if (listMatiere == null) {
-			if (other.listMatiere != null)
-				return false;
-		} else if (!listMatiere.equals(other.listMatiere))
-			return false;
-		return true;
-	}
-
-
-	@Override
-	public String toString() {
-		return "Absence [idAbsence=" + idAbsence + ", listMatiere=" + listMatiere + ", DateAbs=" + DateAbs
-				+ ", listEtudiant=" + listEtudiant + ", etatAbs=" + etatAbs + "]";
-	}
-	
-	
-	
-	
-	
-
+    
+    
+    
 }
 
+ 
