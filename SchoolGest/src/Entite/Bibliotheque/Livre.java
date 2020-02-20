@@ -23,8 +23,10 @@ public class Livre {
     private String dateSortie;
     private int taille;
     private int quantite;
+	private String img;
+	private String dateajout;
 
-    public Livre(int id, int id_bibliotheque, String titre, String editeur, String auteur, String categorie, String dateSortie, int taille, int quantite) {
+    public Livre(int id, int id_bibliotheque, String titre, String editeur, String auteur, String categorie, String dateSortie, int taille, int quantite, String img, String dateajout) {
         this.id = id;
         this.id_bibliotheque = id_bibliotheque;
         this.titre = titre;
@@ -34,9 +36,11 @@ public class Livre {
         this.dateSortie = dateSortie;
         this.taille = taille;
         this.quantite = quantite;
+		this.img = img;
+		this.dateajout = dateajout;
     }
 
-    public Livre(int id_bibliotheque, String titre, String editeur, String auteur, String categorie, String dateSortie, int taille, int quantite) {
+    public Livre(int id_bibliotheque, String titre, String editeur, String auteur, String categorie, String dateSortie, int taille, int quantite, String img, String dateajout) {
         this.id_bibliotheque = id_bibliotheque;
         this.titre = titre;
         this.editeur = editeur;
@@ -45,6 +49,8 @@ public class Livre {
         this.dateSortie = dateSortie;
         this.taille = taille;
         this.quantite = quantite;
+		this.img = img;
+		this.dateajout = dateajout;
     }
 
     public Livre(int id) {
@@ -124,10 +130,26 @@ public class Livre {
         this.quantite = quantite;
     }
 
-    @Override
-    public String toString() {
-        return "Livre{" + "id=" + id + ", id_bibliotheque=" + id_bibliotheque + ", titre=" + titre + ", editeur=" + editeur + ", auteur=" + auteur + ", categorie=" + categorie + ", dateSortie=" + dateSortie + ", taille=" + taille + ", quantite=" + quantite + '}';
-    }
+	public String getImg() {
+		return img;
+	}
+
+	public void setImg(String img) {
+		this.img = img;
+	}
+
+	public String getDateajout() {
+		return dateajout;
+	}
+
+	public void setDateajout(String dateajout) {
+		this.dateajout = dateajout;
+	}
+
+	@Override
+	public String toString() {
+		return "Livre{" + "id=" + id + ", id_bibliotheque=" + id_bibliotheque + ", titre=" + titre + ", editeur=" + editeur + ", auteur=" + auteur + ", categorie=" + categorie + ", dateSortie=" + dateSortie + ", taille=" + taille + ", quantite=" + quantite + ", img=" + img + ", dateajout=" + dateajout + '}';
+	}
 
     @Override
     public boolean equals(Object obj) {

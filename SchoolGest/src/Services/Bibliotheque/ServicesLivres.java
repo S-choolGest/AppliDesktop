@@ -33,17 +33,17 @@ public class ServicesLivres implements IServices<Livre> {
 
     @Override
     public boolean ajouter(Livre l) throws SQLException {
-        ServicesBibliotheque ser = new ServicesBibliotheque();
-        Bibliotheque b = new Bibliotheque(l.getId_bibliotheque());
-        if (nbreLivre(b) >= ser.search(b).getCapacite()) {
-            System.out.println("bibliotheque pleine !!!");
-            return false;
-        }
+//        ServicesBibliotheque ser = new ServicesBibliotheque();
+//        Bibliotheque b = new Bibliotheque(l.getId_bibliotheque());
+//        if (nbreLivre(b) >= ser.search(b).getCapacite()) {
+//            System.out.println("bibliotheque pleine !!!");
+//            return false;
+//        }
         List<Livre> livres = new ArrayList<>();
         livres = readAll();
         Livre livr = livres.stream().filter(a -> a.equals(l)).findAny().orElse(null);
         if (livr == null) {
-            PreparedStatement pre = con.prepareStatement("insert INTO `edutech`.`livre` (`id_bibliotheque`, `titre`, `auteur`, `editeur`, `categorie`, `datesortie`, `taille`, `quantite`) VALUES (?, ?, ?, ?, ?, ?, ?, ?);");
+            PreparedStatement pre = con.prepareStatement("insert INTO `edutech`.`livre` (`id_bibliotheque`, `titre`, `auteur`, `editeur`, `categorie`, `datesortie`, `taille`, `quantite`, `dateajout`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, current_timestamp);");
             pre.setInt(1, l.getId_bibliotheque());
             pre.setString(2, l.getTitre());
             pre.setString(3, l.getAuteur());
@@ -64,12 +64,12 @@ public class ServicesLivres implements IServices<Livre> {
     }
 
     public boolean ajouter(Livre l, int qte) throws SQLException {
-        ServicesBibliotheque ser = new ServicesBibliotheque();
-        Bibliotheque b = new Bibliotheque(l.getId_bibliotheque());
-        if (nbreLivre(b) + qte > ser.search(b).getCapacite()) {
-            System.out.println("bibliotheque pleine !!!");
-            return false;
-        }
+//        ServicesBibliotheque ser = new ServicesBibliotheque();
+//        Bibliotheque b = new Bibliotheque(l.getId_bibliotheque());
+//        if (nbreLivre(b) + qte > ser.search(b).getCapacite()) {
+//            System.out.println("bibliotheque pleine !!!");
+//            return false;
+//        }
         PreparedStatement pre = con.prepareStatement("update `edutech`.`livre` set `quantite` = ? where `id` = ?;");
         pre.setInt(1, qte + l.getQuantite());
         pre.setInt(2, l.getId());
@@ -113,7 +113,9 @@ public class ServicesLivres implements IServices<Livre> {
             String datesortie = rs.getString(7);
             int taille = rs.getInt(8);
             int quantite = rs.getInt(9);
-            Livre l = new Livre(id, id_bibliotheque, titre, editeur, auteur, categorie, datesortie, taille, quantite);
+			String img = rs.getString(10);
+			String dateajout = rs.getString(11);
+            Livre l = new Livre(id, id_bibliotheque, titre, editeur, auteur, categorie, datesortie, taille, quantite, img, dateajout);
             listE.add(l);
         }
         return listE;

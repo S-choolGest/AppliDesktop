@@ -5,17 +5,24 @@
  */
 package GUI.Bibliotheque;
 
+import Entite.Bibliotheque.Emprunt;
 import Entite.Bibliotheque.Livre;
+import Services.Bibliotheque.ServicesEmprunt;
 import Services.Bibliotheque.ServicesLivres;
 import com.mysql.cj.result.LocalDateTimeValueFactory;
+import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -23,10 +30,14 @@ import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.event.EventType;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -37,6 +48,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Popup;
 import javafx.stage.Stage;
 import javax.swing.text.DateFormatter;
@@ -137,10 +149,18 @@ public class HomeController implements Initializable {
 	private Pane page_modifier_livre1;
 	@FXML
 	private Label error_modifier_livre;
+	@FXML
+	private Pane btn_page_demandes;
+	@FXML
+	private Pane page_demandes_emprunt;
+	@FXML
+	private ScrollPane demandes_emprunt;
+	private ServicesEmprunt ser_emprunt = new ServicesEmprunt();
+	@FXML
+	private VBox liste_emprunt;
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		error.setText("");
 	}
 
 	@FXML
@@ -152,7 +172,7 @@ public class HomeController implements Initializable {
 			int taillef = Integer.valueOf(taille.getText());
 			int quantitef = Integer.valueOf(quantite.getText());
 			int id_bibliothequef = Integer.valueOf(id_bibliotheque.getText());
-			Livre l = new Livre(id_bibliothequef, titre.getText(), editeur.getText(), auteur.getText(), categorie.getText(), datef, taillef, quantitef);
+			Livre l = new Livre(id_bibliothequef, titre.getText(), editeur.getText(), auteur.getText(), categorie.getText(), datef, taillef, quantitef, null, null);
 			ser.ajouter(l);
 		} catch (Exception e) {
 			error.setText(e.getMessage());
@@ -164,20 +184,13 @@ public class HomeController implements Initializable {
 		page_ajout_livre.setVisible(true);
 		page_liste_livre.setVisible(false);
 		page_modifier_livre.setVisible(false);
+		page_demandes_emprunt.setVisible(false);
 	}
 
 	@FXML
 	private void afficher_page_liste_livre(MouseEvent event) throws SQLException {
 		refresh_view_livre("");
 	}
-//
-//	private ObservableList<Livre> getLivreList() throws SQLException {
-//		ObservableList<Livre> list = FXCollections.observableArrayList();
-//		for (Livre l : ser.readAll()) {
-//			list.add(l);
-//		}
-//		return list;
-//	}
 
 	private ObservableList<Livre> getLivreList(String input_text) throws SQLException {
 		ObservableList<Livre> list = FXCollections.observableArrayList();
@@ -191,6 +204,7 @@ public class HomeController implements Initializable {
 		page_ajout_livre.setVisible(false);
 		page_liste_livre.setVisible(true);
 		page_modifier_livre.setVisible(false);
+		page_demandes_emprunt.setVisible(false);
 		ObservableList<Livre> list = getLivreList(input_text);
 		identifiant1.setCellValueFactory(new PropertyValueFactory<Livre, Integer>("id"));
 		titre1.setCellValueFactory(new PropertyValueFactory<Livre, String>("titre"));
@@ -208,7 +222,6 @@ public class HomeController implements Initializable {
 		refresh_view_livre(field_rechercher_livre.getText());
 	}
 
-	@FXML
 	private void refresh_list_livre(InputMethodEvent event) throws SQLException {
 		refresh_view_livre(field_rechercher_livre.getText());
 	}
@@ -220,6 +233,7 @@ public class HomeController implements Initializable {
 		page_modifier_livre.setVisible(true);
 		page_id_modifier_livre.setVisible(true);
 		page_modifier_livre1.setVisible(false);
+		page_demandes_emprunt.setVisible(false);
 	}
 
 	@FXML
@@ -229,7 +243,7 @@ public class HomeController implements Initializable {
 			LocalDate datel = date_sortie2.getValue();
 			DateTimeFormatter dateformat = DateTimeFormatter.ofPattern("yyyy/MM/dd");
 			String datef = dateformat.format(datel);
-			Livre l = new Livre(Integer.valueOf(id_livre2.getText()), Integer.valueOf(id_bibliotheque2.getText()), titre2.getText(), editeur2.getText(), auteur2.getText(), categorie2.getText(), datef, Integer.valueOf(taille2.getText()), Integer.valueOf(quantite2.getText()));
+			Livre l = new Livre(Integer.valueOf(id_livre2.getText()), Integer.valueOf(id_bibliotheque2.getText()), titre2.getText(), editeur2.getText(), auteur2.getText(), categorie2.getText(), datef, Integer.valueOf(taille2.getText()), Integer.valueOf(quantite2.getText()), null, null);
 			if (l.getAuteur().equals("") || l.getCategorie().equals("") || l.getDateSortie().equals("") || l.getEditeur().equals("") || l.getTaille() < 5 || l.getTitre().equals("")) {
 				error_modifier_livre.setText("Vérifier vos données !!!");
 			} else {
@@ -238,6 +252,7 @@ public class HomeController implements Initializable {
 					page_ajout_livre.setVisible(false);
 					page_liste_livre.setVisible(true);
 					page_modifier_livre.setVisible(false);
+					page_demandes_emprunt.setVisible(false);
 				} else {
 					error_modifier_livre.setText("Impossible de modifer le livre " + l.getId());
 				}
@@ -255,7 +270,8 @@ public class HomeController implements Initializable {
 			page_ajout_livre.setVisible(false);
 			page_liste_livre.setVisible(true);
 			page_modifier_livre.setVisible(false);
-		}else{
+			page_demandes_emprunt.setVisible(false);
+		} else {
 			error_modifier_livre.setText("Echec de suppression du livre " + id_livre2.getText());
 		}
 	}
@@ -273,6 +289,7 @@ public class HomeController implements Initializable {
 				page_modifier_livre.setVisible(true);
 				page_id_modifier_livre.setVisible(false);
 				page_modifier_livre1.setVisible(true);
+				page_demandes_emprunt.setVisible(false);
 				id_bibliotheque2.setText(String.valueOf(l.getId_bibliotheque()));
 				taille2.setText(String.valueOf(l.getTaille()));
 				quantite2.setText(String.valueOf(l.getQuantite()));
@@ -288,5 +305,36 @@ public class HomeController implements Initializable {
 			erreur_id_livre.setText("Veillez un nombre comme identifiant");
 		}
 
+	}
+
+	@FXML
+	private void afficher_page_demandes(MouseEvent event) throws SQLException {
+		page_ajout_livre.setVisible(false);
+		page_liste_livre.setVisible(false);
+		page_modifier_livre.setVisible(false);
+		page_demandes_emprunt.setVisible(true);
+		liste_emprunt.getChildren().clear();
+		List<Emprunt> emprunts = new ArrayList<Emprunt>();
+		emprunts = ser_emprunt.readAll();
+		List<Node> node_emprunt = new ArrayList<>();
+		for (Emprunt e : emprunts) {
+			try {
+				FXMLLoader loader = new FXMLLoader();
+				loader.setLocation(getClass().getResource("emprunt.fxml"));
+				Parent n = (Parent) loader.load();
+				EmpruntController emp = loader.getController();
+				emp.init(e.getId());
+
+//				AnchorPane n = FXMLLoader.load(getClass().getResource("emprunt.fxml"));
+//				AnchorPane n = FXMLLoader.lo
+//				n.getChildren().getClass().getResource();
+				node_emprunt.add(n);
+			} catch (IOException ex) {
+				Logger.getLogger(HomeController.class.getName()).log(Level.SEVERE, null, ex);
+			}
+		}
+		for (Node n : node_emprunt) {
+			liste_emprunt.getChildren().add(n);
+		}
 	}
 }
