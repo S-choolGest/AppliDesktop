@@ -11,14 +11,16 @@ package Entite.Bibliotheque;
  */
 public class LivreEmprunte extends Livre{
 	private int id_emprunt;
+	private int id_emprunteur;
 	private Etat etat;
 	private String dateEmprunt;
 	private String dateConfirmation;
 	private String dateRendu;
 
-	public LivreEmprunte(int id_emprunt, Etat etat, String dateEmprunt, String dateConfirmation, String dateRendu, int id, int id_bibliotheque, String titre, String editeur, String auteur, String categorie, String dateSortie, int taille, int quantite, String img, String dateajout) {
+	public LivreEmprunte(int id_emprunt, int id_emprunteur, Etat etat, String dateEmprunt, String dateConfirmation, String dateRendu, int id, int id_bibliotheque, String titre, String editeur, String auteur, String categorie, String dateSortie, int taille, int quantite, String img, String dateajout) {
 		super(id, id_bibliotheque, titre, editeur, auteur, categorie, dateSortie, taille, quantite, img, dateajout);
 		this.id_emprunt = id_emprunt;
+		this.id_emprunteur = id_emprunteur;
 		this.etat = etat;
 		this.dateEmprunt = dateEmprunt;
 		this.dateConfirmation = dateConfirmation;
@@ -31,6 +33,14 @@ public class LivreEmprunte extends Livre{
 
 	public void setId_emprunt(int id_emprunt) {
 		this.id_emprunt = id_emprunt;
+	}
+
+	public int getId_emprunteur() {
+		return id_emprunteur;
+	}
+
+	public void setId_emprunteur(int id_emprunteur) {
+		this.id_emprunteur = id_emprunteur;
 	}
 
 	public Etat getEtat() {

@@ -21,7 +21,7 @@ public class ServicesReservation implements IServices.Bibliotheque.IServices<Res
 	}
 
 	@Override
-	public boolean delete(Reservation t) throws SQLException {
+	public boolean delete(int id) throws SQLException {
 		throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
 	}
 

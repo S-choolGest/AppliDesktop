@@ -80,9 +80,8 @@ public class Emprunt_userController implements Initializable {
 	public void initialize(URL url, ResourceBundle rb) {
 		// TODO
 	}	
-	public void init(int id) throws SQLException{
-		id_emprunt.setText("Id : "+String.valueOf(id));
-		LivreEmprunte e = ser_livre.read(id);
+	public void init(LivreEmprunte e) throws SQLException{
+		id_emprunt.setText("Id : "+String.valueOf(e.getId_emprunt()));
 		titre.setText(e.getTitre());
 		auteur.setText(e.getAuteur());
 		editeur.setText(e.getEditeur());
@@ -117,7 +116,7 @@ public class Emprunt_userController implements Initializable {
 				@Override
 				public void handle(ActionEvent event) {
 					try {
-						ser_emp.delete(new Emprunt(id));
+						ser_emp.delete(e.getId_emprunt());
 					} catch (SQLException ex) {
 						Logger.getLogger(Emprunt_userController.class.getName()).log(Level.SEVERE, null, ex);
 					}

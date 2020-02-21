@@ -77,9 +77,9 @@ public class ServicesLivres implements IServices<Livre> {
     }
 
     @Override
-    public boolean delete(Livre l) throws SQLException {
+    public boolean delete(int id) throws SQLException {
         PreparedStatement pre = con.prepareStatement("delete from `edutech`.`livre` where `id` =  ?");
-        pre.setInt(1, l.getId());
+        pre.setInt(1, id);
         return pre.executeUpdate() != 0;
     }
 

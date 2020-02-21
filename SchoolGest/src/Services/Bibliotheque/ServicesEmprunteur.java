@@ -16,7 +16,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  *
@@ -34,8 +36,8 @@ public class ServicesEmprunteur implements IServiceEmprunteur<Emprunteur> {
 	@Override
 	public Emprunteur read(int id) throws SQLException {
 //		List<Emprunteur> listE = new ArrayList<>();
-		PreparedStatement pre = con.prepareStatement("select a.idlivre, a.etat, a.dateemprunt, a.dateconfirmation, a.daterendu, b.nomE, b.prenome, b.emaile, b.numtele, b.idetudiant, c.img from etudiant b "
-				+ "inner join emprunt a on a.idemprunteur = b.idEtudiant "
+		PreparedStatement pre = con.prepareStatement("select a.idlivre, a.etat, a.dateemprunt, a.dateconfirmation, a.daterendu, b.nom, b.prenom, b.email, b.numtel, b.id, c.img from utilisateur b "
+				+ "inner join emprunt a on a.idemprunteur = b.id "
 				+ "inner join livre c on c.id = a.idlivre  where a.id = ?");
 		pre.setInt(1, id);
 		ResultSet rs = pre.executeQuery();
@@ -56,5 +58,26 @@ public class ServicesEmprunteur implements IServiceEmprunteur<Emprunteur> {
 		}
 		return null;
 	}
-
+//	public List<Emprunt> filter(String t, String ordre) throws SQLException {
+//		if (t == "dateSortie") {
+//			if (ordre == "asc") {
+//				List<Emprunt> listE = new ArrayList<>();
+//				listE = readAll();
+//				List<Emprunt> livres = listE.stream()
+//						.sorted(Comparator.comparing(Emprunt::getDateEmprunt))
+//						.collect(Collectors.toList());
+//				return livres;
+//			}
+//			if (ordre == "desc") {
+//				List<Emprunt> listE = new ArrayList<>();
+//				listE = readAll();
+//				List<Emprunt> livres = listE.stream()
+//						.sorted(Comparator.comparing(Emprunt::getDateEmprunt)
+//								.reversed())
+//						.collect(Collectors.toList());
+//				return livres;
+//			}
+//		}
+//		return null;
+//	}
 }

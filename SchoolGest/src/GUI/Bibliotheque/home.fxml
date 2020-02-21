@@ -1,13 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.JFXTextField?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
@@ -17,7 +21,39 @@
    <children>
       <Pane prefHeight="126.0" prefWidth="1280.0" style="-fx-background-color: #E6E8E7;">
          <children>
-            <Pane layoutX="-1.0" prefHeight="126.0" prefWidth="200.0" style="-fx-background-color: #132F45;" />
+            <Pane layoutX="-1.0" prefHeight="126.0" prefWidth="200.0" style="-fx-background-color: #132F45;">
+               <children>
+                  <ImageView fitHeight="126.0" fitWidth="200.0" layoutX="37.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@images/logo_ecole.png" />
+                     </image>
+                  </ImageView>
+               </children></Pane>
+            <ImageView fx:id="btn_modifier_compte" fitHeight="30.0" fitWidth="32.0" layoutX="1094.0" layoutY="97.0" onMouseClicked="#modifier_compte" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/icons8_edit_profile_80px.png" />
+               </image>
+            </ImageView>
+            <Pane layoutX="1124.0" prefHeight="126.0" prefWidth="156.0" style="-fx-background-color: #DBDDDC;">
+               <children>
+                  <ImageView fx:id="profil" fitHeight="78.0" fitWidth="70.0" layoutX="43.0" layoutY="1.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@images/icons8_user_male_200px.png" />
+                     </image>
+                  </ImageView>
+                  <Label fx:id="nom" layoutX="7.0" layoutY="75.0" text="Nom" textAlignment="CENTER" textFill="#0e6597">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="email" layoutX="6.0" layoutY="100.0" text="Email" textAlignment="CENTER" textFill="#0e6597">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="id_user" text="1" />
+               </children>
+            </Pane>
             
          </children>
       </Pane>
@@ -157,9 +193,8 @@
                   </Pane>
                </children>
             </Pane>
-            <Pane fx:id="page_liste_livre" prefHeight="576.0" prefWidth="1081.0" style="-fx-background-color: #E1E3E2;" visible="false">
+            <Pane fx:id="page_liste_livre" prefHeight="576.0" prefWidth="1081.0" style="-fx-background-color: #E1E3E2;">
                <children>
-                  <TextField fx:id="field_rechercher_livre" layoutX="861.0" layoutY="25.0" onKeyPressed="#refresh_list_livre" onKeyReleased="#refresh_list_livre" onKeyTyped="#refresh_list_livre" prefHeight="25.0" prefWidth="166.0" promptText="rechercher" />
                   <TableView fx:id="list_livre" layoutX="68.0" layoutY="64.0" prefHeight="498.0" prefWidth="961.0">
                     <columns>
                       <TableColumn fx:id="identifiant1" prefWidth="75.0" text="Identifiant" />
@@ -172,6 +207,16 @@
                         <TableColumn fx:id="quantite1" prefWidth="89.0" text="quantité" />
                     </columns>
                   </TableView>
+                  <JFXTextField fx:id="field_rechercher_livre" layoutX="815.0" layoutY="26.0" onKeyPressed="#refresh_list_livre" onKeyReleased="#refresh_list_livre" prefHeight="25.0" prefWidth="214.0">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </JFXTextField>
+                  <ImageView fitHeight="33.0" fitWidth="29.0" layoutX="783.0" layoutY="27.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@images/icons8_search_30px.png" />
+                     </image>
+                  </ImageView>
                </children>
             </Pane>
             <Pane fx:id="page_modifier_livre" prefHeight="576.0" prefWidth="1081.0" style="-fx-background-color: #E1E3E2;" visible="false">
@@ -309,11 +354,14 @@
             </Pane>
             <Pane fx:id="page_demandes_emprunt" prefHeight="576.0" prefWidth="1081.0">
                <children>
-                  <ScrollPane fx:id="demandes_emprunt" layoutX="34.0" layoutY="26.0" prefHeight="525.0" prefWidth="1010.0">
+                  <ScrollPane fx:id="demandes_emprunt" layoutX="36.0" layoutY="37.0" prefHeight="525.0" prefWidth="1010.0">
                      <content>
                         <VBox fx:id="liste_emprunt" prefHeight="523.0" prefWidth="1008.0" />
                      </content>
                   </ScrollPane>
+                  <Label layoutX="69.0" layoutY="18.0" text="Trier par" />
+                  <ChoiceBox fx:id="choix_tri_emprunt" layoutX="149.0" layoutY="14.0" onContextMenuRequested="#tri_par_choix_colonne" prefWidth="150.0" />
+                  <ChoiceBox fx:id="choix_etat_emprunt" layoutX="538.0" layoutY="14.0" onMouseClicked="#tri_par_choix_etat" prefWidth="150.0" />
                </children>
             </Pane>
          </children>

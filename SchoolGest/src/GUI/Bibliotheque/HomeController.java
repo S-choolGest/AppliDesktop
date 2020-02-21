@@ -7,9 +7,9 @@ package GUI.Bibliotheque;
 
 import Entite.Bibliotheque.Emprunt;
 import Entite.Bibliotheque.Livre;
+import Entite.Utilisateur.Utilisateur;
 import Services.Bibliotheque.ServicesEmprunt;
 import Services.Bibliotheque.ServicesLivres;
-import com.mysql.cj.result.LocalDateTimeValueFactory;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
@@ -34,7 +34,9 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
@@ -42,7 +44,9 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.ContextMenuEvent;
 import javafx.scene.input.InputMethodEvent;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
@@ -158,9 +162,25 @@ public class HomeController implements Initializable {
 	private ServicesEmprunt ser_emprunt = new ServicesEmprunt();
 	@FXML
 	private VBox liste_emprunt;
+	@FXML
+	private ImageView btn_modifier_compte;
+	@FXML
+	private ImageView profil;
+	@FXML
+	private Label nom;
+	@FXML
+	private Label email;
+	@FXML
+	private Label id_user;
+	@FXML
+	private ChoiceBox<String> choix_tri_emprunt;
+	@FXML
+	private ChoiceBox<String> choix_etat_emprunt;
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+		choix_etat_emprunt.getItems().addAll("tout", "attente", "refuse", "accepte", "rendu");
+		choix_tri_emprunt.getItems().addAll("aucun", "titre", "auteur", "editeur", "datesortie", "categorie");
 	}
 
 	@FXML
@@ -265,7 +285,7 @@ public class HomeController implements Initializable {
 
 	@FXML
 	private void supprimer_livre(ActionEvent event) throws SQLException {
-		if (ser.delete(new Livre(Integer.valueOf(id_livre2.getText())))) {
+		if (ser.delete(Integer.valueOf(id_livre2.getText()))) {
 			refresh_view_livre("");
 			page_ajout_livre.setVisible(false);
 			page_liste_livre.setVisible(true);
@@ -316,6 +336,65 @@ public class HomeController implements Initializable {
 		liste_emprunt.getChildren().clear();
 		List<Emprunt> emprunts = new ArrayList<Emprunt>();
 		emprunts = ser_emprunt.readAll();
+		List<Node> node_emprunt = new ArrayList<>();
+		for (Emprunt e : emprunts) {
+			try {
+				FXMLLoader loader = new FXMLLoader();
+				loader.setLocation(getClass().getResource("emprunt.fxml"));
+				Parent n = (Parent) loader.load();
+				EmpruntController emp = loader.getController();
+				emp.init(e.getId());
+
+//				AnchorPane n = FXMLLoader.load(getClass().getResource("emprunt.fxml"));
+//				AnchorPane n = FXMLLoader.lo
+//				n.getChildren().getClass().getResource();
+				node_emprunt.add(n);
+			} catch (IOException ex) {
+				Logger.getLogger(HomeController.class.getName()).log(Level.SEVERE, null, ex);
+			}
+		}
+		for (Node n : node_emprunt) {
+			liste_emprunt.getChildren().add(n);
+		}
+	}
+
+	@FXML
+	private void modifier_compte(MouseEvent event) throws IOException {
+		FXMLLoader loader = new FXMLLoader();
+		loader.setLocation(getClass().getResource("update_account.fxml"));
+		Parent n = (Parent) loader.load();
+		Update_accountController del = loader.getController();
+		del.setId(id_user.getText());
+		Stage stage = new Stage();
+		stage.setTitle("Edutech : Bibliotheque : Gestion : Edit account");
+		Scene scene = new Scene(n);
+		stage.setResizable(false);
+//        scene.setFill(javafx.scene.paint.Color.TRANSPARENT);
+		stage.setScene(scene);
+		stage.show();
+	}
+	public void setProfil(Utilisateur u){
+		nom.setText(u.getNom()+" "+u.getPrenom());
+		email.setText(u.getEmail());
+		if(u.getProfil() != null)
+			profil.setImage(new Image(u.getProfil()));
+		id_user.setText(String.valueOf(u.getId()));
+	}
+
+	@FXML
+	private void tri_par_choix_colonne(ContextMenuEvent event) {
+		
+	}
+
+	@FXML
+	private void tri_par_choix_etat(MouseEvent event) throws SQLException {
+		page_ajout_livre.setVisible(false);
+		page_liste_livre.setVisible(false);
+		page_modifier_livre.setVisible(false);
+		page_demandes_emprunt.setVisible(true);
+		liste_emprunt.getChildren().clear();
+		List<Emprunt> emprunts = new ArrayList<Emprunt>();
+		emprunts = ser_emprunt.filterByEtat(choix_etat_emprunt.getValue());
 		List<Node> node_emprunt = new ArrayList<>();
 		for (Emprunt e : emprunts) {
 			try {

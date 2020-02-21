@@ -38,17 +38,17 @@ public class ServicesBibliotheque implements IServices<Bibliotheque>{
     }
 
     @Override
-    public boolean delete(Bibliotheque b) throws SQLException {
+    public boolean delete(int id) throws SQLException {
         int count = -1;
         PreparedStatement ver = con.prepareStatement("select count(*) from `livre` where `id_bibliotheque` = ?");
-        ver.setInt(1, b.getId());
+        ver.setInt(1, id);
         ResultSet rs = ver.executeQuery();
          while (rs.next()) {
             count = rs.getInt(1);
          }
          if(count == 0){
         PreparedStatement pre = con.prepareStatement("delete from `edutech`.`Bibliotheque` where `id` =  ?");
-        pre.setInt(1, b.getId());
+        pre.setInt(1, id);
         return pre.executeUpdate() != 0;
          } else {
              System.out.println("livre existant dans la bibliotheque !!!\n");

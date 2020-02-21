@@ -78,9 +78,9 @@ public class ServicesEmprunt implements IServices<Emprunt> {
 	}
 
 	@Override
-	public boolean delete(Emprunt e) throws SQLException {
+	public boolean delete(int id) throws SQLException {
 		PreparedStatement pre = con.prepareStatement("delete from `edutech`.`emprunt` where `id` =  ?");
-		pre.setInt(1, e.getId());
+		pre.setInt(1, id);
 		return pre.executeUpdate() != 0;
 	}
 
@@ -140,14 +140,25 @@ public class ServicesEmprunt implements IServices<Emprunt> {
 				.collect(Collectors.toList());
 		return emp;
 	}
-	public List<Emprunt> search(int id) throws SQLException {
+
+	public List<Emprunt> search(int iduser, String t) throws SQLException {
 		List<Emprunt> emprunts = new ArrayList<>();
-		emprunts = readAll();
+		emprunts = search(iduser);
 		List<Emprunt> emp = emprunts.stream()
-				.filter(a -> a.getIdEmprunteur()==id)
+				.filter(a -> a.getEtat().toString().contains(t) || a.getDateEmprunt().contains(t) || a.getDateConfirmation().contains(t) || a.getDateRendu().contains(t))
 				.collect(Collectors.toList());
 		return emp;
 	}
+
+	public List<Emprunt> search(int iduser) throws SQLException {
+		List<Emprunt> emprunts = new ArrayList<>();
+		emprunts = readAll();
+		List<Emprunt> emp = emprunts.stream()
+				.filter(a -> a.getIdEmprunteur() == iduser)
+				.collect(Collectors.toList());
+		return emp;
+	}
+
 	@Override
 	public List<Emprunt> triAll(String t, String ordre) throws SQLException {
 //        if (t == "titre") {
@@ -190,6 +201,22 @@ public class ServicesEmprunt implements IServices<Emprunt> {
 			}
 		}
 		return null;
+	}
+
+	public List<Emprunt> filterByEtat(String etat) throws SQLException {
+		List<Emprunt> emprunts = new ArrayList<>();
+		emprunts = readAll();
+		try {
+			if (!etat.equals("tout")) {
+				List<Emprunt> emp = emprunts.stream()
+						.filter(a -> a.getEtat().toString().equals(etat))
+						.collect(Collectors.toList());
+				return emp;
+			}
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+		return emprunts;
 	}
 
 }

@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package IServices.Bibliotheque;
 
 import java.sql.SQLException;
@@ -13,11 +12,11 @@ import java.util.List;
  *
  * @author william
  */
-public interface IServices<T> {
-    boolean ajouter(T t) throws SQLException;
-    boolean delete(int id) throws SQLException;
-    boolean update(T t) throws SQLException;
+public interface IServicesUtilisateur<T> {
+	String ajouter(T t) throws SQLException;
+    Boolean delete(int id) throws SQLException;
+    Boolean update(T t) throws SQLException;
     List<T> readAll() throws SQLException;
     List<T> search(String t) throws SQLException;
-    List<T> triAll(String t, String ordre) throws SQLException;
+    T search(int id) throws SQLException;
 }

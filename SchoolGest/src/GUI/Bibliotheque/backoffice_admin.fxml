@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.Bibliotheque.Backoffice_adminController">
+   <top>
+      <AnchorPane prefHeight="138.0" prefWidth="1280.0" style="-fx-background-color: #132F45;" BorderPane.alignment="CENTER">
+         <children>
+            <Pane layoutX="1049.0" layoutY="-1.0" prefHeight="170.0" prefWidth="230.0">
+               <children>
+                  <Pane layoutX="74.0" prefHeight="170.0" prefWidth="156.0" style="-fx-background-color: #DBDDDC;">
+                     <children>
+                        <ImageView fx:id="profil" fitHeight="107.0" fitWidth="100.0" layoutX="25.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@images/icons8_user_male_200px.png" />
+                           </image>
+                        </ImageView>
+                        <Label fx:id="nom" layoutX="7.0" layoutY="106.0" text="Nom" textAlignment="CENTER" textFill="#0e6597">
+                           <font>
+                              <Font size="16.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="email" layoutX="6.0" layoutY="131.0" text="Email" textAlignment="CENTER" textFill="#0e6597">
+                           <font>
+                              <Font size="16.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="id_user" text="1" />
+                     </children>
+                  </Pane>
+                  <ImageView fx:id="btn_modifier_compte" fitHeight="30.0" fitWidth="32.0" layoutX="44.0" layoutY="141.0" onMouseClicked="#modifier_compte" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@images/icons8_edit_profile_80px.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </Pane>
+            <Pane layoutX="-1.0" layoutY="-3.0" prefHeight="172.0" prefWidth="205.0">
+               <children>
+                  <ImageView fitHeight="126.0" fitWidth="200.0" layoutX="40.0" layoutY="23.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@images/logo_ecole.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </Pane>
+         </children>
+      </AnchorPane>
+   </top>
+   <left>
+      <AnchorPane prefHeight="582.0" prefWidth="205.0" style="-fx-background-color: #183A56;" BorderPane.alignment="CENTER">
+         <children>
+            <JFXButton fx:id="bibliothecaires" layoutX="1.0" layoutY="75.0" onAction="#charger_pages_bibliiothecaires" prefHeight="40.0" prefWidth="203.0" text="Bibliothécaires" textFill="WHITE">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </JFXButton>
+            <JFXButton fx:id="bibliotheques" layoutX="1.0" layoutY="115.0" onAction="#charger_page_bibliotheques" prefHeight="40.0" prefWidth="203.0" text="Bibliothèques" textFill="WHITE">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </JFXButton>
+         </children>
+      </AnchorPane>
+   </left>
+   <center>
+      <AnchorPane fx:id="body" prefHeight="580.0" prefWidth="1070.0" style="-fx-background-color: #E1E3E2;" BorderPane.alignment="CENTER" />
+   </center>
+</BorderPane>
