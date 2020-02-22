@@ -88,6 +88,20 @@ public class ServicesFormulaire implements IServicesFormulaire<Formulaire> {
         return arr;
     }
     
+    public Formulaire getFormulaire(int idFormulaire) {
+        Statement st;
+        try {
+            st = con.createStatement();
+            String req = "select * from Formulaire where id = '" + idFormulaire + "'";
+            ResultSet rs = st.executeQuery(req);
+            if (rs.next()) {
+                return new Formulaire(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getBoolean(5), rs.getDate(6));
+            }
+        } catch (SQLException ex) {
+            System.err.println(ex.getMessage());
+        }
+        return null;
+    }
     /*
     //recherche simple
     public List<Formulaire> getSimpleFormilaireParMotCle(String motCle) {
@@ -127,6 +141,30 @@ public class ServicesFormulaire implements IServicesFormulaire<Formulaire> {
         try {
             st = con.createStatement();
             String req = "select * from Formulaire where validation=false";
+            ResultSet rs = st.executeQuery(req);
+            while (rs.next()) {
+                int idFormulaire = rs.getInt(1);
+                String objet = rs.getString("objet");
+                String description = rs.getString("descriptionFormulaire");
+                String fichier = rs.getString("fichier");
+                boolean validation = rs.getBoolean(5);
+                Date dateEnvoi = rs.getDate(6);
+                Formulaire f = new Formulaire(idFormulaire, objet, description, fichier, validation, dateEnvoi);
+                arr.add(f);
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+        return arr;
+    }
+    
+    // afficher les formulaires non confirmé 
+    public List<Formulaire> getSimpleFormulairesConfirmes() {
+        Statement st;
+        List<Formulaire> arr = new ArrayList();
+        try {
+            st = con.createStatement();
+            String req = "select * from Formulaire where validation=true";
             ResultSet rs = st.executeQuery(req);
             while (rs.next()) {
                 int idFormulaire = rs.getInt(1);

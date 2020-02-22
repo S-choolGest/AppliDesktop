@@ -21,6 +21,7 @@ public interface IServicesFormulaire<F> {
     public List<F>readall() throws SQLException;
     public void confirmerValidation(int idFormulaire)throws SQLException;
     public List<Formulaire> getSimpleFormulairesNonConfirmes()throws SQLException;
+    public List<Formulaire> getSimpleFormulairesConfirmes() throws SQLException;
 
     
 }

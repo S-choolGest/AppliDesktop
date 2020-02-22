@@ -1,13 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
@@ -17,7 +15,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" nodeOrientation="LEFT_TO_RIGHT" prefHeight="500.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" nodeOrientation="LEFT_TO_RIGHT" prefHeight="500.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.Formulaire.GestionFormulairesController">
    <children>
       <Pane layoutY="25.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #2D75E8;" AnchorPane.bottomAnchor="400.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="25.0">
          <children>
@@ -55,10 +53,8 @@
                   </TableView>
                   <AnchorPane prefHeight="200.0" prefWidth="200.0">
                      <children>
-                        <Button fx:id="btValider" layoutX="21.0" layoutY="61.0" mnemonicParsing="false" onAction="#btValiderOnClick" prefHeight="26.0" prefWidth="98.0" style="-fx-background-color: #2D75E8;" text="valider" textFill="WHITE" AnchorPane.bottomAnchor="243.0" AnchorPane.leftAnchor="21.0" AnchorPane.rightAnchor="21.0" AnchorPane.topAnchor="61.0" />
-                        <Button fx:id="btModifier" layoutX="20.0" layoutY="109.0" mnemonicParsing="false" onAction="#btModifierOnClick" prefHeight="26.0" prefWidth="98.0" style="-fx-background-color: #2D75E8;" text="modifier" textFill="WHITE" />
-                        <Button fx:id="btSupprimer" layoutX="21.0" layoutY="152.0" mnemonicParsing="false" onAction="#btSupprimerOnClick" prefHeight="26.0" prefWidth="98.0" style="-fx-background-color: #2D75E8;" text="Supprimer" textFill="WHITE" />
-                        <Button fx:id="btAjouter" layoutX="21.0" layoutY="258.0" mnemonicParsing="false" onAction="#btAjouterOnClick" prefHeight="26.0" prefWidth="98.0" style="-fx-background-color: #2D75E8;" text="Ajouter" textFill="WHITE" />
+                        <Button fx:id="btAjouter" layoutX="21.0" layoutY="48.0" mnemonicParsing="false" onAction="#btAjouterOnClick" prefHeight="26.0" prefWidth="98.0" style="-fx-background-color: #2D75E8;" text="Ajouter" textFill="WHITE" />
+                        <Button fx:id="btSupprimer" layoutX="21.0" layoutY="183.0" mnemonicParsing="false" onAction="#btSupprimerOnClick" prefHeight="26.0" prefWidth="98.0" style="-fx-background-color: #2D75E8;" text="supprimer" textFill="WHITE" />
                      </children>
                   </AnchorPane>
                </children>
@@ -72,19 +68,19 @@
                      </toggleGroup>
                   </RadioButton>
                   <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="5.0" />
-                  <RadioButton fx:id="rbValide" mnemonicParsing="false" onAction="#rbValideOnClick" text="valide" toggleGroup="$ConsulterValidation" />
+                  <RadioButton fx:id="rbValide" mnemonicParsing="false" onAction="#rbValideOnSelect" text="valide">
+                     <toggleGroup>
+                        <ToggleGroup fx:id="ConsulterValidation1" />
+                     </toggleGroup>
+                  </RadioButton>
                   <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="5.0" />
-                  <RadioButton fx:id="rbNonValide" mnemonicParsing="false" onAction="#rbNonValideOnClick" text="Non Valide" toggleGroup="$ConsulterValidation" />
-                  <Pane prefHeight="40.0" prefWidth="30.0">
-                     <children>
-                        <FontAwesomeIcon iconName="SEARCH" layoutX="23.0" layoutY="17.0" />
-                     </children>
-                  </Pane>
+                  <RadioButton fx:id="rbNonValide" mnemonicParsing="false" onAction="#rbNonValideOnSelect" text="Non Valide">
+                     <toggleGroup>
+                        <ToggleGroup fx:id="ConsulterValidation2" />
+                     </toggleGroup>
+                  </RadioButton>
                   <Pane prefHeight="40.0" prefWidth="15.0" />
-                  <TextField fx:id="tfRechecher" onKeyReleased="#tfRechecherOnKeyReleased" prefHeight="25.0" prefWidth="490.0" promptText="Rechercher" />
-                  <Pane prefHeight="40.0" prefWidth="87.0" />
-               </children>
-            </HBox>
+               </children></HBox>
          </children>
       </GridPane>
    </children>
