@@ -360,8 +360,8 @@
                      </content>
                   </ScrollPane>
                   <Label layoutX="69.0" layoutY="18.0" text="Trier par" />
-                  <ChoiceBox fx:id="choix_tri_emprunt" layoutX="149.0" layoutY="14.0" onContextMenuRequested="#tri_par_choix_colonne" prefWidth="150.0" />
-                  <ChoiceBox fx:id="choix_etat_emprunt" layoutX="538.0" layoutY="14.0" onMouseClicked="#tri_par_choix_etat" prefWidth="150.0" />
+                  <ChoiceBox fx:id="choix_tri_emprunt" layoutX="149.0" layoutY="14.0" prefWidth="150.0" />
+                  <ChoiceBox fx:id="choix_etat_emprunt" layoutX="538.0" layoutY="14.0" prefWidth="150.0" />
                </children>
             </Pane>
          </children>

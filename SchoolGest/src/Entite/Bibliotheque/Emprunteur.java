@@ -16,8 +16,8 @@ public class Emprunteur extends Emprunt{
 	private String email;
 	private String img;
 
-	public Emprunteur(String nom, String prenom, int tel, String email, int id, int idEmprunteur, int idLivre, Etat etat, String dateEmprunt, String dateConfirmation, String dateRendu, String img) {
-		super(id, idEmprunteur, idLivre, etat, dateEmprunt, dateConfirmation, dateRendu);
+	public Emprunteur(String nom, String prenom, int tel, String email, String img, int id, int idEmprunteur, int idLivre, Etat etat, String dateEmprunt, String dateConfirmation, String dateRendu, String dateDebut, String dateFin) {
+		super(id, idEmprunteur, idLivre, etat, dateEmprunt, dateConfirmation, dateRendu, dateDebut, dateFin);
 		this.nom = nom;
 		this.prenom = prenom;
 		this.tel = tel;
@@ -63,6 +63,11 @@ public class Emprunteur extends Emprunt{
 
 	public void setImg(String img) {
 		this.img = img;
+	}
+
+	@Override
+	public String toString() {
+		return "Emprunteur{"+super.toString() + "nom=" + nom + ", prenom=" + prenom + ", tel=" + tel + ", email=" + email + ", img=" + img + '}';
 	}
 	
 }

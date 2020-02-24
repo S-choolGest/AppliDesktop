@@ -75,26 +75,26 @@
                   <Font size="14.0" />
                </font>
             </Label>
-            <Label layoutX="625.0" layoutY="32.0" text="16" textFill="#aeacac">
+            <Label fx:id="day_confirmation" layoutX="625.0" layoutY="32.0" text="16" textFill="#aeacac">
                <font>
                   <Font name="System Bold" size="36.0" />
                </font>
             </Label>
-            <Label layoutX="674.0" layoutY="40.0" text="APR" textFill="#3a1c9d" />
-            <Label layoutX="674.0" layoutY="58.0" text="2018" textFill="#aeacac" />
+            <Label fx:id="month_confirmation" layoutX="674.0" layoutY="40.0" text="APR" textFill="#3a1c9d" />
+            <Label fx:id="year_confirmation" layoutX="674.0" layoutY="58.0" text="2018" textFill="#aeacac" />
             <Separator layoutX="728.0" layoutY="19.0" orientation="VERTICAL" prefHeight="64.0" prefWidth="0.0" />
             <Label layoutX="756.0" layoutY="13.0" text="date retour" textFill="#3a1c9d">
                <font>
                   <Font size="14.0" />
                </font>
             </Label>
-            <Label layoutX="756.0" layoutY="29.0" text="25" textFill="#aeacac">
+            <Label fx:id="day_retour" layoutX="756.0" layoutY="29.0" text="25" textFill="#aeacac">
                <font>
                   <Font name="System Bold" size="36.0" />
                </font>
             </Label>
-            <Label layoutX="805.0" layoutY="37.0" text="AUG" textFill="#3a1c9d" />
-            <Label layoutX="805.0" layoutY="55.0" text="2018" textFill="#aeacac" />
+            <Label fx:id="month_retour" layoutX="805.0" layoutY="37.0" text="AUG" textFill="#3a1c9d" />
+            <Label fx:id="year_retour" layoutX="805.0" layoutY="55.0" text="2018" textFill="#aeacac" />
             <Label fx:id="id_emprunt" layoutX="212.0" layoutY="52.0" text="Id : 20178" textFill="#b2b0b0">
                <font>
                   <Font size="14.0" />
@@ -106,18 +106,15 @@
                   <Font size="14.0" />
                </font>
             </Label>
-            <Label layoutX="514.0" layoutY="33.0" text="25" textFill="#aeacac">
+            <Label fx:id="day_emprunt" layoutX="514.0" layoutY="33.0" text="25" textFill="#aeacac">
                <font>
                   <Font name="System Bold" size="36.0" />
                </font>
             </Label>
-            <Label layoutX="563.0" layoutY="41.0" text="AUG" textFill="#3a1c9d" />
-            <Label layoutX="563.0" layoutY="59.0" text="2018" textFill="#aeacac" />
+            <Label fx:id="month_emprunt" layoutX="563.0" layoutY="41.0" text="AUG" textFill="#3a1c9d" />
+            <Label fx:id="year_emprunt" layoutX="563.0" layoutY="59.0" text="2018" textFill="#aeacac" />
             <Button fx:id="btn_accepter" layoutX="655.0" layoutY="194.0" mnemonicParsing="false" style="-fx-background-color: green;" text="Accepter" textFill="WHITE" />
             <Button fx:id="btn_refuser" layoutX="749.0" layoutY="194.0" mnemonicParsing="false" style="-fx-background-color: red;" text="Refuser" textFill="WHITE" />
-            <Label fx:id="dateemprunt" layoutX="517.0" layoutY="75.0" prefHeight="17.0" prefWidth="73.0" text="Label" />
-            <Label fx:id="dateconfirmation" layoutX="626.0" layoutY="78.0" prefHeight="17.0" prefWidth="73.0" text="Label" />
-            <Label fx:id="dateretour" layoutX="754.0" layoutY="77.0" prefHeight="17.0" prefWidth="73.0" text="Label" />
             <Label layoutX="357.0" layoutY="184.0" text="Tel" textFill="#aeacac">
                <font>
                   <Font size="14.0" />

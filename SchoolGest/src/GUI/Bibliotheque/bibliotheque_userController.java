@@ -16,6 +16,8 @@ import Services.Bibliotheque.ServicesLivres;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -33,6 +35,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
@@ -89,10 +92,6 @@ public class bibliotheque_userController implements Initializable {
 	@FXML
 	private Label quantite;
 	@FXML
-	private Label datesortie;
-	@FXML
-	private Label dateajout;
-	@FXML
 	private Pane img_livre;
 	@FXML
 	private Label error_emprunter;
@@ -120,6 +119,22 @@ public class bibliotheque_userController implements Initializable {
 	private Label email;
 	@FXML
 	private ImageView btn_modifier_compte;
+	@FXML
+	private Label day_sortie;
+	@FXML
+	private Label month_sortie;
+	@FXML
+	private Label year_sortie;
+	@FXML
+	private Label day_ajout;
+	@FXML
+	private Label month_ajout;
+	@FXML
+	private Label year_ajout;
+	@FXML
+	private DatePicker date_debut;
+	@FXML
+	private DatePicker date_fin;
 
 	/**
 	 * Initializes the controller class.
@@ -179,8 +194,28 @@ public class bibliotheque_userController implements Initializable {
 					auteur.setText(l.getAuteur());
 					editeur.setText(l.getEditeur());
 					categorie.setText(l.getCategorie());
-					datesortie.setText(l.getDateSortie());
-					dateajout.setText(l.getDateajout());
+					try {
+						String[] date = l.getDateSortie().split("-");
+						day_sortie.setText(date[2]);
+						month_sortie.setText(date[1]);
+						year_sortie.setText(date[0]);
+					} catch (Exception ex) {
+						System.out.println(ex);
+						day_sortie.setText("jj");
+						month_sortie.setText("mois");
+						year_sortie.setText("année");
+					}
+					try {
+						String[] date = l.getDateajout().split("-");
+						day_ajout.setText(date[2]);
+						month_ajout.setText(date[1]);
+						year_ajout.setText(date[0]);
+					} catch (Exception ex) {
+						System.out.println(ex);
+						day_ajout.setText("jj");
+						month_ajout.setText("mois");
+						year_ajout.setText("année");
+					}
 					Image img = new Image(l.getImg());
 					ImageView imgv = new ImageView();
 					imgv.setImage(img);
@@ -197,7 +232,10 @@ public class bibliotheque_userController implements Initializable {
 						@Override
 						public void handle(MouseEvent event) {
 							try {
-								error_emprunter.setText(ser_emp.emprunter(Integer.valueOf(id_user.getText()), l.getId()));
+								DateTimeFormatter dateformat = DateTimeFormatter.ofPattern("yyyy/MM/dd");
+								String datedebut = dateformat.format(date_debut.getValue());
+								String datefin = dateformat.format(date_fin.getValue());
+								error_emprunter.setText(ser_emp.emprunter(Integer.valueOf(id_user.getText()), l.getId(), datedebut, datefin));
 							} catch (SQLException ex) {
 								Logger.getLogger(bibliotheque_userController.class.getName()).log(Level.SEVERE, null, ex);
 							}
@@ -216,8 +254,28 @@ public class bibliotheque_userController implements Initializable {
 					auteur.setText(l.getAuteur());
 					editeur.setText(l.getEditeur());
 					categorie.setText(l.getCategorie());
-					datesortie.setText(l.getDateSortie());
-					dateajout.setText(l.getDateajout());
+					try {
+						String[] date = l.getDateSortie().split("-");
+						day_sortie.setText(date[2]);
+						month_sortie.setText(date[1]);
+						year_sortie.setText(date[0]);
+					} catch (Exception ex) {
+						System.out.println(ex);
+						day_sortie.setText("jj");
+						month_sortie.setText("mois");
+						year_sortie.setText("année");
+					}
+					try {
+						String[] date = l.getDateajout().split("-");
+						day_ajout.setText(date[2]);
+						month_ajout.setText(date[1]);
+						year_ajout.setText(date[0]);
+					} catch (Exception ex) {
+						System.out.println(ex);
+						day_ajout.setText("jj");
+						month_ajout.setText("mois");
+						year_ajout.setText("année");
+					}
 					Image img = new Image(l.getImg());
 					ImageView imgv = new ImageView();
 					imgv.setImage(img);
@@ -274,7 +332,7 @@ public class bibliotheque_userController implements Initializable {
 
 	@FXML
 	private void tri_par_choix_colonne(ContextMenuEvent event) {
-		
+
 	}
 
 	@FXML

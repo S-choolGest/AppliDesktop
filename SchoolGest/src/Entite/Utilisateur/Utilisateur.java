@@ -5,6 +5,8 @@
  */
 package Entite.Utilisateur;
 
+import javafx.scene.image.ImageView;
+
 /**
  *
  * @author william
@@ -35,7 +37,7 @@ public class Utilisateur {
 		this.type = type;
 	}
 
-	public Utilisateur(String nom, String prenom, String email, String password, String cin, int numTel, String dateNaissance, String adresse, int type) {
+	public Utilisateur(String nom, String prenom, String email, String password, String cin, int numTel, String dateNaissance, String adresse, int type, String profil) {
 		this.nom = nom;
 		this.prenom = prenom;
 		this.email = email;
@@ -45,6 +47,7 @@ public class Utilisateur {
 		this.dateNaissance = dateNaissance;
 		this.adresse = adresse;
 		this.type = type;
+		this.profil = profil;
 	}
 
 	public Utilisateur(int id, String nom, String prenom, String email, String password, String cin, int numTel, String dateNaissance, String adresse, int type, String profil) {
@@ -151,7 +154,7 @@ public class Utilisateur {
 
 	@Override
 	public String toString() {
-		return "Utilisateur{" + "id=" + id + ", nom=" + nom + ", prenom=" + prenom + ", email=" + email + ", password=" + password + ", cin=" + cin + ", numTel=" + numTel + ", dateNaissance=" + dateNaissance + ", adresse=" + adresse + ", type=" + type + '}';
+		return "Utilisateur{" + "id=" + id + ", nom=" + nom + ", prenom=" + prenom + ", email=" + email + ", password=" + password + ", cin=" + cin + ", numTel=" + numTel + ", dateNaissance=" + dateNaissance + ", adresse=" + adresse + ", type=" + type + ", profil=" + profil + '}';
 	}
 	
 }

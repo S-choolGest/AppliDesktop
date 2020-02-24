@@ -14,17 +14,34 @@ public class Bibliotheque {
     private int id;
     private String nom;
     private int capacite;
+	private String adresse;
+	private String email;
 
-    public Bibliotheque(int id, String nom, int capacite) {
+    public Bibliotheque(int id, String nom, int capacite, String adresse, String email) {
         this.id = id;
         this.nom = nom;
         this.capacite = capacite;
+        this.email = email;
+        this.adresse = adresse;
     }
 
-    public Bibliotheque(String nom, int capacite) {
+    public Bibliotheque(String nom, int capacite, String adresse, String email) {
         this.nom = nom;
         this.capacite = capacite;
+        this.email = email;
+        this.adresse = adresse;
     }
+
+	public Bibliotheque(String nom, int capacite, String adresse) {
+		this.nom = nom;
+		this.capacite = capacite;
+		this.adresse = adresse;
+	}
+
+	public Bibliotheque(int id, String email) {
+		this.id = id;
+		this.email = email;
+	}
 
     public Bibliotheque(int id) {
         this.id = id;
@@ -54,10 +71,25 @@ public class Bibliotheque {
         this.id = id;
     }
 
-    @Override
-    public String toString() {
-        return "Bibliotheque{" + "id=" + id + ", nom=" + nom + ", capacite=" + capacite + '}';
-    }
-    
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getAdresse() {
+		return adresse;
+	}
+
+	public void setAdresse(String adresse) {
+		this.adresse = adresse;
+	}
+
+	@Override
+	public String toString() {
+		return "Bibliotheque{" + "id=" + id + ", nom=" + nom + ", capacite=" + capacite + ", adresse=" + adresse + ", email=" + email + '}';
+	}
     
 }

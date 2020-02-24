@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package GUI.Bibliotheque;
+package GUI.InterfaceAdmin;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -14,7 +14,7 @@ import javafx.fxml.Initializable;
  *
  * @author william
  */
-public class BibliothequeController implements Initializable {
+public class InterfaceAdminController implements Initializable {
 
 	/**
 	 * Initializes the controller class.

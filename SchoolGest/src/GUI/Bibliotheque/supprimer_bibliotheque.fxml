@@ -9,12 +9,12 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="456.0" prefWidth="821.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.Bibliotheque.Delete_accountController">
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.Bibliotheque.Supprimer_bibliothequeController">
    <children>
-      <Pane layoutX="330.0" prefHeight="472.0" prefWidth="491.0" style="-fx-background-color: #183A56;">
+      <Pane layoutX="321.0" prefHeight="409.0" prefWidth="491.0" style="-fx-background-color: #183A56;">
          <children>
-            <JFXButton fx:id="supprimer" buttonType="RAISED" layoutX="341.0" layoutY="424.0" onAction="#supprimer_bibliothecaire" prefHeight="34.0" prefWidth="113.0" ripplerFill="#63c2d0" style="-fx-background-color: red;" text="supprimer" textFill="WHITE" />
-            <Label layoutX="48.0" layoutY="185.0" prefHeight="25.0" prefWidth="113.0" text="Nom &amp; Prénom" textFill="WHITE">
+            <JFXButton fx:id="supprimer" buttonType="RAISED" layoutX="341.0" layoutY="346.0" onAction="#supprimer_bibliotheque" prefHeight="34.0" prefWidth="113.0" ripplerFill="#63c2d0" style="-fx-background-color: red;" text="supprimer" textFill="WHITE" />
+            <Label layoutX="48.0" layoutY="185.0" prefHeight="25.0" prefWidth="113.0" text="Nom" textFill="#bfbfbf">
                <font>
                   <Font size="14.0" />
                </font>
@@ -24,27 +24,27 @@
                   <Font size="14.0" />
                </font>
             </JFXTextField>
-            <Label layoutX="48.0" layoutY="255.0" prefHeight="25.0" prefWidth="55.0" text="Email" textFill="WHITE">
+            <Label layoutX="48.0" layoutY="255.0" prefHeight="25.0" prefWidth="55.0" text="Capacité" textFill="#bfbfbf">
                <font>
                   <Font size="14.0" />
                </font>
             </Label>
-            <JFXTextField fx:id="email" editable="false" focusColor="#3cb4c6" layoutX="48.0" layoutY="284.0" prefHeight="34.0" prefWidth="293.0" style="-fx-text-inner-color: white;" unFocusColor="#7d837e">
+            <JFXTextField fx:id="capacite" editable="false" focusColor="#3cb4c6" layoutX="48.0" layoutY="284.0" prefHeight="34.0" prefWidth="293.0" style="-fx-text-inner-color: white;" unFocusColor="#7d837e">
                <font>
                   <Font size="14.0" />
                </font>
             </JFXTextField>
-            <Label layoutX="53.0" layoutY="118.0" prefHeight="25.0" prefWidth="120.0" text="CIN" textFill="WHITE">
+            <Label layoutX="53.0" layoutY="118.0" prefHeight="25.0" prefWidth="55.0" text="Adresse" textFill="#bfbfbf">
                <font>
                   <Font size="14.0" />
                </font>
             </Label>
-            <JFXTextField fx:id="cin" focusColor="#3cb4c6" layoutX="51.0" layoutY="143.0" onKeyPressed="#rechercher_bibliothecaire" onKeyReleased="#rechercher_bibliothecaire" prefHeight="34.0" prefWidth="293.0" style="-fx-text-inner-color: white;" unFocusColor="#7d837e">
+            <JFXTextField fx:id="adresse" focusColor="#3cb4c6" layoutX="51.0" layoutY="143.0" onKeyPressed="#rechercher_bibliotheque" onKeyReleased="#rechercher_bibliotheque" prefHeight="34.0" prefWidth="293.0" style="-fx-text-inner-color: white;" unFocusColor="#7d837e">
                <font>
                   <Font size="14.0" />
                </font>
             </JFXTextField>
-            <Label layoutX="53.0" layoutY="21.0" prefHeight="74.0" prefWidth="360.0" style="-fx-background-color: #173752;" text="Supprimer Bibliothécaire" textFill="#da7878">
+            <Label layoutX="53.0" layoutY="21.0" prefHeight="74.0" prefWidth="360.0" style="-fx-background-color: #173752;" text="Supprimer Bibliothèque" textFill="#da7878">
                <font>
                   <Font size="32.0" />
                </font>
@@ -54,10 +54,10 @@
                   <Image url="@images/icons8_close_window_50px_1.png" />
                </image>
             </ImageView>
-            <Label fx:id="error" layoutX="26.0" layoutY="416.0" prefHeight="25.0" prefWidth="299.0" textFill="RED" />
+            <Label fx:id="error" layoutX="5.0" layoutY="380.0" prefHeight="25.0" prefWidth="483.0" textFill="RED" />
          </children>
       </Pane>
-      <Pane prefHeight="472.0" prefWidth="330.0" style="-fx-background-color: #132F45;">
+      <Pane layoutX="-9.0" prefHeight="409.0" prefWidth="330.0" style="-fx-background-color: #132F45;">
          <children>
             <ImageView fitHeight="215.0" fitWidth="183.0" layoutX="76.0" layoutY="117.0" pickOnBounds="true" preserveRatio="true">
                <image>

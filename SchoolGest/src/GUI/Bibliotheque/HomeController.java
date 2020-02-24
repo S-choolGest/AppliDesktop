@@ -23,6 +23,8 @@ import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -181,6 +183,16 @@ public class HomeController implements Initializable {
 	public void initialize(URL location, ResourceBundle resources) {
 		choix_etat_emprunt.getItems().addAll("tout", "attente", "refuse", "accepte", "rendu");
 		choix_tri_emprunt.getItems().addAll("aucun", "titre", "auteur", "editeur", "datesortie", "categorie");
+		choix_etat_emprunt.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>() {
+			@Override
+			public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+				try {
+					filterByEtat(choix_etat_emprunt.getItems().get((Integer)newValue));
+				} catch (SQLException ex) {
+					Logger.getLogger(HomeController.class.getName()).log(Level.SEVERE, null, ex);
+				}
+			}
+		});
 	}
 
 	@FXML
@@ -373,28 +385,23 @@ public class HomeController implements Initializable {
 		stage.setScene(scene);
 		stage.show();
 	}
-	public void setProfil(Utilisateur u){
-		nom.setText(u.getNom()+" "+u.getPrenom());
+
+	public void setProfil(Utilisateur u) {
+		nom.setText(u.getNom() + " " + u.getPrenom());
 		email.setText(u.getEmail());
-		if(u.getProfil() != null)
+		if (u.getProfil() != null) {
 			profil.setImage(new Image(u.getProfil()));
+		}
 		id_user.setText(String.valueOf(u.getId()));
 	}
-
-	@FXML
-	private void tri_par_choix_colonne(ContextMenuEvent event) {
-		
-	}
-
-	@FXML
-	private void tri_par_choix_etat(MouseEvent event) throws SQLException {
+	private void filterByEtat(String etat) throws SQLException{
 		page_ajout_livre.setVisible(false);
 		page_liste_livre.setVisible(false);
 		page_modifier_livre.setVisible(false);
 		page_demandes_emprunt.setVisible(true);
 		liste_emprunt.getChildren().clear();
 		List<Emprunt> emprunts = new ArrayList<Emprunt>();
-		emprunts = ser_emprunt.filterByEtat(choix_etat_emprunt.getValue());
+		emprunts = ser_emprunt.filterByEtat(etat);
 		List<Node> node_emprunt = new ArrayList<>();
 		for (Emprunt e : emprunts) {
 			try {

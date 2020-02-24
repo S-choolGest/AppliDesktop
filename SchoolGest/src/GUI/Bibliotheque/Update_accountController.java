@@ -71,6 +71,8 @@ public class Update_accountController implements Initializable {
 	private JFXPasswordField password;
 	@FXML
 	private JFXPasswordField password2;
+	@FXML
+	private JFXButton upload_image;
 
 	/**
 	 * Initializes the controller class.
@@ -89,7 +91,7 @@ public class Update_accountController implements Initializable {
 			String date = dateformat.format(datel);
 			int num = Integer.valueOf(tel.getText());
 			if (tel.getText().length() == 8) {
-				Utilisateur b = new Utilisateur(nom.getText(), prenom.getText(), email.getText(), cin.getText(), cin.getText(), num, date, adresse.getText(), 5);
+				Utilisateur b = new Utilisateur(nom.getText(), prenom.getText(), email.getText(), cin.getText(), cin.getText(), num, date, adresse.getText(), 5, "http://localhost/mobile/icons8_user_male_200px.png");
 				Boolean rs = false;
 				if (password.getText().length() != 0 && password2.getText().length() != 0) {
 					rs = ser.updatePassword(b);
@@ -97,6 +99,7 @@ public class Update_accountController implements Initializable {
 //				ser.update(b);
 				if (rs == true) {
 					System.out.println("Mise à jour effectuée");
+					error.setText("Mise à jour effectuée");
 
 				} else {
 					System.out.println("echec de mise à jour du compte !!!");

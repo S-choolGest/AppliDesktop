@@ -9,8 +9,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane id="AnchorPane" fx:id="register" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.171" fx:controller="GUI.Bibliotheque.RegisterController">
+<AnchorPane id="AnchorPane" fx:id="register" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.Bibliotheque.RegisterController">
    <children>
       <Pane layoutY="-4.0" prefHeight="669.0" prefWidth="321.0" style="-fx-background-color: #132F45;">
          <children>
@@ -23,7 +22,7 @@
       </Pane>
       <Pane layoutX="320.0" layoutY="-4.0" prefHeight="669.0" prefWidth="491.0" style="-fx-background-color: #183A56;">
          <children>
-            <Label layoutX="48.0" layoutY="106.0" prefHeight="25.0" prefWidth="55.0" text="Nom" textFill="WHITE">
+            <Label layoutX="48.0" layoutY="106.0" prefHeight="25.0" prefWidth="55.0" text="Nom" textFill="#bfbfbf">
                <font>
                   <Font size="14.0" />
                </font>
@@ -34,7 +33,7 @@
                </font>
             </JFXTextField>
             <JFXButton fx:id="creer" buttonType="RAISED" layoutX="293.0" layoutY="571.0" onAction="#ajouter_bibliothecaire" prefHeight="34.0" prefWidth="113.0" ripplerFill="#63c2d0" style="-fx-background-color: #3283B6;" text="créer un compte" textFill="WHITE" />
-            <Label layoutX="48.0" layoutY="177.0" prefHeight="25.0" prefWidth="55.0" text="Prénom" textFill="WHITE">
+            <Label layoutX="48.0" layoutY="177.0" prefHeight="25.0" prefWidth="55.0" text="Prénom" textFill="#bfbfbf">
                <font>
                   <Font size="14.0" />
                </font>
@@ -44,7 +43,7 @@
                   <Font size="14.0" />
                </font>
             </JFXTextField>
-            <Label layoutX="48.0" layoutY="245.0" prefHeight="25.0" prefWidth="75.0" text="téléphone" textFill="WHITE">
+            <Label layoutX="48.0" layoutY="245.0" prefHeight="25.0" prefWidth="75.0" text="téléphone" textFill="#bfbfbf">
                <font>
                   <Font size="14.0" />
                </font>
@@ -54,7 +53,7 @@
                   <Font size="14.0" />
                </font>
             </JFXTextField>
-            <Label layoutX="48.0" layoutY="311.0" prefHeight="25.0" prefWidth="55.0" text="Email" textFill="WHITE">
+            <Label layoutX="48.0" layoutY="311.0" prefHeight="25.0" prefWidth="55.0" text="Email" textFill="#bfbfbf">
                <font>
                   <Font size="14.0" />
                </font>
@@ -64,7 +63,7 @@
                   <Font size="14.0" />
                </font>
             </JFXTextField>
-            <Label layoutX="48.0" layoutY="378.0" prefHeight="25.0" prefWidth="120.0" text="CIN" textFill="WHITE">
+            <Label layoutX="48.0" layoutY="378.0" prefHeight="25.0" prefWidth="120.0" text="CIN" textFill="#bfbfbf">
                <font>
                   <Font size="14.0" />
                </font>
@@ -74,7 +73,7 @@
                   <Font size="14.0" />
                </font>
             </JFXTextField>
-            <Label layoutX="48.0" layoutY="448.0" prefHeight="25.0" prefWidth="120.0" text="Adresse" textFill="WHITE">
+            <Label layoutX="48.0" layoutY="448.0" prefHeight="25.0" prefWidth="120.0" text="Adresse" textFill="#bfbfbf">
                <font>
                   <Font size="14.0" />
                </font>
@@ -84,7 +83,7 @@
                   <Font size="14.0" />
                </font>
             </JFXTextField>
-            <Label layoutX="79.0" layoutY="21.0" prefHeight="74.0" prefWidth="334.0" style="-fx-background-color: #173752;" text="Nouveau Bibliothécaire" textFill="#b9b9b9">
+            <Label layoutX="79.0" layoutY="21.0" prefHeight="74.0" prefWidth="334.0" style="-fx-background-color: #173752;" text="Nouveau Bibliothécaire" textFill="#6f9cd3">
                <font>
                   <Font size="32.0" />
                </font>

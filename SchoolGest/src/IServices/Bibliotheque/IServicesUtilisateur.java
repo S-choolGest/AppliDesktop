@@ -14,7 +14,7 @@ import java.util.List;
  */
 public interface IServicesUtilisateur<T> {
 	String ajouter(T t) throws SQLException;
-    Boolean delete(int id) throws SQLException;
+    Boolean delete(String cin) throws SQLException;
     Boolean update(T t) throws SQLException;
     List<T> readAll() throws SQLException;
     List<T> search(String t) throws SQLException;

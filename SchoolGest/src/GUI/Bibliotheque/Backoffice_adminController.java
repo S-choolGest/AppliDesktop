@@ -66,8 +66,13 @@ public class Backoffice_adminController implements Initializable {
 	}
 
 	@FXML
-	private void charger_page_bibliotheques(ActionEvent event) {
-
+	private void charger_page_bibliotheques(ActionEvent event) throws IOException {
+		body.getChildren().clear();
+		FXMLLoader loader = new FXMLLoader();
+		loader.setLocation(getClass().getResource("GestionBibliotheque.fxml"));
+		Parent n = (Parent) loader.load();
+//		Emprunt_userController emp = loader.getController();
+		body.getChildren().add(n);
 	}
 	public void setProfil(Utilisateur u){
 		nom.setText(u.getNom()+" "+u.getPrenom());

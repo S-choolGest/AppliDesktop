@@ -2,6 +2,7 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.Separator?>
@@ -86,55 +87,55 @@
          </children></Pane>
       <Pane layoutX="199.0" layoutY="143.0" prefHeight="576.0" prefWidth="1081.0" style="-fx-background-color: #E1E3E2;">
          <children>
-            <Pane fx:id="page_catalogue" prefHeight="576.0" prefWidth="1081.0" visible="false">
+            <Pane fx:id="page_catalogue" prefHeight="576.0" prefWidth="1081.0">
                <children>
                   <ScrollPane fx:id="page_liste_livre" layoutX="32.0" layoutY="17.0" prefHeight="542.0" prefWidth="1017.0">
                      <content>
                         <VBox fx:id="catalogues" prefHeight="538.0" prefWidth="1015.0" style="-fx-background-color: #E1E3E2;" />
                      </content>
                   </ScrollPane>
-                  <Pane fx:id="page_detail" layoutX="226.0" layoutY="52.0" prefHeight="458.0" prefWidth="657.0" style="-fx-background-color: #fff;">
+                  <Pane fx:id="page_detail" layoutX="226.0" layoutY="52.0" prefHeight="472.0" prefWidth="657.0" style="-fx-background-color: #fff;">
                      <children>
                         <Pane fx:id="img_livre" layoutX="23.0" layoutY="12.0" prefHeight="399.0" prefWidth="200.0" />
-                        <Separator layoutX="254.0" layoutY="146.0" prefHeight="17.0" prefWidth="394.0" />
+                        <Separator layoutX="251.0" layoutY="119.0" prefHeight="17.0" prefWidth="394.0" />
                         <Label layoutX="260.0" layoutY="20.0" text="Détail du livre" textFill="#3a1c9d">
                            <font>
                               <Font name="System Bold" size="18.0" />
                            </font>
                         </Label>
-                        <Label layoutX="260.0" layoutY="219.0" text="Editeur" textFill="#aeacac">
+                        <Label layoutX="260.0" layoutY="198.0" text="Editeur" textFill="#aeacac">
                            <font>
                               <Font size="14.0" />
                            </font>
                         </Label>
-                        <Label layoutX="260.0" layoutY="166.0" text="Titre" textFill="#aeacac">
+                        <Label layoutX="260.0" layoutY="145.0" text="Titre" textFill="#aeacac">
                            <font>
                               <Font size="14.0" />
                            </font>
                         </Label>
-                        <Label fx:id="editeur" layoutX="267.0" layoutY="245.0" text="Brad Pitt" textFill="#4d4c4c">
+                        <Label fx:id="editeur" layoutX="267.0" layoutY="224.0" text="Brad Pitt" textFill="#4d4c4c">
                            <font>
                               <Font size="13.0" />
                            </font>
                         </Label>
-                        <Label fx:id="titre" layoutX="268.0" layoutY="192.0" prefHeight="19.0" prefWidth="138.0" text="titre du livre" textFill="#4d4c4c">
+                        <Label fx:id="titre" layoutX="268.0" layoutY="171.0" prefHeight="19.0" prefWidth="138.0" text="titre du livre" textFill="#4d4c4c">
                            <font>
                               <Font size="13.0" />
                            </font>
                         </Label>
-                        <Label layoutX="461.0" layoutY="217.0" text="Catégorie" textFill="#aeacac">
+                        <Label layoutX="461.0" layoutY="196.0" text="Catégorie" textFill="#aeacac">
                            <font>
                               <Font size="14.0" />
                            </font>
                         </Label>
-                        <Label fx:id="categorie" layoutX="475.0" layoutY="243.0" prefHeight="19.0" prefWidth="80.0" style="-fx-background-color: #aeacac;" text="Toggle" textFill="#fffefe">
+                        <Label fx:id="categorie" layoutX="475.0" layoutY="222.0" prefHeight="19.0" prefWidth="80.0" style="-fx-background-color: #aeacac;" text="Toggle" textFill="#fffefe">
                            <font>
                               <Font size="13.0" />
                            </font>
                         </Label>
-                        <Pane fx:id="emprunter" layoutX="315.0" layoutY="341.0" prefHeight="70.0" prefWidth="183.0" style="-fx-background-color: #F0F0F0;">
+                        <Pane fx:id="emprunter" layoutX="315.0" layoutY="376.0" prefHeight="70.0" prefWidth="183.0" style="-fx-background-color: #F0F0F0;">
                            <children>
-                              <Label layoutX="61.0" layoutY="26.0" text="Emprunter" textFill="#504df2">
+                              <Label layoutX="61.0" layoutY="22.0" text="Emprunter" textFill="#504df2">
                                  <font>
                                     <Font size="13.0" />
                                  </font>
@@ -146,68 +147,71 @@
                               <Font size="14.0" />
                            </font>
                         </Label>
-                        <Label layoutX="397.0" layoutY="74.0" text="16" textFill="#aeacac">
+                        <Label fx:id="day_sortie" layoutX="397.0" layoutY="74.0" text="16" textFill="#aeacac">
                            <font>
                               <Font name="System Bold" size="36.0" />
                            </font>
                         </Label>
-                        <Label layoutX="446.0" layoutY="82.0" text="APR" textFill="#3a1c9d" />
-                        <Label layoutX="446.0" layoutY="100.0" text="2018" textFill="#aeacac" />
+                        <Label fx:id="month_sortie" layoutX="446.0" layoutY="82.0" text="APR" textFill="#3a1c9d" />
+                        <Label fx:id="year_sortie" layoutX="446.0" layoutY="100.0" text="2018" textFill="#aeacac" />
                         <Separator layoutX="494.0" layoutY="49.0" orientation="VERTICAL" prefHeight="64.0" prefWidth="0.0" />
                         <Label layoutX="508.0" layoutY="53.0" text="Date d'ajout" textFill="#3a1c9d">
                            <font>
                               <Font size="14.0" />
                            </font>
                         </Label>
-                        <Label layoutX="508.0" layoutY="73.0" text="25" textFill="#aeacac">
+                        <Label fx:id="day_ajout" layoutX="508.0" layoutY="73.0" text="25" textFill="#aeacac">
                            <font>
                               <Font name="System Bold" size="36.0" />
                            </font>
                         </Label>
-                        <Label layoutX="557.0" layoutY="81.0" text="AUG" textFill="#3a1c9d" />
-                        <Label layoutX="557.0" layoutY="99.0" text="2018" textFill="#aeacac" />
+                        <Label fx:id="month_ajout" layoutX="557.0" layoutY="81.0" text="AUG" textFill="#3a1c9d" />
+                        <Label fx:id="year_ajout" layoutX="557.0" layoutY="99.0" text="2018" textFill="#aeacac" />
                         <Label fx:id="identifiant" layoutX="260.0" layoutY="53.0" text="Id: 20178" textFill="#b2b0b0">
                            <font>
                               <Font size="14.0" />
                            </font>
                         </Label>
-                        <Label layoutX="465.0" layoutY="164.0" text="Auteur" textFill="#aeacac">
+                        <Label layoutX="465.0" layoutY="143.0" text="Auteur" textFill="#aeacac">
                            <font>
                               <Font size="14.0" />
                            </font>
                         </Label>
-                        <Label fx:id="auteur" layoutX="472.0" layoutY="190.0" text="Brad Pitt" textFill="#4d4c4c">
+                        <Label fx:id="auteur" layoutX="472.0" layoutY="169.0" text="Brad Pitt" textFill="#4d4c4c">
                            <font>
                               <Font size="13.0" />
                            </font>
                         </Label>
-                        <Label layoutX="263.0" layoutY="275.0" text="Nombre de pages" textFill="#aeacac">
+                        <Label layoutX="263.0" layoutY="254.0" text="Nombre de pages" textFill="#aeacac">
                            <font>
                               <Font size="14.0" />
                            </font>
                         </Label>
-                        <Label fx:id="taille" layoutX="270.0" layoutY="301.0" text="200" textFill="#4d4c4c">
+                        <Label fx:id="taille" layoutX="271.0" layoutY="278.0" text="200" textFill="#4d4c4c">
                            <font>
                               <Font size="13.0" />
                            </font>
                         </Label>
-                        <Label layoutX="471.0" layoutY="273.0" text="Nombre d'exemplaires" textFill="#aeacac">
+                        <Label layoutX="471.0" layoutY="252.0" text="Nombre d'exemplaires" textFill="#aeacac">
                            <font>
                               <Font size="14.0" />
                            </font>
                         </Label>
-                        <Label fx:id="quantite" layoutX="478.0" layoutY="299.0" text="200" textFill="#4d4c4c">
+                        <Label fx:id="quantite" layoutX="478.0" layoutY="278.0" text="200" textFill="#4d4c4c">
                            <font>
                               <Font size="13.0" />
                            </font>
                         </Label>
-                        <Label fx:id="datesortie" layoutX="404.0" layoutY="119.0" text="date_sortie" />
-                        <Label fx:id="dateajout" layoutX="516.0" layoutY="119.0" text="date_ajout" />
-                        <Label fx:id="error_emprunter" layoutX="229.0" layoutY="419.0" prefHeight="17.0" prefWidth="336.0" textFill="RED">
+                        <Label fx:id="error_emprunter" layoutX="229.0" layoutY="445.0" prefHeight="25.0" prefWidth="394.0" textFill="RED">
                            <font>
                               <Font size="16.0" />
                            </font>
                         </Label>
+                        <DatePicker fx:id="date_debut" layoutX="259.0" layoutY="337.0" promptText="date début" />
+                        <DatePicker fx:id="date_fin" layoutX="443.0" layoutY="337.0" promptText="date fin" />
+                        <Label layoutX="261.0" layoutY="321.0" text="Du" />
+                        <Label layoutX="445.0" layoutY="321.0" text="au" />
+                        <Label layoutX="261.0" layoutY="301.0" prefHeight="17.0" prefWidth="103.0" text="Période d'emprunt" textFill="#aeacac" />
                      </children>
                      <effect>
                         <DropShadow color="#d7d2d2" height="50.0" radius="24.5" width="50.0" />
@@ -215,7 +219,7 @@
                   </Pane>
                </children>
             </Pane>
-            <Pane fx:id="page_emprunts" layoutY="-4.0" prefHeight="583.0" prefWidth="1081.0">
+            <Pane fx:id="page_emprunts" layoutY="-4.0" prefHeight="583.0" prefWidth="1081.0" visible="false">
                <children>
                   <ScrollPane fx:id="demandes_emprunt" layoutX="45.0" layoutY="47.0" prefHeight="525.0" prefWidth="1010.0">
                      <content>

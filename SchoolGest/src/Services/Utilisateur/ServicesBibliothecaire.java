@@ -12,6 +12,8 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 
 /**
  *
@@ -30,39 +32,36 @@ public class ServicesBibliothecaire implements IServices.Bibliotheque.IServices<
 	@Override
 	public boolean ajouter(Bibliothecaire b) throws SQLException {
 		if (search(b) == null) {
+			b.setProfil("http://localhost/mobile/icons8_user_male_200px.png");
 			ser.ajouter(b);
 			PreparedStatement pre = con.prepareStatement("insert INTO `edutech`.`Bibliothecaire` (`id`) VALUES (?);");
-			pre.setInt(1, b.getId());
+			pre.setInt(1, ser.recuperer_id(b.getEmail()));
 			return pre.executeUpdate() != 0;
 		}
 		System.out.println("Bibliothecaire existant !!!");
 		return false;
 	}
 
-	@Override
-	public boolean delete(int id) throws SQLException {
+	public boolean delete(String cin) throws SQLException {
+		Boolean rep = false;
 		PreparedStatement pre = con.prepareStatement("delete from `edutech`.`Bibliothecaire` where `id` =  ?");
-		pre.setInt(1, id);
-		ser.delete(id);
-		return pre.executeUpdate() != 0;
+		pre.setInt(1, ser.recuperer_id_by_cin(cin));
+		if (pre.executeUpdate() != 0) {
+			rep = ser.delete(cin);
+		}
+		return rep;
 	}
 
 	@Override
 	public boolean update(Bibliothecaire b) throws SQLException {
-		ser.update(b);
-		PreparedStatement pre = con.prepareStatement("update `edutech`.`Bibliothecaire` set `id_bibliotheque` = ?, `heure_debut` = ?, `heure_arret` = ? where `id` = ?;");
-		pre.setInt(1, b.getId_bibliotheque());
-		pre.setString(2, b.getHeure_debut());
-		pre.setString(3, b.getHeure_arret());
-		pre.setInt(4, b.getId());
-		return pre.executeUpdate() != 0;
+		return ser.update(b);
 	}
 
 	@Override
 	public List<Bibliothecaire> readAll() throws SQLException {
 		List<Bibliothecaire> listB = new ArrayList<>();
 		ste = con.createStatement();
-		ResultSet rs = ste.executeQuery("select u.id, u.nom, u.prenom, u.email, u.password, u.cin, u.numtel, u.datenaissance, u.adresse, u.type, b.id_bibliotheque, b.heure_debut, b.heure_arret from Bibliothecaire b inner join utilisateur u on b.id = u.id");
+		ResultSet rs = ste.executeQuery("select id, nom, prenom, email, password, cin, numtel, datenaissance, adresse, type, profil from utilisateur");
 		while (rs.next()) {
 			int id = rs.getInt(1);
 			String nom = rs.getString(2);
@@ -74,10 +73,8 @@ public class ServicesBibliothecaire implements IServices.Bibliotheque.IServices<
 			String datenaissance = rs.getString(8);
 			String adresse = rs.getString(9);
 			int type = rs.getInt(10);
-			int id_bibliotheque = rs.getInt(11);
-			String heure_debut = rs.getString(12);
-			String heure_arret = rs.getString(13);
-			Bibliothecaire b = new Bibliothecaire(id_bibliotheque, heure_debut, heure_arret, id, nom, prenom, email, password, cin, numtel, datenaissance, adresse, type);
+			String profil = rs.getString(11);
+			Bibliothecaire b = new Bibliothecaire(id, nom, prenom, email, password, cin, numtel, datenaissance, adresse, type, profil);
 			listB.add(b);
 		}
 		return listB;
@@ -107,8 +104,40 @@ public class ServicesBibliothecaire implements IServices.Bibliotheque.IServices<
 		return result;
 	}
 
+	public Bibliothecaire searchByCIN(String cin) throws SQLException {
+		List<Bibliothecaire> listE = new ArrayList<>();
+		listE = readAll();
+		Bibliothecaire result = listE.stream().filter(a -> a.getCin().equals(cin)).findAny().orElse(null);
+		return result;
+	}
+
 	@Override
 	public List<Bibliothecaire> triAll(String t, String ordre) throws SQLException {
 		throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+	}
+
+	@Override
+	public boolean delete(int id) throws SQLException {
+		throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+	}
+
+	public int searchByEmail(String email) throws SQLException {
+		List<Bibliothecaire> listE = new ArrayList<>();
+		listE = readAll();
+		Bibliothecaire result = listE.stream().filter(a -> a.getEmail().equals(email)).findAny().orElse(null);
+		if (result != null) {
+			return result.getId();
+		}
+		return -1;
+	}
+
+	public String getEmailById(int id) throws SQLException {
+		List<Bibliothecaire> listE = new ArrayList<>();
+		listE = readAll();
+		Bibliothecaire result = listE.stream().filter(a -> a.getId() == id).findAny().orElse(null);
+		if (result != null) {
+			return result.getEmail();
+		}
+		return "";
 	}
 }

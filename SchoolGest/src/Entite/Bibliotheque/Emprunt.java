@@ -21,17 +21,21 @@ public class Emprunt {
     private String dateEmprunt;
     private String dateConfirmation;
     private String dateRendu;
+	private String dateDebut;
+	private String dateFin;
 
-    public Emprunt(int idEmprunteur, int idLivre, Etat etat, String dateEmprunt, String dateConfirmation, String dateRendu) {
+    public Emprunt(int idEmprunteur, int idLivre, Etat etat, String dateEmprunt, String dateConfirmation, String dateRendu, String dateDebut, String dateFin) {
         this.idEmprunteur = idEmprunteur;
         this.idLivre = idLivre;
         this.etat = etat;
         this.dateEmprunt = dateEmprunt;
         this.dateConfirmation = dateConfirmation;
         this.dateRendu = dateRendu;
+        this.dateDebut = dateDebut;
+        this.dateFin = dateFin;
     }
 
-    public Emprunt(int id, int idEmprunteur, int idLivre, Etat etat, String dateEmprunt, String dateConfirmation, String dateRendu) {
+    public Emprunt(int id, int idEmprunteur, int idLivre, Etat etat, String dateEmprunt, String dateConfirmation, String dateRendu, String dateDebut, String dateFin) {
         this.id = id;
         this.idEmprunteur = idEmprunteur;
         this.idLivre = idLivre;
@@ -39,6 +43,8 @@ public class Emprunt {
         this.dateEmprunt = dateEmprunt;
         this.dateConfirmation = dateConfirmation;
         this.dateRendu = dateRendu;
+        this.dateDebut = dateDebut;
+        this.dateFin = dateFin;
     }
 
     public Emprunt(int id) {
@@ -101,10 +107,26 @@ public class Emprunt {
         this.dateRendu = dateRendu;
     }
 
-    @Override
-    public String toString() {
-        return "Emprunt{" + "id=" + id + ", idEmprunteur=" + idEmprunteur + ", idLivre=" + idLivre + ", etat=" + etat + ", dateEmprunt=" + dateEmprunt + ", dateConfirmation=" + dateConfirmation + ", dateRendu=" + dateRendu + '}';
-    }
+	public String getDateDebut() {
+		return dateDebut;
+	}
+
+	public void setDateDebut(String dateDebut) {
+		this.dateDebut = dateDebut;
+	}
+
+	public String getDateFin() {
+		return dateFin;
+	}
+
+	public void setDateFin(String dateFin) {
+		this.dateFin = dateFin;
+	}
+
+	@Override
+	public String toString() {
+		return "Emprunt{" + "id=" + id + ", idEmprunteur=" + idEmprunteur + ", idLivre=" + idLivre + ", etat=" + etat + ", dateEmprunt=" + dateEmprunt + ", dateConfirmation=" + dateConfirmation + ", dateRendu=" + dateRendu + ", dateDebut=" + dateDebut + ", dateFin=" + dateFin + '}';
+	}
 
     @Override
     public int hashCode() {

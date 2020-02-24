@@ -39,27 +39,27 @@ public class testBibliotheque {
 //            System.out.println(ex);
 //        }
         
-        
-        ServicesEmprunt ser = new ServicesEmprunt();
-        
-        Emprunt e1 = new Emprunt(1, 5, Etat.attente, "2020-01-01", null, null);
-        Emprunt e2 = new Emprunt(4, 7, Etat.rendu, "2019-01-01", null, null);
-        Emprunt e3 = new Emprunt(1, 4, 45, Etat.rendu, "2019-01-01", "2020-01-05", null);
-        Emprunt e4 = new Emprunt(8);
-        
-        try{
-//            ser.emprunter(1, 6);
-//            ser.confirmerEmprunt(5, Etat.refus);
-//            ser.ajouter(e2);
-//            ser.ajouter(e1);
-            //ser.update(e3);
-//            ser.delete(e4);
-            List<Emprunt> list = ser.readAll();
-            System.out.println(list);
-        } catch(SQLException ex){
-            System.out.println(ex);
-        }
-        
+//        
+//        ServicesEmprunt ser = new ServicesEmprunt();
+//        
+//        Emprunt e1 = new Emprunt(1, 5, Etat.attente, "2020-01-01", null, null);
+//        Emprunt e2 = new Emprunt(4, 7, Etat.rendu, "2019-01-01", null, null);
+//        Emprunt e3 = new Emprunt(1, 4, 45, Etat.rendu, "2019-01-01", "2020-01-05", null);
+//        Emprunt e4 = new Emprunt(8);
+//        
+//        try{
+////            ser.emprunter(1, 6);
+////            ser.confirmerEmprunt(5, Etat.refus);
+////            ser.ajouter(e2);
+////            ser.ajouter(e1);
+//            //ser.update(e3);
+////            ser.delete(e4);
+//            List<Emprunt> list = ser.readAll();
+//            System.out.println(list);
+//        } catch(SQLException ex){
+//            System.out.println(ex);
+//        }
+//        
 //        ServicesBibliotheque ser = new ServicesBibliotheque();
 //        
 //        Bibliotheque l1 = new Bibliotheque("bb1", 1000);

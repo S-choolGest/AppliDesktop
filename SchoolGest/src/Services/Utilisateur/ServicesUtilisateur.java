@@ -16,6 +16,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 
 /**
  *
@@ -33,7 +35,7 @@ public class ServicesUtilisateur implements IServicesUtilisateur<Utilisateur> {
 	@Override
 	public String ajouter(Utilisateur t) throws SQLException {
 		if (search(t.getId()) == null) {
-			PreparedStatement pre = con.prepareStatement("insert INTO `edutech`.`utilisateur` (`nom`, `prenom`, `email`, `password`, `cin`, `numTel`, `datenaissance`, `adresse`, `type`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);");
+			PreparedStatement pre = con.prepareStatement("insert INTO `edutech`.`utilisateur` (`nom`, `prenom`, `email`, `password`, `cin`, `numTel`, `datenaissance`, `adresse`, `type`, `profil`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?);");
 			pre.setString(1, t.getNom());
 			pre.setString(2, t.getPrenom());
 			pre.setString(3, t.getEmail());
@@ -43,6 +45,7 @@ public class ServicesUtilisateur implements IServicesUtilisateur<Utilisateur> {
 			pre.setString(7, t.getDateNaissance());
 			pre.setString(8, t.getAdresse());
 			pre.setInt(9, t.getType());
+			pre.setString(10, t.getProfil());
 			pre.executeUpdate();
 			return "ajout reussie";
 		}
@@ -51,9 +54,9 @@ public class ServicesUtilisateur implements IServicesUtilisateur<Utilisateur> {
 	}
 
 	@Override
-	public Boolean delete(int id) throws SQLException {
-		PreparedStatement pre = con.prepareStatement("delete from `edutech`.`utilisateur` where `id` =  ?");
-		pre.setInt(1, id);
+	public Boolean delete(String cin) throws SQLException {
+		PreparedStatement pre = con.prepareStatement("delete from `edutech`.`utilisateur` where `cin` =  ?");
+		pre.setString(1, cin);
 		return pre.executeUpdate() != 0;
 	}
 
@@ -67,16 +70,18 @@ public class ServicesUtilisateur implements IServicesUtilisateur<Utilisateur> {
 		pre.setInt(5, t.getNumTel());
 		pre.setString(6, t.getDateNaissance());
 		pre.setString(7, t.getAdresse());
-		pre.setString(8, t.getProfil());
+//		pre.setString(8, t.getProfil());
 		pre.setInt(9, t.getId());
 		return pre.executeUpdate() != 0;
 	}
+
 	public Boolean updatePassword(Utilisateur t) throws SQLException {
 		PreparedStatement pre = con.prepareStatement("update `edutech`.`utilisateur` set `password` = ? where `id` = ?;");
 		pre.setString(1, t.getPassword());
 		pre.setInt(2, t.getId());
 		return pre.executeUpdate() != 0;
 	}
+
 	@Override
 	public List<Utilisateur> readAll() throws SQLException {
 		throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
@@ -129,5 +134,25 @@ public class ServicesUtilisateur implements IServicesUtilisateur<Utilisateur> {
 			return b;
 		}
 		return null;
+	}
+
+	public int recuperer_id(String email) throws SQLException {
+		PreparedStatement pre = con.prepareStatement("select id from utilisateur where email = ?");
+		pre.setString(1, email);
+		ResultSet rs = pre.executeQuery();
+		while (rs.next()) {
+			int id = rs.getInt(1);
+			return id;
+		}
+		return -1;
+	}
+	public int recuperer_id_by_cin(String cin) throws SQLException {
+		PreparedStatement pre = con.prepareStatement("select id from utilisateur where cin = ?");
+		pre.setString(1, cin);
+		ResultSet rs = pre.executeQuery();
+		while (rs.next()) {
+			return rs.getInt(1);
+		}
+		return -1;
 	}
 }

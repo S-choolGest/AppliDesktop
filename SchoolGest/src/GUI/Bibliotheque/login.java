@@ -22,7 +22,7 @@ import javafx.stage.StageStyle;
  *
  * @author william
  */
-public class Bibliotheque extends Application {
+public class login extends Application {
 
 	@Override
 	public void start(Stage Stage) throws IOException {

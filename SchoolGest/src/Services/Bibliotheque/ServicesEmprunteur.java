@@ -36,7 +36,7 @@ public class ServicesEmprunteur implements IServiceEmprunteur<Emprunteur> {
 	@Override
 	public Emprunteur read(int id) throws SQLException {
 //		List<Emprunteur> listE = new ArrayList<>();
-		PreparedStatement pre = con.prepareStatement("select a.idlivre, a.etat, a.dateemprunt, a.dateconfirmation, a.daterendu, b.nom, b.prenom, b.email, b.numtel, b.id, c.img from utilisateur b "
+		PreparedStatement pre = con.prepareStatement("select a.idlivre, a.etat, date_format(a.dateemprunt, '%Y-%b-%d'), date_format(a.dateconfirmation, '%Y-%b-%d'), date_format(a.daterendu, '%Y-%b-%d'), b.nom, b.prenom, b.email, b.numtel, b.id, c.img, a.datedebut, a.datefin from utilisateur b "
 				+ "inner join emprunt a on a.idemprunteur = b.id "
 				+ "inner join livre c on c.id = a.idlivre  where a.id = ?");
 		pre.setInt(1, id);
@@ -53,7 +53,9 @@ public class ServicesEmprunteur implements IServiceEmprunteur<Emprunteur> {
 			int numtele = rs.getInt(9);
 			int ide = rs.getInt(10);
 			String img = rs.getString(11);
-			Emprunteur b = new Emprunteur(nome, prenome, numtele, emaile, id, ide, idlivre, Etat.valueOf(etat), dateEmprunt, dateConfirmation, dateRendu, img);
+			String datedebut = rs.getString(12);
+			String datefin = rs.getString(13);
+			Emprunteur b = new Emprunteur(nome, prenome, numtele, emaile, img, id, ide, idlivre, Etat.valueOf(etat), dateEmprunt, dateConfirmation, dateRendu, datedebut, datefin);
 			return b;
 		}
 		return null;

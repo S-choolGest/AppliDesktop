@@ -42,12 +42,6 @@ public class EmpruntController implements Initializable {
 	private Label id_emprunteur;
 	@FXML
 	private Label id_emprunt;
-	@FXML
-	private Label dateemprunt;
-	@FXML
-	private Label dateconfirmation;
-	@FXML
-	private Label dateretour;
 	private ServicesEmprunteur ser = new ServicesEmprunteur();
 	private ServicesEmprunt ser_emp = new ServicesEmprunt();
 	@FXML
@@ -70,16 +64,35 @@ public class EmpruntController implements Initializable {
 	private ImageView etat_ko;
 	@FXML
 	private ImageView img_livre;
+	@FXML
+	private Label day_confirmation;
+	@FXML
+	private Label month_confirmation;
+	@FXML
+	private Label year_confirmation;
+	@FXML
+	private Label day_retour;
+	@FXML
+	private Label month_retour;
+	@FXML
+	private Label year_retour;
+	@FXML
+	private Label day_emprunt;
+	@FXML
+	private Label month_emprunt;
+	@FXML
+	private Label year_emprunt;
+
 	/**
 	 * Initializes the controller class.
 	 */
 	@Override
 	public void initialize(URL url, ResourceBundle rb) {
 		// TODO
-	}	
-	
-	public void init(int id) throws SQLException{
-		id_emprunt.setText("Id : "+String.valueOf(id));
+	}
+
+	public void init(int id) throws SQLException {
+		id_emprunt.setText("Id : " + String.valueOf(id));
 		Emprunteur e = ser.read(id);
 		nom_emprunteur.setText(e.getNom());
 		prenom_emprunteur.setText(e.getPrenom());
@@ -88,30 +101,61 @@ public class EmpruntController implements Initializable {
 		id_emprunteur.setText(String.valueOf(e.getIdEmprunteur()));
 		tel_emprunteur.setText(String.valueOf(e.getTel()));
 		id_livre.setText(String.valueOf(e.getIdLivre()));
-		dateconfirmation.setText(e.getDateConfirmation());
-		dateemprunt.setText(e.getDateEmprunt());
-		dateretour.setText(e.getDateRendu());
+		try {
+			String[] dateC = e.getDateConfirmation().split("-");
+			day_confirmation.setText(dateC[2]);
+			month_confirmation.setText(dateC[1]);
+			year_confirmation.setText(dateC[0]);
+		} catch (Exception ex) {
+			System.out.println(ex);
+			day_confirmation.setText("jj");
+			month_confirmation.setText("mois");
+			year_confirmation.setText("année");
+		}
+		try {
+			String[] dateE = e.getDateEmprunt().split("-");
+			day_emprunt.setText(dateE[2]);
+			month_emprunt.setText(dateE[1]);
+			year_emprunt.setText(dateE[0]);
+
+		} catch (Exception ex) {
+			System.out.println(ex);
+			day_emprunt.setText("jj");
+			month_emprunt.setText("mois");
+			year_emprunt.setText("année");
+		}
+		try {
+			String[] dateR = e.getDateRendu().split("-");
+			day_retour.setText(dateR[2]);
+			month_retour.setText(dateR[1]);
+			year_retour.setText(dateR[1]);
+		} catch (Exception ex) {
+			System.out.println(ex);
+			day_retour.setText("jj");
+			month_retour.setText("mois");
+			year_retour.setText("année");
+		}
+
 		img_livre.setImage(new Image(e.getImg()));
-		if(e.getEtat() == Etat.rendu){
+		if (e.getEtat() == Etat.rendu) {
 			btn_accepter.setVisible(false);
 			btn_refuser.setVisible(false);
 			btn_retour.setVisible(false);
 			etat_ok.setVisible(true);
 			etat_ko.setVisible(false);
-		}else if(e.getEtat() == Etat.refus){
+		} else if (e.getEtat() == Etat.refus) {
 			btn_accepter.setVisible(false);
 			btn_refuser.setVisible(false);
 			btn_retour.setVisible(false);
 			etat_ok.setVisible(false);
 			etat_ko.setVisible(true);
-		}
-		else if(e.getEtat() != Etat.attente){
+		} else if (e.getEtat() != Etat.attente) {
 			btn_accepter.setVisible(false);
 			btn_refuser.setVisible(false);
 			btn_retour.setVisible(true);
 			etat_ok.setVisible(false);
 			etat_ko.setVisible(false);
-		}else{
+		} else {
 			btn_accepter.setVisible(true);
 			btn_refuser.setVisible(true);
 			btn_retour.setVisible(false);
@@ -148,6 +192,6 @@ public class EmpruntController implements Initializable {
 				}
 			}
 		});
-	}	
-	
+	}
+
 }

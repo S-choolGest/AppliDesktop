@@ -5,8 +5,8 @@
  */
 package GUI.Bibliotheque;
 
-import Entite.Utilisateur.Bibliothecaire;
-import Services.Utilisateur.ServicesBibliothecaire;
+import Entite.Bibliotheque.Bibliotheque;
+import Services.Bibliotheque.ServicesBibliotheque;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
 import java.net.URL;
@@ -25,35 +25,35 @@ import javafx.scene.input.MouseEvent;
  *
  * @author william
  */
-public class Delete_accountController implements Initializable {
+public class Supprimer_bibliothequeController implements Initializable {
 
-	@FXML
-	private JFXTextField nom;
 	@FXML
 	private JFXButton supprimer;
 	@FXML
-	private JFXTextField email;
+	private JFXTextField nom;
 	@FXML
-	private JFXTextField cin;
+	private JFXTextField adresse;
 	@FXML
 	private ImageView close;
-	private boolean delete = false;
-	private ServicesBibliothecaire ser = new ServicesBibliothecaire();
 	@FXML
 	private Label error;
-
+	private ServicesBibliotheque ser = new ServicesBibliotheque();
+	@FXML
+	private JFXTextField capacite;
+	private boolean delete = false;
 	/**
 	 * Initializes the controller class.
 	 */
 	@Override
 	public void initialize(URL url, ResourceBundle rb) {
 		// TODO
-	}
+	}	
 
 	@FXML
-	private void supprimer_bibliothecaire(ActionEvent event) throws SQLException {
+	private void supprimer_bibliotheque(ActionEvent event) throws SQLException {
 		if (delete == true) {
-			if(ser.delete(cin.getText()))
+			int id = ser.searchByAdresse(adresse.getText()).getId();
+			if(ser.delete(id))
 				error.setText("Suppression reussite !!!");
 			else
 				error.setText("Echec de suppression !!!");
@@ -63,33 +63,31 @@ public class Delete_accountController implements Initializable {
 	}
 
 	@FXML
-	private void close_window(MouseEvent event) {
-
-	}
-
-	@FXML
-	private void rechercher_bibliothecaire(KeyEvent event) throws SQLException {
+	private void rechercher_bibliotheque(KeyEvent event) {
 		try {
 			error.setText("");
-			Bibliothecaire b = ser.searchByCIN(cin.getText());
+			Bibliotheque b = ser.searchByAdresse(adresse.getText());
 			if (b != null) {
-				nom.setText(b.getNom() + " " + b.getPrenom());
-				email.setText(b.getEmail());
-				cin.setText(b.getCin());
+				nom.setText(b.getNom());
+				capacite.setText(String.valueOf(b.getCapacite()));
 				delete = true;
 			} else {
 				nom.setText("");
-				email.setText("");
+				capacite.setText("");
 				delete = false;
-				error.setText("CIN incorrect!!!");
+				error.setText("Adresse incorrecte!!!");
 			}
 		} catch (Exception e) {
-			error.setText("CIN incorrect!!!");
+			error.setText("Adresse incorrecte!!!");
 			nom.setText("");
-			email.setText("");
+			capacite.setText("");
 			delete = true;
 			System.out.println(e);
 		}
 	}
 
+	@FXML
+	private void close_window(MouseEvent event) {
+	}
+	
 }

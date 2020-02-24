@@ -102,7 +102,7 @@ public class ServicesLivres implements IServices<Livre> {
     public List<Livre> readAll() throws SQLException {
         List<Livre> listE = new ArrayList<>();
         ste = con.createStatement();
-        ResultSet rs = ste.executeQuery("select * from livre");
+        ResultSet rs = ste.executeQuery("select id, id_bibliotheque, titre, auteur, editeur, categorie, date_format(datesortie, '%Y-%b-%d'), taille, quantite, img, date_format(dateajout, '%Y-%b-%d') from livre");
         while (rs.next()) {
             int id = rs.getInt(1);
             int id_bibliotheque = rs.getInt(2);

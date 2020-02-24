@@ -42,7 +42,6 @@ public class BibliothecairesController implements Initializable {
 
 	@FXML
 	private TableView<Bibliothecaire> list_bibliothecaire;
-	@FXML
 	private TableColumn<Bibliothecaire, Integer> id;
 	@FXML
 	private TableColumn<Bibliothecaire, String> nom;
@@ -111,7 +110,7 @@ public class BibliothecairesController implements Initializable {
 		Parent n = (Parent) loader.load();
 		Delete_accountController del = loader.getController();
 		Stage stage = new Stage();
-		stage.setTitle("Ajouter bibliothecaire ");
+		stage.setTitle("Supprimer bibliothecaire ");
 		Scene scene = new Scene(n);
 		stage.setResizable(false);
 //        scene.setFill(javafx.scene.paint.Color.TRANSPARENT);
@@ -120,15 +119,14 @@ public class BibliothecairesController implements Initializable {
 	}
 	private void refresh_view_bibliothecaire(String input_text) throws SQLException {
 		ObservableList<Bibliothecaire> list = getBibiothecaireList(input_text);
-		id.setCellValueFactory(new PropertyValueFactory<Bibliothecaire, Integer>("id"));
 		nom.setCellValueFactory(new PropertyValueFactory<Bibliothecaire, String>("nom"));
 		prenom.setCellValueFactory(new PropertyValueFactory<Bibliothecaire, String>("prenom"));
 		email.setCellValueFactory(new PropertyValueFactory<Bibliothecaire, String>("email"));
 		cin.setCellValueFactory(new PropertyValueFactory<Bibliothecaire, String>("cin"));
 		adresse.setCellValueFactory(new PropertyValueFactory<Bibliothecaire, String>("adresse"));
 		datenaissance.setCellValueFactory(new PropertyValueFactory<Bibliothecaire, String>("dateNaissance"));
-		tel.setCellValueFactory(new PropertyValueFactory<Bibliothecaire, Integer>("numtel"));
-//		img.setCellValueFactory(new PropertyValueFactory<Bibliothecaire, ImageView>("numtel"));
+		tel.setCellValueFactory(new PropertyValueFactory<Bibliothecaire, Integer>("numTel"));
+		img.setCellValueFactory(new PropertyValueFactory<Bibliothecaire, ImageView>("profil"));
 		list_bibliothecaire.setItems(list);
 	}
 	private ObservableList<Bibliothecaire> getBibiothecaireList(String input_text) throws SQLException {

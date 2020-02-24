@@ -53,7 +53,7 @@ public class ServicesEmprunt implements IServices<Emprunt> {
 		return pre.executeUpdate() != 0;
 	}
 
-	public String emprunter(int id_emprunteur, int id_livre) throws SQLException {
+	public String emprunter(int id_emprunteur, int id_livre, String date_debut, String date_fin) throws SQLException {
 		List<Emprunt> listE = readAll();
 		long nbr = listE.stream().filter(a -> a.getIdEmprunteur() == id_emprunteur).count();
 		if (nbr >= 3) {
@@ -65,10 +65,16 @@ public class ServicesEmprunt implements IServices<Emprunt> {
 			System.out.println("livre deja emprunte !!!");
 			return "livre deja emprunte !!!";
 		}
-		PreparedStatement pre = con.prepareStatement("insert INTO `edutech`.`emprunt` (`idemprunteur`, `idlivre`, `etat`, `dateEmprunt`) VALUES (?, ?, ?, current_timestamp);");
+//		if(date_debut.compareTo(date_fin)){
+//			System.out.println("zae");
+//		}
+		//Emprunt emp1 = listE.stream().filter(e -> e.getIdLivre() == id_livre && (date_debut > e.getDateFin() || ((date_debut < e.getDateFin() || date_debut < e.getDateDebut()) && date_fin < e.getDateDebut()) )).findAny().orElse(null);
+		PreparedStatement pre = con.prepareStatement("insert INTO `edutech`.`emprunt` (`idemprunteur`, `idlivre`, `etat`, `dateEmprunt`, `datedebut`, `datefin`) VALUES (?, ?, ?, current_timestamp, ?, ?);");
 		pre.setInt(1, id_emprunteur);
 		pre.setInt(2, id_livre);
 		pre.setString(3, Etat.attente.toString());
+		pre.setString(4, date_debut);
+		pre.setString(5, date_fin);
 		int rep = pre.executeUpdate();
 		if (rep == 0) {
 			return "Emprunt impossible !!!";
@@ -116,7 +122,8 @@ public class ServicesEmprunt implements IServices<Emprunt> {
 	public List<Emprunt> readAll() throws SQLException {
 		List<Emprunt> listE = new ArrayList<>();
 		ste = con.createStatement();
-		ResultSet rs = ste.executeQuery("select * from emprunt");
+//		ResultSet rs = ste.executeQuery("select id, idemprunteur, idlivre, etat, date_format(dateemprunt, '%Y-%b-%d'), date_format(dateconfirmation, '%Y-%b-%d'), date_format(daterendu, '%Y-%b-%d'), date_format(datedebut, '%Y-%b-%d'), date_format(datefin, '%Y-%b-%d') from emprunt");
+		ResultSet rs = ste.executeQuery("select id, idemprunteur, idlivre, etat, dateemprunt, dateconfirmation, daterendu, datedebut, datefin from emprunt");
 		while (rs.next()) {
 			int id = rs.getInt(1);
 			int idemprunteur = rs.getInt(2);
@@ -125,7 +132,9 @@ public class ServicesEmprunt implements IServices<Emprunt> {
 			String dateEmprunt = rs.getString(5);
 			String dateConfirmation = rs.getString(6);
 			String dateRendu = rs.getString(7);
-			Emprunt b = new Emprunt(id, idemprunteur, idlivre, Etat.valueOf(etat), dateEmprunt, dateConfirmation, dateRendu);
+			String dateDebut = rs.getString(8);
+			String dateFin = rs.getString(9);
+			Emprunt b = new Emprunt(id, idemprunteur, idlivre, Etat.valueOf(etat), dateEmprunt, dateConfirmation, dateRendu, dateDebut, dateFin);
 			listE.add(b);
 		}
 		return listE;
