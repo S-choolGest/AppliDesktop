@@ -3,9 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package GUI.Bibliotheque;
+package GUI.InterfaceAdmin;
 
 import GUI.Bibliotheque.admin.Backoffice_adminController;
+import GUI.Bibliotheque.*;
 import Entite.Utilisateur.Utilisateur;
 import Services.Utilisateur.ServicesUtilisateur;
 import com.jfoenix.controls.JFXButton;
@@ -46,11 +47,6 @@ public class LoginController implements Initializable {
 	private ServicesUtilisateur ser = new ServicesUtilisateur();
 	@FXML
 	private ImageView btn_close;
-	private double sx = 0;
-	private double sy = 0;
-	private double stagex = 0;
-	private double stagey = 0;
-	private Stage stage;
 
 	/**
 	 * Initializes the controller class.
@@ -86,7 +82,7 @@ public class LoginController implements Initializable {
 				stage.show();
 			} else if (u.getType() == 3) {
 				FXMLLoader loader = new FXMLLoader();
-				loader.setLocation(getClass().getResource("admin/backoffice_admin.fxml"));
+				loader.setLocation(getClass().getResource("backoffice_admin.fxml"));
 				Parent n = (Parent) loader.load();
 				Backoffice_adminController user = loader.getController();
 				user.setProfil(u);
@@ -131,7 +127,6 @@ public class LoginController implements Initializable {
 			public void handle(MouseEvent event) {
 
 				System.out.println("fuck");
-				stage.close();
 			}
 		});
 		return btn_close;
@@ -143,29 +138,4 @@ public class LoginController implements Initializable {
 
 	}
 
-	@FXML
-	private void deplacer_window(MouseEvent event) {
-		this.stage.setX(event.getScreenX() - sx);
-		this.stage.setY(event.getScreenY() - sy);
-		this.stage.setOpacity(0.9);
-	}
-
-	@FXML
-	private void recuperer_position(MouseEvent event) {
-		sx = event.getScreenX() - event.getSceneX();
-		sy = event.getScreenY() - event.getSceneY();
-		stagex = event.getSceneX();
-		stagey = event.getSceneY();
-		System.out.println("posx = "+event.getX());
-		System.out.println("posy = "+event.getY());
-	}
-
-	public void getStage(Stage stage) {
-		this.stage = stage;
-	}
-
-	@FXML
-	private void setOpacity(MouseEvent event) {
-		this.stage.setOpacity(1);
-	}
 }

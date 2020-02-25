@@ -14,139 +14,170 @@
    <children>
       <Pane layoutX="57.0" layoutY="7.0" prefHeight="243.0" prefWidth="896.0" style="-fx-background-color: #fff;">
          <children>
-            <Separator layoutX="209.0" layoutY="93.0" prefHeight="4.0" prefWidth="673.0" />
+            <Separator layoutX="207.0" layoutY="141.0" prefHeight="4.0" prefWidth="673.0" />
             <Label layoutX="212.0" layoutY="19.0" text="Emprunt" textFill="#3a1c9d">
                <font>
                   <Font name="System Bold" size="18.0" />
                </font>
             </Label>
-            <Label layoutX="212.0" layoutY="113.0" text="Nom" textFill="#aeacac">
+            <Label layoutX="210.0" layoutY="152.0" text="Nom" textFill="#aeacac">
                <font>
                   <Font size="14.0" />
                </font>
             </Label>
-            <Label layoutX="212.0" layoutY="186.0" text="Identifiant" textFill="#aeacac">
+            <Label layoutX="212.0" layoutY="197.0" text="Identifiant" textFill="#aeacac">
                <font>
                   <Font size="14.0" />
                </font>
             </Label>
-            <Label layoutX="440.0" layoutY="113.0" text="Prénom" textFill="#aeacac">
+            <Label layoutX="438.0" layoutY="152.0" text="Prénom" textFill="#aeacac">
                <font>
                   <Font size="14.0" />
                </font>
             </Label>
-            <Label layoutX="727.0" layoutY="112.0" text="Livre Id" textFill="#aeacac">
+            <Label layoutX="210.0" layoutY="50.0" text="Info sur livre" textFill="#aeacac">
                <font>
                   <Font size="14.0" />
                </font>
             </Label>
-            <Label fx:id="nom_emprunteur" layoutX="219.0" layoutY="139.0" text="Brad Pitt" textFill="#4d4c4c">
+            <Label fx:id="nom_emprunteur" layoutX="217.0" layoutY="178.0" text="Brad Pitt" textFill="#4d4c4c">
                <font>
                   <Font size="13.0" />
                </font>
             </Label>
-            <Label fx:id="prenom_emprunteur" layoutX="448.0" layoutY="139.0" text="\$1000" textFill="#4d4c4c">
+            <Label fx:id="prenom_emprunteur" layoutX="446.0" layoutY="178.0" text="\$1000" textFill="#4d4c4c">
                <font>
                   <Font size="13.0" />
                </font>
             </Label>
-            <Label fx:id="id_livre" layoutX="739.0" layoutY="139.0" text="livreid" textFill="#4d4c4c">
+            <Label fx:id="info_livre" layoutX="217.0" layoutY="69.0" prefHeight="64.0" prefWidth="284.0" text="nomlivre" textFill="#3a1c9d" wrapText="true">
                <font>
                   <Font size="13.0" />
                </font>
             </Label>
-            <Label fx:id="id_emprunteur" layoutX="219.0" layoutY="211.0" text="London" textFill="#4d4c4c">
+            <Label fx:id="id_emprunteur" layoutX="219.0" layoutY="222.0" text="London" textFill="#4d4c4c">
                <font>
                   <Font size="13.0" />
                </font>
             </Label>
-            <Label layoutX="576.0" layoutY="113.0" text="Statut" textFill="#aeacac">
+            <Label layoutX="649.0" layoutY="150.0" text="Statut" textFill="#aeacac">
                <font>
                   <Font size="14.0" />
                </font>
             </Label>
-            <Label fx:id="etat" layoutX="576.0" layoutY="139.0" prefHeight="19.0" prefWidth="86.0" style="-fx-background-color: #aeacac;" text="En attente" textFill="#fffefe">
+            <Label fx:id="etat" layoutX="649.0" layoutY="176.0" prefHeight="19.0" prefWidth="86.0" style="-fx-background-color: #aeacac;" text="En attente" textFill="#fffefe">
                <font>
                   <Font size="13.0" />
                </font>
             </Label>
-            <Label layoutX="608.0" layoutY="13.0" text="date confirmation" textFill="#3a1c9d">
+            <Label layoutX="608.0" layoutY="1.0" text="date confirmation" textFill="#3a1c9d">
                <font>
                   <Font size="14.0" />
                </font>
             </Label>
-            <Label fx:id="day_confirmation" layoutX="625.0" layoutY="32.0" text="16" textFill="#aeacac">
+            <Label fx:id="day_confirmation" layoutX="625.0" layoutY="20.0" text="16" textFill="#aeacac">
                <font>
                   <Font name="System Bold" size="36.0" />
                </font>
             </Label>
-            <Label fx:id="month_confirmation" layoutX="674.0" layoutY="40.0" text="APR" textFill="#3a1c9d" />
-            <Label fx:id="year_confirmation" layoutX="674.0" layoutY="58.0" text="2018" textFill="#aeacac" />
-            <Separator layoutX="728.0" layoutY="19.0" orientation="VERTICAL" prefHeight="64.0" prefWidth="0.0" />
-            <Label layoutX="756.0" layoutY="13.0" text="date retour" textFill="#3a1c9d">
+            <Label fx:id="month_confirmation" layoutX="674.0" layoutY="28.0" text="APR" textFill="#3a1c9d" />
+            <Label fx:id="year_confirmation" layoutX="674.0" layoutY="46.0" text="2018" textFill="#aeacac" />
+            <Separator layoutX="728.0" layoutY="7.0" orientation="VERTICAL" prefHeight="64.0" prefWidth="0.0" />
+            <Label layoutX="756.0" layoutY="1.0" text="date retour" textFill="#3a1c9d">
                <font>
                   <Font size="14.0" />
                </font>
             </Label>
-            <Label fx:id="day_retour" layoutX="756.0" layoutY="29.0" text="25" textFill="#aeacac">
+            <Label fx:id="day_retour" layoutX="756.0" layoutY="17.0" text="25" textFill="#aeacac">
                <font>
                   <Font name="System Bold" size="36.0" />
                </font>
             </Label>
-            <Label fx:id="month_retour" layoutX="805.0" layoutY="37.0" text="AUG" textFill="#3a1c9d" />
-            <Label fx:id="year_retour" layoutX="805.0" layoutY="55.0" text="2018" textFill="#aeacac" />
-            <Label fx:id="id_emprunt" layoutX="212.0" layoutY="52.0" text="Id : 20178" textFill="#b2b0b0">
+            <Label fx:id="month_retour" layoutX="805.0" layoutY="25.0" text="AUG" textFill="#3a1c9d" />
+            <Label fx:id="year_retour" layoutX="805.0" layoutY="43.0" text="2018" textFill="#aeacac" />
+            <Label fx:id="id_emprunt" layoutX="331.0" layoutY="24.0" text="Id : 20178" textFill="#b2b0b0">
                <font>
                   <Font size="14.0" />
                </font>
             </Label>
-            <Separator layoutX="595.0" layoutY="18.0" orientation="VERTICAL" prefHeight="64.0" prefWidth="0.0" />
-            <Label layoutX="501.0" layoutY="13.0" text="Date emprunt" textFill="#3a1c9d">
+            <Separator layoutX="595.0" layoutY="6.0" orientation="VERTICAL" prefHeight="64.0" prefWidth="0.0" />
+            <Label layoutX="501.0" layoutY="1.0" text="Date emprunt" textFill="#3a1c9d">
                <font>
                   <Font size="14.0" />
                </font>
             </Label>
-            <Label fx:id="day_emprunt" layoutX="514.0" layoutY="33.0" text="25" textFill="#aeacac">
+            <Label fx:id="day_emprunt" layoutX="514.0" layoutY="21.0" text="25" textFill="#aeacac">
                <font>
                   <Font name="System Bold" size="36.0" />
                </font>
             </Label>
-            <Label fx:id="month_emprunt" layoutX="563.0" layoutY="41.0" text="AUG" textFill="#3a1c9d" />
-            <Label fx:id="year_emprunt" layoutX="563.0" layoutY="59.0" text="2018" textFill="#aeacac" />
-            <Button fx:id="btn_accepter" layoutX="655.0" layoutY="194.0" mnemonicParsing="false" style="-fx-background-color: green;" text="Accepter" textFill="WHITE" />
-            <Button fx:id="btn_refuser" layoutX="749.0" layoutY="194.0" mnemonicParsing="false" style="-fx-background-color: red;" text="Refuser" textFill="WHITE" />
-            <Label layoutX="357.0" layoutY="184.0" text="Tel" textFill="#aeacac">
+            <Label fx:id="month_emprunt" layoutX="563.0" layoutY="29.0" text="AUG" textFill="#3a1c9d" />
+            <Label fx:id="year_emprunt" layoutX="563.0" layoutY="47.0" text="2018" textFill="#aeacac" />
+            <Button fx:id="btn_accepter" layoutX="656.0" layoutY="206.0" mnemonicParsing="false" style="-fx-background-color: green;" text="Accepter" textFill="WHITE" />
+            <Button fx:id="btn_refuser" layoutX="750.0" layoutY="206.0" mnemonicParsing="false" style="-fx-background-color: red;" text="Refuser" textFill="WHITE" />
+            <Label layoutX="357.0" layoutY="195.0" text="Tel" textFill="#aeacac">
                <font>
                   <Font size="14.0" />
                </font>
             </Label>
-            <Label fx:id="tel_emprunteur" layoutX="369.0" layoutY="211.0" text="livreid" textFill="#4d4c4c">
+            <Label fx:id="tel_emprunteur" layoutX="369.0" layoutY="222.0" text="livreid" textFill="#4d4c4c">
                <font>
                   <Font size="13.0" />
                </font>
             </Label>
-            <Label layoutX="488.0" layoutY="184.0" text="Email" textFill="#aeacac">
+            <Label layoutX="488.0" layoutY="195.0" text="Email" textFill="#aeacac">
                <font>
                   <Font size="14.0" />
                </font>
             </Label>
-            <Label fx:id="email_emprunteur" layoutX="500.0" layoutY="211.0" text="livreid" textFill="#4d4c4c">
+            <Label fx:id="email_emprunteur" layoutX="500.0" layoutY="222.0" text="livreid" textFill="#4d4c4c">
                <font>
                   <Font size="13.0" />
                </font>
             </Label>
-            <Button fx:id="btn_retour" layoutX="707.0" layoutY="194.0" mnemonicParsing="false" style="-fx-background-color: blue;" text="Rendre" textFill="WHITE" />
-            <ImageView fx:id="etat_ok" fitHeight="53.0" fitWidth="60.0" layoutX="693.0" layoutY="180.0" pickOnBounds="true" preserveRatio="true">
+            <Button fx:id="btn_retour" layoutX="708.0" layoutY="206.0" mnemonicParsing="false" style="-fx-background-color: blue;" text="Rendre" textFill="WHITE" />
+            <ImageView fx:id="etat_ok" fitHeight="53.0" fitWidth="60.0" layoutX="694.0" layoutY="192.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@images/icons8_approval_50px.png" />
                </image>
             </ImageView>
-            <ImageView fx:id="etat_ko" fitHeight="53.0" fitWidth="60.0" layoutX="693.0" layoutY="178.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="etat_ko" fitHeight="53.0" fitWidth="60.0" layoutX="694.0" layoutY="190.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@images/icons8_minus_50px.png" />
                </image>
             </ImageView>
             <ImageView fx:id="img_livre" fitHeight="200.0" fitWidth="200.0" layoutX="4.0" layoutY="17.0" pickOnBounds="true" preserveRatio="true" />
+            <Label layoutX="673.0" layoutY="70.0" text="Date fin" textFill="#3a1c9d">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <Label fx:id="day_fin" layoutX="671.0" layoutY="89.0" text="16" textFill="#aeacac">
+               <font>
+                  <Font name="System Bold" size="36.0" />
+               </font>
+            </Label>
+            <Label fx:id="month_fin" layoutX="720.0" layoutY="97.0" text="APR" textFill="#3a1c9d" />
+            <Label fx:id="year_fin" layoutX="720.0" layoutY="115.0" text="2018" textFill="#aeacac" />
+            <Separator layoutX="660.0" layoutY="75.0" orientation="VERTICAL" prefHeight="64.0" prefWidth="0.0" />
+            <Label layoutX="578.0" layoutY="70.0" text="Date début" textFill="#3a1c9d">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <Label fx:id="day_debut" layoutX="579.0" layoutY="90.0" text="25" textFill="#aeacac">
+               <font>
+                  <Font name="System Bold" size="36.0" />
+               </font>
+            </Label>
+            <Label fx:id="month_debut" layoutX="628.0" layoutY="98.0" text="AUG" textFill="#3a1c9d" />
+            <Label fx:id="year_debut" layoutX="628.0" layoutY="116.0" text="2018" textFill="#aeacac" />
+            <Separator layoutX="508.0" layoutY="68.0" prefHeight="4.0" prefWidth="327.0" />
+            <Label fx:id="id_livre" layoutX="415.0" layoutY="24.0" text="Id : 20178" textFill="#b2b0b0">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
          </children>
          <effect>
             <DropShadow color="#d7d2d2" height="50.0" radius="24.5" width="50.0" />

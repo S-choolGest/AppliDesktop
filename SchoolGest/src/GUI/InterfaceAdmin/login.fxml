@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" onMouseClicked="#recuperer_position" onMouseDragged="#deplacer_window" onMouseReleased="#setOpacity" prefHeight="345.0" prefWidth="678.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.Bibliotheque.LoginController">
+<AnchorPane id="AnchorPane" prefHeight="345.0" prefWidth="678.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.Bibliotheque.LoginController">
    <children>
       <Pane layoutX="299.0" prefHeight="345.0" prefWidth="436.0" style="-fx-background-color: #183A56;">
          <children>
@@ -37,14 +37,14 @@
             </Label>
             <ImageView fx:id="btn_close" fitHeight="34.0" fitWidth="40.0" layoutX="395.0" layoutY="4.0" onMouseClicked="#close_window" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@images/icons8_close_window_50px_1.png" />
+                  <Image url="@image/icons8_close_window_96px.png" />
                </image>
             </ImageView>
             <Label fx:id="error" layoutX="26.0" layoutY="416.0" prefHeight="25.0" prefWidth="299.0" textFill="RED" />
             <JFXPasswordField fx:id="password" focusColor="#3ac7d7" layoutX="45.0" layoutY="216.0" onKeyPressed="#controle_saisie" onKeyReleased="#controle_saisie" prefHeight="45.0" prefWidth="299.0" style="-fx-text-inner-color: white; -fx-prompt-text-fill: red;" unFocusColor="#a19898" />
             <ImageView fitHeight="86.0" fitWidth="113.0" layoutX="37.0" layoutY="15.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@images/userlogin.png" />
+                  <Image url="@../Bibliotheque/images/userlogin.png" />
                </image>
             </ImageView>
             <Label fx:id="error" layoutX="19.0" layoutY="272.0" prefHeight="17.0" prefWidth="390.0" textFill="RED" />
@@ -54,7 +54,7 @@
          <children>
             <ImageView fitHeight="215.0" fitWidth="183.0" layoutX="58.0" layoutY="73.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@images/logo_ecole.png" />
+                  <Image url="@../Bibliotheque/images/logo_ecole.png" />
                </image>
             </ImageView>
          </children>

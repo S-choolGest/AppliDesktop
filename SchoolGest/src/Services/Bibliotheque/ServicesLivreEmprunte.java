@@ -45,7 +45,9 @@ public class ServicesLivreEmprunte implements IServiceEmprunteur {
 
 	public List<LivreEmprunte> readAll() throws SQLException {
 		List<LivreEmprunte> listE = new ArrayList<>();
-		PreparedStatement pre = con.prepareStatement("select a.id, a.titre, a.auteur, a.editeur, a.categorie, a.dateSortie, a.img, b.etat, b.dateemprunt, b.dateconfirmation, b.daterendu, b.id, b.idemprunteur from livre a inner join emprunt b on a.id = b.idlivre");
+		PreparedStatement pre = con.prepareStatement("select a.id, a.titre, a.auteur, a.editeur, a.categorie, a.dateSortie, a.img, b.etat, b.dateemprunt, b.dateconfirmation, b.daterendu,"
+				+ " b.id, b.idemprunteur, b.datedebut, b.datefin, a.quantite, a.taille from livre a "
+				+ "inner join emprunt b on a.id = b.idlivre");
 		ResultSet rs = pre.executeQuery();
 		while (rs.next()) {
 			int idlivre = rs.getInt(1);
@@ -61,7 +63,12 @@ public class ServicesLivreEmprunte implements IServiceEmprunteur {
 			String daterendu = rs.getString(11);
 			int idemprunt = rs.getInt(12);
 			int idemprunteur = rs.getInt(13);
-			LivreEmprunte b = new LivreEmprunte(idemprunt, idemprunteur, Etat.valueOf(etat), dateemprunt, dateconfirmation, daterendu, idlivre, 1, titre, editeur, auteur, categorie, datesortie, 0, 0, img, null);
+			String datedebut = rs.getString(14);
+			String datefin = rs.getString(15);
+			int quantite = rs.getInt(16);
+			int taille = rs.getInt(17);
+			LivreEmprunte b = new LivreEmprunte(idemprunt, idemprunteur, Etat.valueOf(etat), dateemprunt, dateconfirmation, daterendu, idlivre, 1, titre, editeur, auteur, categorie, 
+					datesortie, taille, quantite, img, null, datedebut, datefin);
 			listE.add(b);
 		}
 		return listE;
@@ -76,9 +83,10 @@ public class ServicesLivreEmprunte implements IServiceEmprunteur {
 		return emp;
 	}
 
-	public List<LivreEmprunte> search(int iduser, String t) throws SQLException {
+	public List<LivreEmprunte> search(int iduser, String text) throws SQLException {
 		List<LivreEmprunte> livreemprunte = new ArrayList<>();
 		livreemprunte = search(iduser);
+		String t = text.toLowerCase();
 		List<LivreEmprunte> emp = new ArrayList<>();
 		try {
 			emp = livreemprunte.stream()

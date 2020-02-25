@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" prefHeight="389.0" prefWidth="767.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.Bibliotheque.admin.Ajouter_bibliothequeController">
+   <children>
+      <Pane layoutX="-3.0" layoutY="-1.0" prefHeight="390.0" prefWidth="321.0" style="-fx-background-color: #132F45;">
+         <children>
+            <ImageView fitHeight="215.0" fitWidth="183.0" layoutX="69.0" layoutY="83.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/logo_ecole.png" />
+               </image>
+            </ImageView>
+         </children>
+      </Pane>
+      <Pane layoutX="317.0" layoutY="-1.0" prefHeight="390.0" prefWidth="457.0" style="-fx-background-color: #183A56;">
+         <children>
+            <Label layoutX="48.0" layoutY="106.0" prefHeight="25.0" prefWidth="55.0" text="Nom" textFill="#bfbfbf">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <JFXTextField fx:id="nom" focusColor="#3cb4c6" layoutX="48.0" layoutY="131.0" prefHeight="34.0" prefWidth="293.0" style="-fx-text-inner-color: white;" unFocusColor="#7d837e">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </JFXTextField>
+            <JFXButton fx:id="ajouter" buttonType="RAISED" layoutX="228.0" layoutY="330.0" onAction="#ajouter_bibliotheque" prefHeight="34.0" prefWidth="113.0" ripplerFill="#63c2d0" style="-fx-background-color: #3283B6;" text="Ajouter" textFill="WHITE" />
+            <Label layoutX="48.0" layoutY="177.0" prefHeight="25.0" prefWidth="55.0" text="Capacité" textFill="#bfbfbf">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <JFXTextField fx:id="capacite" focusColor="#3cb4c6" layoutX="48.0" layoutY="202.0" prefHeight="34.0" prefWidth="293.0" style="-fx-text-inner-color: white;" unFocusColor="#7d837e">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </JFXTextField>
+            <Label layoutX="48.0" layoutY="245.0" prefHeight="25.0" prefWidth="75.0" text="Adresse" textFill="#bfbfbf">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <JFXTextField fx:id="adresse" focusColor="#3cb4c6" layoutX="48.0" layoutY="270.0" prefHeight="34.0" prefWidth="293.0" style="-fx-text-inner-color: white;" unFocusColor="#7d837e">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </JFXTextField>
+            <Label layoutX="48.0" layoutY="14.0" prefHeight="74.0" prefWidth="334.0" style="-fx-background-color: #173752;" text="Nouvelle Bibliothèque" textFill="#a9c6ae">
+               <font>
+                  <Font size="32.0" />
+               </font>
+            </Label>
+            <ImageView fx:id="close" fitHeight="34.0" fitWidth="40.0" layoutX="418.0" layoutY="4.0" onMouseClicked="#close_window" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/icons8_close_window_50px_1.png" />
+               </image>
+            </ImageView>
+            <Label fx:id="error" layoutX="8.0" layoutY="364.0" prefHeight="25.0" prefWidth="438.0" textFill="RED" />
+         </children>
+      </Pane>
+   </children>
+</AnchorPane>

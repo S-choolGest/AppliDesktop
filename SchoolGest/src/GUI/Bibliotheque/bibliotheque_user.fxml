@@ -87,7 +87,7 @@
          </children></Pane>
       <Pane layoutX="199.0" layoutY="143.0" prefHeight="576.0" prefWidth="1081.0" style="-fx-background-color: #E1E3E2;">
          <children>
-            <Pane fx:id="page_catalogue" prefHeight="576.0" prefWidth="1081.0">
+            <Pane fx:id="page_catalogue" prefHeight="576.0" prefWidth="1081.0" visible="false">
                <children>
                   <ScrollPane fx:id="page_liste_livre" layoutX="32.0" layoutY="17.0" prefHeight="542.0" prefWidth="1017.0">
                      <content>
@@ -219,7 +219,7 @@
                   </Pane>
                </children>
             </Pane>
-            <Pane fx:id="page_emprunts" layoutY="-4.0" prefHeight="583.0" prefWidth="1081.0" visible="false">
+            <Pane fx:id="page_emprunts" layoutY="-4.0" prefHeight="583.0" prefWidth="1081.0">
                <children>
                   <ScrollPane fx:id="demandes_emprunt" layoutX="45.0" layoutY="47.0" prefHeight="525.0" prefWidth="1010.0">
                      <content>
@@ -227,7 +227,7 @@
                      </content>
                   </ScrollPane>
                   <Label layoutX="45.0" layoutY="18.0" text="Trier par" />
-                  <TextField fx:id="search_emprunt" layoutX="840.0" layoutY="14.0" onKeyPressed="#rechercher_emprunt" onKeyReleased="#afficher_page_emprunts" prefHeight="25.0" prefWidth="215.0" promptText="rechercher" />
+                  <TextField fx:id="search_emprunt" layoutX="840.0" layoutY="14.0" onKeyPressed="#rechercher_emprunt" onKeyReleased="#rechercher_emprunt" prefHeight="25.0" prefWidth="215.0" promptText="rechercher" />
                   <ChoiceBox fx:id="choix_tri_emprunt" layoutX="125.0" layoutY="14.0" onContextMenuRequested="#tri_par_choix_colonne" prefWidth="150.0" />
                   <ChoiceBox fx:id="choix_etat_emprunt" layoutX="514.0" layoutY="14.0" onContextMenuRequested="#tri_par_choix_etat" prefWidth="150.0" />
                </children>

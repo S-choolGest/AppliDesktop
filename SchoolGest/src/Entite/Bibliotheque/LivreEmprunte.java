@@ -16,8 +16,10 @@ public class LivreEmprunte extends Livre{
 	private String dateEmprunt;
 	private String dateConfirmation;
 	private String dateRendu;
+	private String dateDebut;
+	private String dateFin;
 
-	public LivreEmprunte(int id_emprunt, int id_emprunteur, Etat etat, String dateEmprunt, String dateConfirmation, String dateRendu, int id, int id_bibliotheque, String titre, String editeur, String auteur, String categorie, String dateSortie, int taille, int quantite, String img, String dateajout) {
+	public LivreEmprunte(int id_emprunt, int id_emprunteur, Etat etat, String dateEmprunt, String dateConfirmation, String dateRendu, int id, int id_bibliotheque, String titre, String editeur, String auteur, String categorie, String dateSortie, int taille, int quantite, String img, String dateajout, String datedebut, String datefin) {
 		super(id, id_bibliotheque, titre, editeur, auteur, categorie, dateSortie, taille, quantite, img, dateajout);
 		this.id_emprunt = id_emprunt;
 		this.id_emprunteur = id_emprunteur;
@@ -25,6 +27,8 @@ public class LivreEmprunte extends Livre{
 		this.dateEmprunt = dateEmprunt;
 		this.dateConfirmation = dateConfirmation;
 		this.dateRendu = dateRendu;
+		this.dateDebut = datedebut;
+		this.dateFin = datefin;
 	}
 	
 	public int getId_emprunt() {
@@ -75,5 +79,25 @@ public class LivreEmprunte extends Livre{
 		this.dateRendu = dateRendu;
 	}
 
+	public String getDateDebut() {
+		return dateDebut;
+	}
+
+	public void setDateDebut(String dateDebut) {
+		this.dateDebut = dateDebut;
+	}
+
+	public String getDateFin() {
+		return dateFin;
+	}
+
+	public void setDateFin(String dateFin) {
+		this.dateFin = dateFin;
+	}
+
+	@Override
+	public String toString() {
+		return "LivreEmprunte{" + "id_emprunt=" + id_emprunt + ", id_emprunteur=" + id_emprunteur + ", etat=" + etat + ", dateEmprunt=" + dateEmprunt + ", dateConfirmation=" + dateConfirmation + ", dateRendu=" + dateRendu + ", dateDebut=" + dateDebut + ", dateFin=" + dateFin + '}';
+	}
 	
 }

@@ -8,8 +8,10 @@ package GUI.Bibliotheque;
 import Entite.Bibliotheque.Emprunt;
 import Entite.Bibliotheque.Emprunteur;
 import Entite.Bibliotheque.Etat;
+import Entite.Bibliotheque.Livre;
 import Services.Bibliotheque.ServicesEmprunt;
 import Services.Bibliotheque.ServicesEmprunteur;
+import Services.Bibliotheque.ServicesLivres;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
@@ -44,6 +46,7 @@ public class EmpruntController implements Initializable {
 	private Label id_emprunt;
 	private ServicesEmprunteur ser = new ServicesEmprunteur();
 	private ServicesEmprunt ser_emp = new ServicesEmprunt();
+	private ServicesLivres ser_livre = new ServicesLivres();
 	@FXML
 	private Label tel_emprunteur;
 	@FXML
@@ -82,6 +85,20 @@ public class EmpruntController implements Initializable {
 	private Label month_emprunt;
 	@FXML
 	private Label year_emprunt;
+	@FXML
+	private Label info_livre;
+	@FXML
+	private Label month_fin;
+	@FXML
+	private Label year_fin;
+	@FXML
+	private Label day_debut;
+	@FXML
+	private Label month_debut;
+	@FXML
+	private Label year_debut;
+	@FXML
+	private Label day_fin;
 
 	/**
 	 * Initializes the controller class.
@@ -101,6 +118,8 @@ public class EmpruntController implements Initializable {
 		id_emprunteur.setText(String.valueOf(e.getIdEmprunteur()));
 		tel_emprunteur.setText(String.valueOf(e.getTel()));
 		id_livre.setText(String.valueOf(e.getIdLivre()));
+		Livre l = ser_livre.search(e.getIdLivre());
+		info_livre.setText(l.getTitre()+" est un livre de l'auteur "+l.getAuteur()+ " publié le "+l.getDateSortie()+ " par l'éditeur "+l.getEditeur());
 		try {
 			String[] dateC = e.getDateConfirmation().split("-");
 			day_confirmation.setText(dateC[2]);
@@ -135,7 +154,28 @@ public class EmpruntController implements Initializable {
 			month_retour.setText("mois");
 			year_retour.setText("année");
 		}
-
+		try {
+			String[] dateR = e.getDateDebut().split("-");
+			day_debut.setText(dateR[2]);
+			month_debut.setText(dateR[1]);
+			year_debut.setText(dateR[1]);
+		} catch (Exception ex) {
+			System.out.println(ex);
+			day_debut.setText("jj");
+			month_debut.setText("mois");
+			year_debut.setText("année");
+		}
+		try {
+			String[] dateR = e.getDateFin().split("-");
+			day_fin.setText(dateR[2]);
+			month_fin.setText(dateR[1]);
+			year_fin.setText(dateR[1]);
+		} catch (Exception ex) {
+			System.out.println(ex);
+			day_fin.setText("jj");
+			month_fin.setText("mois");
+			year_fin.setText("année");
+		}
 		img_livre.setImage(new Image(e.getImg()));
 		if (e.getEtat() == Etat.rendu) {
 			btn_accepter.setVisible(false);

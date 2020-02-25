@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package GUI.Bibliotheque;
+package GUI.InterfaceAdmin;
 
+import GUI.Bibliotheque.*;
 import java.io.IOException;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
@@ -26,13 +27,10 @@ public class login extends Application {
 
 	@Override
 	public void start(Stage Stage) throws IOException {
-//        Parent root = FXMLLoader
-//        .load(getClass().getResource("login.fxml"));
 		FXMLLoader loader = new FXMLLoader();
 		loader.setLocation(getClass().getResource("login.fxml"));
 		Parent n = (Parent) loader.load();
 		LoginController log = loader.getController();
-		log.getStage(Stage);
 		log.close();
 		Scene scene = new Scene(n);
 		Stage.setTitle("Edutech");

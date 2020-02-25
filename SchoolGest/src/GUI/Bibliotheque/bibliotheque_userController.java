@@ -232,10 +232,15 @@ public class bibliotheque_userController implements Initializable {
 						@Override
 						public void handle(MouseEvent event) {
 							try {
-								DateTimeFormatter dateformat = DateTimeFormatter.ofPattern("yyyy/MM/dd");
-								String datedebut = dateformat.format(date_debut.getValue());
-								String datefin = dateformat.format(date_fin.getValue());
-								error_emprunter.setText(ser_emp.emprunter(Integer.valueOf(id_user.getText()), l.getId(), datedebut, datefin));
+								System.out.println("test");
+								if (date_debut.getValue() == null || date_fin.getValue() == null) {
+									error_emprunter.setText("Veillez définir la période d'emprunt !!!");
+								} else {
+									DateTimeFormatter dateformat = DateTimeFormatter.ofPattern("yyyy/MM/dd");
+									String datedebut = dateformat.format(date_debut.getValue());
+									String datefin = dateformat.format(date_fin.getValue());
+									error_emprunter.setText(ser_emp.emprunter(Integer.valueOf(id_user.getText()), l.getId(), datedebut, datefin));
+								}
 							} catch (SQLException ex) {
 								Logger.getLogger(bibliotheque_userController.class.getName()).log(Level.SEVERE, null, ex);
 							}
@@ -303,34 +308,6 @@ public class bibliotheque_userController implements Initializable {
 	}
 
 	@FXML
-	private void rechercher_emprunt(KeyEvent event) throws SQLException {
-		page_catalogue.setVisible(false);
-		page_emprunts.setVisible(true);
-		liste_emprunt.getChildren().clear();
-		List<LivreEmprunte> emprunts = new ArrayList<>();
-		emprunts = ser_livre.search(Integer.valueOf(id_user.getText()), search_emprunt.getText());
-		List<Node> node_emprunt = new ArrayList<>();
-		for (LivreEmprunte e : emprunts) {
-			try {
-				FXMLLoader loader = new FXMLLoader();
-				loader.setLocation(getClass().getResource("emprunt_user.fxml"));
-				Parent n = (Parent) loader.load();
-				Emprunt_userController emp = loader.getController();
-				emp.init(e);
-//				AnchorPane n = FXMLLoader.load(getClass().getResource("emprunt.fxml"));
-//				AnchorPane n = FXMLLoader.lo
-//				n.getChildren().getClass().getResource();
-				node_emprunt.add(n);
-			} catch (IOException ex) {
-				Logger.getLogger(HomeController.class.getName()).log(Level.SEVERE, null, ex);
-			}
-		}
-		for (Node n : node_emprunt) {
-			liste_emprunt.getChildren().add(n);
-		}
-	}
-
-	@FXML
 	private void tri_par_choix_colonne(ContextMenuEvent event) {
 
 	}
@@ -367,41 +344,19 @@ public class bibliotheque_userController implements Initializable {
 
 	@FXML
 	private void afficher_page_emprunts(MouseEvent event) throws SQLException {
-		page_catalogue.setVisible(false);
-		page_emprunts.setVisible(true);
-		liste_emprunt.getChildren().clear();
-		List<LivreEmprunte> emprunts = new ArrayList<>();
-		emprunts = ser_livre.search(Integer.valueOf(id_user.getText()));
-		List<Node> node_emprunt = new ArrayList<>();
-		for (LivreEmprunte e : emprunts) {
-			try {
-				System.out.println("nice ");
-				FXMLLoader loader = new FXMLLoader();
-				loader.setLocation(getClass().getResource("emprunt_user.fxml"));
-				Parent n = (Parent) loader.load();
-				Emprunt_userController emp = loader.getController();
-				emp.init(e);
-
-//				AnchorPane n = FXMLLoader.load(getClass().getResource("emprunt.fxml"));
-//				AnchorPane n = FXMLLoader.lo
-//				n.getChildren().getClass().getResource();
-				node_emprunt.add(n);
-			} catch (IOException ex) {
-				Logger.getLogger(bibliotheque_userController.class.getName()).log(Level.SEVERE, null, ex);
-			}
-		}
-		for (Node n : node_emprunt) {
-			liste_emprunt.getChildren().add(n);
-		}
+		afficher_emprunts();
 	}
 
 	@FXML
-	private void afficher_page_emprunts(KeyEvent event) throws SQLException {
+	private void rechercher_emprunt(KeyEvent event) throws SQLException {
+		afficher_emprunts();
+	}
+	private void afficher_emprunts() throws SQLException{
 		page_catalogue.setVisible(false);
 		page_emprunts.setVisible(true);
 		liste_emprunt.getChildren().clear();
 		List<LivreEmprunte> emprunts = new ArrayList<>();
-		emprunts = ser_livre.search(Integer.valueOf(id_user.getText()));
+		emprunts = ser_livre.search(Integer.valueOf(id_user.getText()), search_emprunt.getText());
 		List<Node> node_emprunt = new ArrayList<>();
 		for (LivreEmprunte e : emprunts) {
 			try {
@@ -410,7 +365,6 @@ public class bibliotheque_userController implements Initializable {
 				Parent n = (Parent) loader.load();
 				Emprunt_userController emp = loader.getController();
 				emp.init(e);
-
 //				AnchorPane n = FXMLLoader.load(getClass().getResource("emprunt.fxml"));
 //				AnchorPane n = FXMLLoader.lo
 //				n.getChildren().getClass().getResource();
@@ -423,5 +377,4 @@ public class bibliotheque_userController implements Initializable {
 			liste_emprunt.getChildren().add(n);
 		}
 	}
-
 }

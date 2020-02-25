@@ -81,11 +81,13 @@ public class ServicesBibliothecaire implements IServices.Bibliotheque.IServices<
 	}
 
 	@Override
-	public List<Bibliothecaire> search(String t) throws SQLException {
+	public List<Bibliothecaire> search(String text) throws SQLException {
 		List<Bibliothecaire> bibliothecaires = new ArrayList<>();
 		bibliothecaires = readAll();
+		String t = text;
+		System.out.println(text);
 		List<Bibliothecaire> bib = bibliothecaires.stream()
-				.filter(a -> a.getCin().contains(t) || a.getNom().contains(t) || a.getPrenom().contains(t) || a.getDateNaissance().contains(t) || a.getEmail().contains(t) || a.getAdresse().contains(t) || String.valueOf(a.getNumTel()).startsWith(t))
+				.filter(a -> a.getAdresse() != null && a.getDateNaissance() != null && (a.getCin().contains(t) || a.getNom().contains(t) || a.getPrenom().contains(t) || a.getEmail().contains(t) || String.valueOf(a.getNumTel()).startsWith(t) || a.getDateNaissance().contains(t) || a.getAdresse().contains(t)))
 				.collect(Collectors.toList());
 		return bib;
 	}

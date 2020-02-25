@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane id="AnchorPane" prefHeight="591.0" prefWidth="1065.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.171" fx:controller="GUI.Bibliotheque.admin.GestionBibliothequeController">
+   <children>
+      <ScrollPane layoutX="75.0" layoutY="117.0" prefHeight="414.0" prefWidth="569.0">
+         <content>
+            <TableView fx:id="list_bibliotheque" prefHeight="412.0" prefWidth="567.0">
+               <columns>
+                  <TableColumn fx:id="id" prefWidth="32.0" text="id" visible="false" />
+                  <TableColumn fx:id="nom" prefWidth="157.0" text="Nom" />
+                  <TableColumn fx:id="capacite" prefWidth="59.0" text="Capacite" />
+                  <TableColumn fx:id="adresse" prefWidth="185.0" text="Adresse" />
+                  <TableColumn fx:id="bibliothecaire" prefWidth="163.0" text="Bibliothecaire" />
+               </columns>
+            </TableView>
+         </content>
+      </ScrollPane>
+      <JFXTextField fx:id="field_rechercher_bibliotheque" layoutX="430.0" layoutY="80.0" onKeyPressed="#rechercher_bibliotheque" onKeyReleased="#rechercher_bibliotheque" prefHeight="25.0" prefWidth="214.0">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </JFXTextField>
+      <ImageView fitHeight="33.0" fitWidth="29.0" layoutX="398.0" layoutY="81.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@images/icons8_search_30px.png" />
+         </image>
+      </ImageView>
+      <JFXButton fx:id="add" buttonType="RAISED" layoutX="83.0" layoutY="79.0" onAction="#ajouter_bibliotheque" prefHeight="34.0" prefWidth="92.0" ripplerFill="#63c2d0" style="-fx-background-color: green;" text="Ajouter" textFill="WHITE" />
+      <JFXButton fx:id="delete" buttonType="RAISED" layoutX="285.0" layoutY="79.0" onAction="#supprimer_bibliotheque" prefHeight="34.0" prefWidth="92.0" ripplerFill="#63c2d0" style="-fx-background-color: red;" text="supprimer" textFill="WHITE" />
+      <TextField fx:id="email" layoutX="729.0" layoutY="172.0" prefHeight="34.0" prefWidth="271.0" />
+      <Label layoutX="754.0" layoutY="109.0" style="-fx-background-color: #E9E9E9;" text="Affectation d'un bibliothécaire" textFill="#5b5454">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Label>
+      <Label layoutX="729.0" layoutY="151.0" text="Email" textFill="#655d5d" />
+      <Label layoutX="651.0" layoutY="217.0" prefHeight="17.0" prefWidth="407.0" text="Veillez cliquer sur la bibliothèque dans la liste située à gauche puis affecter" />
+      <JFXButton fx:id="affecter" buttonType="RAISED" layoutX="808.0" layoutY="257.0" onAction="#affecter_bibliothecaire" prefHeight="34.0" prefWidth="113.0" ripplerFill="#63c2d0" style="-fx-background-color: #3283B6;" text="Affecter" textFill="WHITE" />
+      <Label fx:id="error" layoutX="647.0" layoutY="324.0" prefHeight="73.0" prefWidth="416.0" textFill="RED" wrapText="true" />
+      <JFXButton fx:id="modifier" buttonType="RAISED" layoutX="185.0" layoutY="79.0" onAction="#modifier_bibliotheque" prefHeight="34.0" prefWidth="92.0" ripplerFill="#63c2d0" style="-fx-background-color: #3283B6;" text="Modifier" textFill="WHITE" />
+   </children>
+</AnchorPane>

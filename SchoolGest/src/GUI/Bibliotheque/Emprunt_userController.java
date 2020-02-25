@@ -84,6 +84,18 @@ public class Emprunt_userController implements Initializable {
 	private Label month_emprunt;
 	@FXML
 	private Label year_emprunt;
+	@FXML
+	private Label month_fin;
+	@FXML
+	private Label year_fin;
+	@FXML
+	private Label day_debut;
+	@FXML
+	private Label month_debut;
+	@FXML
+	private Label year_debut;
+	@FXML
+	private Label day_fin;
 
 	/**
 	 * Initializes the controller class.
@@ -133,6 +145,28 @@ public class Emprunt_userController implements Initializable {
 			day_retour.setText("jj");
 			month_retour.setText("mois");
 			year_retour.setText("année");
+		}
+		try {
+			String[] dateR = e.getDateDebut().split("-");
+			day_debut.setText(dateR[2]);
+			month_debut.setText(dateR[1]);
+			year_debut.setText(dateR[1]);
+		} catch (Exception ex) {
+			System.out.println(ex);
+			day_debut.setText("jj");
+			month_debut.setText("mois");
+			year_debut.setText("année");
+		}
+		try {
+			String[] dateR = e.getDateFin().split("-");
+			day_fin.setText(dateR[2]);
+			month_fin.setText(dateR[1]);
+			year_fin.setText(dateR[1]);
+		} catch (Exception ex) {
+			System.out.println(ex);
+			day_fin.setText("jj");
+			month_fin.setText("mois");
+			year_fin.setText("année");
 		}
 		datesortie.setText(e.getDateSortie());
 		categorie.setText(e.getCategorie());
