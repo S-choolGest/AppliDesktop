@@ -13,22 +13,29 @@ public class DemandeEncadrement {
     private int id ;
     private int id_prof;
     private int id_pfe;
-    private String req ="";
     private String etat ="en_attente";
-    public DemandeEncadrement (int id ,int id_prof,int id_pfe){
-    this.id=id ;
+    private String sujet;
+    private String titre;
+    public DemandeEncadrement (int id_prof,int id_pfe){
     this.id_prof=id_prof;
     this.id_pfe=id_pfe;
-  
-    
     }
-    public DemandeEncadrement (int id ,int id_prof,int id_pfe,String req,String etat ){
+     public DemandeEncadrement(int id ,String sujet,String titre,String etat)
+    {
+        this.id=id;
+        this.sujet=sujet;
+        this.titre=titre;
+        this.etat=etat;
+    }
+    public DemandeEncadrement (int id_prof,int id_pfe,String etat ){
     this.id=id ;
     this.id_prof=id_prof;
     this.id_pfe=id_pfe;
     
-    this.req=req;
     this.etat=etat;
+    }
+
+    public DemandeEncadrement() {
     }
 
     /**
@@ -76,16 +83,7 @@ public class DemandeEncadrement {
     /**
      * @return the req
      */
-    public String getReq() {
-        return req;
-    }
-
-    /**
-     * @param req the req to set
-     */
-    public void setReq(String req) {
-        this.req = req;
-    }
+    
 
     /**
      * @return the etat
@@ -102,9 +100,26 @@ public class DemandeEncadrement {
     }
     
     @Override
+    
  public String toString(){
-    return this.id+" "+this.id_pfe+" "+this.id_prof+this.req+" "+this.etat;
+    return this.id+" "+this.id_pfe+" "+this.id_prof+" "+this.etat;
     } 
+
+    public String getSujet() {
+        return sujet;
+    }
+
+    public void setSujet(String sujet) {
+        this.sujet = sujet;
+    }
+
+    public String getTitre() {
+        return titre;
+    }
+
+    public void setTitre(String titre) {
+        this.titre = titre;
+    }
    
     
    

@@ -12,20 +12,23 @@ package Entite.pfe;
 public class Pfe {
 private int id ;
 private int id_etudiant;
+private String nom_etudiant;
 private String sujet;
-private String cahier_charge;
-public Pfe(int ide,String sujet,String cahier_charge){
+private String titre;
+public Pfe(int ide,String sujet,String titre){
 this.id_etudiant=ide;
 this.sujet=sujet;
-this.cahier_charge=cahier_charge;
+this.titre=titre;
 }
-public Pfe(int id ,int ide,String sujet,String cahier_charge){
+public Pfe(int id ,int ide,String sujet,String titre){
 this.id=id;
 this.id_etudiant=ide;
 this.sujet=sujet;
-this.cahier_charge=cahier_charge;
-
+this.titre=titre;
 }
+
+    public Pfe() {
+    }
 
     /**
      * @return the id
@@ -69,21 +72,35 @@ this.cahier_charge=cahier_charge;
         this.sujet = sujet;
     }
 
-    /**
-     * @return the cahier_charge
-     */
-    public String getCahier_charge() {
-        return cahier_charge;
+    public String getNom_etudiant() {
+        return nom_etudiant;
+    }
+
+    public void setNom_etudiant(String nom_etudiant) {
+        this.nom_etudiant = nom_etudiant;
+    }
+
+    
+    public String getTitre(){
+    return titre;
     }
 
     /**
-     * @param cahier_charge the cahier_charge to set
+     * @return the cahier_charge
      */
-    public void setCahier_charge(String cahier_charge) {
-        this.cahier_charge = cahier_charge;
+    public void setTitre(String titre) {
+        this.titre = titre;
     }
-    public String toString(){
-    return this.id+" "+this.cahier_charge+" "+this.sujet;
+        public String getsId()
+    {
+        return Integer.toString(id);
+    }
+    public String getsIde()
+    {
+        return Integer.toString(id_etudiant);
+    }
+    public String toString() {
+        return this.id+" "+this.titre+" "+this.sujet;
     }
     
     

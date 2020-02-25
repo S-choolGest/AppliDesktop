@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.etudiant.gestionDemandeEncadrement.GestionDemandeEncadrementController">
+   <children>
+      <TabPane fx:id="panGestionDemande" prefHeight="400.0" prefWidth="593.0" tabClosingPolicy="UNAVAILABLE">
+        <tabs>
+          <Tab fx:id="panAjouter" onSelectionChanged="#initializePan" text="Ajouter demande">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="171.0" prefWidth="392.0">
+                     <children>
+                        <TextField fx:id="tfMail" layoutX="121.0" layoutY="217.0" />
+                        <Label layoutX="27.0" layoutY="105.0" text="Sujet Pfe" />
+                        <Label layoutX="27.0" layoutY="221.0" text="Email Prof" />
+                        <Button layoutX="342.0" layoutY="262.0" mnemonicParsing="false" onAction="#ajouter" text="ajouter" />
+                        <ChoiceBox fx:id="selectPfe" layoutX="121.0" layoutY="101.0" prefWidth="150.0" />
+                        <Label fx:id="txtSujet" layoutX="93.0" layoutY="295.0" text="Vous devez ajouter un sujet pfe pour pouvoir envoyer une demande d'encadrement" textFill="#f50606" />
+                        <Label fx:id="txtAcc" layoutX="93.0" layoutY="322.0" text="Votre demande a ete ajoute " textFill="#09b554" />
+                        <Label fx:id="txtRef" layoutX="93.0" layoutY="349.0" text="Echec d'ajout du demande" textFill="#c30e0e" />
+                     </children>
+                  </AnchorPane>
+            </content>
+          </Tab>
+            <Tab fx:id="panAfficherDemande" onSelectionChanged="#afficher" text="Afficher Demande">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <TableView fx:id="tableDemandeEncadrementEtudiant" layoutX="4.0" layoutY="4.0" prefHeight="366.0" prefWidth="587.0">
+                          <columns>
+                            <TableColumn fx:id="colTitre" prefWidth="175.0" text="titre" />
+                            <TableColumn fx:id="colSujet" prefWidth="298.0" text="sujet" />
+                              <TableColumn fx:id="colEtat" minWidth="2.0" prefWidth="109.0" text="etat" />
+                          </columns>
+                        </TableView>
+                     </children>
+                  </AnchorPane>
+              </content>
+            </Tab>
+        </tabs>
+      </TabPane>
+   </children>
+</AnchorPane>
