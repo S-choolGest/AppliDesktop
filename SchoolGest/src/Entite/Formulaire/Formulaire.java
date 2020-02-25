@@ -5,6 +5,9 @@
  */
 package Entite.Formulaire;
 
+import java.sql.Timestamp;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
@@ -17,7 +20,7 @@ public class Formulaire {
     private String description;
     private String fichier;
     private boolean validation;
-    private Date dateEnvoi;
+    private Timestamp dateEnvoi;
     
 
     public Formulaire() {
@@ -30,8 +33,9 @@ public class Formulaire {
     }
 
     
+    
 
-    public Formulaire(int idFormulaire, String objet, String description, String fichier, boolean validation, Date dateEnvoi) {
+    public Formulaire(int idFormulaire, String objet, String description, String fichier, boolean validation, Timestamp dateEnvoi) {
         this.idFormulaire = idFormulaire;
         this.objet = objet;
         this.description = description;
@@ -39,18 +43,24 @@ public class Formulaire {
         this.validation = validation;
         this.dateEnvoi = dateEnvoi;
     }
+    
+   
 
-    public Formulaire(String objet, String description, Date dateEnvoi) {
+    public Formulaire(String objet, String description, Timestamp dateEnvoi) {
         this.objet = objet;
         this.description = description;
         this.dateEnvoi = dateEnvoi;
     }
 
     
-    public int getIdFormulaire() {
-        return idFormulaire;
+    public String getIdFormulaire() {
+        return Integer.toString(idFormulaire);
     }
 
+    public int getIdFormulaireInt() {
+        return (idFormulaire);
+    }
+    
     public String getObjet() {
         return objet;
     }
@@ -63,12 +73,15 @@ public class Formulaire {
         return fichier;
     }
 
-    public boolean isValidation() {
-        return validation;
+    public String isValidation() {
+        if(validation == false){
+            return "refusé";
+        }else
+        return "validé";
     }
 
-    public Date getDateEnvoi() {
-        return dateEnvoi;
+    public String getDateEnvoi() {
+        return dateEnvoi.toString();
     }
 
     public void setIdFormulaire(int idFormulaire) {
@@ -91,7 +104,7 @@ public class Formulaire {
         this.validation = validation;
     }
 
-    public void setDateEnvoi(Date dateEnvoi) {
+    public void setDateEnvoi(Timestamp dateEnvoi) {
         this.dateEnvoi = dateEnvoi;
     }
 
