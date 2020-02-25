@@ -18,7 +18,7 @@ import javafx.stage.Stage;
  *
  * @author Ahmed
  */
-public class HomePage extends Application{
+public class HomePage extends Application {
 
     /**
      * @param args the command line arguments
@@ -41,5 +41,5 @@ public class HomePage extends Application{
         }
 
     }
-    
+
 }

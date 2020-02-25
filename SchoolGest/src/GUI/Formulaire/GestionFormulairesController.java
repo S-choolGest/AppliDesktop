@@ -9,22 +9,19 @@ import Entite.Formulaire.Formulaire;
 import Services.Formulaire.ServicesFormulaire;
 import java.io.IOException;
 import java.net.URL;
-import java.sql.Date;
 import java.sql.SQLException;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
@@ -33,8 +30,6 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.input.MouseEvent;
-import javafx.stage.Stage;
 
 /**
  * FXML Controller class
@@ -46,15 +41,13 @@ public class GestionFormulairesController implements Initializable {
     @FXML
     private TableView<Formulaire> tableFormulaire;
     @FXML
-    private TableColumn<Formulaire, Integer> clFormulaire;
-    @FXML
     private TableColumn<Formulaire, String> clObjet;
     @FXML
     private TableColumn<Formulaire, String> clDescription;
     @FXML
-    private TableColumn<Formulaire, Boolean> clValidation;
+    private TableColumn<Formulaire, String> clValidation;
     @FXML
-    private TableColumn<Formulaire, Date> clDate;
+    private TableColumn<Formulaire, String> clDate;
     @FXML
     private Button btAjouter;
     @FXML
@@ -71,10 +64,17 @@ public class GestionFormulairesController implements Initializable {
     private ToggleGroup ConsulterValidation2;
     @FXML
     private Button btSupprimer;
+    @FXML
+    private Button btModifier;
+    
+    boolean tous=rbTous.isSelected();
+    boolean valide=rbValide.isSelected();
+    boolean nonvalide=rbNonValide.isSelected();
     
     public Formulaire formulaire = new Formulaire();
     public List<Formulaire> formulaires;
     ServicesFormulaire ser = new ServicesFormulaire();
+    
     /**
      * Initializes the controller class.
      */
@@ -82,17 +82,19 @@ public class GestionFormulairesController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
         try {
-            clFormulaire.setCellValueFactory(new PropertyValueFactory<Formulaire, Integer>("idFormulaire"));
-            clObjet.setCellValueFactory(new PropertyValueFactory<Formulaire, String>("Objet"));
-            clDescription.setCellValueFactory(new PropertyValueFactory<Formulaire, String>("Description"));
-            clValidation.setCellValueFactory(new PropertyValueFactory<Formulaire, Boolean>("Validation"));
-            clDate.setCellValueFactory(new PropertyValueFactory<Formulaire, Date>("date Envoi"));
+            //clFormulaire.setCellValueFactory(c->new SimpleStringProperty(c.getValue().getIdFormulaire()));
+            clObjet.setCellValueFactory(c->new SimpleStringProperty(c.getValue().getObjet()));
+            clDescription.setCellValueFactory(c->new SimpleStringProperty(c.getValue().getDescription()));
+            clValidation.setCellValueFactory(c->new SimpleStringProperty(c.getValue().isValidation()));
+            clDate.setCellValueFactory(c->new SimpleStringProperty(c.getValue().getDateEnvoi()));
             formulaires = new Services.Formulaire.ServicesFormulaire().readall();
-            tableFormulaire.getItems().addAll(FXCollections.observableList(formulaires));
+            tableFormulaire.setItems((ObservableList<Formulaire>) formulaires);
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
         }
     }
+    
+    
 
     @FXML
     private void btAjouterOnClick(ActionEvent event) {
@@ -108,26 +110,34 @@ public class GestionFormulairesController implements Initializable {
 
     @FXML
     private void rbTousOnSelect(ActionEvent event) {
-        try {
-            formulaires = new ServicesFormulaire().readall();
-            actualiserTable();
-        } catch (SQLException ex) {
-            System.out.println(ex.getMessage());
+
+        if (tous && !valide && !nonvalide) {
+            try {
+                formulaires = new ServicesFormulaire().readall();
+                actualiserTable();
+            } catch (SQLException ex) {
+                System.out.println(ex.getMessage());
+            }
         }
     }
 
     @FXML
     private void rbValideOnSelect(ActionEvent event) {
-        formulaires = new ServicesFormulaire().getSimpleFormulairesConfirmes();
-        actualiserTable();
+        if (!tous && valide && !nonvalide) {
+            formulaires = new ServicesFormulaire().getSimpleFormulairesConfirmes();
+            actualiserTable();
+        }
+
     }
 
     @FXML
     private void rbNonValideOnSelect(ActionEvent event) {
-        formulaires = new ServicesFormulaire().getSimpleFormulairesNonConfirmes();
-        actualiserTable();
+        if (!tous && !valide && nonvalide) {
+            formulaires = new ServicesFormulaire().getSimpleFormulairesNonConfirmes();
+            actualiserTable();
+        }
     }
-    
+
     public void actualiserTable(){
         tableFormulaire.getItems().clear();
         tableFormulaire.getItems().addAll(FXCollections.observableList(formulaires));
@@ -142,7 +152,7 @@ public class GestionFormulairesController implements Initializable {
         alert.setContentText("vous voulez vraiment supprimer le formulaire "+tableFormulaire.getSelectionModel().getSelectedItem().getIdFormulaire() + "?");
         Optional<ButtonType> result =alert.showAndWait();
         if(result.get() == ButtonType.OK){
-            new ServicesFormulaire().delete(tableFormulaire.getSelectionModel().getSelectedItem().getIdFormulaire());
+            new ServicesFormulaire().delete(tableFormulaire.getSelectionModel().getSelectedItem().getIdFormulaireInt());
             formulaires = new ServicesFormulaire().readall();
             actualiserTable();
         }
@@ -152,6 +162,30 @@ public class GestionFormulairesController implements Initializable {
 
     }
 
-    
+    @FXML
+    private void btModifierOnClick(ActionEvent event) {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("modification Formulaire");
+        alert.setHeaderText("Update" + formulaire.getIdFormulaire());
+        alert.setContentText("vous allez modifier le formulaire " + tableFormulaire.getSelectionModel().getSelectedItem().getIdFormulaire() + "?");
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.get() == ButtonType.OK) {
+            try {
+                Formulaire f = tableFormulaire.getSelectionModel().getSelectedItem();
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("ModifierFormulaire.fxml"));
+                Parent root = loader.load();
+                ModifierFormulaireController afc = loader.getController();
+                afc.setFormulaire(f);
+                tableFormulaire.getScene().setRoot(root);
+            } catch (IOException ex) {
+                System.out.println(ex.getMessage());
+            }
+        }
+        if (result.get() == ButtonType.CANCEL) {
+            alert.close();
+        }
+    }
+
+
 
 }

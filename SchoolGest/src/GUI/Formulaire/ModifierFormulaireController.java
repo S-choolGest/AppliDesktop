@@ -6,13 +6,14 @@
 package GUI.Formulaire;
 
 import Entite.Formulaire.Formulaire;
-import static com.sun.media.jfxmediaimpl.MediaUtils.error;
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -21,18 +22,16 @@ import javafx.scene.Parent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
-import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
-
 
 /**
  * FXML Controller class
  *
  * @author Ahmed
  */
-public class AjouterFormulaireController implements Initializable {
+public class ModifierFormulaireController implements Initializable {
 
     @FXML
     private AnchorPane anchorAffiches;
@@ -41,62 +40,64 @@ public class AjouterFormulaireController implements Initializable {
     @FXML
     private TextField tfFichier;
     @FXML
-    private Button btEnvoyer;
+    private Button btModifier;
     @FXML
     private TextArea taDescription;
     @FXML
     private Button btAnnuler;
-    @FXML
-    private Label error;
-    @FXML
-    private Label reussi;
-
+    
+    private Formulaire f;
+    private Services.Formulaire.ServicesFormulaire ser = new Services.Formulaire.ServicesFormulaire();
+    
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
+        
+    }    
+
+    @FXML
+    private void btModifierOnClick(ActionEvent event) {
+        try {
+            f.setObjet(tfObjet.getText());
+            f.setDescription(taDescription.getText());
+            f.setFichier(tfFichier.getText());
+            ser.update(f);
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
     }
 
     @FXML
-    private void btEnvoyerOnClick(ActionEvent event) {
-        Formulaire f;
-        error.setText("");
-        reussi.setText("");
-        Boolean verif = true;
-        if (tfObjet.getText().equals("") && taDescription.getText().equals("")) {
-            error.setText("veuillez remplir les champs manquants.");
-            verif = false;
-        }
-        if (verif = true) {
-            String objet = tfObjet.getText();
-            String description = taDescription.getText();
-            String fichier = tfFichier.getText();
-            f = new Formulaire(objet, description, fichier);
-            new Services.Formulaire.ServicesFormulaire().ajouter(f);
-            reussi.setText("ajout avec succés.");
-        }
-
-    }
-
-    @FXML
-    private void btAnnulerOnClick(ActionEvent event) throws IOException {
+    private void btAnnulerOnClick(ActionEvent event) {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("Interruption !");
-        alert.setHeaderText("Annuler l'ajout");
-        alert.setContentText("voulez vous vraiment abondonner l'ajout?");
+        alert.setTitle("Retour");
+        alert.setHeaderText("");
+        alert.setContentText("voulez vous retourner a la page précédante ?");
         Optional<ButtonType> result =alert.showAndWait();
         if(result.get() == ButtonType.OK){
-            Parent root = FXMLLoader.load(getClass().getResource("gestionFormulaires.fxml"));
-            btAnnuler.getScene().setRoot(root);
+            try {
+                Parent root;
+                root = FXMLLoader.load(getClass().getResource("gestionFormulaires.fxml"));
+                btAnnuler.getScene().setRoot(root);
+            } catch (IOException ex) {
+                System.out.println(ex.getMessage());
+            }
         }
         if(result.get() == ButtonType.CANCEL){
             alert.close();
         }
-        
     }
     
     
+    public void setFormulaire(Formulaire f){
+		this.f = f;
+		tfObjet.setText(f.getObjet());
+		taDescription.setText(f.getDescription());
+		tfFichier.setText(f.getFichier());
+		System.out.println(f);
+	}
     
 }

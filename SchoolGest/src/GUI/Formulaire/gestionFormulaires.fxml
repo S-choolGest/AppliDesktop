@@ -15,9 +15,9 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" nodeOrientation="LEFT_TO_RIGHT" prefHeight="500.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.Formulaire.GestionFormulairesController">
+<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" nodeOrientation="LEFT_TO_RIGHT" prefHeight="537.0" prefWidth="920.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.Formulaire.GestionFormulairesController">
    <children>
-      <Pane layoutY="25.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #2D75E8;" AnchorPane.bottomAnchor="400.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="25.0">
+      <Pane layoutY="25.0" style="-fx-background-color: #2D75E8;" AnchorPane.bottomAnchor="400.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="25.0">
          <children>
             <Label layoutX="330.0" layoutY="20.0" text="Gestion des formulaires" textFill="WHITE">
                <font>
@@ -42,9 +42,8 @@
                   <Insets bottom="10.0" />
                </GridPane.margin>
                <children>
-                  <TableView fx:id="tableFormulaire" prefHeight="300.0" prefWidth="810.0">
+                  <TableView fx:id="tableFormulaire" prefWidth="1000.0">
                     <columns>
-                      <TableColumn fx:id="clFormulaire" prefWidth="79.20001363754272" text="Id Formulaire" />
                       <TableColumn fx:id="clObjet" prefWidth="158.39998626708984" text="Objet" />
                         <TableColumn fx:id="clDescription" prefWidth="298.4000549316406" text="Description" />
                         <TableColumn fx:id="clValidation" minWidth="0.0" prefWidth="88.79998779296875" text="Validation" />
@@ -55,6 +54,7 @@
                      <children>
                         <Button fx:id="btAjouter" layoutX="21.0" layoutY="48.0" mnemonicParsing="false" onAction="#btAjouterOnClick" prefHeight="26.0" prefWidth="98.0" style="-fx-background-color: #2D75E8;" text="Ajouter" textFill="WHITE" />
                         <Button fx:id="btSupprimer" layoutX="21.0" layoutY="183.0" mnemonicParsing="false" onAction="#btSupprimerOnClick" prefHeight="26.0" prefWidth="98.0" style="-fx-background-color: #2D75E8;" text="supprimer" textFill="WHITE" />
+                        <Button fx:id="btModifier" layoutX="21.0" layoutY="114.0" mnemonicParsing="false" onAction="#btModifierOnClick" prefHeight="26.0" prefWidth="98.0" style="-fx-background-color: #2D75E8;" text="Modifier" textFill="WHITE" />
                      </children>
                   </AnchorPane>
                </children>

@@ -8,11 +8,11 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" fx:id="anchorAffiches" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" nodeOrientation="LEFT_TO_RIGHT" prefHeight="500.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.Formulaire.AjouterFormulaireController">
+<AnchorPane id="AnchorPane" fx:id="anchorAffiches" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" nodeOrientation="LEFT_TO_RIGHT" prefHeight="500.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.Formulaire.ModifierFormulaireController">
    <children>
       <Pane layoutX="2.0" layoutY="35.0" prefHeight="200.0" prefWidth="900.0" style="-fx-background-color: #2D75E8;" AnchorPane.bottomAnchor="400.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="25.0">
          <children>
-            <Label layoutX="330.0" layoutY="20.0" text="Ajouter Demande" textFill="WHITE">
+            <Label layoutX="330.0" layoutY="20.0" text="Modifier Demande" textFill="WHITE">
                <font>
                   <Font size="24.0" />
                </font>
@@ -24,10 +24,8 @@
       <Label layoutX="63.0" layoutY="217.0" prefHeight="26.0" prefWidth="66.0" text="Dscription :" />
       <TextField fx:id="tfFichier" layoutX="568.0" layoutY="146.0" prefHeight="26.0" prefWidth="250.0" promptText="URL..." />
       <Label layoutX="513.0" layoutY="150.0" text="Fichier :" />
-      <Button fx:id="btEnvoyer" layoutX="626.0" layoutY="328.0" mnemonicParsing="false" onAction="#btEnvoyerOnClick" prefHeight="26.0" prefWidth="81.0" style="-fx-background-color: #2D75E8;" text="Envoyer" textFill="WHITE" />
+      <Button fx:id="btModifier" layoutX="626.0" layoutY="328.0" mnemonicParsing="false" onAction="#btModifierOnClick" prefHeight="26.0" prefWidth="81.0" style="-fx-background-color: #2D75E8;" text="Modifier" textFill="WHITE" />
       <TextArea fx:id="taDescription" layoutX="166.0" layoutY="193.0" prefHeight="135.0" prefWidth="250.0" promptText="description" />
       <Button fx:id="btAnnuler" layoutX="761.0" layoutY="328.0" mnemonicParsing="false" onAction="#btAnnulerOnClick" prefHeight="26.0" prefWidth="81.0" style="-fx-background-color: #2D75E8;" text="Retour" textFill="WHITE" />
-      <Label fx:id="error" alignment="CENTER" layoutX="148.0" layoutY="354.0" prefHeight="35.0" prefWidth="302.0" textFill="#cf0000" />
-      <Label fx:id="reussi" alignment="CENTER" layoutX="148.0" layoutY="396.0" prefHeight="35.0" prefWidth="302.0" textFill="#06bd00" />
    </children>
 </AnchorPane>
