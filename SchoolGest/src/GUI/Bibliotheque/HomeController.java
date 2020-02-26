@@ -5,10 +5,14 @@
  */
 package GUI.Bibliotheque;
 
+import Entite.Bibliotheque.Bibliotheque;
 import Entite.Bibliotheque.Emprunt;
 import Entite.Bibliotheque.Livre;
+import Entite.Bibliotheque.LivreEmprunte;
 import Entite.Utilisateur.Utilisateur;
+import Services.Bibliotheque.ServicesBibliotheque;
 import Services.Bibliotheque.ServicesEmprunt;
+import Services.Bibliotheque.ServicesLivreEmprunte;
 import Services.Bibliotheque.ServicesLivres;
 import java.io.IOException;
 import java.net.URL;
@@ -108,8 +112,6 @@ public class HomeController implements Initializable {
 	@FXML
 	private Pane btn_page_ajout_livre;
 	@FXML
-	private Pane btn_page_liste_livre;
-	@FXML
 	private Pane page_ajout_livre;
 	@FXML
 	private Pane page_liste_livre;
@@ -178,16 +180,44 @@ public class HomeController implements Initializable {
 	private ChoiceBox<String> choix_tri_emprunt;
 	@FXML
 	private ChoiceBox<String> choix_etat_emprunt;
+	@FXML
+	private Pane btn_catalogue;
+	private ServicesBibliotheque ser_bib = new ServicesBibliotheque();
+	private ServicesLivreEmprunte ser_livre_emp = new ServicesLivreEmprunte();
+	@FXML
+	private Label aucun_emprunt;
+	private List<Boolean> ordre = new ArrayList<>();
+	private String etat = "tout";
+	@FXML
+	private TextField search_emprunt;
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		choix_etat_emprunt.getItems().addAll("tout", "attente", "refuse", "accepte", "rendu");
+		for (int i = 0; i < 6; i++) {
+			ordre.add(true);
+		}
+		aucun_emprunt.setVisible(false);
+		choix_etat_emprunt.getItems().addAll("tout", "attente", "refus", "accepte", "rendu");
 		choix_tri_emprunt.getItems().addAll("aucun", "titre", "auteur", "editeur", "datesortie", "categorie");
 		choix_etat_emprunt.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>() {
 			@Override
 			public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
 				try {
-					filterByEtat(choix_etat_emprunt.getItems().get((Integer)newValue));
+					filterByEtat(choix_etat_emprunt.getItems().get((Integer) newValue));
+					etat = choix_etat_emprunt.getItems().get((Integer) newValue);
+				} catch (SQLException ex) {
+					Logger.getLogger(HomeController.class.getName()).log(Level.SEVERE, null, ex);
+				}
+			}
+		});
+
+		choix_tri_emprunt.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>() {
+			@Override
+			public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+				try {
+					triEmprunts(email.getText(), choix_tri_emprunt.getItems().get((Integer) newValue), ordre.get((int) newValue), etat);
+//					if(ordre.get((int) newValue) == false) ordre.get((int) newValue) = true;
+//					ordre.get((int) newValue) == !ordre.get((int) newValue);
 				} catch (SQLException ex) {
 					Logger.getLogger(HomeController.class.getName()).log(Level.SEVERE, null, ex);
 				}
@@ -196,30 +226,45 @@ public class HomeController implements Initializable {
 	}
 
 	@FXML
-	private void ajout_livre(ActionEvent event) {
-		try {
-			LocalDate datel = date_sortie.getValue();
-			DateTimeFormatter dateformat = DateTimeFormatter.ofPattern("yyyy/MM/dd");
-			String datef = dateformat.format(datel);
-			int taillef = Integer.valueOf(taille.getText());
-			int quantitef = Integer.valueOf(quantite.getText());
-			int id_bibliothequef = Integer.valueOf(id_bibliotheque.getText());
-			Livre l = new Livre(id_bibliothequef, titre.getText(), editeur.getText(), auteur.getText(), categorie.getText(), datef, taillef, quantitef, null, null);
-			ser.ajouter(l);
-		} catch (Exception e) {
-			error.setText(e.getMessage());
-		}
-	}
-
-	@FXML
-	private void afficher_page_ajout_livre(MouseEvent event) {
+	private void ajout_livre(ActionEvent event) throws IOException, SQLException {
+//		try {
+//			LocalDate datel = date_sortie.getValue();
+//			DateTimeFormatter dateformat = DateTimeFormatter.ofPattern("yyyy/MM/dd");
+//			String datef = dateformat.format(datel);
+//			int taillef = Integer.valueOf(taille.getText());
+//			int quantitef = Integer.valueOf(quantite.getText());
+//			int id_bibliothequef = Integer.valueOf(id_bibliotheque.getText());
+//			Livre l = new Livre(id_bibliothequef, titre.getText(), editeur.getText(), auteur.getText(), categorie.getText(), datef, taillef, quantitef, null, null);
+//			ser.ajouter(l);
+//		} catch (Exception e) {
+//			error.setText(e.getMessage());
+//		}
 		page_ajout_livre.setVisible(true);
 		page_liste_livre.setVisible(false);
 		page_modifier_livre.setVisible(false);
 		page_demandes_emprunt.setVisible(false);
+		FXMLLoader loader = new FXMLLoader();
+		loader.setLocation(getClass().getResource("AjoutLivre.fxml"));
+		Parent n = (Parent) loader.load();
+		AjoutLivreController livre = loader.getController();
+		livre.init(email.getText());
+		page_ajout_livre.getChildren().add(n);
 	}
 
 	@FXML
+	private void afficher_page_ajout_livre(MouseEvent event) throws SQLException, IOException {
+		page_ajout_livre.setVisible(true);
+		page_liste_livre.setVisible(false);
+		page_modifier_livre.setVisible(false);
+		page_demandes_emprunt.setVisible(false);
+		FXMLLoader loader = new FXMLLoader();
+		loader.setLocation(getClass().getResource("AjoutLivre.fxml"));
+		Parent n = (Parent) loader.load();
+		AjoutLivreController livre = loader.getController();
+		livre.init(email.getText());
+		page_ajout_livre.getChildren().add(n);
+	}
+
 	private void afficher_page_liste_livre(MouseEvent event) throws SQLException {
 		refresh_view_livre("");
 	}
@@ -341,32 +386,35 @@ public class HomeController implements Initializable {
 
 	@FXML
 	private void afficher_page_demandes(MouseEvent event) throws SQLException {
+		aucun_emprunt.setVisible(false);
 		page_ajout_livre.setVisible(false);
 		page_liste_livre.setVisible(false);
 		page_modifier_livre.setVisible(false);
 		page_demandes_emprunt.setVisible(true);
 		liste_emprunt.getChildren().clear();
-		List<Emprunt> emprunts = new ArrayList<Emprunt>();
-		emprunts = ser_emprunt.readAll();
-		List<Node> node_emprunt = new ArrayList<>();
-		for (Emprunt e : emprunts) {
-			try {
-				FXMLLoader loader = new FXMLLoader();
-				loader.setLocation(getClass().getResource("emprunt.fxml"));
-				Parent n = (Parent) loader.load();
-				EmpruntController emp = loader.getController();
-				emp.init(e.getId());
-
-//				AnchorPane n = FXMLLoader.load(getClass().getResource("emprunt.fxml"));
-//				AnchorPane n = FXMLLoader.lo
-//				n.getChildren().getClass().getResource();
-				node_emprunt.add(n);
-			} catch (IOException ex) {
-				Logger.getLogger(HomeController.class.getName()).log(Level.SEVERE, null, ex);
+		List<LivreEmprunte> emprunts = new ArrayList<LivreEmprunte>();
+//		emprunts = ser_emprunt.readAll();
+		emprunts = ser_livre_emp.readAllinBibliotheque(email.getText(), search_emprunt.getText());
+		if (emprunts == null) {
+			aucun_emprunt.setText("Vous n'êtes pas connecté à une bibliothèque!!!");
+			aucun_emprunt.setVisible(true);
+		} else {
+			List<Node> node_emprunt = new ArrayList<>();
+			for (LivreEmprunte e : emprunts) {
+				try {
+					FXMLLoader loader = new FXMLLoader();
+					loader.setLocation(getClass().getResource("emprunt.fxml"));
+					Parent n = (Parent) loader.load();
+					EmpruntController emp = loader.getController();
+					emp.init(e.getId_emprunt());
+					node_emprunt.add(n);
+				} catch (IOException ex) {
+					Logger.getLogger(HomeController.class.getName()).log(Level.SEVERE, null, ex);
+				}
 			}
-		}
-		for (Node n : node_emprunt) {
-			liste_emprunt.getChildren().add(n);
+			for (Node n : node_emprunt) {
+				liste_emprunt.getChildren().add(n);
+			}
 		}
 	}
 
@@ -394,33 +442,93 @@ public class HomeController implements Initializable {
 		}
 		id_user.setText(String.valueOf(u.getId()));
 	}
-	private void filterByEtat(String etat) throws SQLException{
+
+	private void filterByEtat(String etat) throws SQLException {
 		page_ajout_livre.setVisible(false);
 		page_liste_livre.setVisible(false);
 		page_modifier_livre.setVisible(false);
 		page_demandes_emprunt.setVisible(true);
 		liste_emprunt.getChildren().clear();
-		List<Emprunt> emprunts = new ArrayList<Emprunt>();
-		emprunts = ser_emprunt.filterByEtat(etat);
+		List<LivreEmprunte> emprunts = new ArrayList<LivreEmprunte>();
+//		emprunts = ser_emprunt.readAll();
+//		emprunts = ser_livre_emp.readAllinBibliotheque(email.getText());
+//		List<Emprunt> emprunts = new ArrayList<Emprunt>();
+		emprunts = ser_livre_emp.filterByEtat(email.getText(), etat, search_emprunt.getText());
 		List<Node> node_emprunt = new ArrayList<>();
-		for (Emprunt e : emprunts) {
-			try {
-				FXMLLoader loader = new FXMLLoader();
-				loader.setLocation(getClass().getResource("emprunt.fxml"));
-				Parent n = (Parent) loader.load();
-				EmpruntController emp = loader.getController();
-				emp.init(e.getId());
-
+		if (emprunts == null) {
+			aucun_emprunt.setVisible(true);
+		} else {
+			for (LivreEmprunte e : emprunts) {
+				try {
+					FXMLLoader loader = new FXMLLoader();
+					loader.setLocation(getClass().getResource("emprunt.fxml"));
+					Parent n = (Parent) loader.load();
+					EmpruntController emp = loader.getController();
+					emp.init(e.getId_emprunt());
 //				AnchorPane n = FXMLLoader.load(getClass().getResource("emprunt.fxml"));
 //				AnchorPane n = FXMLLoader.lo
 //				n.getChildren().getClass().getResource();
-				node_emprunt.add(n);
-			} catch (IOException ex) {
-				Logger.getLogger(HomeController.class.getName()).log(Level.SEVERE, null, ex);
+					node_emprunt.add(n);
+				} catch (IOException ex) {
+					Logger.getLogger(HomeController.class.getName()).log(Level.SEVERE, null, ex);
+				}
+			}
+			for (Node n : node_emprunt) {
+				liste_emprunt.getChildren().add(n);
 			}
 		}
-		for (Node n : node_emprunt) {
-			liste_emprunt.getChildren().add(n);
+	}
+
+	private void triEmprunts(String email, String type, Boolean ordre, String etat) throws SQLException {
+		page_ajout_livre.setVisible(false);
+		page_liste_livre.setVisible(false);
+		page_modifier_livre.setVisible(false);
+		page_demandes_emprunt.setVisible(true);
+		liste_emprunt.getChildren().clear();
+		List<LivreEmprunte> emprunts = new ArrayList<LivreEmprunte>();
+					System.out.println("ettt"+etat);
+		emprunts = ser_livre_emp.tri(email, type, ordre, etat);
+		List<Node> node_emprunt = new ArrayList<>();
+		if (emprunts == null) {
+			aucun_emprunt.setVisible(true);
+		} else {
+			for (LivreEmprunte e : emprunts) {
+				try {
+					FXMLLoader loader = new FXMLLoader();
+					loader.setLocation(getClass().getResource("emprunt.fxml"));
+					Parent n = (Parent) loader.load();
+					EmpruntController emp = loader.getController();
+					emp.init(e.getId_emprunt());
+					node_emprunt.add(n);
+				} catch (IOException ex) {
+					Logger.getLogger(HomeController.class.getName()).log(Level.SEVERE, null, ex);
+				}
+			}
+			for (Node n : node_emprunt) {
+				liste_emprunt.getChildren().add(n);
+			}
 		}
+	}
+
+	@FXML
+	private void afficher_catalogue(MouseEvent event) throws IOException, SQLException {
+		page_ajout_livre.setVisible(false);
+		page_liste_livre.setVisible(true);
+		page_modifier_livre.setVisible(false);
+		page_id_modifier_livre.setVisible(false);
+		page_modifier_livre1.setVisible(false);
+		page_demandes_emprunt.setVisible(false);
+		list_livre.setVisible(false);
+		Bibliotheque b = ser_bib.getBibliotheque(email.getText());
+		FXMLLoader loader = new FXMLLoader();
+		loader.setLocation(getClass().getResource("Catalogue_bibliothecaire.fxml"));
+		Parent n = (Parent) loader.load();
+		Catalogue_bibliothecaireController c = loader.getController();
+		c.init(b);
+		page_liste_livre.getChildren().add(n);
+	}
+
+	@FXML
+	private void rechercher_emprunt(KeyEvent event) {
 	}
 }

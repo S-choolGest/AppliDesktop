@@ -23,6 +23,8 @@ import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.event.EventHandler;
@@ -135,6 +137,11 @@ public class bibliotheque_userController implements Initializable {
 	private DatePicker date_debut;
 	@FXML
 	private DatePicker date_fin;
+	@FXML
+	private Label aucun_emprunt;
+	private ServicesLivreEmprunte ser_livre_emp = new ServicesLivreEmprunte();
+	private List<Boolean> ordre = new ArrayList<>();
+	private String etat = "tout";
 
 	/**
 	 * Initializes the controller class.
@@ -142,12 +149,40 @@ public class bibliotheque_userController implements Initializable {
 	@Override
 	public void initialize(URL url, ResourceBundle rb) {
 		// TODO
+		for (int i = 0; i < 6; i++) {
+			ordre.add(true);
+		}
 		page_catalogue.setVisible(true);
 		page_liste_livre.setVisible(true);
 		page_detail.setVisible(false);
 		page_emprunts.setVisible(false);
-		choix_etat_emprunt.getItems().addAll("tout", "attente", "refuse", "accepte", "rendu");
+		aucun_emprunt.setVisible(false);
+		choix_etat_emprunt.getItems().addAll("tout", "attente", "refus", "accepte", "rendu");
 		choix_tri_emprunt.getItems().addAll("aucun", "titre", "auteur", "editeur", "datesortie", "categorie");
+		choix_etat_emprunt.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>() {
+			@Override
+			public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+				try {
+					filterByEtat(choix_etat_emprunt.getItems().get((Integer) newValue));
+					etat = choix_etat_emprunt.getItems().get((Integer) newValue);
+				} catch (SQLException ex) {
+					Logger.getLogger(HomeController.class.getName()).log(Level.SEVERE, null, ex);
+				}
+			}
+		});
+
+		choix_tri_emprunt.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>() {
+			@Override
+			public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+				try {
+					triEmprunts(choix_tri_emprunt.getItems().get((Integer) newValue), ordre.get((int) newValue), etat);
+//					if(ordre.get((int) newValue) == false) ordre.get((int) newValue) = true;
+//					ordre.get((int) newValue) == !ordre.get((int) newValue);
+				} catch (SQLException ex) {
+					Logger.getLogger(HomeController.class.getName()).log(Level.SEVERE, null, ex);
+				}
+			}
+		});
 	}
 
 	@FXML
@@ -232,14 +267,16 @@ public class bibliotheque_userController implements Initializable {
 						@Override
 						public void handle(MouseEvent event) {
 							try {
-								System.out.println("test");
 								if (date_debut.getValue() == null || date_fin.getValue() == null) {
 									error_emprunter.setText("Veillez définir la période d'emprunt !!!");
 								} else {
 									DateTimeFormatter dateformat = DateTimeFormatter.ofPattern("yyyy/MM/dd");
 									String datedebut = dateformat.format(date_debut.getValue());
 									String datefin = dateformat.format(date_fin.getValue());
+									if(datedebut.compareTo(datefin)<0)
 									error_emprunter.setText(ser_emp.emprunter(Integer.valueOf(id_user.getText()), l.getId(), datedebut, datefin));
+									else
+										error_emprunter.setText("Date de début > date de fin");
 								}
 							} catch (SQLException ex) {
 								Logger.getLogger(bibliotheque_userController.class.getName()).log(Level.SEVERE, null, ex);
@@ -351,7 +388,8 @@ public class bibliotheque_userController implements Initializable {
 	private void rechercher_emprunt(KeyEvent event) throws SQLException {
 		afficher_emprunts();
 	}
-	private void afficher_emprunts() throws SQLException{
+
+	private void afficher_emprunts() throws SQLException {
 		page_catalogue.setVisible(false);
 		page_emprunts.setVisible(true);
 		liste_emprunt.getChildren().clear();
@@ -375,6 +413,69 @@ public class bibliotheque_userController implements Initializable {
 		}
 		for (Node n : node_emprunt) {
 			liste_emprunt.getChildren().add(n);
+		}
+	}
+
+	private void filterByEtat(String etat) throws SQLException {
+		page_catalogue.setVisible(false);
+		page_emprunts.setVisible(true);
+		liste_emprunt.getChildren().clear();
+		List<LivreEmprunte> emprunts = new ArrayList<LivreEmprunte>();
+//		emprunts = ser_emprunt.readAll();
+//		emprunts = ser_livre_emp.readAllinBibliotheque(email.getText());
+//		List<Emprunt> emprunts = new ArrayList<Emprunt>();
+		emprunts = ser_livre_emp.filterByEtat(id_user.getText(), etat, search_emprunt.getText());
+		List<Node> node_emprunt = new ArrayList<>();
+		if (emprunts == null) {
+			aucun_emprunt.setVisible(true);
+		} else {
+			for (LivreEmprunte e : emprunts) {
+				try {
+					FXMLLoader loader = new FXMLLoader();
+					loader.setLocation(getClass().getResource("emprunt_user.fxml"));
+					Parent n = (Parent) loader.load();
+					Emprunt_userController emp = loader.getController();
+					emp.init(e);
+//				AnchorPane n = FXMLLoader.load(getClass().getResource("emprunt.fxml"));
+//				AnchorPane n = FXMLLoader.lo
+//				n.getChildren().getClass().getResource();
+					node_emprunt.add(n);
+				} catch (IOException ex) {
+					Logger.getLogger(HomeController.class.getName()).log(Level.SEVERE, null, ex);
+				}
+			}
+			for (Node n : node_emprunt) {
+				liste_emprunt.getChildren().add(n);
+			}
+		}
+	}
+
+	private void triEmprunts(String type, Boolean ordre, String etat) throws SQLException {
+		page_catalogue.setVisible(false);
+		page_emprunts.setVisible(true);
+		liste_emprunt.getChildren().clear();
+		List<LivreEmprunte> emprunts = new ArrayList<LivreEmprunte>();
+		System.out.println("ettt" + etat);
+		emprunts = ser_livre_emp.tri(id_user.getText(), type, ordre, etat, search_emprunt.getText());
+		List<Node> node_emprunt = new ArrayList<>();
+		if (emprunts == null) {
+			aucun_emprunt.setVisible(true);
+		} else {
+			for (LivreEmprunte e : emprunts) {
+				try {
+					FXMLLoader loader = new FXMLLoader();
+					loader.setLocation(getClass().getResource("emprunt_user.fxml"));
+					Parent n = (Parent) loader.load();
+					Emprunt_userController emp = loader.getController();
+					emp.init(e);
+					node_emprunt.add(n);
+				} catch (IOException ex) {
+					Logger.getLogger(HomeController.class.getName()).log(Level.SEVERE, null, ex);
+				}
+			}
+			for (Node n : node_emprunt) {
+				liste_emprunt.getChildren().add(n);
+			}
 		}
 	}
 }

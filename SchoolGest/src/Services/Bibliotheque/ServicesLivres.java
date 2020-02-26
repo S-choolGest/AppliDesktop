@@ -85,16 +85,15 @@ public class ServicesLivres implements IServices<Livre> {
 
     @Override
     public boolean update(Livre l) throws SQLException {
-        PreparedStatement pre = con.prepareStatement("update `edutech`.`livre` set `id_bibliotheque` = ?, `titre` = ?, `auteur` = ?, `editeur` = ?, `categorie` = ?, `datesortie` = ?, `taille` = ?, `quantite` = ? where `id` = ?;");
-        pre.setInt(1, l.getId_bibliotheque());
-        pre.setString(2, l.getTitre());
-        pre.setString(3, l.getAuteur());
-        pre.setString(4, l.getEditeur());
-        pre.setString(5, l.getCategorie());
-        pre.setString(6, l.getDateSortie());
-        pre.setInt(7, l.getTaille());
-        pre.setInt(8, l.getQuantite());
-        pre.setInt(9, l.getId());
+        PreparedStatement pre = con.prepareStatement("update `edutech`.`livre` set `titre` = ?, `auteur` = ?, `editeur` = ?, `categorie` = ?, `datesortie` = ?, `taille` = ?, `quantite` = ? where `id` = ?;");
+        pre.setString(1, l.getTitre());
+        pre.setString(2, l.getAuteur());
+        pre.setString(3, l.getEditeur());
+        pre.setString(4, l.getCategorie());
+        pre.setString(5, l.getDateSortie());
+        pre.setInt(6, l.getTaille());
+        pre.setInt(7, l.getQuantite());
+        pre.setInt(8, l.getId());
         return pre.executeUpdate() != 0;
     }
 
@@ -148,7 +147,13 @@ public class ServicesLivres implements IServices<Livre> {
         List<Livre> livres = listB.stream().filter(a -> a.getId_bibliotheque() == b.getId()).collect(Collectors.toList());
         return livres.stream().mapToInt(a -> a.getQuantite()).sum();
     }
-
+	
+	public List<Livre> readAllBibliotheque(int id) throws SQLException{
+		List<Livre> listB = readAll();
+        List<Livre> livres = listB.stream().filter(a -> a.getId_bibliotheque() == id).collect(Collectors.toList());
+        return livres.stream().filter(a->a.getId_bibliotheque() == id).collect(Collectors.toList());
+	}
+	
     @Override
     public List<Livre> triAll(String t, String ordre) throws SQLException {
         if (t == "titre") {
@@ -286,4 +291,11 @@ public class ServicesLivres implements IServices<Livre> {
         
         return null;
     }
+	
+	public int getId_Bibliotheque(int id_livre) throws SQLException{
+		List<Livre> listE = new ArrayList<>();
+        listE = readAll();
+        Livre result = listE.stream().filter(a -> a.getId() == id_livre).findAny().orElse(null);
+        return result.getId_bibliotheque();
+	}
 }

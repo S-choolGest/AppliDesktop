@@ -230,6 +230,11 @@
                   <TextField fx:id="search_emprunt" layoutX="840.0" layoutY="14.0" onKeyPressed="#rechercher_emprunt" onKeyReleased="#rechercher_emprunt" prefHeight="25.0" prefWidth="215.0" promptText="rechercher" />
                   <ChoiceBox fx:id="choix_tri_emprunt" layoutX="125.0" layoutY="14.0" onContextMenuRequested="#tri_par_choix_colonne" prefWidth="150.0" />
                   <ChoiceBox fx:id="choix_etat_emprunt" layoutX="514.0" layoutY="14.0" onContextMenuRequested="#tri_par_choix_etat" prefWidth="150.0" />
+                  <Label fx:id="aucun_emprunt" layoutX="154.0" layoutY="94.0" prefHeight="361.0" prefWidth="820.0" text="Aucun emprunt effectué" textFill="#aea4a4">
+                     <font>
+                        <Font size="74.0" />
+                     </font>
+                  </Label>
                </children>
             </Pane>
          </children>
