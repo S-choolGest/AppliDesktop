@@ -5,19 +5,25 @@
  */
 package GUI.Etudiant;
 
-import GUI.Bibliotheque.Catalogue_bibliothecaireController;
+import Entite.Utilisateur.*;
+import GUI.Bibliotheque.*;
 import com.jfoenix.controls.JFXButton;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
+import javafx.stage.Stage;
 
 /**
  * FXML Controller class
@@ -59,7 +65,10 @@ public class InterfaceEtudiantController implements Initializable {
 	@FXML
 	private JFXButton notes;
 	@FXML
-	private Pane body;
+	private AnchorPane body;
+	private Boolean info_vue = false;
+	private Stage stage;
+	public Utilisateur user;
 
 	/**
 	 * Initializes the controller class.
@@ -106,5 +115,57 @@ public class InterfaceEtudiantController implements Initializable {
 	@FXML
 	private void charger_notes(ActionEvent event) {
 	}
-	
+
+	@FXML
+	private void afficher_info(MouseEvent event) {
+		info_vue = !info_vue;
+		info.setVisible(info_vue);
+		info.toFront();
+		body.toBack();
+	}
+	public void getInfo(Utilisateur u){
+		nom.setText(u.getNom());
+		prenom.setText(u.getPrenom());
+		email.setText(u.getEmail());
+		this.user = u;
+	}
+
+	@FXML
+	private void close(MouseEvent event) {
+		this.stage.close();
+	}
+
+	@FXML
+	private void deconnecter(MouseEvent event) {
+		this.stage.close();
+	}
+
+	@FXML
+	private void charger_edit_account(MouseEvent event) throws IOException {
+		FXMLLoader loader = new FXMLLoader();
+		loader.setLocation(getClass().getResource("../Bibliotheque/update_account.fxml"));
+		Parent n = (Parent) loader.load();
+		Update_accountController del = loader.getController();
+		del.getInfos(this.user);
+		Stage stage = new Stage();
+		stage.setTitle("Edutech : Etudiant : Edit account");
+		Scene scene = new Scene(n);
+		stage.setResizable(false);
+//        scene.setFill(javafx.scene.paint.Color.TRANSPARENT);
+		stage.setScene(scene);
+		stage.show();
+	}
+
+	public void getStage(Stage stage) {
+		this.stage = stage;
+	}
+	public void close(Stage s){
+		logout.setOnMouseClicked(new EventHandler<MouseEvent>() {
+			@Override
+			public void handle(MouseEvent event) {
+				System.out.println("123 close!!!");
+				stage.close();
+			}
+		});
+	}
 }

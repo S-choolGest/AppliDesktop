@@ -7,7 +7,11 @@ package GUI.Bibliotheque;
 
 import GUI.Bibliotheque.admin.Backoffice_adminController;
 import Entite.Utilisateur.Utilisateur;
+import GUI.Bibliotheque.bibliothecaire.Interface_bibliothecaireController;
 import GUI.Etudiant.InterfaceEtudiantController;
+import GUI.Professeur.InterfaceProfesseurController;
+import GUI.Scolarite.InterfaceScolariteController;
+import GUI.admin.InterfaceAdminController;
 import Services.Utilisateur.ServicesUtilisateur;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXPasswordField;
@@ -28,6 +32,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 /**
  * FXML Controller class
@@ -74,43 +79,78 @@ public class LoginController implements Initializable {
 			System.out.println(u.getType());
 			if (u.getType() == 5) {
 				FXMLLoader loader = new FXMLLoader();
-				loader.setLocation(getClass().getResource("home.fxml"));
+				loader.setLocation(getClass().getResource("../Bibliotheque/bibliothecaire/Interface_bibliothecaire.fxml"));
 				Parent n = (Parent) loader.load();
-				HomeController user = loader.getController();
-				user.setProfil(u);
+				Interface_bibliothecaireController user = loader.getController();
+				user.getInfo(u);
 				Stage stage = new Stage();
 				stage.setTitle("Edutech : Bibliotheque : Gestion");
 				Scene scene = new Scene(n);
 				stage.setResizable(false);
 //        scene.setFill(javafx.scene.paint.Color.TRANSPARENT);
+				stage.initStyle(StageStyle.UNDECORATED);
 				stage.setScene(scene);
+				user.getStage(stage);
 				stage.show();
 			} else if (u.getType() == 3) {
 				FXMLLoader loader = new FXMLLoader();
-				loader.setLocation(getClass().getResource("admin/backoffice_admin.fxml"));
+				loader.setLocation(getClass().getResource("../admin/InterfaceAdmin.fxml"));
 				Parent n = (Parent) loader.load();
-				Backoffice_adminController user = loader.getController();
-				user.setProfil(u);
+				InterfaceAdminController user = loader.getController();
+				user.getInfo(u);
 				Stage stage = new Stage();
 				stage.setTitle("Edutech : Back-Office");
 				Scene scene = new Scene(n);
 				stage.setResizable(false);
 //        scene.setFill(javafx.scene.paint.Color.TRANSPARENT);
+				stage.initStyle(StageStyle.UNDECORATED);
 				stage.setScene(scene);
+				user.getStage(stage);
 				stage.show();
-				System.out.println("ezrzrze");
 			} else if (u.getType() == 0) {
 				FXMLLoader loader = new FXMLLoader();
 				loader.setLocation(getClass().getResource("../Etudiant/InterfaceEtudiant.fxml"));
 				Parent n = (Parent) loader.load();
 				InterfaceEtudiantController user = loader.getController();
-//				user.setProfil(u);
+				user.getInfo(u);
 				Stage stage = new Stage();
-				stage.setTitle("Edutech : Bibliotheque");
+				stage.setTitle("Edutech : Etudiant");
 				Scene scene = new Scene(n);
 				stage.setResizable(false);
 //        scene.setFill(javafx.scene.paint.Color.TRANSPARENT);
+				stage.initStyle(StageStyle.UNDECORATED);
 				stage.setScene(scene);
+				user.getStage(stage);
+				stage.show();
+			}else if(u.getType() == 1){
+				FXMLLoader loader = new FXMLLoader();
+				loader.setLocation(getClass().getResource("../Professeur/InterfaceProfesseur.fxml"));
+				Parent n = (Parent) loader.load();
+				InterfaceProfesseurController user = loader.getController();
+				user.getInfo(u);
+				Stage stage = new Stage();
+				stage.setTitle("Edutech : Professeur");
+				Scene scene = new Scene(n);
+				stage.setResizable(false);
+//        scene.setFill(javafx.scene.paint.Color.TRANSPARENT);
+				stage.initStyle(StageStyle.UNDECORATED);
+				stage.setScene(scene);
+				user.getStage(stage);
+				stage.show();
+			}else if(u.getType() == 2){
+				FXMLLoader loader = new FXMLLoader();
+				loader.setLocation(getClass().getResource("../Scolarite/InterfaceScolarite.fxml"));
+				Parent n = (Parent) loader.load();
+				InterfaceScolariteController user = loader.getController();
+				user.getInfo(u);
+				Stage stage = new Stage();
+				stage.setTitle("Edutech : Scolarité");
+				Scene scene = new Scene(n);
+				stage.setResizable(false);
+//        scene.setFill(javafx.scene.paint.Color.TRANSPARENT);
+				stage.initStyle(StageStyle.UNDECORATED);
+				stage.setScene(scene);
+				user.getStage(stage);
 				stage.show();
 			}
 		}
@@ -126,16 +166,14 @@ public class LoginController implements Initializable {
 
 	}
 
-	public ImageView close() {
+	public void close() {
 		btn_close.setOnMouseClicked(new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent event) {
-
 				System.out.println("fuck");
 				stage.close();
 			}
 		});
-		return btn_close;
 	}
 
 	@FXML
@@ -157,8 +195,8 @@ public class LoginController implements Initializable {
 		sy = event.getScreenY() - event.getSceneY();
 		stagex = event.getSceneX();
 		stagey = event.getSceneY();
-		System.out.println("posx = "+event.getX());
-		System.out.println("posy = "+event.getY());
+		System.out.println("posx = " + event.getX());
+		System.out.println("posy = " + event.getY());
 	}
 
 	public void getStage(Stage stage) {

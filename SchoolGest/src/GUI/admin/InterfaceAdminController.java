@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package GUI.Scolarite;
+package GUI.admin;
 
 import Entite.Utilisateur.Utilisateur;
 import GUI.Bibliotheque.Catalogue_bibliothecaireController;
@@ -31,7 +31,7 @@ import javafx.stage.Stage;
  *
  * @author william
  */
-public class InterfaceScolariteController implements Initializable {
+public class InterfaceAdminController implements Initializable {
 
 	@FXML
 	private ImageView btn_info;
@@ -109,9 +109,6 @@ public class InterfaceScolariteController implements Initializable {
 	}
 
 	@FXML
-	private void charger_notes(ActionEvent event) {
-	}
-	@FXML
 	private void charger_bibliotheques(ActionEvent event) throws IOException {
 		body.getChildren().clear();
 		FXMLLoader loader = new FXMLLoader();
@@ -119,6 +116,10 @@ public class InterfaceScolariteController implements Initializable {
 		Parent n = (Parent) loader.load();
 		Catalogue_bibliothecaireController emp = loader.getController();
 		body.getChildren().add(n);
+	}
+
+	@FXML
+	private void charger_notes(ActionEvent event) {
 	}
 
 	@FXML

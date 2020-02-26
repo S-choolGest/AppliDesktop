@@ -73,6 +73,7 @@ public class Update_accountController implements Initializable {
 	private JFXPasswordField password2;
 	@FXML
 	private JFXButton upload_image;
+	private Utilisateur user;
 
 	/**
 	 * Initializes the controller class.
@@ -162,4 +163,19 @@ public class Update_accountController implements Initializable {
 		}
 	}
 
+	public void getInfos(Utilisateur u) {
+		// TODO
+		this.user = u;
+		nom.setText(u.getNom());
+		prenom.setText(u.getPrenom());
+		tel.setText(String.valueOf(u.getNumTel()));
+		email.setText(u.getEmail());
+		cin.setText(u.getCin());
+		adresse.setText(u.getAdresse());
+		if (u.getDateNaissance() != null) {
+			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+			LocalDate datel = LocalDate.parse(u.getDateNaissance(), formatter);
+			date_naissance.setValue(datel);
+		}
+	}
 }

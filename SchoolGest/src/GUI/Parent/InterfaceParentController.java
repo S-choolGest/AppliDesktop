@@ -5,9 +5,26 @@
  */
 package GUI.Parent;
 
+import Entite.Utilisateur.Utilisateur;
+import GUI.Bibliotheque.Catalogue_bibliothecaireController;
+import GUI.Bibliotheque.Update_accountController;
+import com.jfoenix.controls.JFXButton;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Label;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
+import javafx.stage.Stage;
 
 /**
  * FXML Controller class
@@ -16,6 +33,37 @@ import javafx.fxml.Initializable;
  */
 public class InterfaceParentController implements Initializable {
 
+	@FXML
+	private ImageView btn_info;
+	@FXML
+	private ImageView btn_close;
+	@FXML
+	private Pane info;
+	@FXML
+	private Label nom;
+	@FXML
+	private Label prenom;
+	@FXML
+	private Label email;
+	@FXML
+	private ImageView logout;
+	@FXML
+	private ImageView edit;
+	@FXML
+	private JFXButton matieres;
+	@FXML
+	private JFXButton emplois;
+	@FXML
+	private JFXButton absences;
+	@FXML
+	private JFXButton reclamations;
+	@FXML
+	private JFXButton notes;
+	@FXML
+	private AnchorPane body;
+	private Boolean info_vue = false;
+	private Stage stage;
+	public Utilisateur user;
 	/**
 	 * Initializes the controller class.
 	 */
@@ -23,5 +71,86 @@ public class InterfaceParentController implements Initializable {
 	public void initialize(URL url, ResourceBundle rb) {
 		// TODO
 	}	
-	
+
+	@FXML
+	private void charger_matieres(ActionEvent event) {
+	}
+
+	@FXML
+	private void charger_emplois(ActionEvent event) {
+	}
+
+	@FXML
+	private void charger_absences(ActionEvent event) {
+	}
+
+	@FXML
+	private void charger_reclamations(ActionEvent event) {
+	}
+
+	@FXML
+	private void charger_notes(ActionEvent event) {
+	}
+	private void charger_bibliotheque(ActionEvent event) throws IOException {
+		body.getChildren().clear();
+		FXMLLoader loader = new FXMLLoader();
+		loader.setLocation(getClass().getResource("../Bibliotheque/Catalogue_bibliothecaire.fxml"));
+		Parent n = (Parent) loader.load();
+		Catalogue_bibliothecaireController emp = loader.getController();
+		body.getChildren().add(n);
+	}
+
+
+	@FXML
+	private void afficher_info(MouseEvent event) {
+		info_vue = !info_vue;
+		info.setVisible(info_vue);
+		info.toFront();
+		body.toBack();
+	}
+	public void getInfo(Utilisateur u){
+		nom.setText(u.getNom());
+		prenom.setText(u.getPrenom());
+		email.setText(u.getEmail());
+		this.user = u;
+	}
+
+	@FXML
+	private void close(MouseEvent event) {
+		this.stage.close();
+	}
+
+	@FXML
+	private void deconnecter(MouseEvent event) {
+		this.stage.close();
+	}
+
+	@FXML
+	private void charger_edit_account(MouseEvent event) throws IOException {
+		FXMLLoader loader = new FXMLLoader();
+		loader.setLocation(getClass().getResource("../Bibliotheque/update_account.fxml"));
+		Parent n = (Parent) loader.load();
+		Update_accountController del = loader.getController();
+		del.getInfos(this.user);
+		Stage stage = new Stage();
+		stage.setTitle("Edutech : Etudiant : Edit account");
+		Scene scene = new Scene(n);
+		stage.setResizable(false);
+//        scene.setFill(javafx.scene.paint.Color.TRANSPARENT);
+		stage.setScene(scene);
+		stage.show();
+	}
+
+	public void getStage(Stage stage) {
+		this.stage = stage;
+	}
+	public void close(Stage s){
+		logout.setOnMouseClicked(new EventHandler<MouseEvent>() {
+			@Override
+			public void handle(MouseEvent event) {
+				System.out.println("123 close!!!");
+				stage.close();
+			}
+		});
+	}
 }

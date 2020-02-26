@@ -3,17 +3,15 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package GUI.Scolarite;
+package GUI.Bibliotheque.bibliothecaire;
 
 import Entite.Utilisateur.Utilisateur;
-import GUI.Bibliotheque.Catalogue_bibliothecaireController;
 import GUI.Bibliotheque.Update_accountController;
 import com.jfoenix.controls.JFXButton;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -31,7 +29,7 @@ import javafx.stage.Stage;
  *
  * @author william
  */
-public class InterfaceScolariteController implements Initializable {
+public class Interface_bibliothecaireController implements Initializable {
 
 	@FXML
 	private ImageView btn_info;
@@ -50,26 +48,14 @@ public class InterfaceScolariteController implements Initializable {
 	@FXML
 	private ImageView edit;
 	@FXML
-	private JFXButton utilisateurs;
+	private JFXButton catalogue;
 	@FXML
-	private JFXButton matieres;
+	private JFXButton reservations;
 	@FXML
-	private JFXButton emplois;
-	@FXML
-	private JFXButton absences;
-	@FXML
-	private JFXButton reclamations;
-	@FXML
-	private JFXButton encadrement;
-	@FXML
-	private JFXButton evenements;
-	@FXML
-	private JFXButton bibliotheques;
-	@FXML
-	private JFXButton notes;
+	private JFXButton emprunts;
 	@FXML
 	private AnchorPane body;
-	private Boolean infos_vue = false;
+	private Boolean info_vue = false;
 	private Stage stage;
 	public Utilisateur user;
 	/**
@@ -80,55 +66,11 @@ public class InterfaceScolariteController implements Initializable {
 		// TODO
 	}	
 
-	@FXML
-	private void charger_utilisateurs(ActionEvent event) {
+	public void getStage(Stage stage) {
+		this.stage = stage;
 	}
 
-	@FXML
-	private void charger_matieres(ActionEvent event) {
-	}
-
-	@FXML
-	private void charger_emplois(ActionEvent event) {
-	}
-
-	@FXML
-	private void charger_absences(ActionEvent event) {
-	}
-
-	@FXML
-	private void charger_reclamations(ActionEvent event) {
-	}
-
-	@FXML
-	private void charger_encadrement(ActionEvent event) {
-	}
-
-	@FXML
-	private void charger_evenements(ActionEvent event) {
-	}
-
-	@FXML
-	private void charger_notes(ActionEvent event) {
-	}
-	@FXML
-	private void charger_bibliotheques(ActionEvent event) throws IOException {
-		body.getChildren().clear();
-		FXMLLoader loader = new FXMLLoader();
-		loader.setLocation(getClass().getResource("../Bibliotheque/Catalogue_bibliothecaire.fxml"));
-		Parent n = (Parent) loader.load();
-		Catalogue_bibliothecaireController emp = loader.getController();
-		body.getChildren().add(n);
-	}
-
-	@FXML
-	private void afficher_info(MouseEvent event) {
-		infos_vue = !infos_vue;
-		info.setVisible(infos_vue);
-		info.toFront();
-		body.toBack();
-	}
-	public void getInfo(Utilisateur u){
+	public void getInfo(Utilisateur u) {
 		nom.setText(u.getNom());
 		prenom.setText(u.getPrenom());
 		email.setText(u.getEmail());
@@ -161,16 +103,24 @@ public class InterfaceScolariteController implements Initializable {
 		stage.show();
 	}
 
-	public void getStage(Stage stage) {
-		this.stage = stage;
+	@FXML
+	private void charger_catalogue(ActionEvent event) {
 	}
-	public void close(Stage s){
-		logout.setOnMouseClicked(new EventHandler<MouseEvent>() {
-			@Override
-			public void handle(MouseEvent event) {
-				System.out.println("123 close!!!");
-				stage.close();
-			}
-		});
+
+	@FXML
+	private void charger_reservations(ActionEvent event) {
 	}
+
+	@FXML
+	private void charger_emprunts(ActionEvent event) {
+	}
+
+	@FXML
+	private void afficher_info(MouseEvent event) {
+		info_vue = !info_vue;
+		info.setVisible(info_vue);
+		info.toFront();
+		body.toBack();
+	}
+	
 }
