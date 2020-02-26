@@ -68,9 +68,9 @@
                   </Label>
                </children>
             </Pane>
-            <Pane fx:id="btn_page_liste_livre" layoutY="97.0" onMouseClicked="#afficher_page_liste_livre" prefHeight="49.0" prefWidth="200.0">
+            <Pane fx:id="btn_catalogue" layoutY="97.0" onMouseClicked="#afficher_catalogue" prefHeight="49.0" prefWidth="200.0">
                <children>
-                  <Label layoutX="53.0" layoutY="12.0" text="Liste de livres" textFill="WHITE">
+                  <Label layoutX="53.0" layoutY="12.0" text="Catalogue" textFill="WHITE">
                      <font>
                         <Font size="16.0" />
                      </font>
@@ -100,7 +100,7 @@
          <children>
             <Pane fx:id="page_ajout_livre" prefHeight="576.0" prefWidth="1081.0" style="-fx-background-color: #E1E3E2;" visible="false">
                <children>
-                  <Pane layoutX="222.0" layoutY="23.0" prefHeight="519.0" prefWidth="619.0" style="-fx-background-color: #D6D8D7;">
+                  <Pane layoutX="222.0" layoutY="23.0" prefHeight="519.0" prefWidth="619.0" style="-fx-background-color: #D6D8D7;" visible="false">
                      <children>
                         <Label layoutX="196.0" layoutY="11.0" style="-fx-background-color: #CCCECD;" text="Ajout d'un nouveau  livre" textFill="#638ab9">
                            <font>
@@ -354,6 +354,11 @@
             </Pane>
             <Pane fx:id="page_demandes_emprunt" prefHeight="576.0" prefWidth="1081.0">
                <children>
+                  <Label fx:id="aucun_emprunt" layoutX="208.0" layoutY="190.0" prefHeight="159.0" prefWidth="681.0" text="Aucun emprunt" textFill="#948e8e">
+                     <font>
+                        <Font size="80.0" />
+                     </font>
+                  </Label>
                   <ScrollPane fx:id="demandes_emprunt" layoutX="36.0" layoutY="37.0" prefHeight="525.0" prefWidth="1010.0">
                      <content>
                         <VBox fx:id="liste_emprunt" prefHeight="523.0" prefWidth="1008.0" />
@@ -362,6 +367,8 @@
                   <Label layoutX="69.0" layoutY="18.0" text="Trier par" />
                   <ChoiceBox fx:id="choix_tri_emprunt" layoutX="149.0" layoutY="14.0" prefWidth="150.0" />
                   <ChoiceBox fx:id="choix_etat_emprunt" layoutX="538.0" layoutY="14.0" prefWidth="150.0" />
+                  <Label layoutX="456.0" layoutY="18.0" text="filtrer par état" />
+                  <TextField fx:id="search_emprunt" layoutX="831.0" layoutY="6.0" onKeyPressed="#rechercher_emprunt" onKeyReleased="#rechercher_emprunt" prefHeight="25.0" prefWidth="215.0" promptText="rechercher" />
                </children>
             </Pane>
          </children>

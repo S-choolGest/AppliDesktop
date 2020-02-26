@@ -28,6 +28,7 @@ public class ServicesEmprunt implements IServices<Emprunt> {
 	private Statement ste;
 	private ServicesLivreEmprunte ser = new ServicesLivreEmprunte();
 	private ServicesLivres ser_livre = new ServicesLivres();
+	private ServicesBibliotheque ser_bib = new ServicesBibliotheque();
 
 	public ServicesEmprunt() {
 		con = DataBase.getInstance().getConnection();
@@ -59,21 +60,20 @@ public class ServicesEmprunt implements IServices<Emprunt> {
 	public String emprunter(int id_emprunteur, int id_livre, String date_debut, String date_fin) throws SQLException {
 		List<LivreEmprunte> listE = ser.readAll();
 		Livre l = ser_livre.search(id_livre);
-		long nbr = listE.stream().filter(a -> a.getId_emprunteur() == id_emprunteur).count();
+		long nbr = listE.stream().filter(a -> a.getId_emprunteur() == id_emprunteur && a.getEtat().toString() != "rendu" && a.getEtat().toString() != "refus").count();
 		if (nbr >= 3) {
 			System.out.println("max de livres empruntes!!!");
 			return "max de livres empruntes!!!";
 		}
-		LivreEmprunte emp = listE.stream().filter(a -> a.getId_emprunteur() == id_emprunteur && a.getId()== id_livre && a.getEtat().toString() != "rendu").findAny().orElse(null);
+		LivreEmprunte emp = listE.stream().filter(a -> a.getId_emprunteur() == id_emprunteur && a.getId() == id_livre && a.getEtat().toString() != "rendu" && a.getEtat().toString() != "refus").findAny().orElse(null);
 		if (emp != null) {
 			System.out.println("livre deja emprunte !!!");
 			return "livre deja emprunte !!!";
 		}
-		long nbr_livre_indispo = listE.stream().filter(e -> e.getId() == id_livre
-				&& !((e.getDateDebut().compareTo(date_fin) > 0) || (e.getDateFin().compareTo(date_debut) < 0)))
+		long nbr_livre_indispo = listE.stream().filter(e -> e.getId() == id_livre && e.getEtat().toString() != "rendu" && e.getEtat().toString() != "refus"
+				&& ((e.getDateFin().compareTo(date_debut) > 0) || (e.getDateDebut().compareTo(date_fin) < 0)))
 				.count();
-		if (l.getQuantite() - nbr_livre_indispo > 0) 
-		{
+		if (l.getQuantite() - nbr_livre_indispo > 0) {
 			PreparedStatement pre = con.prepareStatement("insert INTO `edutech`.`emprunt` (`idemprunteur`, `idlivre`, `etat`, `dateEmprunt`, `datedebut`, `datefin`) VALUES (?, ?, ?, current_timestamp, ?, ?);");
 			pre.setInt(1, id_emprunteur);
 			pre.setInt(2, id_livre);
@@ -86,9 +86,7 @@ public class ServicesEmprunt implements IServices<Emprunt> {
 			} else {
 				return "Emprunt réussie";
 			}
-		}
-		else
-		{
+		} else {
 			return "Oups !!! Livre indisponible pendant cette période.";
 		}
 	}
@@ -237,5 +235,16 @@ public class ServicesEmprunt implements IServices<Emprunt> {
 		}
 		return emprunts;
 	}
+
+//	public List<Emprunt> readAllBibliotheque(String email) throws SQLException {
+//		List<Emprunt> emprunts = new ArrayList<>();
+//		emprunts = readAll();
+//		int id_bibliotheque = ser_bib.getBibliotheque(email).getId();
+//		
+//			List<Emprunt> emp = emprunts.stream()
+//					.filter(a -> ser_livre.getId_Bibliotheque(a.getIdLivre()) == id_bibliotheque)
+//					.collect(Collectors.toList());
+//			return emp;
+//	}
 
 }

@@ -38,7 +38,7 @@ public class login extends Application {
 		Stage.setTitle("Edutech");
 		Stage.setResizable(false);
 		scene.setFill(javafx.scene.paint.Color.TRANSPARENT);
-		Stage.initStyle(StageStyle.UNDECORATED);
+//		Stage.initStyle(StageStyle.UNDECORATED);
 		Stage.setScene(scene);
 		Stage.show();
 

@@ -87,7 +87,9 @@ public class ServicesBibliothecaire implements IServices.Bibliotheque.IServices<
 		String t = text;
 		System.out.println(text);
 		List<Bibliothecaire> bib = bibliothecaires.stream()
-				.filter(a -> a.getAdresse() != null && a.getDateNaissance() != null && (a.getCin().contains(t) || a.getNom().contains(t) || a.getPrenom().contains(t) || a.getEmail().contains(t) || String.valueOf(a.getNumTel()).startsWith(t) || a.getDateNaissance().contains(t) || a.getAdresse().contains(t)))
+				.filter(a -> (a.getAdresse() != null && a.getDateNaissance() != null && (a.getCin().contains(t) || a.getNom().contains(t) || a.getPrenom().contains(t) || a.getEmail().contains(t) || String.valueOf(a.getNumTel()).startsWith(t) || a.getDateNaissance().contains(t) || a.getAdresse().contains(t)))
+				||
+						(a.getAdresse() == null && a.getDateNaissance() == null && (a.getCin().contains(t) || a.getNom().contains(t) || a.getPrenom().contains(t) || a.getEmail().contains(t) || String.valueOf(a.getNumTel()).startsWith(t))))
 				.collect(Collectors.toList());
 		return bib;
 	}

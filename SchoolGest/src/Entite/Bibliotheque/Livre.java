@@ -53,6 +53,18 @@ public class Livre {
 		this.dateajout = dateajout;
     }
 
+	public Livre(int id, String titre, String editeur, String auteur, String categorie, String dateSortie, int taille, int quantite, String img) {
+		this.id = id;
+		this.titre = titre;
+		this.editeur = editeur;
+		this.auteur = auteur;
+		this.categorie = categorie;
+		this.dateSortie = dateSortie;
+		this.taille = taille;
+		this.quantite = quantite;
+		this.img = img;
+	}
+	
     public Livre(int id) {
         this.id = id;
     }

@@ -123,4 +123,9 @@ public class ServicesBibliotheque implements IServices<Bibliotheque> {
 		Bibliotheque bib = listB.stream().filter(a -> a.getAdresse().equals(text)).findAny().orElse(null);
 		return bib;
 	}
+	public Bibliotheque getBibliotheque(String email) throws SQLException{
+		List<Bibliotheque> listB = readAll();
+		Bibliotheque bib = listB.stream().filter(a -> a.getEmail().equals(email)).findAny().orElse(null);
+		return bib;
+	}
 }
