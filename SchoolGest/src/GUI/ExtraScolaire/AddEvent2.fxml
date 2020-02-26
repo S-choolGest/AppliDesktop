@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<TabPane fx:id="tabGestion" prefHeight="564.0" prefWidth="746.0" style="-fx-background-color: #183A56;" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.ExtraScolaire.AddEventtController">
+  <tabs>
+    <Tab text="Ajouter Event">
+      <content>
+        <AnchorPane maxHeight="1.7976931348623157E308" minHeight="0.0" minWidth="0.0" prefHeight="500.0" prefWidth="321.0">
+               <children>
+                  <Label layoutX="118.0" layoutY="102.0" text="Nom de l'évènement" textFill="#bfbfbf">
+                     <font>
+                        <Font size="19.0" />
+                     </font></Label>
+                  <Label layoutX="89.0" layoutY="177.0" text="Description de l'évènement" textFill="#bfbfbf">
+                     <font>
+                        <Font size="19.0" />
+                     </font></Label>
+                  <Label layoutX="116.0" layoutY="251.0" text="Date de l'évènement " textFill="#bfbfbf">
+                     <font>
+                        <Font size="19.0" />
+                     </font></Label>
+                  <TextField fx:id="TextnomEvent" layoutX="356.0" layoutY="96.0" prefHeight="41.0" prefWidth="254.0" style="-fx-border-color: white; -fx-background-color: #132F45;" />
+                  <TextField fx:id="Textdescription" layoutX="355.0" layoutY="176.0" prefHeight="41.0" prefWidth="257.0" style="-fx-background-color: #132F45; -fx-border-color: white;" />
+                  <DatePicker fx:id="DateEvent" layoutX="356.0" layoutY="246.0" prefHeight="40.0" prefWidth="254.0" style="-fx-background-color: #132F45; -fx-border-color: white;" />
+                  <ChoiceBox fx:id="IDTime" layoutX="355.0" layoutY="311.0" prefHeight="43.0" prefWidth="257.0" style="-fx-background-color: #132F45; -fx-border-color: white;" />
+                  <Label layoutX="108.0" layoutY="322.0" text="Temps de l'évènement" textFill="#bfbfbf">
+                     <font>
+                        <Font size="19.0" />
+                     </font></Label>
+                  <Button fx:id="ValidBTN" layoutX="313.0" layoutY="415.0" mnemonicParsing="false" onAction="#Ajouter" prefHeight="31.0" prefWidth="97.0" style="-fx-background-color: #132F45; -fx-border-color: white;" text="Ajouter" textFill="WHITE" />             
+                  
+               </children></AnchorPane>
+      </content>
+    </Tab>
+    
+    
+     <Tab fx:id="AfficherAbs" onSelectionChanged="#afficher" text="Afficher Absence">
+      <content>
+        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="361.0" prefWidth="344.0">
+               <children>
+                  <TableView fx:id="Table" layoutX="21.0" layoutY="71.0" prefHeight="397.0" prefWidth="699.0" style="-fx-background-color: #132F45;">
+                    <columns>
+                      <TableColumn fx:id="ColumnnomEvent" prefWidth="182.0" text="Je veux Assister à ... ?" />
+                        <TableColumn fx:id="Columndescription" prefWidth="219.0" text="Pourqui ?" />
+                        <TableColumn fx:id="ColumnDate" prefWidth="177.0" text="Par Rapport à Moi " />
+                       
+                    </columns>
+                     
+                  </TableView>
+               </children></AnchorPane>
+      </content>
+    </Tab>
+    
+     <Tab fx:id="ModifierEvent" text="Modifier Absence">
+        <content>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+               <children>
+                  <Label layoutX="70.0" layoutY="35.0" text="ID" />
+                  <TextField fx:id="TextIDEvent" layoutX="183.0" layoutY="30.0" prefHeight="31.0" prefWidth="217.0" />
+                  <Label layoutX="70.0" layoutY="35.0" text="ID" />
+                  <Label layoutX="48.0" layoutY="89.0" prefHeight="18.0" prefWidth="84.0" text="nomEvent" />
+                  <TextField fx:id="TextdescriptionM" layoutX="202.0" layoutY="157.0" prefHeight="31.0" prefWidth="218.0" />
+                  <Label layoutX="40.0" layoutY="233.0" text="DateAbsence" />
+                  <DatePicker fx:id="DateEventt" layoutX="210.0" layoutY="229.0" />
+                  <ChoiceBox fx:id="modiftime" layoutX="183.0" layoutY="277.0" prefHeight="31.0" prefWidth="219.0" />
+                  <Label layoutX="37.0" layoutY="299.0" text="TempsAbsence" />
+                  <Button layoutX="254.0" layoutY="315.0" mnemonicParsing="false" onAction="#Modifier" prefHeight="41.0" prefWidth="113.0" text="modifier" />
+                  <TextField fx:id="TextnomEventM" layoutX="203.0" layoutY="94.0" prefHeight="26.0" prefWidth="166.0" />
+                  <Label layoutX="70.0" layoutY="172.0" text="description" />
+               </children>
+            </AnchorPane>
+        </content>
+      </Tab>
+      <Tab fx:id="ModifierEvent1" onSelectionChanged="#oo" text="Maps">
+         <content>
+            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+               <children>
+                  <Label layoutX="70.0" layoutY="35.0" text="ID" />
+               </children>
+            </AnchorPane>
+         </content>
+      </Tab>
+          
+  </tabs>
+</TabPane>
