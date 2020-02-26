@@ -7,6 +7,7 @@ package GUI.Bibliotheque;
 
 import GUI.Bibliotheque.admin.Backoffice_adminController;
 import Entite.Utilisateur.Utilisateur;
+import GUI.Etudiant.InterfaceEtudiantController;
 import Services.Utilisateur.ServicesUtilisateur;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXPasswordField;
@@ -100,10 +101,10 @@ public class LoginController implements Initializable {
 				System.out.println("ezrzrze");
 			} else if (u.getType() == 0) {
 				FXMLLoader loader = new FXMLLoader();
-				loader.setLocation(getClass().getResource("bibliotheque_user.fxml"));
+				loader.setLocation(getClass().getResource("../Etudiant/InterfaceEtudiant.fxml"));
 				Parent n = (Parent) loader.load();
-				bibliotheque_userController user = loader.getController();
-				user.setProfil(u);
+				InterfaceEtudiantController user = loader.getController();
+//				user.setProfil(u);
 				Stage stage = new Stage();
 				stage.setTitle("Edutech : Bibliotheque");
 				Scene scene = new Scene(n);
