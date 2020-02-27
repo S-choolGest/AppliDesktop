@@ -388,31 +388,10 @@ public class AddAbsence1Controller implements Initializable {
     }
 
 
-    public void getInstance(Utilisateur o){
-        if(o instanceof Etudiant){
-            this.o = (Etudiant) o ;
-            try { 
-            IDColumn.setCellValueFactory(c-> new SimpleStringProperty(c.getValue().getIdS()));
-            ColumnMatiere.setCellValueFactory(c-> new SimpleStringProperty(c.getValue().getMatiere()));
-            ColumnDate.setCellValueFactory(c-> new SimpleStringProperty(c.getValue().getDate()));  
-            ColumnEtat.setCellValueFactory(c-> new SimpleStringProperty(c.getValue().getetat()));
-            ColumnIDEtu.setCellValueFactory(c-> new SimpleStringProperty(c.getValue().getIdEtudiantS()));
-            ObservableList<Absence> list = sa.readAllV2();
-            System.out.println(list);
-            IDColumn.setVisible(false);
-            Table.setItems(list);
-         } catch (SQLException ex) {
-            System.out.println(ex);
-        }
-        }else if (o instanceof Enseignant){
-            System.out.println("hi");
-        this.o = (Enseignant) o;
-        TabGestion.getTabs().remove(2);
-        TabGestion.getTabs().remove(1);
-        }
-        System.out.println(this.o.getClass());
+    
+
         
-    }
+    
 /*****************************Afficher etudiant avec cin********************************/
     @FXML
     private void RechercheEtudiantAbs(ActionEvent event) {
@@ -432,11 +411,59 @@ public class AddAbsence1Controller implements Initializable {
         }
         
     }
+    
+    public void getInstance(Utilisateur o){
+
+        if(o.getType() == 0){
+           afficherEtudiant(o);
+        }else if (o.getType()==1){
+        TabGestion.getTabs().remove(2);
+        TabGestion.getTabs().remove(1);
+        }else if (o.getType() == 4){
+            afficherEtudiantParent(o);
+        }
+
+
+    }
 
     @FXML
     private void showStat(Event event) {
         
         
+    }
+
+      private void afficherEtudiant(Utilisateur o){
+        try { 
+            IDColumn.setCellValueFactory(c-> new SimpleStringProperty(c.getValue().getIdS()));
+            ColumnMatiere.setCellValueFactory(c-> new SimpleStringProperty(c.getValue().getMatiere()));
+            ColumnDate.setCellValueFactory(c-> new SimpleStringProperty(c.getValue().getDate()));  
+            ColumnEtat.setCellValueFactory(c-> new SimpleStringProperty(c.getValue().getetat()));
+            ColumnIDEtu.setCellValueFactory(c-> new SimpleStringProperty(c.getValue().getIdEtudiantS()));
+            ObservableList<Absence> list = sa.readAllVEtudiant(o);
+            System.out.println(list);
+            IDColumn.setVisible(false);
+            Table.setItems(list);
+         } catch (SQLException ex) {
+            System.out.println(ex);
+        }
+            TabGestion.getTabs().remove(0);
+    }
+
+    private void afficherEtudiantParent(Utilisateur o){
+        try { 
+            IDColumn.setCellValueFactory(c-> new SimpleStringProperty(c.getValue().getIdS()));
+            ColumnMatiere.setCellValueFactory(c-> new SimpleStringProperty(c.getValue().getMatiere()));
+            ColumnDate.setCellValueFactory(c-> new SimpleStringProperty(c.getValue().getDate()));  
+            ColumnEtat.setCellValueFactory(c-> new SimpleStringProperty(c.getValue().getetat()));
+            ColumnIDEtu.setCellValueFactory(c-> new SimpleStringProperty(c.getValue().getIdEtudiantS()));
+            ObservableList<Absence> list = sa.readAllVEtudiantParent(o);
+            System.out.println(list);
+            IDColumn.setVisible(false);
+            Table.setItems(list);
+         } catch (SQLException ex) {
+            System.out.println(ex);
+        }
+            TabGestion.getTabs().remove(0);
     }
 
     

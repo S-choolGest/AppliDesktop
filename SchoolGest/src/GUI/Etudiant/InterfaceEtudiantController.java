@@ -74,7 +74,7 @@ public class InterfaceEtudiantController implements Initializable {
 	private Stage stage;
 	public Utilisateur user;
 	@FXML
-	private ImageView profil_picture;
+	private JFXButton pfe;
 
 	/**
 	 * Initializes the controller class.
@@ -216,4 +216,8 @@ public class InterfaceEtudiantController implements Initializable {
 		info_vue = false;
 		info.setVisible(info_vue);
 	}
+
+    @FXML
+    private void charger_pfe(ActionEvent event) {
+    }
 }
