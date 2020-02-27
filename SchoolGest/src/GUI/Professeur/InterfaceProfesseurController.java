@@ -26,6 +26,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import view.professeur.gestionEncadrement.GestionDemandeEncadrementProfController;
 
 /**
  * FXML Controller class
@@ -115,7 +116,18 @@ public class InterfaceProfesseurController implements Initializable {
 	@FXML
 	private void charger_encadrement(ActionEvent event) {
 		info_vue = false;
-		info.setVisible(info_vue);
+		info.setVisible(info_vue);                		
+
+                 body.getChildren().clear();
+                FXMLLoader loader = new FXMLLoader();
+		loader.setLocation(getClass().getResource("../../view/professeur/gestionEncadrement/GestionDemandeEncadrementProf.fxml"));
+		try{
+                Parent n = (Parent) loader.load();
+                    GestionDemandeEncadrementProfController gc  = loader.getController();
+                body.getChildren().add(n);
+                }catch(IOException ex){
+                  System.out.println(ex);      
+                }
 	}
 
 	@FXML

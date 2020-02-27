@@ -5,6 +5,7 @@
  */
 package view.etudiant.gestionpfe;
 
+import Entite.Utilisateur.Utilisateur;
 import Entite.pfe.Pfe;
 import Services.Pfe.PfeService;
 import java.net.URL;
@@ -37,7 +38,7 @@ import javafx.util.Callback;
  * @author TOSHIBA
  */
 public class GestionPfeController implements Initializable {
-
+    int userId;
     @FXML
     private Tab panAjouterPfe;
     @FXML
@@ -65,7 +66,7 @@ public class GestionPfeController implements Initializable {
     private TableColumn<Pfe, String> colId;
     @FXML
     private TabPane panpfe;
-
+    
     /**
      * Initializes the controller class.
      */
@@ -81,7 +82,8 @@ public class GestionPfeController implements Initializable {
         String titre= tfTitre.getText();
         String sujet = tfSujet.getText();
         PfeService ps= new PfeService();
-        Pfe p = new Pfe(1, sujet, titre);/*a changer avec auth id */
+        
+        Pfe p = new Pfe(userId, sujet, titre);/*a changer avec auth id */
         ps.ajouterPfe(p);
     }
 
@@ -197,10 +199,14 @@ public class GestionPfeController implements Initializable {
             colSujet.setCellValueFactory(c-> new SimpleStringProperty(c.getValue().getSujet()));  
             colNomEtudiant.setCellValueFactory(c-> new SimpleStringProperty(c.getValue().getNom_etudiant()));  
             PfeService ps = new PfeService();
-            ObservableList<Pfe> list = ps.readAllOb();
+            ObservableList<Pfe> list = ps.getMesPfe(userId);
             System.out.println(list);
             tablePfe.setItems(list);
+    }   
+    public void getInstance(Utilisateur o){
+       this.userId = o.getId(); 
     }
+
         
         
     }

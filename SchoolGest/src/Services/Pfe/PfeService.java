@@ -102,18 +102,20 @@ private Connection conx;
         }
         return p;
     }
-    public ObservableList getMesPfe() throws SQLException{
+    public ObservableList getMesPfe(int id) throws SQLException{
         PfeService pes = new PfeService();
         st = conx.createStatement();
         ObservableList<Pfe> pfeData = FXCollections.observableArrayList(); 
-        ResultSet r =st.executeQuery("SELECT p.id ,p.sujet,p.titre FROM etudiant e , utilisateur u ,pfe p WHERE e.id=u.id AND p.id_etudiant = e.id");/*a changer avec getseesion id*/
+        String sql = "SELECT p.id ,p.sujet,p.titre FROM etudiant e , utilisateur u ,pfe p WHERE e.id=u.id AND p.id_etudiant = e.id AND u.id=?";
+        PreparedStatement p=  conx.prepareStatement(sql);
+        p.setInt(1, id);
+        ResultSet r=p.executeQuery();
         while (r.next())
         {
-            Pfe p = new Pfe();
-            p.setSujet(r.getString("sujet"));
-            p.setTitre(r.getString("titre"));
-            p.setId(r.getInt("id"));
-            pfeData.add(p);
+            String sujet=r.getString("sujet");
+            String titre=r.getString("titre");
+            Pfe pf =new Pfe(id, sujet, titre);
+            pfeData.add(pf);
         }
         return pfeData;
     }

@@ -5,6 +5,7 @@
  */
 package view.professeur.gestionEncadrement;
 
+import Entite.Utilisateur.Utilisateur;
 import Entite.pfe.DemandeEncadrement;
 import Services.Pfe.DemandeEncadrementService;
 import java.net.URL;
