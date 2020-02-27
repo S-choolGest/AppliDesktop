@@ -11,7 +11,9 @@ import Services.Bibliotheque.ServicesEmprunt;
 import Services.Bibliotheque.ServicesEmprunteur;
 import Services.Bibliotheque.ServicesLivreEmprunte;
 import Services.Bibliotheque.ServicesLivres;
+import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
+import java.io.File;
 import java.net.URL;
 import java.sql.SQLException;
 import java.time.LocalDate;
@@ -22,6 +24,8 @@ import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.event.EventHandler;
@@ -29,15 +33,20 @@ import javafx.event.EventType;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 
 /**
  * FXML Controller class
@@ -82,8 +91,6 @@ public class Catalogue_bibliothecaireController implements Initializable {
 	private Label taille;
 	@FXML
 	private Label quantite;
-	@FXML
-	private Label error_emprunter;
 	private DatePicker date_debut;
 	private DatePicker date_fin;
 	private ServicesLivres ser = new ServicesLivres();
@@ -97,7 +104,6 @@ public class Catalogue_bibliothecaireController implements Initializable {
 	private Pane editer;
 	@FXML
 	private Pane page_edit;
-	@FXML
 	private Pane img_livre1;
 	@FXML
 	private Pane valider;
@@ -125,7 +131,43 @@ public class Catalogue_bibliothecaireController implements Initializable {
 	private Label month_ajout1;
 	@FXML
 	private Label year_ajout1;
-
+	@FXML
+	private ChoiceBox<String> choix_tri_livre;
+	@FXML
+	private ChoiceBox<String> choix_categorie;
+	@FXML
+	private TextField search;
+	private List<Boolean> ordre = new ArrayList<>();
+	@FXML
+	private ImageView btn_add;
+	@FXML
+	private Pane page_ajout;
+	private DatePicker date_sortie;
+	@FXML
+	private Label error1;
+	@FXML
+	private JFXButton ajouter;
+	private String img = "";
+	private Stage stage;
+	@FXML
+	private TextField titrea;
+	@FXML
+	private TextField auteura;
+	@FXML
+	private TextField editeura;
+	@FXML
+	private TextField categoriea;
+	@FXML
+	private TextField taillea;
+	@FXML
+	private DatePicker date_sortiea;
+	@FXML
+	private TextField quantitea;
+	@FXML
+	private ImageView imagea;
+	private String imga = "http://localhost/mobile/book.jpg";
+	@FXML
+	private Pane img_livre_edit;
 	/**
 	 * Initializes the controller class.
 	 */
@@ -134,7 +176,38 @@ public class Catalogue_bibliothecaireController implements Initializable {
 		page_detail.setVisible(false);
 		aucun_livre.setVisible(false);
 		page_edit.setVisible(false);
+		page_ajout.setVisible(false);
 		// TODO
+		for (int i = 0; i < 6; i++) {
+			ordre.add(true);
+		}
+		aucun_livre.setVisible(false);
+//		choix_categorie.getItems().addAll("tout", "attente", "refus", "accepte", "rendu");
+		choix_tri_livre.getItems().addAll("aucun", "titre", "auteur", "editeur", "datesortie", "categorie");
+//		choix_etat_emprunt.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>() {
+//			@Override
+//			public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+//				try {
+//					filterByEtat(choix_etat_emprunt.getItems().get((Integer) newValue));
+//					etat = choix_etat_emprunt.getItems().get((Integer) newValue);
+//				} catch (SQLException ex) {
+//					Logger.getLogger(HomeController.class.getName()).log(Level.SEVERE, null, ex);
+//				}
+//			}
+//		});
+
+		choix_tri_livre.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>() {
+			@Override
+			public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+//				try {
+////					triLivre(email.getText(), choix_tri_emprunt.getItems().get((Integer) newValue), ordre.get((int) newValue), etat);
+////					if(ordre.get((int) newValue) == false) ordre.get((int) newValue) = true;
+////					ordre.get((int) newValue) == !ordre.get((int) newValue);
+//				} catch (SQLException ex) {
+//					Logger.getLogger(HomeController.class.getName()).log(Level.SEVERE, null, ex);
+//				}
+			}
+		});
 	}
 
 	private void afficher_page_catalogue(Bibliotheque bib) throws SQLException {
@@ -171,12 +244,14 @@ public class Catalogue_bibliothecaireController implements Initializable {
 					error.setText("");
 					page_detail.setVisible(true);
 					page_edit.setVisible(false);
+					page_ajout.setVisible(false);
 					refresh_detail_livre(l, 1);
 					page_liste_livre.setOnMouseClicked(new EventHandler<MouseEvent>() {
 						@Override
 						public void handle(MouseEvent event) {
 							page_detail.setVisible(false);
 							page_edit.setVisible(false);
+							page_ajout.setVisible(false);
 						}
 					});
 					editer.setOnMouseClicked(new EventHandler<MouseEvent>() {
@@ -211,7 +286,7 @@ public class Catalogue_bibliothecaireController implements Initializable {
 		}
 	}
 
-	void init(Bibliotheque b) {
+	public void init(Bibliotheque b) {
 		this.bib = b;
 		System.out.println(this.bib);
 		if (this.bib != null) {
@@ -307,6 +382,61 @@ public class Catalogue_bibliothecaireController implements Initializable {
 		}else{
 			img_livre1.getChildren().clear();
 			img_livre1.getChildren().add(imgv);
+		}
+	}
+
+	@FXML
+	private void afficher_livre(KeyEvent event) {
+	}
+
+
+	@FXML
+	private void ajouter_livre(ActionEvent event) {
+		try {
+			LocalDate datel = date_sortie.getValue();
+			DateTimeFormatter dateformat = DateTimeFormatter.ofPattern("yyyy/MM/dd");
+			String datef = dateformat.format(datel);
+			int taillef = Integer.valueOf(taillea.getText());
+			int quantitef = Integer.valueOf(quantitea.getText());
+			int id_bibliothequef = this.bib.getId();
+			Livre l = new Livre(id_bibliothequef, titrea.getText(), editeura.getText(), auteura.getText(), categoriea.getText(), datef, taillef, quantitef, this.imga, null);
+			if(ser.ajouter(l)){
+				error.setText("Ajout réussi ");
+				page_ajout.setVisible(false);
+				page_detail.setVisible(false);
+				page_edit.setVisible(false);
+				afficher_page_catalogue(bib);
+			}else{
+				error.setText("Ajout impossible !!!");
+			}
+		} catch (Exception e) {
+			error.setText(e.getMessage());
+		}
+	}
+
+	@FXML
+	private void charger_ajout(MouseEvent event) {
+		page_ajout.setVisible(true);
+	}
+
+	@FXML
+	private void add_image(MouseEvent event) {
+		FileChooser filechooser = new FileChooser();
+		File file = filechooser.showOpenDialog(this.stage);
+		if(file.isFile() && file.getName().contains(".jpg") || file.getName().contains(".png") ||file.getName().contains(".bmp")){
+			System.out.println("hi!!!");
+		}
+	}
+	public void getStage(Stage stage) {
+		this.stage = stage;
+	}
+
+	@FXML
+	private void edit_image(MouseEvent event) {
+		FileChooser filechooser = new FileChooser();
+		File file = filechooser.showOpenDialog(this.stage);
+		if(file.isFile() && file.getName().contains(".jpg") || file.getName().contains(".png") ||file.getName().contains(".bmp")){
+			System.out.println("his!!!");
 		}
 	}
 }

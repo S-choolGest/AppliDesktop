@@ -487,7 +487,7 @@ public class HomeController implements Initializable {
 		liste_emprunt.getChildren().clear();
 		List<LivreEmprunte> emprunts = new ArrayList<LivreEmprunte>();
 					System.out.println("ettt"+etat);
-		emprunts = ser_livre_emp.tri(email, type, ordre, etat);
+		emprunts = ser_livre_emp.tri(email, type, ordre, etat, search_emprunt.getText());
 		List<Node> node_emprunt = new ArrayList<>();
 		if (emprunts == null) {
 			aucun_emprunt.setVisible(true);

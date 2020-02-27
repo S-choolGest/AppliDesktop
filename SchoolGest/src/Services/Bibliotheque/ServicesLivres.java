@@ -43,7 +43,7 @@ public class ServicesLivres implements IServices<Livre> {
         livres = readAll();
         Livre livr = livres.stream().filter(a -> a.equals(l)).findAny().orElse(null);
         if (livr == null) {
-            PreparedStatement pre = con.prepareStatement("insert INTO `edutech`.`livre` (`id_bibliotheque`, `titre`, `auteur`, `editeur`, `categorie`, `datesortie`, `taille`, `quantite`, `dateajout`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, current_timestamp);");
+            PreparedStatement pre = con.prepareStatement("insert INTO `edutech`.`livre` (`id_bibliotheque`, `titre`, `auteur`, `editeur`, `categorie`, `datesortie`, `taille`, `quantite`, `dateajout`, `img`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, current_timestamp,?);");
             pre.setInt(1, l.getId_bibliotheque());
             pre.setString(2, l.getTitre());
             pre.setString(3, l.getAuteur());
@@ -52,6 +52,7 @@ public class ServicesLivres implements IServices<Livre> {
             pre.setString(6, l.getDateSortie());
             pre.setInt(7, l.getTaille());
             pre.setInt(8, l.getQuantite());
+            pre.setString(9, l.getImg());
             return pre.executeUpdate() != 0;
         } else {
             if (l.getCategorie().equals(livr.getCategorie())) {

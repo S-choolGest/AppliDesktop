@@ -88,7 +88,7 @@
    <left>
       <Pane prefHeight="473.0" prefWidth="208.0" style="-fx-background-color: #183A56;" BorderPane.alignment="CENTER">
          <children>
-            <JFXButton id="button" fx:id="catalogue" layoutY="50.0" onAction="#charger_catalogue" prefHeight="51.0" prefWidth="209.0" ripplerFill="#4c93d7" stylesheets="@../../InterfaceAdmin/cssMenu.css" text="Catalogue" textFill="WHITE">
+            <JFXButton id="button" fx:id="catalogue" layoutY="50.0" onAction="#charger_catalogue" prefHeight="51.0" prefWidth="209.0" ripplerFill="#4c93d7" stylesheets="@../cssMenu.css" text="Catalogue" textFill="WHITE">
                <font>
                   <Font size="18.0" />
                </font>
@@ -100,7 +100,7 @@
                   </ImageView>
                </graphic>
             </JFXButton>
-            <JFXButton id="button" fx:id="reservations" layoutY="179.0" onAction="#charger_reservations" prefHeight="51.0" prefWidth="209.0" ripplerFill="#4c93d7" stylesheets="@../../InterfaceAdmin/cssMenu.css" text="Réservations" textFill="WHITE">
+            <JFXButton id="button" fx:id="reservations" layoutY="179.0" onAction="#charger_reservations" prefHeight="51.0" prefWidth="209.0" ripplerFill="#4c93d7" stylesheets="@../cssMenu.css" text="Réservations" textFill="WHITE">
                <font>
                   <Font size="18.0" />
                </font>
@@ -112,7 +112,7 @@
                   </ImageView>
                </graphic>
             </JFXButton>
-            <JFXButton id="button" fx:id="emprunts" layoutY="116.0" onAction="#charger_emprunts" prefHeight="51.0" prefWidth="209.0" ripplerFill="#4c93d7" stylesheets="@../../InterfaceAdmin/cssMenu.css" text="Emprunts" textFill="WHITE">
+            <JFXButton id="button" fx:id="emprunts" layoutY="116.0" onAction="#charger_emprunts" prefHeight="51.0" prefWidth="209.0" ripplerFill="#4c93d7" stylesheets="@../cssMenu.css" text="Emprunts" textFill="WHITE">
                <font>
                   <Font size="18.0" />
                </font>

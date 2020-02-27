@@ -7,9 +7,11 @@ package GUI.Etudiant;
 
 import Entite.Utilisateur.*;
 import GUI.Bibliotheque.*;
+import GUI.Bibliotheque.Utilisateur.Bibliotheque_user_menuController;
 import com.jfoenix.controls.JFXButton;
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -103,12 +105,15 @@ public class InterfaceEtudiantController implements Initializable {
 	}
 
 	@FXML
-	private void charger_bibliotheque(ActionEvent event) throws IOException {
+	private void charger_bibliotheque(ActionEvent event) throws SQLException, IOException{
 		body.getChildren().clear();
 		FXMLLoader loader = new FXMLLoader();
-		loader.setLocation(getClass().getResource("../Bibliotheque/Catalogue_bibliothecaire.fxml"));
+		loader.setLocation(getClass().getResource("../Bibliotheque/Utilisateur/Bibliotheque_user_menu.fxml"));
 		Parent n = (Parent) loader.load();
-		Catalogue_bibliothecaireController emp = loader.getController();
+		Bibliotheque_user_menuController emp = loader.getController();
+		emp.getStage(stage);
+		emp.getBody(body);
+		emp.getInfo(user);
 		body.getChildren().add(n);
 	}
 

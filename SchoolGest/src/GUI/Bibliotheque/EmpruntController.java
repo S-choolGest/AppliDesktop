@@ -119,7 +119,7 @@ public class EmpruntController implements Initializable {
 		tel_emprunteur.setText(String.valueOf(e.getTel()));
 		id_livre.setText(String.valueOf(e.getIdLivre()));
 		Livre l = ser_livre.search(e.getIdLivre());
-		info_livre.setText(l.getTitre()+" est un livre de l'auteur "+l.getAuteur()+ " publié le "+l.getDateSortie()+ " par l'éditeur "+l.getEditeur());
+		info_livre.setText(l.getTitre()+" est un livre de l'auteur "+l.getAuteur()+ " publié le "+l.getDateSortie()+ " par l'éditeur "+l.getEditeur()+"et de catégorie "+l.getCategorie());
 		try {
 			String[] dateC = e.getDateConfirmation().split("-");
 			day_confirmation.setText(dateC[2]);

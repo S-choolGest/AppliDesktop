@@ -12,8 +12,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane id="AnchorPane" prefHeight="591.0" prefWidth="1065.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.171" fx:controller="GUI.Bibliotheque.admin.GestionBibliothequeController">
+<AnchorPane id="AnchorPane" prefHeight="591.0" prefWidth="1065.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.Bibliotheque.admin.GestionBibliothequeController">
    <children>
       <ScrollPane layoutX="75.0" layoutY="117.0" prefHeight="414.0" prefWidth="569.0">
          <content>
@@ -35,7 +34,7 @@
       </JFXTextField>
       <ImageView fitHeight="33.0" fitWidth="29.0" layoutX="398.0" layoutY="81.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@images/icons8_search_30px.png" />
+            <Image url="@../images/icons8_search_30px.png" />
          </image>
       </ImageView>
       <JFXButton fx:id="add" buttonType="RAISED" layoutX="83.0" layoutY="79.0" onAction="#ajouter_bibliotheque" prefHeight="34.0" prefWidth="92.0" ripplerFill="#63c2d0" style="-fx-background-color: green;" text="Ajouter" textFill="WHITE" />

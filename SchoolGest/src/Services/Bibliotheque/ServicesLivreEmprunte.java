@@ -127,6 +127,7 @@ public class ServicesLivreEmprunte implements IServiceEmprunteur {
 							)
 					)
 					.collect(Collectors.toList());
+			
 			return emp;
 		}
 		return null;

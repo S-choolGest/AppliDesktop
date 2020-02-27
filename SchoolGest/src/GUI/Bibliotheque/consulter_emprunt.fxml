@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.ColorAdjust?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane id="AnchorPane" prefHeight="594.0" prefWidth="1048.0" style="-fx-background-color: #E7EFFA;" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.171" fx:controller="GUI.Bibliotheque.Consulter_empruntController">
+   <children>
+      <ScrollPane fx:id="demandes_emprunt" layoutX="19.0" layoutY="51.0" prefHeight="525.0" prefWidth="1010.0">
+         <content>
+            <VBox fx:id="liste_emprunt" prefHeight="523.0" prefWidth="1008.0" style="-fx-background-color: #E7EFFA;" />
+         </content>
+      </ScrollPane>
+      <Label layoutX="19.0" layoutY="22.0" text="Trier par" />
+      <TextField fx:id="search_emprunt" layoutX="814.0" layoutY="18.0" onKeyPressed="#rechercher_emprunt" onKeyReleased="#rechercher_emprunt" prefHeight="25.0" prefWidth="215.0" promptText="rechercher" />
+      <ChoiceBox fx:id="choix_tri_emprunt" layoutX="99.0" layoutY="18.0" onContextMenuRequested="#tri_par_choix_colonne" prefWidth="150.0" style="-fx-background-color: #E7EFFA;">
+         <effect>
+            <ColorAdjust brightness="-0.04" contrast="-0.12" hue="-0.17" saturation="-0.02" />
+         </effect>
+      </ChoiceBox>
+      <ChoiceBox fx:id="choix_etat_emprunt" layoutX="488.0" layoutY="18.0" onContextMenuRequested="#tri_par_choix_etat" prefWidth="150.0" />
+      <Label fx:id="aucun_emprunt" layoutX="128.0" layoutY="98.0" prefHeight="361.0" prefWidth="820.0" text="Aucun emprunt effectué" textFill="#aea4a4">
+         <font>
+            <Font size="74.0" />
+         </font>
+      </Label>
+      <ImageView fx:id="btn_back" fitHeight="31.0" fitWidth="39.0" layoutX="-1.0" layoutY="573.0" onMouseClicked="#back" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../image/icons8_back_500px_1.png" />
+         </image>
+      </ImageView>
+   </children>
+</AnchorPane>

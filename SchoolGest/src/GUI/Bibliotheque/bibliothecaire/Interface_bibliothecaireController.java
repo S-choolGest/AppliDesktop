@@ -5,11 +5,16 @@
  */
 package GUI.Bibliotheque.bibliothecaire;
 
+import Entite.Bibliotheque.Bibliotheque;
 import Entite.Utilisateur.Utilisateur;
+import GUI.Bibliotheque.Catalogue_bibliothecaireController;
 import GUI.Bibliotheque.Update_accountController;
+import GUI.Bibliotheque.gerer_empruntController;
+import Services.Bibliotheque.ServicesBibliotheque;
 import com.jfoenix.controls.JFXButton;
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -23,6 +28,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 /**
  * FXML Controller class
@@ -58,6 +64,7 @@ public class Interface_bibliothecaireController implements Initializable {
 	private Boolean info_vue = false;
 	private Stage stage;
 	public Utilisateur user;
+	private ServicesBibliotheque ser_bib = new ServicesBibliotheque();
 	/**
 	 * Initializes the controller class.
 	 */
@@ -104,7 +111,16 @@ public class Interface_bibliothecaireController implements Initializable {
 	}
 
 	@FXML
-	private void charger_catalogue(ActionEvent event) {
+	private void charger_catalogue(ActionEvent event) throws IOException, SQLException {
+		body.getChildren().clear();
+		Bibliotheque b = ser_bib.getBibliotheque(user.getEmail());
+		FXMLLoader loader = new FXMLLoader();
+		loader.setLocation(getClass().getResource("../Catalogue_bibliothecaire.fxml"));
+		Parent n = (Parent) loader.load();
+		Catalogue_bibliothecaireController c = loader.getController();
+		c.init(b);
+		c.getStage(stage);
+		body.getChildren().add(n);
 	}
 
 	@FXML
@@ -112,7 +128,16 @@ public class Interface_bibliothecaireController implements Initializable {
 	}
 
 	@FXML
-	private void charger_emprunts(ActionEvent event) {
+	private void charger_emprunts(ActionEvent event) throws SQLException, IOException {
+		body.getChildren().clear();
+		Bibliotheque b = ser_bib.getBibliotheque(user.getEmail());
+		FXMLLoader loader = new FXMLLoader();
+		loader.setLocation(getClass().getResource("../gerer_emprunt.fxml"));
+		Parent n = (Parent) loader.load();
+		gerer_empruntController c = loader.getController();
+		c.init(b);
+		c.getStage(stage);
+		body.getChildren().add(n);
 	}
 
 	@FXML
