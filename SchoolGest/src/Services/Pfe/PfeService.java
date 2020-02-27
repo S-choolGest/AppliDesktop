@@ -106,7 +106,7 @@ private Connection conx;
         PfeService pes = new PfeService();
         st = conx.createStatement();
         ObservableList<Pfe> pfeData = FXCollections.observableArrayList(); 
-        ResultSet r =st.executeQuery("SELECT * FROM `pfe` WHERE id_etudiant=1");/*a changer avec getseesion id*/
+        ResultSet r =st.executeQuery("SELECT p.id ,p.sujet,p.titre FROM etudiant e , utilisateur u ,pfe p WHERE e.id=u.id AND p.id_etudiant = e.id");/*a changer avec getseesion id*/
         while (r.next())
         {
             Pfe p = new Pfe();

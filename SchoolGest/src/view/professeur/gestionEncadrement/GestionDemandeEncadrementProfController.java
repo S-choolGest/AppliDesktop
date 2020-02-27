@@ -51,7 +51,7 @@ public class GestionDemandeEncadrementProfController implements Initializable {
             colTitre.setCellValueFactory(c->new SimpleStringProperty(c.getValue().getTitre()));
             colSujet.setCellValueFactory(c->new SimpleStringProperty(c.getValue().getSujet()));
             colEtat.setCellValueFactory(c->new SimpleStringProperty(c.getValue().getEtat()));
-            ObservableList<DemandeEncadrement> list =des.getMesDemandesProf();
+            ObservableList<DemandeEncadrement> list =des.getMesDemandesProf(4);/*a changer avec auth().id*/
             tableDemandeEncadrementProf.setItems(list);
             
             addButtonToTable();

@@ -95,7 +95,7 @@ public class GestionDemandeEncadrementController implements Initializable {
             colTitre.setCellValueFactory(c->new SimpleStringProperty(c.getValue().getTitre()));
             colSujet.setCellValueFactory(c->new SimpleStringProperty(c.getValue().getSujet()));
             colEtat.setCellValueFactory(c->new SimpleStringProperty(c.getValue().getEtat()));
-            ObservableList<DemandeEncadrement> list =des.getMesDemandesEtudiant();
+            ObservableList<DemandeEncadrement> list =des.getMesDemandesEtudiant(1);/*a changer avec Auth id*/
             tableDemandeEncadrementEtudiant.setItems(list);
             
     }

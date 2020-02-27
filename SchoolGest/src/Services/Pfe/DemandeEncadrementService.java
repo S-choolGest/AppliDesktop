@@ -22,6 +22,10 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.util.Duration;
+import tray.animations.AnimationType;
+import tray.notification.NotificationType;
+import tray.notification.TrayNotification;
 
 /**
  *
@@ -38,8 +42,10 @@ import javafx.collections.ObservableList;
         st = conx.createStatement();
         String request = "INSERT INTO `encadrement` (`id`, `id_pfe`, `id_prof`, `etat`) VALUES (NULL,'"+d.getId_pfe()+"','"+d.getId_prof()+"','"+d.getEtat()+")"; 
         st.executeUpdate(request);
+        String mail = getMailParId(d.getId_prof());
+        System.out.println(mail);
         try {
-            JavaMailUtil.sendMail("wazkasmi@gmail.com");
+            JavaMailUtil.sendMail(mail);
         } catch (Exception ex) {
             Logger.getLogger(DemandeEncadrementService.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -70,7 +76,7 @@ st = conx.createStatement();
     public List<DemandeEncadrement> readAll() throws SQLException{  
         List<DemandeEncadrement>l =new ArrayList<>();
         st = conx.createStatement();
-        ResultSet r =st.executeQuery("SELECT * FROM `demande`");
+        ResultSet r =st.executeQuery("SELECT * FROM `encadrement`");
        while( r.next()){
        int id=r.getInt("id");
        int id_prof=r.getInt("id_prof");
@@ -84,7 +90,7 @@ st = conx.createStatement();
     public List<DemandeEncadrement> readDEmEtud() throws SQLException{  
         List<DemandeEncadrement>l =new ArrayList<>();
         st = conx.createStatement();
-        ResultSet r =st.executeQuery("SELECT * FROM `demande`");/*a changer*/
+        ResultSet r =st.executeQuery("SELECT * FROM `encadrement`");/*a changer*/
        while( r.next()){
        int id=r.getInt("id");
        int id_prof=r.getInt("id_prof");
@@ -99,44 +105,47 @@ st = conx.createStatement();
     @Override
     public String AccepterDemande(DemandeEncadrement d) throws SQLException {
     st = conx.createStatement();
-        if (d.getEtat().equalsIgnoreCase("en_attente")){
-        String request = "UPDATE `demande` SET `etat`=\"acceptee\" WHERE id = "+d.getId();
+        String request = "UPDATE `encadrement` SET `etat` = 'acceptee' WHERE `encadrement`.`id`="+d.getId();
         st.executeUpdate(request);    
-    }
-        else 
-        { return "cette demande est deja "+d.getEtat();
-                }
+    
+        
         try {
             AccDemandeMaill.sendMail("wazkasmi@gmail.com");
         } catch (Exception ex) {
             Logger.getLogger(DemandeEncadrementService.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return "la demande est acceptee ";
+        TrayNotification tray = new TrayNotification("Successfully",
+                    "La demande est acceptee l'etudiant va recevoir un mail", NotificationType.SUCCESS);
+            tray.setAnimationType(AnimationType.SLIDE);
+            tray.showAndDismiss(Duration.seconds(10));
+    
+                    return "la demande est acceptee ";
     }
 
     @Override
     public String refuserDemande(DemandeEncadrement d) throws SQLException {
         st = conx.createStatement();
-        if (d.getEtat().equalsIgnoreCase("en_attente")){
-        String request = "UPDATE `encadrement` SET `etat`=\"refusee\" WHERE id = "+d.getId();
+        String request = "UPDATE `encadrement` SET `etat` = 'refusee' WHERE `encadrement`.`id` ="+d.getId();
         st.executeUpdate(request);
-        }   
-        else 
-        { return "cette demande est deja "+d.getEtat();
-                }
+         
+        
         try {
             RefDemandeMail.sendMail("wazkasmi@gmail.com");
         } catch (Exception ex) {
             Logger.getLogger(DemandeEncadrementService.class.getName()).log(Level.SEVERE, null, ex);
         }
+        TrayNotification tray = new TrayNotification("Successfully",
+                    "La demande est refusee l'etudiant va recevoir un mail", NotificationType.ERROR);
+            tray.setAnimationType(AnimationType.SLIDE);
+            tray.showAndDismiss(Duration.seconds(10));
         return "la demande est refusee ";
     }
-    public ObservableList getMesDemandesEtudiant() throws SQLException
+    public ObservableList getMesDemandesEtudiant(int i) throws SQLException
     {
         ObservableList<DemandeEncadrement> DemandeEncadrementData = FXCollections.observableArrayList(); 
-        String sql ="SELECT p.titre ,p.sujet,d.etat,d.id FROM demande d,pfe p ,etudiant e WHERE d.id_pfe=p.id AND e.id=?";
+        String sql ="SELECT p.titre ,p.sujet,d.etat,d.id FROM utilisateur u,encadrement d,pfe p ,etudiant e WHERE d.id_pfe=p.id AND e.id=u.id AND u.id=?";
         PreparedStatement p=  conx.prepareStatement(sql);
-        p.setInt(1, 1);
+        p.setInt(1, i);
         ResultSet r=p.executeQuery();
         while(r.next())
         {   int id =r.getInt("id");
@@ -149,12 +158,12 @@ st = conx.createStatement();
         }
         return DemandeEncadrementData;
     }
-    public ObservableList getMesDemandesProf() throws SQLException{
+    public ObservableList getMesDemandesProf(int i) throws SQLException{
     ObservableList<DemandeEncadrement> DemandeEncadrementData = FXCollections.observableArrayList(); 
-    String sql ="SELECT s.titre , s.sujet , d.etat ,d.id FROM demande d,pfe s, professeur p WHERE d.id_pfe=s.id AND d.id_prof=p.id AND p.id=?;";
+    String sql ="SELECT s.titre , s.sujet , d.etat ,d.id FROM encadrement d,pfe s, professeur p,utilisateur u WHERE d.id_pfe=s.id AND d.id_prof=p.id AND p.id=u.id AND u.id=?;";;
     /*req a changer */
     PreparedStatement p =conx.prepareStatement(sql);
-    p.setInt(1, 1);
+    p.setInt(1, i);
     ResultSet r=p.executeQuery();
     while(r.next())
     {   
@@ -171,7 +180,7 @@ st = conx.createStatement();
     public int getIdUserParMail(String s) throws SQLException
     {
         int i = -1 ;
-        String sql="SELECT id FROM `professeur` WHERE email=?";
+        String sql="SELECT u.id FROM utilisateur u,professeur p WHERE u.id=p.id AND u.email=?";
         PreparedStatement p = conx.prepareStatement(sql);
         p.setString(1, s);
     ResultSet r =p.executeQuery();
@@ -180,6 +189,20 @@ st = conx.createStatement();
         i =r.getInt(1);
     }
     return i;
+        }
+    public String getMailParId(int id) throws SQLException
+    {
+        String s = "";
+        String ids = Integer.toString(id);
+        String sql="SELECT u.email FROM utilisateur u WHERE u.id=?";
+        PreparedStatement p = conx.prepareStatement(sql);
+        p.setString(1, ids);
+    ResultSet r =p.executeQuery();
+    while(r.next())
+    {
+        s =r.getString(1);
+    }
+    return s;
         }
 }
     

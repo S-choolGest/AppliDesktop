@@ -81,7 +81,7 @@ public class GestionPfeController implements Initializable {
         String titre= tfTitre.getText();
         String sujet = tfSujet.getText();
         PfeService ps= new PfeService();
-        Pfe p = new Pfe(1, sujet, titre);
+        Pfe p = new Pfe(1, sujet, titre);/*a changer avec auth id */
         ps.ajouterPfe(p);
     }
 

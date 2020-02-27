@@ -3,28 +3,8 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/william/Documents/AppliDesktop/AppliDesktop/SchoolGest/src/GUI/Bibliotheque/EmpruntController.java</file>
-            <file>file:/C:/Users/william/Documents/AppliDesktop/AppliDesktop/SchoolGest/src/IServices/Bibliotheque/IServices.java</file>
-            <file>file:/C:/Users/william/Documents/AppliDesktop/AppliDesktop/SchoolGest/src/GUI/Bibliotheque/Emprunt_userController.java</file>
-            <file>file:/C:/Users/william/Documents/AppliDesktop/AppliDesktop/SchoolGest/src/GUI/Bibliotheque/New_accountController.java</file>
-            <file>file:/C:/Users/william/Documents/AppliDesktop/AppliDesktop/SchoolGest/src/GUI/Bibliotheque/HomeController.java</file>
-            <file>file:/C:/Users/william/Documents/AppliDesktop/AppliDesktop/SchoolGest/src/Services/Bibliotheque/ServicesLivreEmprunte.java</file>
-            <file>file:/C:/Users/william/Documents/AppliDesktop/AppliDesktop/SchoolGest/src/GUI/Bibliotheque/emprunt_user.fxml</file>
-            <file>file:/C:/Users/william/Documents/AppliDesktop/AppliDesktop/SchoolGest/src/GUI/Bibliotheque/new_account.fxml</file>
-            <file>file:/C:/Users/william/Documents/AppliDesktop/AppliDesktop/SchoolGest/src/GUI/Bibliotheque/bibliotheque_userController.java</file>
-            <file>file:/C:/Users/william/Documents/AppliDesktop/AppliDesktop/SchoolGest/src/Services/Bibliotheque/ServicesLivres.java</file>
-            <file>file:/C:/Users/william/Documents/AppliDesktop/AppliDesktop/SchoolGest/src/GUI/Bibliotheque/Bibliotheque.java</file>
-            <file>file:/C:/Users/william/Documents/AppliDesktop/AppliDesktop/SchoolGest/src/Entite/Bibliotheque/Reservation.java</file>
-            <file>file:/C:/Users/william/Documents/AppliDesktop/AppliDesktop/SchoolGest/src/GUI/Bibliotheque/RegisterController.java</file>
-            <file>file:/C:/Users/william/Documents/AppliDesktop/AppliDesktop/SchoolGest/src/Entite/Bibliotheque/LivreEmprunte.java</file>
-            <file>file:/C:/Users/william/Documents/AppliDesktop/AppliDesktop/SchoolGest/src/GUI/Bibliotheque/register.fxml</file>
-            <file>file:/C:/Users/william/Documents/AppliDesktop/AppliDesktop/SchoolGest/src/GUI/Bibliotheque/catalogue_user.java</file>
-            <file>file:/C:/Users/william/Documents/AppliDesktop/AppliDesktop/SchoolGest/src/IServices/Bibliotheque/IServiceEmprunteur.java</file>
-            <file>file:/C:/Users/william/Documents/AppliDesktop/AppliDesktop/SchoolGest/src/test/Bibliotheque/testBibliotheque.java</file>
-            <file>file:/C:/Users/william/Documents/AppliDesktop/AppliDesktop/SchoolGest/src/Services/Bibliotheque/ServicesReservation.java</file>
-            <file>file:/C:/Users/william/Documents/AppliDesktop/AppliDesktop/SchoolGest/src/GUI/Bibliotheque/home.fxml</file>
-            <file>file:/C:/Users/william/Documents/AppliDesktop/AppliDesktop/SchoolGest/src/GUI/Bibliotheque/bibliotheque_user.fxml</file>
-            <file>file:/C:/Users/william/Documents/AppliDesktop/AppliDesktop/SchoolGest/src/Services/Bibliotheque/ServicesEmprunteur.java</file>
+            <file>file:/C:/Users/TOSHIBA/Desktop/Nouveau%20dossier%20(6)/AppliDesktop/SchoolGest/src/view/etudiant/gestionpfe/GestionPfeController.java</file>
+            <file>file:/C:/Users/TOSHIBA/Desktop/Nouveau%20dossier%20(6)/AppliDesktop/SchoolGest/src/Api/pfe/AccDemandeMaill.java</file>
         </group>
     </open-files>
 </project-private>
