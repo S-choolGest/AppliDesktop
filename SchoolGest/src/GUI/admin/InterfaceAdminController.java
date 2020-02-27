@@ -69,7 +69,7 @@ public class InterfaceAdminController implements Initializable {
 	private JFXButton notes;
 	@FXML
 	private AnchorPane body;
-	private Boolean infos_vue = false;
+	private Boolean info_vue = false;
 	private Stage stage;
 	public Utilisateur user;
 	/**
@@ -82,34 +82,50 @@ public class InterfaceAdminController implements Initializable {
 
 	@FXML
 	private void charger_utilisateurs(ActionEvent event) {
+		info_vue = false;
+		info.setVisible(info_vue);
 	}
 
 	@FXML
 	private void charger_matieres(ActionEvent event) {
+		info_vue = false;
+		info.setVisible(info_vue);
 	}
 
 	@FXML
 	private void charger_emplois(ActionEvent event) {
+		info_vue = false;
+		info.setVisible(info_vue);
 	}
 
 	@FXML
 	private void charger_absences(ActionEvent event) {
+		info_vue = false;
+		info.setVisible(info_vue);
 	}
 
 	@FXML
 	private void charger_reclamations(ActionEvent event) {
+		info_vue = false;
+		info.setVisible(info_vue);
 	}
 
 	@FXML
 	private void charger_encadrement(ActionEvent event) {
+		info_vue = false;
+		info.setVisible(info_vue);
 	}
 
 	@FXML
 	private void charger_evenements(ActionEvent event) {
+		info_vue = false;
+		info.setVisible(info_vue);
 	}
 
 	@FXML
 	private void charger_bibliotheques(ActionEvent event) throws IOException {
+		info_vue = false;
+		info.setVisible(info_vue);
 		body.getChildren().clear();
 		FXMLLoader loader = new FXMLLoader();
 		loader.setLocation(getClass().getResource("../Bibliotheque/Catalogue_bibliothecaire.fxml"));
@@ -120,12 +136,14 @@ public class InterfaceAdminController implements Initializable {
 
 	@FXML
 	private void charger_notes(ActionEvent event) {
+		info_vue = false;
+		info.setVisible(info_vue);
 	}
 
 	@FXML
 	private void afficher_info(MouseEvent event) {
-		infos_vue = !infos_vue;
-		info.setVisible(infos_vue);
+		info_vue = !info_vue;
+		info.setVisible(info_vue);
 		info.toFront();
 		body.toBack();
 	}
@@ -148,6 +166,8 @@ public class InterfaceAdminController implements Initializable {
 
 	@FXML
 	private void charger_edit_account(MouseEvent event) throws IOException {
+		info_vue = false;
+		info.setVisible(info_vue);
 		FXMLLoader loader = new FXMLLoader();
 		loader.setLocation(getClass().getResource("../Bibliotheque/update_account.fxml"));
 		Parent n = (Parent) loader.load();
@@ -173,5 +193,11 @@ public class InterfaceAdminController implements Initializable {
 				stage.close();
 			}
 		});
+	}
+
+	@FXML
+	private void cacher_note(MouseEvent event) {
+		info_vue = false;
+		info.setVisible(info_vue);
 	}
 }

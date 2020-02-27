@@ -69,7 +69,7 @@ public class InterfaceScolariteController implements Initializable {
 	private JFXButton notes;
 	@FXML
 	private AnchorPane body;
-	private Boolean infos_vue = false;
+	private Boolean info_vue = false;
 	private Stage stage;
 	public Utilisateur user;
 	/**
@@ -82,34 +82,50 @@ public class InterfaceScolariteController implements Initializable {
 
 	@FXML
 	private void charger_utilisateurs(ActionEvent event) {
+		info_vue = false;
+		info.setVisible(info_vue);
 	}
 
 	@FXML
 	private void charger_matieres(ActionEvent event) {
+		info_vue = false;
+		info.setVisible(info_vue);
 	}
 
 	@FXML
 	private void charger_emplois(ActionEvent event) {
+		info_vue = false;
+		info.setVisible(info_vue);
 	}
 
 	@FXML
 	private void charger_absences(ActionEvent event) {
+		info_vue = false;
+		info.setVisible(info_vue);
 	}
 
 	@FXML
 	private void charger_reclamations(ActionEvent event) {
+		info_vue = false;
+		info.setVisible(info_vue);
 	}
 
 	@FXML
 	private void charger_encadrement(ActionEvent event) {
+		info_vue = false;
+		info.setVisible(info_vue);
 	}
 
 	@FXML
 	private void charger_evenements(ActionEvent event) {
+		info_vue = false;
+		info.setVisible(info_vue);
 	}
 
 	@FXML
 	private void charger_notes(ActionEvent event) {
+		info_vue = false;
+		info.setVisible(info_vue);
 	}
 	@FXML
 	private void charger_bibliotheques(ActionEvent event) throws IOException {
@@ -123,8 +139,8 @@ public class InterfaceScolariteController implements Initializable {
 
 	@FXML
 	private void afficher_info(MouseEvent event) {
-		infos_vue = !infos_vue;
-		info.setVisible(infos_vue);
+		info_vue = !info_vue;
+		info.setVisible(info_vue);
 		info.toFront();
 		body.toBack();
 	}
@@ -172,5 +188,11 @@ public class InterfaceScolariteController implements Initializable {
 				stage.close();
 			}
 		});
+	}
+
+	@FXML
+	private void cacher_info(MouseEvent event) {
+		info_vue = false;
+		info.setVisible(info_vue);
 	}
 }

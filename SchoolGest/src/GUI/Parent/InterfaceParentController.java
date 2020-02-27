@@ -74,24 +74,36 @@ public class InterfaceParentController implements Initializable {
 
 	@FXML
 	private void charger_matieres(ActionEvent event) {
+		info_vue = false;
+		info.setVisible(info_vue);
 	}
 
 	@FXML
 	private void charger_emplois(ActionEvent event) {
+		info_vue = false;
+		info.setVisible(info_vue);
 	}
 
 	@FXML
 	private void charger_absences(ActionEvent event) {
+		info_vue = false;
+		info.setVisible(info_vue);
 	}
 
 	@FXML
 	private void charger_reclamations(ActionEvent event) {
+		info_vue = false;
+		info.setVisible(info_vue);
 	}
 
 	@FXML
 	private void charger_notes(ActionEvent event) {
+		info_vue = false;
+		info.setVisible(info_vue);
 	}
 	private void charger_bibliotheque(ActionEvent event) throws IOException {
+		info_vue = false;
+		info.setVisible(info_vue);
 		body.getChildren().clear();
 		FXMLLoader loader = new FXMLLoader();
 		loader.setLocation(getClass().getResource("../Bibliotheque/Catalogue_bibliothecaire.fxml"));
@@ -127,6 +139,8 @@ public class InterfaceParentController implements Initializable {
 
 	@FXML
 	private void charger_edit_account(MouseEvent event) throws IOException {
+		info_vue = false;
+		info.setVisible(info_vue);
 		FXMLLoader loader = new FXMLLoader();
 		loader.setLocation(getClass().getResource("../Bibliotheque/update_account.fxml"));
 		Parent n = (Parent) loader.load();
@@ -152,5 +166,11 @@ public class InterfaceParentController implements Initializable {
 				stage.close();
 			}
 		});
+	}
+
+	@FXML
+	private void cacher_info(MouseEvent event) {
+		info_vue = false;
+		info.setVisible(info_vue);
 	}
 }

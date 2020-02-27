@@ -8,6 +8,7 @@ package GUI.Bibliotheque.Utilisateur;
 import Entite.Utilisateur.Utilisateur;
 import GUI.Bibliotheque.Catalogue_bibliothecaireController;
 import GUI.Bibliotheque.Catalogue_userController;
+import GUI.Bibliotheque.Consulter_empruntController;
 import Services.Bibliotheque.ServicesEmprunt;
 import Services.Bibliotheque.ServicesEmprunteur;
 import Services.Bibliotheque.ServicesLivreEmprunte;
@@ -78,8 +79,16 @@ public class Bibliotheque_user_menuController implements Initializable {
 	}
 
 	@FXML
-	private void charger_emprunt(MouseEvent event) {
-		
+	private void charger_emprunt(MouseEvent event) throws IOException, SQLException {
+		this.body.getChildren().clear();
+		FXMLLoader loader = new FXMLLoader();
+		loader.setLocation(getClass().getResource("../consulter_emprunt.fxml"));
+		Parent n = (Parent) loader.load();
+		Consulter_empruntController emp = loader.getController();
+		emp.getStage(stage);
+		emp.getInfo(user);
+		emp.getBody(this.body);
+		this.body.getChildren().add(n);
 	}
 
 	@FXML

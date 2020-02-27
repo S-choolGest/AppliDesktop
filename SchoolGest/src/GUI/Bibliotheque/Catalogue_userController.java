@@ -291,7 +291,7 @@ public class Catalogue_userController implements Initializable {
 		Bibliotheque_user_menuController emp = loader.getController();
 		emp.getStage(stage);
 		emp.getBody(body);
-		emp.getInfo(user);
+		emp.getInfo(user);	
 		this.body.getChildren().add(n);
 	}
 

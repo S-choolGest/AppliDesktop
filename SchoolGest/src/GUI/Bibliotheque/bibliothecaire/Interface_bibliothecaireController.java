@@ -96,6 +96,8 @@ public class Interface_bibliothecaireController implements Initializable {
 
 	@FXML
 	private void charger_edit_account(MouseEvent event) throws IOException {
+		info_vue = false;
+		info.setVisible(info_vue);
 		FXMLLoader loader = new FXMLLoader();
 		loader.setLocation(getClass().getResource("../Bibliotheque/update_account.fxml"));
 		Parent n = (Parent) loader.load();
@@ -112,6 +114,8 @@ public class Interface_bibliothecaireController implements Initializable {
 
 	@FXML
 	private void charger_catalogue(ActionEvent event) throws IOException, SQLException {
+		info_vue = false;
+		info.setVisible(info_vue);
 		body.getChildren().clear();
 		Bibliotheque b = ser_bib.getBibliotheque(user.getEmail());
 		FXMLLoader loader = new FXMLLoader();
@@ -125,10 +129,14 @@ public class Interface_bibliothecaireController implements Initializable {
 
 	@FXML
 	private void charger_reservations(ActionEvent event) {
+		info_vue = false;
+		info.setVisible(info_vue);
 	}
 
 	@FXML
 	private void charger_emprunts(ActionEvent event) throws SQLException, IOException {
+		info_vue = false;
+		info.setVisible(info_vue);
 		body.getChildren().clear();
 		Bibliotheque b = ser_bib.getBibliotheque(user.getEmail());
 		FXMLLoader loader = new FXMLLoader();
@@ -146,6 +154,12 @@ public class Interface_bibliothecaireController implements Initializable {
 		info.setVisible(info_vue);
 		info.toFront();
 		body.toBack();
+	}
+
+	@FXML
+	private void cacher_info(MouseEvent event) {
+		info_vue = false;
+		info.setVisible(info_vue);
 	}
 	
 }
