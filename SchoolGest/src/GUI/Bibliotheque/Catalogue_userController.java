@@ -211,7 +211,7 @@ public class Catalogue_userController implements Initializable {
 									String datedebut = dateformat.format(date_debut.getValue());
 									String datefin = dateformat.format(date_fin.getValue());
 									if(datedebut.compareTo(datefin)<0)
-									error_emprunter.setText(ser_emp.emprunter(Integer.valueOf(user.getId()), l.getId(), datedebut, datefin));
+									error_emprunter.setText(ser_emp.emprunter(user.getId(), l.getId(), datedebut, datefin));
 									else
 										error_emprunter.setText("Date de début > date de fin");
 								}

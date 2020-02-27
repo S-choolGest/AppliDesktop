@@ -1,11 +1,71 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.Bibliotheque.admin.Bibliotheque_adminController">
-    
+<AnchorPane id="AnchorPane" prefHeight="592.0" prefWidth="1066.0" style="-fx-background-color: #E7EFFA;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.Bibliotheque.Utilisateur.Bibliotheque_user_menuController">
+   <children>
+      <ImageView fitHeight="244.0" fitWidth="297.0" layoutX="105.0" layoutY="129.0" pickOnBounds="true" preserveRatio="true" />
+      <Pane fx:id="catalogue" layoutX="38.0" layoutY="165.0" onMouseClicked="#charger_catalogue" prefHeight="173.0" prefWidth="318.0">
+         <children>
+            <ImageView fitHeight="181.0" fitWidth="310.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../image/menu_button.png" />
+               </image>
+            </ImageView>
+            <Label layoutX="14.0" layoutY="41.0" prefHeight="78.0" prefWidth="209.0" text="Biblioth" textFill="#e0e5eb">
+               <font>
+                  <Font size="45.0" />
+               </font>
+            </Label>
+            <ImageView fitHeight="55.0" fitWidth="53.0" layoutX="242.0" layoutY="27.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../image/icons8_book_shelf_96px.png" />
+               </image>
+            </ImageView>
+         </children>
+      </Pane>
+      <Pane fx:id="emprunt" layoutX="374.0" layoutY="165.0" onMouseClicked="#charger_emprunt" prefHeight="173.0" prefWidth="318.0">
+         <children>
+            <ImageView fitHeight="181.0" fitWidth="310.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../image/menu_button.png" />
+               </image>
+            </ImageView>
+            <Label layoutX="14.0" layoutY="41.0" prefHeight="78.0" prefWidth="209.0" text="Emprunts" textFill="#e0e5eb">
+               <font>
+                  <Font size="45.0" />
+               </font>
+            </Label>
+            <ImageView fitHeight="55.0" fitWidth="53.0" layoutX="242.0" layoutY="27.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/icons8_books_500px_2.png" />
+               </image>
+            </ImageView>
+         </children>
+      </Pane>
+      <Pane fx:id="reservation" layoutX="721.0" layoutY="165.0" onMouseClicked="#charger_reservation" prefHeight="173.0" prefWidth="318.0">
+         <children>
+            <ImageView fitHeight="181.0" fitWidth="310.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../image/menu_button.png" />
+               </image>
+            </ImageView>
+            <Label layoutX="4.0" layoutY="41.0" prefHeight="78.0" prefWidth="235.0" text="Réservation" textFill="#e0e5eb">
+               <font>
+                  <Font size="45.0" />
+               </font>
+            </Label>
+            <ImageView fitHeight="55.0" fitWidth="53.0" layoutX="242.0" layoutY="27.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../image/icons8_ticket_purchase_96px_1.png" />
+               </image>
+            </ImageView>
+         </children>
+      </Pane>
+   </children>
 </AnchorPane>

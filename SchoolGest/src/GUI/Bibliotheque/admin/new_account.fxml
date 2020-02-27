@@ -16,7 +16,7 @@
          <children>
             <ImageView fitHeight="215.0" fitWidth="183.0" layoutX="78.0" layoutY="185.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@images/logo_ecole.png" />
+                  <Image url="@../images/logo_ecole.png" />
                </image>
             </ImageView>
          </children>
@@ -80,7 +80,7 @@
                </font>
             </JFXTextField>
             <JFXDatePicker layoutX="48.0" layoutY="406.0" prefHeight="34.0" prefWidth="293.0" />
-            <Label layoutX="79.0" layoutY="21.0" prefHeight="74.0" prefWidth="334.0" style="-fx-background-color: #173752;" text="Nouveau Bibliothécaire" textFill="#b9b9b9">
+            <Label layoutX="79.0" layoutY="21.0" prefHeight="74.0" prefWidth="334.0" style="-fx-background-color: #173752;" text="Nouveau Utilisateur" textFill="#b9b9b9">
                <font>
                   <Font size="32.0" />
                </font>

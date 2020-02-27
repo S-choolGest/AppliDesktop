@@ -47,8 +47,6 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import org.controlsfx.control.textfield.AutoCompletionBinding;
-import org.controlsfx.control.textfield.TextFields;
 
 /**
  * FXML Controller class
@@ -170,7 +168,7 @@ public class Catalogue_bibliothecaireController implements Initializable {
 	private String imga = "http://localhost/mobile/book.jpg";
 	@FXML
 	private Pane img_livre_edit;
-	private AutoCompletionBinding<String> autoCompleteCategorie;
+//	private AutoCompletionBinding<String> autoCompleteCategorie;
 
 	/**
 	 * Initializes the controller class.
@@ -421,7 +419,7 @@ public class Catalogue_bibliothecaireController implements Initializable {
 	private void charger_ajout(MouseEvent event) throws SQLException {
 		page_ajout.setVisible(true);
 		try {
-			autoCompleteCategorie = TextFields.bindAutoCompletion(categoriea, ser.getCategories(this.bib.getId()));
+//			autoCompleteCategorie = TextFields.bindAutoCompletion(categoriea, ser.getCategories(this.bib.getId()));
 		} catch (Exception e) {
 			aucun_livre.setVisible(true);
 		}
