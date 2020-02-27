@@ -6,8 +6,6 @@
 package GUI.Formulaire;
 
 import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -23,7 +21,7 @@ public class HomePage extends Application {
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) {
+    public static void main(String[] args) {    
         launch(args);
     }
 

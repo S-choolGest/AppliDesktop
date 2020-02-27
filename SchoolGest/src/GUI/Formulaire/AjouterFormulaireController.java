@@ -6,13 +6,10 @@
 package GUI.Formulaire;
 
 import Entite.Formulaire.Formulaire;
-import static com.sun.media.jfxmediaimpl.MediaUtils.error;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Optional;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -69,7 +66,7 @@ public class AjouterFormulaireController implements Initializable {
             error.setText("veuillez remplir les champs manquants.");
             verif = false;
         }
-        if (verif = true) {
+        else if(verif = true) {
             String objet = tfObjet.getText();
             String description = taDescription.getText();
             String fichier = tfFichier.getText();
@@ -96,6 +93,8 @@ public class AjouterFormulaireController implements Initializable {
         }
         
     }
+    
+    
     
     
     
