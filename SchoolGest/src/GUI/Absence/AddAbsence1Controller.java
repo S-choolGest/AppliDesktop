@@ -8,13 +8,13 @@ package GUI.Absence;
 import Entite.Education.Absence;
 import Entite.Utilisateur.Enseignant;
 import Entite.Utilisateur.Etudiant;
-import Entite.Utilisateur.Parents;
 import Entite.Utilisateur.Utilisateur;
 import Services.Education.ServiceAbsence;
 import Services.Education.ServiceClasse;
 import Services.Education.ServiceMatiere;
 import java.net.URL;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
@@ -96,11 +96,11 @@ public class AddAbsence1Controller implements Initializable {
     private ChoiceBox<String> ChoiceEtat;
     @FXML
     private Button BTNModifier;
-    int i = 0;
+   
     ObservableList<String> listM;
     ObservableList<String> listC;
     ObservableList<String> listCE;
-    ObservableList<String> list1 = null ;
+    ObservableList<Timestamp> listJours= null ;
     Separator separator = new Separator();
     ObservableList<String> ETATS = FXCollections.observableArrayList("justifié", "non justifié");
     ObservableList<?> Time = FXCollections.observableArrayList("9:00:00", "10:45:00",separator,"13:30:00","15:00:00");
@@ -119,20 +119,86 @@ public class AddAbsence1Controller implements Initializable {
     private ChoiceBox<String> classeName;
     
     ServiceClasse sc = new ServiceClasse();
+    Object o;
     ObservableList<Absence> list ;
     Absence data;
     @FXML
     private TableColumn<Absence, String> IDColumn;
     @FXML
     private TextField RechercheEtudiantAbs;
+    @FXML
+    private ChoiceBox<String> ChoiceJourS;
+    
+    
+    int k = 0 ;
+                 int f = 0;
+                 int d = 0;
+                 int e = 0;
     
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        
+         try {
+            listJours = sa.readAllS();
+             ObservableList<String> list =FXCollections.observableArrayList("lundi", "mardi","mercredi","jeudi","vendredi","samedi");
+        XYChart.Series<String , Integer> series  = new XYChart.Series<>();
+        ChoiceJourS.setItems(list);
+        ChoiceJourS.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>() {
+          @Override
+             public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number t1) {
+                 if(series.getData().size()!=0){
+                     System.out.println("hiiii");
+                       series.getData().clear();
+                   
+                       System.out.println(series.getData());
+                    }
+                
+                  for(int i =0 ; i<listJours.size();i++){
+                     String dayOfWeek = new SimpleDateFormat("EEEE").format(listJours.get(i).getTime());
+                       String time = new SimpleDateFormat("HH:mm").format(listJours.get(i).getTime());
+                       System.out.println(dayOfWeek);
+                       System.out.println(time);
+                  if(dayOfWeek.compareTo(list.get(t1.intValue())) == 0){
+                    if(time.compareTo("9:00")==0){
+                        k++;
+                    }if(time.compareTo("10:45")==0){
+                        f++;
+                    } if(time.compareTo("13:30")==0){
+                        d++;
+                    } if (time.compareTo("15:00")==0){
+                        e++;
+                    }
+                 }
+                }
+                  System.out.println(k);
+                  System.out.println(f);
+                  System.out.println(d);
+                  series.getData().add(new XYChart.Data<>("09:00:00", k));
+                  series.getData().add(new XYChart.Data<>("10:45:00", f));
+                  series.getData().add(new XYChart.Data<>("13:30:00", d));
+                   series.getData().add(new XYChart.Data<>("15:00:00", e));
+                  
+                   System.out.println("here"+series.getData()+"barchart ");
+                   
+                  
+             }
+         });
+        
+        
+         barchart.getData().add(series);
+         
+        } catch (SQLException ex) {
+            System.out.println(ex);
+        }
        
-       
+         
+         
+         
+         
+       addButtonToTable(); 
        TabGestion.getTabs().remove(2);
         
       ServiceMatiere sm = new ServiceMatiere();
@@ -140,7 +206,6 @@ public class AddAbsence1Controller implements Initializable {
            listM = sm.readAll();
            TextMatiere.setItems(listM);
            IDTime.setItems((ObservableList<String>) Time);
-            xAxis.setCategories(Time2);
         } catch (SQLException ex) {
             System.out.println(ex);
         }
@@ -309,33 +374,14 @@ public class AddAbsence1Controller implements Initializable {
         TabGestion.getTabs().remove(3);
     }
 /**********************************Statistiques*****************************************/   
-    private void compterNombreAbsenceParTemps(ObservableList<String> list2) {
-        XYChart.Series<String, Integer> series = new XYChart.Series<>();
-        int i;
-        int j =0;
-        int k =0;
-        int l =0;
-        int m =0;
-        for(i =0 ; i<list2.size();i++){
-         if(list2.get(i).substring(11,19).equals("09:00:00")){
-         j++;
-         }if(list2.get(i).substring(11,19).equals("10:45:00")){
-           k++;  
-         }  switch (list2.get(i).substring(11,19)) {
-                case "13:30:00":
-                    l++;
-                    break;
-                case "15:00:00":
-                    m++;
-                    break;
-            }
-        }
-         series.getData().add(new XYChart.Data<>("9:00:00", j));
-         series.getData().add(new XYChart.Data<>("10:45:00", k));
-         series.getData().add(new XYChart.Data<>("13:30:00", l));
-         series.getData().add(new XYChart.Data<>("15:00:00", m));
-         barchart.getData().add(series);
-        }
+    private void compterNombreAbsenceParTemps(ObservableList<Timestamp> list2) {
+           // xAxis.setCategories(Time2);
+        
+        
+               
+           
+    }
+            
 
     @FXML
     private void Rafraichir(ActionEvent event) {
@@ -343,26 +389,34 @@ public class AddAbsence1Controller implements Initializable {
 
 
     public void getInstance(Utilisateur o){
-        
-        if(o.getType() == 0){
-           afficherEtudiant(o);
-        }else if (o.getType()==1){
+        if(o instanceof Etudiant){
+            this.o = (Etudiant) o ;
+            try { 
+            IDColumn.setCellValueFactory(c-> new SimpleStringProperty(c.getValue().getIdS()));
+            ColumnMatiere.setCellValueFactory(c-> new SimpleStringProperty(c.getValue().getMatiere()));
+            ColumnDate.setCellValueFactory(c-> new SimpleStringProperty(c.getValue().getDate()));  
+            ColumnEtat.setCellValueFactory(c-> new SimpleStringProperty(c.getValue().getetat()));
+            ColumnIDEtu.setCellValueFactory(c-> new SimpleStringProperty(c.getValue().getIdEtudiantS()));
+            ObservableList<Absence> list = sa.readAllV2();
+            System.out.println(list);
+            IDColumn.setVisible(false);
+            Table.setItems(list);
+         } catch (SQLException ex) {
+            System.out.println(ex);
+        }
+        }else if (o instanceof Enseignant){
+            System.out.println("hi");
+        this.o = (Enseignant) o;
         TabGestion.getTabs().remove(2);
         TabGestion.getTabs().remove(1);
-        }else if (o.getType() == 4){
-            afficherEtudiantParent(o);
         }
-//        System.out.println(this.o.getClass());
+        System.out.println(this.o.getClass());
         
     }
 /*****************************Afficher etudiant avec cin********************************/
     @FXML
     private void RechercheEtudiantAbs(ActionEvent event) {
         try{ 
-            i++;
-            if(i<=1){
-            addButtonToTable(); 
-            }
             IDColumn.setCellValueFactory(c-> new SimpleStringProperty(c.getValue().getIdS()));
             ColumnMatiere.setCellValueFactory(c-> new SimpleStringProperty(c.getValue().getMatiere()));
             ColumnDate.setCellValueFactory(c-> new SimpleStringProperty(c.getValue().getDate()));  
@@ -381,47 +435,11 @@ public class AddAbsence1Controller implements Initializable {
 
     @FXML
     private void showStat(Event event) {
-         try {
-            list1 = sa.readAllS();
-        } catch (SQLException ex) {
-            System.out.println(ex);
-        }
-        compterNombreAbsenceParTemps(list1);
+        
+        
     }
+
     
-    private void afficherEtudiant(Utilisateur o){
-        try { 
-            IDColumn.setCellValueFactory(c-> new SimpleStringProperty(c.getValue().getIdS()));
-            ColumnMatiere.setCellValueFactory(c-> new SimpleStringProperty(c.getValue().getMatiere()));
-            ColumnDate.setCellValueFactory(c-> new SimpleStringProperty(c.getValue().getDate()));  
-            ColumnEtat.setCellValueFactory(c-> new SimpleStringProperty(c.getValue().getetat()));
-            ColumnIDEtu.setCellValueFactory(c-> new SimpleStringProperty(c.getValue().getIdEtudiantS()));
-            ObservableList<Absence> list = sa.readAllVEtudiant(o);
-            System.out.println(list);
-            IDColumn.setVisible(false);
-            Table.setItems(list);
-         } catch (SQLException ex) {
-            System.out.println(ex);
-        }
-            TabGestion.getTabs().remove(0);
-    }
-    
-    private void afficherEtudiantParent(Utilisateur o){
-        try { 
-            IDColumn.setCellValueFactory(c-> new SimpleStringProperty(c.getValue().getIdS()));
-            ColumnMatiere.setCellValueFactory(c-> new SimpleStringProperty(c.getValue().getMatiere()));
-            ColumnDate.setCellValueFactory(c-> new SimpleStringProperty(c.getValue().getDate()));  
-            ColumnEtat.setCellValueFactory(c-> new SimpleStringProperty(c.getValue().getetat()));
-            ColumnIDEtu.setCellValueFactory(c-> new SimpleStringProperty(c.getValue().getIdEtudiantS()));
-            ObservableList<Absence> list = sa.readAllVEtudiantParent(o);
-            System.out.println(list);
-            IDColumn.setVisible(false);
-            Table.setItems(list);
-         } catch (SQLException ex) {
-            System.out.println(ex);
-        }
-            TabGestion.getTabs().remove(0);
-    }
     
 }
     

@@ -15,7 +15,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<TabPane fx:id="TabGestion" prefHeight="564.0" prefWidth="987.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.GestionEduction.GUI.AddAbsence1Controller">
+<TabPane fx:id="TabGestion" prefHeight="564.0" prefWidth="987.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.Absence.AddAbsence1Controller">
   <tabs>
     <Tab text="Ajouter Absence">
       <content>
