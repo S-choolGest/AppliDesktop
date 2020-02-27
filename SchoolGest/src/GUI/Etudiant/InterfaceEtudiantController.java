@@ -22,6 +22,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -72,6 +73,8 @@ public class InterfaceEtudiantController implements Initializable {
 	private Boolean info_vue = false;
 	private Stage stage;
 	public Utilisateur user;
+	@FXML
+	private ImageView profil_picture;
 
 	/**
 	 * Initializes the controller class.
@@ -158,9 +161,12 @@ public class InterfaceEtudiantController implements Initializable {
 		body.toBack();
 	}
 	public void getInfo(Utilisateur u){
+		this.user = u;
 		nom.setText(u.getNom());
 		prenom.setText(u.getPrenom());
 		email.setText(u.getEmail());
+		String updateprojectstyle="-fx-image:url('"+this.user.getProfil()+"');";
+		profil_picture.setStyle(updateprojectstyle);
 		this.user = u;
 	}
 

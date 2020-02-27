@@ -76,48 +76,49 @@ public class LoginController implements Initializable {
 		if (emailL.length() == 0 || pwd.length() == 0) {
 			error.setText("Remplir tous les champs !!!");
 		} else {
-			Utilisateur u = ser.recuperer_type_compte(emailL, pwd);
-			System.out.println(u.getType());
-			if (u.getType() == 5) {
-				FXMLLoader loader = new FXMLLoader();
-				loader.setLocation(getClass().getResource("../Bibliotheque/bibliothecaire/Interface_bibliothecaire.fxml"));
-				Parent n = (Parent) loader.load();
-				Interface_bibliothecaireController user = loader.getController();
-				user.getInfo(u);
-				Stage stage = new Stage();
-				stage.setTitle("Edutech : Bibliotheque : Gestion");
-				Scene scene = new Scene(n);
-				stage.setResizable(false);
+			try {
+				Utilisateur u = ser.recuperer_type_compte(emailL, pwd);
+				System.out.println(u.getType());
+				if (u.getType() == 5) {
+					FXMLLoader loader = new FXMLLoader();
+					loader.setLocation(getClass().getResource("../Bibliotheque/bibliothecaire/Interface_bibliothecaire.fxml"));
+					Parent n = (Parent) loader.load();
+					Interface_bibliothecaireController user = loader.getController();
+					user.getInfo(u);
+					Stage stage = new Stage();
+					stage.setTitle("Edutech : Bibliotheque : Gestion");
+					Scene scene = new Scene(n);
+					stage.setResizable(false);
 //        scene.setFill(javafx.scene.paint.Color.TRANSPARENT);
-				stage.initStyle(StageStyle.UNDECORATED);
-				stage.setScene(scene);
-				user.getStage(stage);
-				stage.show();
-			} else if (u.getType() == 3) {
-				FXMLLoader loader = new FXMLLoader();
-				loader.setLocation(getClass().getResource("../admin/InterfaceAdmin.fxml"));
-				Parent n = (Parent) loader.load();
-				InterfaceAdminController user = loader.getController();
-				user.getInfo(u);
-				Stage stage = new Stage();
-				stage.setTitle("Edutech : Back-Office");
-				Scene scene = new Scene(n);
-				stage.setResizable(false);
+					stage.initStyle(StageStyle.UNDECORATED);
+					stage.setScene(scene);
+					user.getStage(stage);
+					stage.show();
+				} else if (u.getType() == 3) {
+					FXMLLoader loader = new FXMLLoader();
+					loader.setLocation(getClass().getResource("../admin/InterfaceAdmin.fxml"));
+					Parent n = (Parent) loader.load();
+					InterfaceAdminController user = loader.getController();
+					user.getInfo(u);
+					Stage stage = new Stage();
+					stage.setTitle("Edutech : Back-Office");
+					Scene scene = new Scene(n);
+					stage.setResizable(false);
 //        scene.setFill(javafx.scene.paint.Color.TRANSPARENT);
-				stage.initStyle(StageStyle.UNDECORATED);
-				stage.setScene(scene);
-				user.getStage(stage);
-				stage.show();
-			} else if (u.getType() == 0) {
-				FXMLLoader loader = new FXMLLoader();
-				loader.setLocation(getClass().getResource("../Etudiant/InterfaceEtudiant.fxml"));
-				Parent n = (Parent) loader.load();
-				InterfaceEtudiantController user = loader.getController();
-				user.getInfo(u);
-				Stage stage = new Stage();
-				stage.setTitle("Edutech : Etudiant");
-				Scene scene = new Scene(n);
-				stage.setResizable(false);
+					stage.initStyle(StageStyle.UNDECORATED);
+					stage.setScene(scene);
+					user.getStage(stage);
+					stage.show();
+				} else if (u.getType() == 0) {
+					FXMLLoader loader = new FXMLLoader();
+					loader.setLocation(getClass().getResource("../Etudiant/InterfaceEtudiant.fxml"));
+					Parent n = (Parent) loader.load();
+					InterfaceEtudiantController user = loader.getController();
+					user.getInfo(u);
+					Stage stage = new Stage();
+					stage.setTitle("Edutech : Etudiant");
+					Scene scene = new Scene(n);
+					stage.setResizable(false);
 //        scene.setFill(javafx.scene.paint.Color.TRANSPARENT);
 				stage.initStyle(StageStyle.UNDECORATED);
 				stage.setScene(scene);
@@ -135,41 +136,46 @@ public class LoginController implements Initializable {
 				Scene scene = new Scene(n);
 				stage.setResizable(false);
 //        scene.setFill(javafx.scene.paint.Color.TRANSPARENT);
-				stage.initStyle(StageStyle.UNDECORATED);
-				stage.setScene(scene);
-				user.getStage(stage);
-				stage.show();
-			}else if(u.getType() == 2){
-				FXMLLoader loader = new FXMLLoader();
-				loader.setLocation(getClass().getResource("../Scolarite/InterfaceScolarite.fxml"));
-				Parent n = (Parent) loader.load();
-				InterfaceScolariteController user = loader.getController();
-				user.getInfo(u);
-				Stage stage = new Stage();
-				stage.setTitle("Edutech : Scolarité");
-				Scene scene = new Scene(n);
-				stage.setResizable(false);
+					stage.initStyle(StageStyle.UNDECORATED);
+					stage.setScene(scene);
+					user.getStage(stage);
+					stage.show();
+				} else if (u.getType() == 2) {
+					FXMLLoader loader = new FXMLLoader();
+					loader.setLocation(getClass().getResource("../Scolarite/InterfaceScolarite.fxml"));
+					Parent n = (Parent) loader.load();
+					InterfaceScolariteController user = loader.getController();
+					user.getInfo(u);
+					Stage stage = new Stage();
+					stage.setTitle("Edutech : Scolarité");
+					Scene scene = new Scene(n);
+					stage.setResizable(false);
 //        scene.setFill(javafx.scene.paint.Color.TRANSPARENT);
-				stage.initStyle(StageStyle.UNDECORATED);
-				stage.setScene(scene);
-				user.getStage(stage);
-				stage.show();
-			}else if(u.getType() == 4){
-				FXMLLoader loader = new FXMLLoader();
-				loader.setLocation(getClass().getResource("../Parent/InterfaceParent.fxml"));
-				Parent n = (Parent) loader.load();
-				InterfaceParentController user = loader.getController();
-				user.getInfo(u);
-				Stage stage = new Stage();
-				stage.setTitle("Edutech : Parent");
-				Scene scene = new Scene(n);
-				stage.setResizable(false);
+					stage.initStyle(StageStyle.UNDECORATED);
+					stage.setScene(scene);
+					user.getStage(stage);
+					stage.show();
+				} else if (u.getType() == 4) {
+					FXMLLoader loader = new FXMLLoader();
+					loader.setLocation(getClass().getResource("../Parent/InterfaceParent.fxml"));
+					Parent n = (Parent) loader.load();
+					InterfaceParentController user = loader.getController();
+					user.getInfo(u);
+					Stage stage = new Stage();
+					stage.setTitle("Edutech : Parent");
+					Scene scene = new Scene(n);
+					stage.setResizable(false);
 //        scene.setFill(javafx.scene.paint.Color.TRANSPARENT);
-				stage.initStyle(StageStyle.UNDECORATED);
-				stage.setScene(scene);
-				user.getStage(stage);
-				stage.show();
+					stage.initStyle(StageStyle.UNDECORATED);
+					stage.setScene(scene);
+					user.getStage(stage);
+					stage.show();
+				}
+			} catch (Exception e) {
+				error.setText("Login ou mot de passe incorrect !!!");
+				System.out.println(e);
 			}
+
 		}
 //		} catch (Exception e) {
 //			System.out.println(e);
