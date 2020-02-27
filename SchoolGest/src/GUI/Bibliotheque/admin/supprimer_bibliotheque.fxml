@@ -51,7 +51,7 @@
             </Label>
             <ImageView fx:id="close" fitHeight="34.0" fitWidth="40.0" layoutX="451.0" layoutY="4.0" onMouseClicked="#close_window" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@images/icons8_close_window_50px_1.png" />
+                  <Image url="@../images/icons8_close_window_50px_1.png" />
                </image>
             </ImageView>
             <Label fx:id="error" layoutX="5.0" layoutY="380.0" prefHeight="25.0" prefWidth="483.0" textFill="RED" />
@@ -61,7 +61,7 @@
          <children>
             <ImageView fitHeight="215.0" fitWidth="183.0" layoutX="76.0" layoutY="117.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@images/logo_ecole.png" />
+                  <Image url="@../images/logo_ecole.png" />
                </image>
             </ImageView>
          </children>

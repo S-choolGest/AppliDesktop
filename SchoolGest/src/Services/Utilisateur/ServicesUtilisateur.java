@@ -70,7 +70,7 @@ public class ServicesUtilisateur implements IServicesUtilisateur<Utilisateur> {
 		pre.setInt(5, t.getNumTel());
 		pre.setString(6, t.getDateNaissance());
 		pre.setString(7, t.getAdresse());
-//		pre.setString(8, t.getProfil());
+		pre.setString(8, t.getProfil());
 		pre.setInt(9, t.getId());
 		return pre.executeUpdate() != 0;
 	}

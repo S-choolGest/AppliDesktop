@@ -47,6 +47,8 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import org.controlsfx.control.textfield.AutoCompletionBinding;
+import org.controlsfx.control.textfield.TextFields;
 
 /**
  * FXML Controller class
@@ -168,6 +170,8 @@ public class Catalogue_bibliothecaireController implements Initializable {
 	private String imga = "http://localhost/mobile/book.jpg";
 	@FXML
 	private Pane img_livre_edit;
+	private AutoCompletionBinding<String> autoCompleteCategorie;
+
 	/**
 	 * Initializes the controller class.
 	 */
@@ -379,7 +383,7 @@ public class Catalogue_bibliothecaireController implements Initializable {
 		if (type == 1) {
 			img_livre.getChildren().clear();
 			img_livre.getChildren().add(imgv);
-		}else{
+		} else {
 			img_livre1.getChildren().clear();
 			img_livre1.getChildren().add(imgv);
 		}
@@ -388,7 +392,6 @@ public class Catalogue_bibliothecaireController implements Initializable {
 	@FXML
 	private void afficher_livre(KeyEvent event) {
 	}
-
 
 	@FXML
 	private void ajouter_livre(ActionEvent event) {
@@ -400,13 +403,13 @@ public class Catalogue_bibliothecaireController implements Initializable {
 			int quantitef = Integer.valueOf(quantitea.getText());
 			int id_bibliothequef = this.bib.getId();
 			Livre l = new Livre(id_bibliothequef, titrea.getText(), editeura.getText(), auteura.getText(), categoriea.getText(), datef, taillef, quantitef, this.imga, null);
-			if(ser.ajouter(l)){
+			if (ser.ajouter(l)) {
 				error.setText("Ajout réussi ");
 				page_ajout.setVisible(false);
 				page_detail.setVisible(false);
 				page_edit.setVisible(false);
 				afficher_page_catalogue(bib);
-			}else{
+			} else {
 				error.setText("Ajout impossible !!!");
 			}
 		} catch (Exception e) {
@@ -415,18 +418,24 @@ public class Catalogue_bibliothecaireController implements Initializable {
 	}
 
 	@FXML
-	private void charger_ajout(MouseEvent event) {
+	private void charger_ajout(MouseEvent event) throws SQLException {
 		page_ajout.setVisible(true);
+		try {
+			autoCompleteCategorie = TextFields.bindAutoCompletion(categoriea, ser.getCategories(this.bib.getId()));
+		} catch (Exception e) {
+			aucun_livre.setVisible(true);
+		}
 	}
 
 	@FXML
 	private void add_image(MouseEvent event) {
 		FileChooser filechooser = new FileChooser();
 		File file = filechooser.showOpenDialog(this.stage);
-		if(file.isFile() && file.getName().contains(".jpg") || file.getName().contains(".png") ||file.getName().contains(".bmp")){
+		if (file.isFile() && file.getName().contains(".jpg") || file.getName().contains(".png") || file.getName().contains(".bmp")) {
 			System.out.println("hi!!!");
 		}
 	}
+
 	public void getStage(Stage stage) {
 		this.stage = stage;
 	}
@@ -435,7 +444,7 @@ public class Catalogue_bibliothecaireController implements Initializable {
 	private void edit_image(MouseEvent event) {
 		FileChooser filechooser = new FileChooser();
 		File file = filechooser.showOpenDialog(this.stage);
-		if(file.isFile() && file.getName().contains(".jpg") || file.getName().contains(".png") ||file.getName().contains(".bmp")){
+		if (file.isFile() && file.getName().contains(".jpg") || file.getName().contains(".png") || file.getName().contains(".bmp")) {
 			System.out.println("his!!!");
 		}
 	}

@@ -299,4 +299,13 @@ public class ServicesLivres implements IServices<Livre> {
         Livre result = listE.stream().filter(a -> a.getId() == id_livre).findAny().orElse(null);
         return result.getId_bibliotheque();
 	}
+	
+	public List<String> getCategories(int id_bibliotheque) throws SQLException{
+		List<Livre> listE = readAllBibliotheque(id_bibliotheque);
+		List<String> categories = new ArrayList<>();
+		for(Livre l : listE){
+			categories.add(l.getCategorie());
+		}
+		return categories;
+	}
 }

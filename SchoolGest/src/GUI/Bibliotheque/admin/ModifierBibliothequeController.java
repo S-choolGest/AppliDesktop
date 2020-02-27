@@ -18,6 +18,7 @@ import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.Stage;
 
 /**
  * FXML Controller class
@@ -40,6 +41,8 @@ public class ModifierBibliothequeController implements Initializable {
 	private Label error;
 	private Bibliotheque b;
 	private ServicesBibliotheque ser = new ServicesBibliotheque();
+	private GestionBibliothequeController g_bib = new GestionBibliothequeController();
+	private Stage stage;
 	/**
 	 * Initializes the controller class.
 	 */
@@ -50,6 +53,7 @@ public class ModifierBibliothequeController implements Initializable {
 
 	@FXML
 	private void close_window(MouseEvent event) {
+		this.stage.close();
 	}
 
 	@FXML
@@ -70,6 +74,7 @@ public class ModifierBibliothequeController implements Initializable {
 						b.setCapacite(cap);
 						ser.update(b);
 						error.setText("Modification effectuée avec succès");
+						this.g_bib.rechercher_bibliotheque(null);
 					} catch (Exception e) {
 						System.out.println(e);
 						error.setText("Echec de modification !!! Vérifiez que l'adresse saisie n'est pas déjà utilisée");
@@ -86,5 +91,12 @@ public class ModifierBibliothequeController implements Initializable {
 		nom.setText(b.getNom());
 		capacite.setText(String.valueOf(b.getCapacite()));
 		System.out.println(b);
+	}
+	public void getController(GestionBibliothequeController g){
+		this.g_bib = g;
+	}
+	
+	public void getStage(Stage stage) {
+		this.stage = stage;
 	}
 }

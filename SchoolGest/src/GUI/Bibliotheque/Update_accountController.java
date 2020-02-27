@@ -74,6 +74,7 @@ public class Update_accountController implements Initializable {
 	@FXML
 	private JFXButton upload_image;
 	private Utilisateur user;
+	private Stage stage;
 
 	/**
 	 * Initializes the controller class.
@@ -92,10 +93,19 @@ public class Update_accountController implements Initializable {
 			String date = dateformat.format(datel);
 			int num = Integer.valueOf(tel.getText());
 			if (tel.getText().length() == 8) {
-				Utilisateur b = new Utilisateur(nom.getText(), prenom.getText(), email.getText(), cin.getText(), cin.getText(), num, date, adresse.getText(), 5, "http://localhost/mobile/icons8_user_male_200px.png");
+				Utilisateur b = new Utilisateur(this.user.getId(), nom.getText(), prenom.getText(), email.getText(), password.getText(), cin.getText(), num, date, adresse.getText(), this.user.getType(), "http://localhost/mobile/icons8_user_male_200px.png");
 				Boolean rs = false;
 				if (password.getText().length() != 0 && password2.getText().length() != 0) {
-					rs = ser.updatePassword(b);
+					if (password.getText().equals(password2.getText())) {
+						rs = ser.updatePassword(b);
+						if (ser.update(b)) {
+							error.setText("Mise à jour réussite");
+						} else {
+							error.setText("Echec de mise à jour du compte");
+						}
+					} else {
+						error.setText("Le mot de passe de confirmation est différent du nouveau mot de passe !!!");
+					}
 				}
 //				ser.update(b);
 				if (rs == true) {
@@ -116,6 +126,7 @@ public class Update_accountController implements Initializable {
 
 	@FXML
 	private void close_window(MouseEvent event) {
+		this.stage.close();
 	}
 
 	@FXML
@@ -123,22 +134,23 @@ public class Update_accountController implements Initializable {
 		Webcam webcam = Webcam.getDefault();
 		webcam.open();
 		try {
-			ImageIO.write(webcam.getImage(), "JPG", new File("profil.jpg"));
+			ImageIO.write(webcam.getImage(), "png", new File("profil_img.png"));
 		} catch (IOException ex) {
 			System.out.println("error");
 			Logger.getLogger(CameraController.class.getName()).log(Level.SEVERE, null, ex);
 		}
-//		FXMLLoader loader = new FXMLLoader();
-//		loader.setLocation(getClass().getResource("camera.fxml"));
-//		Parent n = (Parent) loader.load();
-//		CameraController del = loader.getController();
-//		Stage stage = new Stage();
-//		stage.setTitle("Edutech : Bibliotheque : Gestion : Compte : Profil picture");
-//		Scene scene = new Scene(n);
-//		stage.setResizable(false);
-////        scene.setFill(javafx.scene.paint.Color.TRANSPARENT);
-//		stage.setScene(scene);
-//		stage.show();
+		webcam.close();
+		FXMLLoader loader = new FXMLLoader();
+		loader.setLocation(getClass().getResource("camera.fxml"));
+		Parent n = (Parent) loader.load();
+		CameraController del = loader.getController();
+		Stage stage = new Stage();
+		stage.setTitle("Edutech : Bibliotheque : Gestion : Compte : Profil picture");
+		Scene scene = new Scene(n);
+		stage.setResizable(false);
+//        scene.setFill(javafx.scene.paint.Color.TRANSPARENT);
+		stage.setScene(scene);
+		stage.show();
 	}
 
 	void setId(String text) {
@@ -177,5 +189,9 @@ public class Update_accountController implements Initializable {
 			LocalDate datel = LocalDate.parse(u.getDateNaissance(), formatter);
 			date_naissance.setValue(datel);
 		}
+	}
+
+	public void getStage(Stage stage) {
+		this.stage = stage;
 	}
 }

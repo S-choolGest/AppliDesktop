@@ -8,9 +8,12 @@ package GUI.admin;
 import Entite.Utilisateur.Utilisateur;
 import GUI.Bibliotheque.Catalogue_bibliothecaireController;
 import GUI.Bibliotheque.Update_accountController;
+import GUI.Bibliotheque.Utilisateur.Bibliotheque_user_menuController;
+import GUI.Bibliotheque.admin.GestionBibliothequeController;
 import com.jfoenix.controls.JFXButton;
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -25,6 +28,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 /**
  * FXML Controller class
@@ -72,13 +76,14 @@ public class InterfaceAdminController implements Initializable {
 	private Boolean info_vue = false;
 	private Stage stage;
 	public Utilisateur user;
+
 	/**
 	 * Initializes the controller class.
 	 */
 	@Override
 	public void initialize(URL url, ResourceBundle rb) {
 		// TODO
-	}	
+	}
 
 	@FXML
 	private void charger_utilisateurs(ActionEvent event) {
@@ -123,14 +128,17 @@ public class InterfaceAdminController implements Initializable {
 	}
 
 	@FXML
-	private void charger_bibliotheques(ActionEvent event) throws IOException {
+	private void charger_bibliotheques(ActionEvent event) throws IOException, SQLException {
 		info_vue = false;
 		info.setVisible(info_vue);
 		body.getChildren().clear();
 		FXMLLoader loader = new FXMLLoader();
-		loader.setLocation(getClass().getResource("../Bibliotheque/Catalogue_bibliothecaire.fxml"));
+		loader.setLocation(getClass().getResource("../Bibliotheque/admin/GestionBibliotheque.fxml"));
 		Parent n = (Parent) loader.load();
-		Catalogue_bibliothecaireController emp = loader.getController();
+		GestionBibliothequeController emp = loader.getController();
+		emp.getStage(stage);
+		emp.getBody(body);
+		emp.getInfo(user);
 		body.getChildren().add(n);
 	}
 
@@ -147,7 +155,8 @@ public class InterfaceAdminController implements Initializable {
 		info.toFront();
 		body.toBack();
 	}
-	public void getInfo(Utilisateur u){
+
+	public void getInfo(Utilisateur u) {
 		nom.setText(u.getNom());
 		prenom.setText(u.getPrenom());
 		email.setText(u.getEmail());
@@ -171,21 +180,24 @@ public class InterfaceAdminController implements Initializable {
 		FXMLLoader loader = new FXMLLoader();
 		loader.setLocation(getClass().getResource("../Bibliotheque/update_account.fxml"));
 		Parent n = (Parent) loader.load();
-		Update_accountController del = loader.getController();
-		del.getInfos(this.user);
+		Update_accountController maj = loader.getController();
+		maj.getInfos(this.user);
 		Stage stage = new Stage();
 		stage.setTitle("Edutech : Etudiant : Edit account");
 		Scene scene = new Scene(n);
 		stage.setResizable(false);
+		stage.initStyle(StageStyle.UNDECORATED);
 //        scene.setFill(javafx.scene.paint.Color.TRANSPARENT);
 		stage.setScene(scene);
+		maj.getStage(stage);
 		stage.show();
 	}
 
 	public void getStage(Stage stage) {
 		this.stage = stage;
 	}
-	public void close(Stage s){
+
+	public void close(Stage s) {
 		logout.setOnMouseClicked(new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent event) {

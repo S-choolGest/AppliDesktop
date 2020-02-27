@@ -19,6 +19,7 @@ import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.Stage;
 
 /**
  * FXML Controller class
@@ -41,22 +42,28 @@ public class Supprimer_bibliothequeController implements Initializable {
 	@FXML
 	private JFXTextField capacite;
 	private boolean delete = false;
+	private GestionBibliothequeController g_bib = new GestionBibliothequeController();
+	private Stage stage;
+	private Bibliotheque b;
+
 	/**
 	 * Initializes the controller class.
 	 */
 	@Override
 	public void initialize(URL url, ResourceBundle rb) {
 		// TODO
-	}	
+	}
 
 	@FXML
 	private void supprimer_bibliotheque(ActionEvent event) throws SQLException {
 		if (delete == true) {
 			int id = ser.searchByAdresse(adresse.getText()).getId();
-			if(ser.delete(id))
+			if (ser.delete(id)) {
 				error.setText("Suppression reussite !!!");
-			else
+				this.g_bib.rechercher_bibliotheque(null);
+			} else {
 				error.setText("Echec de suppression !!!");
+			}
 		} else {
 			error.setText("Suppression impossible !!!");
 		}
@@ -66,7 +73,7 @@ public class Supprimer_bibliothequeController implements Initializable {
 	private void rechercher_bibliotheque(KeyEvent event) {
 		try {
 			error.setText("");
-			Bibliotheque b = ser.searchByAdresse(adresse.getText());
+			b = ser.searchByAdresse(adresse.getText());
 			if (b != null) {
 				nom.setText(b.getNom());
 				capacite.setText(String.valueOf(b.getCapacite()));
@@ -88,6 +95,25 @@ public class Supprimer_bibliothequeController implements Initializable {
 
 	@FXML
 	private void close_window(MouseEvent event) {
+		this.stage.close();
 	}
-	
+
+	public void getController(GestionBibliothequeController g) {
+		this.g_bib = g;
+	}
+
+	public void getStage(Stage stage) {
+		this.stage = stage;
+	}
+
+	public void getId(Bibliotheque b) {
+		if (b != null) {
+			delete = true;
+			this.b = b;
+			adresse.setText(b.getAdresse());
+			nom.setText(b.getNom());
+			capacite.setText(String.valueOf(b.getCapacite()));
+		}
+		System.out.println(b);
+	}
 }

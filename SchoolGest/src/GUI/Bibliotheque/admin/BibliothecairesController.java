@@ -7,6 +7,7 @@ package GUI.Bibliotheque.admin;
 
 import Entite.Bibliotheque.Livre;
 import Entite.Utilisateur.Bibliothecaire;
+import Entite.Utilisateur.Utilisateur;
 import Services.Utilisateur.ServicesBibliothecaire;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXScrollPane;
@@ -68,6 +69,7 @@ public class BibliothecairesController implements Initializable {
 	private ServicesBibliothecaire ser = new ServicesBibliothecaire();
 	@FXML
 	private TableColumn<Bibliothecaire, ImageView> img;
+
 	/**
 	 * Initializes the controller class.
 	 */
@@ -79,7 +81,7 @@ public class BibliothecairesController implements Initializable {
 		} catch (SQLException ex) {
 			Logger.getLogger(BibliothecairesController.class.getName()).log(Level.SEVERE, null, ex);
 		}
-	}	
+	}
 
 	@FXML
 	private void rechercher_bibliothecaire(KeyEvent event) throws SQLException {
@@ -117,6 +119,7 @@ public class BibliothecairesController implements Initializable {
 		stage.setScene(scene);
 		stage.show();
 	}
+
 	private void refresh_view_bibliothecaire(String input_text) throws SQLException {
 		ObservableList<Bibliothecaire> list = getBibiothecaireList(input_text);
 		nom.setCellValueFactory(new PropertyValueFactory<Bibliothecaire, String>("nom"));
@@ -129,6 +132,7 @@ public class BibliothecairesController implements Initializable {
 		img.setCellValueFactory(new PropertyValueFactory<Bibliothecaire, ImageView>("profil"));
 		list_bibliothecaire.setItems(list);
 	}
+
 	private ObservableList<Bibliothecaire> getBibiothecaireList(String input_text) throws SQLException {
 		ObservableList<Bibliothecaire> list = FXCollections.observableArrayList();
 		for (Bibliothecaire l : ser.search(input_text)) {

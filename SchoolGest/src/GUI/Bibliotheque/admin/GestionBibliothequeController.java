@@ -7,6 +7,7 @@ package GUI.Bibliotheque.admin;
 
 import Entite.Bibliotheque.Bibliotheque;
 import Entite.Utilisateur.Bibliothecaire;
+import Entite.Utilisateur.Utilisateur;
 import Services.Bibliotheque.ServicesBibliotheque;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
@@ -32,7 +33,9 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 /**
  * FXML Controller class
@@ -68,6 +71,9 @@ public class GestionBibliothequeController implements Initializable {
 	private TextField email;
 	@FXML
 	private JFXButton modifier;
+	private AnchorPane body;
+	private Stage stage;
+	public Utilisateur user;
 
 	/**
 	 * Initializes the controller class.
@@ -83,7 +89,7 @@ public class GestionBibliothequeController implements Initializable {
 	}
 
 	@FXML
-	private void rechercher_bibliotheque(KeyEvent event) throws SQLException {
+	public void rechercher_bibliotheque(KeyEvent event) throws SQLException {
 		refresh_view_bibliotheque(field_rechercher_bibliotheque.getText());
 	}
 
@@ -92,11 +98,15 @@ public class GestionBibliothequeController implements Initializable {
 		FXMLLoader loader = new FXMLLoader();
 		loader.setLocation(getClass().getResource("ajouter_bibliotheque.fxml"));
 		Parent n = (Parent) loader.load();
+		Ajouter_bibliothequeController add = loader.getController();
 		Stage stage = new Stage();
 		stage.setTitle("Ajouter bibliotheque ");
+		stage.initStyle(StageStyle.UNDECORATED);
 		Scene scene = new Scene(n);
 		stage.setResizable(false);
 		stage.setScene(scene);
+		add.getController(this);
+		add.getStage(stage);
 		stage.show();
 	}
 
@@ -106,12 +116,16 @@ public class GestionBibliothequeController implements Initializable {
 		loader.setLocation(getClass().getResource("supprimer_bibliotheque.fxml"));
 		Parent n = (Parent) loader.load();
 		Supprimer_bibliothequeController del = loader.getController();
+		Bibliotheque b = list_bibliotheque.getSelectionModel().getSelectedItem();
+		del.getId(b);
 		Stage stage = new Stage();
 		stage.setTitle("Supprimer bibliotheque ");
 		Scene scene = new Scene(n);
 		stage.setResizable(false);
 //        scene.setFill(javafx.scene.paint.Color.TRANSPARENT);
+		stage.initStyle(StageStyle.UNDECORATED);
 		stage.setScene(scene);
+		del.getStage(stage);
 		stage.show();
 	}
 
@@ -139,7 +153,7 @@ public class GestionBibliothequeController implements Initializable {
 		}
 	}
 
-	private void refresh_view_bibliotheque(String input_text) throws SQLException {
+	public void refresh_view_bibliotheque(String input_text) throws SQLException {
 		ObservableList<Bibliotheque> list = getBibiothequeList(input_text);
 		id.setCellValueFactory(new PropertyValueFactory<Bibliotheque, Integer>("id"));
 		nom.setCellValueFactory(new PropertyValueFactory<Bibliotheque, String>("nom"));
@@ -154,7 +168,6 @@ public class GestionBibliothequeController implements Initializable {
 		ObservableList<Bibliotheque> list = FXCollections.observableArrayList();
 		for (Bibliotheque l : ser.search(input_text)) {
 			list.add(l);
-			System.out.println(l);
 		}
 		return list;
 	}
@@ -169,15 +182,31 @@ public class GestionBibliothequeController implements Initializable {
 			Parent n = (Parent) loader.load();
 			ModifierBibliothequeController edit = loader.getController();
 			edit.getId(b);
+			edit.getController(this);
 			Stage stage = new Stage();
 			stage.setTitle("Modifier bibliotheque ");
 			Scene scene = new Scene(n);
 			stage.setResizable(false);
 //        scene.setFill(javafx.scene.paint.Color.TRANSPARENT);
+			stage.initStyle(StageStyle.UNDECORATED);
 			stage.setScene(scene);
+			edit.getStage(stage);
 			stage.show();
 		} else {
 			error.setText("Aucune bibliotheque sélectionnée!!!");
 		}
+	}
+
+	public void getBody(AnchorPane body) {
+		this.body = body;
+	}
+
+	public void getStage(Stage stage) {
+		this.stage = stage;
+	}
+
+	public void getInfo(Utilisateur u) throws SQLException, SQLException {
+		this.user = u;
+		refresh_view_bibliotheque("");
 	}
 }

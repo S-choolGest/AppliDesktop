@@ -18,6 +18,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.Stage;
 
 /**
  * FXML Controller class
@@ -39,6 +40,9 @@ public class Ajouter_bibliothequeController implements Initializable {
 	@FXML
 	private Label error;
 	private ServicesBibliotheque ser = new ServicesBibliotheque();
+	private GestionBibliothequeController g_bib = new GestionBibliothequeController();
+	private Stage stage;
+
 	/**
 	 * Initializes the controller class.
 	 */
@@ -54,7 +58,7 @@ public class Ajouter_bibliothequeController implements Initializable {
 		int cap = 0;
 		try {
 			cap = Integer.valueOf(capacite.getText());
-			if(cap < 0){
+			if (cap < 0) {
 				error.setText("la capacité est un nombre positif");
 				add = false;
 			}
@@ -63,15 +67,16 @@ public class Ajouter_bibliothequeController implements Initializable {
 			error.setText("la capacité est un nombre");
 			add = false;
 		}
-		if(adresse.getText().equals("") || nom.getText().equals("")){
+		if (adresse.getText().equals("") || nom.getText().equals("")) {
 			error.setText("Veillez remplir tous les champs !!!");
 			add = false;
 		}
-		if(add == true){
+		if (add == true) {
 			Bibliotheque b = new Bibliotheque(nom.getText(), cap, adresse.getText());
 			try {
 				ser.ajouter(b);
 				error.setText("Ajout réussi ");
+				this.g_bib.rechercher_bibliotheque(null);
 			} catch (Exception e) {
 				System.out.println(e);
 				error.setText("Echec d'ajout !!! (vérifiez qu'il n'existe pas une bibliothèque possédant cette adresse)");
@@ -81,6 +86,14 @@ public class Ajouter_bibliothequeController implements Initializable {
 
 	@FXML
 	private void close_window(MouseEvent event) {
+		this.stage.close();
 	}
 
+	public void getController(GestionBibliothequeController g) {
+		this.g_bib = g;
+	}
+	
+	public void getStage(Stage stage) {
+		this.stage = stage;
+	}
 }

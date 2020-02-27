@@ -99,16 +99,18 @@ public class Interface_bibliothecaireController implements Initializable {
 		info_vue = false;
 		info.setVisible(info_vue);
 		FXMLLoader loader = new FXMLLoader();
-		loader.setLocation(getClass().getResource("../Bibliotheque/update_account.fxml"));
+		loader.setLocation(getClass().getResource("../update_account.fxml"));
 		Parent n = (Parent) loader.load();
-		Update_accountController del = loader.getController();
-		del.getInfos(this.user);
+		Update_accountController maj = loader.getController();
+		maj.getInfos(this.user);
 		Stage stage = new Stage();
 		stage.setTitle("Edutech : Etudiant : Edit account");
 		Scene scene = new Scene(n);
 		stage.setResizable(false);
+		stage.initStyle(StageStyle.UNDECORATED);
 //        scene.setFill(javafx.scene.paint.Color.TRANSPARENT);
 		stage.setScene(scene);
+		maj.getStage(stage);
 		stage.show();
 	}
 
