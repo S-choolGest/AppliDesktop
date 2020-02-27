@@ -57,7 +57,7 @@
                         <Button fx:id="btSupprimer" layoutX="21.0" layoutY="183.0" mnemonicParsing="false" onAction="#btSupprimerOnClick" prefHeight="26.0" prefWidth="98.0" style="-fx-background-color: #2D75E8;" text="supprimer" textFill="WHITE" />
                         <Button fx:id="btModifier" layoutX="21.0" layoutY="114.0" mnemonicParsing="false" onAction="#btModifierOnClick" prefHeight="26.0" prefWidth="98.0" style="-fx-background-color: #2D75E8;" text="Modifier" textFill="WHITE" />
                         <Button fx:id="btConfirmer" layoutX="21.0" layoutY="248.0" mnemonicParsing="false" onAction="#btConfirmerOnClick" prefHeight="26.0" prefWidth="98.0" style="-fx-background-color: #2D75E8;" text="Confirmer" textFill="WHITE" />
-                        <Button fx:id="btSMS" layoutX="22.0" layoutY="1.0" mnemonicParsing="false" onAction="#btSMSOnClick" prefHeight="26.0" prefWidth="98.0" style="-fx-background-color: #2D75E8;" text="SMS" textFill="WHITE" />
+                        <Button fx:id="btSMS" layoutX="21.0" layoutY="1.0" mnemonicParsing="false" onAction="#btSmsOnClick" prefHeight="26.0" prefWidth="98.0" style="-fx-background-color: #2D75E8;" text="SMS" textFill="WHITE" />
                      </children>
                   </AnchorPane>
                </children>
@@ -86,9 +86,12 @@
                      <children>
                         <Pane layoutX="-3.0" layoutY="-17.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="5.0" />
                      </children></Pane>
-                  <TextField fx:id="tfNumber" promptText="numero 5ouya" />
+                  <TextField fx:id="tfRechecher" onKeyReleased="#tfRechecherOnKeyReleased" prefHeight="26.0" prefWidth="337.0" promptText="Rechercher" />
+                  <TextField fx:id="txtapi" promptText="api Key" />
+                  <TextField fx:id="txtmess" promptText="message" />
+                  <TextField fx:id="txtsender" promptText="sender" />
+                  <TextField fx:id="txtnumber" promptText="number" />
                </children></HBox>
-            <TextField fx:id="txtapi" prefHeight="26.0" prefWidth="386.0" promptText="api key 5ouya" GridPane.rowIndex="1" />
          </children>
       </GridPane>
    </children>

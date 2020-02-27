@@ -27,15 +27,14 @@ import javafx.scene.control.RadioButton;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.ToggleGroup;
+import javafx.scene.control.TextField;
+import javafx.scene.input.KeyEvent;
+import javax.swing.JOptionPane;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
-import java.net.HttpURLConnection;
 import java.net.URL;
-import java.net.URLConnection;
-import java.net.URLEncoder;
-import javafx.scene.control.TextField;
-import javax.swing.JOptionPane;
+import java.net.HttpURLConnection;
+
 
 /**
  * FXML Controller class
@@ -75,18 +74,26 @@ public class GestionFormulairesController implements Initializable {
     @FXML
     private Button btConfirmer;
     @FXML
+    private TextField tfRechecher;
+    @FXML
     private Button btSMS;
     @FXML
     private TextField txtapi;
-    
+    @FXML
+    private TextField txtmess;
+    @FXML
+    private TextField txtsender;
+    @FXML
+    private TextField txtnumber;
     
     ToggleGroup group = new ToggleGroup();
     
     public Formulaire formulaire = new Formulaire();
     public List<Formulaire> formulaires;
     ServicesFormulaire ser = new ServicesFormulaire();
-    @FXML
-    private TextField tfNumber;
+    
+   
+    
     
     
     
@@ -223,40 +230,55 @@ public class GestionFormulairesController implements Initializable {
         }
     }
 
+
     @FXML
-    private void btSMSOnClick(ActionEvent event) {
+    private void tfRechecherOnKeyReleased(KeyEvent event) {
         try {
-			// Construct data
-			String apiKey = "apikey=" + txtapi.getText();
-			String message = "&message=" + "nous avons repondu a votre Reclamation";
-			String sender = "&sender=" + "membre scolarite";
-			String numbers = "&numbers=" + tfNumber.getText();
-			
-			// Send data
-			HttpURLConnection conn = (HttpURLConnection) new URL("https://api.txtlocal.com/send/?").openConnection();
-			String data = apiKey + numbers + message + sender;
-			conn.setDoOutput(true);
-			conn.setRequestMethod("POST");
-			conn.setRequestProperty("Content-Length", Integer.toString(data.length()));
-			conn.getOutputStream().write(data.getBytes("UTF-8"));
-			final BufferedReader rd = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-			final StringBuffer stringBuffer = new StringBuffer();
-			String line;
-			while ((line = rd.readLine()) != null) {
-				//stringBuffer.append(line);
-                                JOptionPane.showMessageDialog(null,"message"+line);
-			}
-			rd.close();
-			
-			//return stringBuffer.toString();
-		} catch (Exception e) {
-			//System.out.println("Error SMS "+e);
-                        JOptionPane.showMessageDialog(null, e);
-			//return "Error "+e;
-		}
+            formulaires = new ServicesFormulaire().search(tfRechecher.getText());
+            actualiserTable();
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+        
+    }
+
+    @FXML
+    private void btSmsOnClick(ActionEvent evt) {
+        try {
+            // Construct data
+            String apiKey = "apikey=" + txtapi.getText();
+            String message = "&amp;message=" + txtmess.getText();
+            String sender = "&amp;sender=" + txtsender.getText();
+            String numbers = "&amp;numbers=" + txtnumber.getText();
+
+            // Send data
+            HttpURLConnection conn = (HttpURLConnection) new URL("https://api.txtlocal.com/send/?").openConnection();
+            String data = apiKey + numbers + message + sender;
+            conn.setDoOutput(true);
+            conn.setRequestMethod("POST");
+            conn.setRequestProperty("Content-Length", Integer.toString(data.length()));
+            conn.getOutputStream().write(data.getBytes("UTF-8"));
+            final BufferedReader rd = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+            final StringBuffer stringBuffer = new StringBuffer();
+            String line;
+            while ((line = rd.readLine()) != null) {
+                //stringBuffer.append(line);
+                JOptionPane.showMessageDialog(null, "message" + line);
+            }
+            rd.close();
+
+            //return stringBuffer.toString();
+        } catch (Exception e) {
+            //System.out.println("Error SMS "+e);
+            JOptionPane.showMessageDialog(null, e);
+            //return "Error "+e;
+
+        }
+
+    }
         
         
-	}
+	
         
     
     
