@@ -44,8 +44,9 @@ import tray.notification.TrayNotification;
         st.executeUpdate(request);
         String mail = getMailParId(d.getId_prof());
         System.out.println(mail);
+        String info = getInfoEtudiant(d.getId());
         try {
-            JavaMailUtil.sendMail(mail);
+            JavaMailUtil.sendMail(mail,info);
         } catch (Exception ex) {
             Logger.getLogger(DemandeEncadrementService.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -110,7 +111,9 @@ st = conx.createStatement();
     
         
         try {
-            AccDemandeMaill.sendMail("wazkasmi@gmail.com");
+            String mail = getMailParDemande(d.getId());
+            System.out.println(mail);
+            AccDemandeMaill.sendMail(mail);
         } catch (Exception ex) {
             Logger.getLogger(DemandeEncadrementService.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -130,7 +133,9 @@ st = conx.createStatement();
          
         
         try {
-            RefDemandeMail.sendMail("wazkasmi@gmail.com");
+            String mail = getMailParDemande(d.getId());
+            System.out.println(mail);
+            RefDemandeMail.sendMail(mail);
         } catch (Exception ex) {
             Logger.getLogger(DemandeEncadrementService.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -204,6 +209,37 @@ st = conx.createStatement();
     }
     return s;
         }
+    public String getMailParDemande(int id) throws SQLException
+    {
+        String s = "";
+        String ids = Integer.toString(id);
+        String sql="SELECT u.email FROM encadrement d, etudiant e ,utilisateur u , pfe p WHERE d.id_pfe=p.id AND p.id_etudiant=e.id AND e.id=u.id and d.id=?";
+        PreparedStatement p = conx.prepareStatement(sql);
+        p.setString(1, ids);
+    ResultSet r =p.executeQuery();
+    while(r.next())
+    {
+        s =r.getString(1);
+    }
+    return s  ;
+    }
+    public String getInfoEtudiant(int id ) throws SQLException
+    {
+        String s = "";
+        String ids = Integer.toString(id);
+        String sql="SELECT u.nom,u.prenom FROM encadrement d, etudiant e ,utilisateur u , pfe p WHERE d.id_pfe=p.id AND p.id_etudiant=e.id AND e.id=u.id and d.id=?";
+        PreparedStatement p = conx.prepareStatement(sql);
+        p.setString(1, ids);
+    ResultSet r =p.executeQuery();
+    while(r.next())
+    {
+        String nom =r.getString(1);
+        String prenom=r.getString(2);
+        s=nom+prenom;
+
+    }
+    return s  ;
+    }
 }
     
 

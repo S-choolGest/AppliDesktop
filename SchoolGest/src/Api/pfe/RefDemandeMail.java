@@ -40,7 +40,7 @@ public class RefDemandeMail {
         });
         Message message = prepareMessage(session,email,recipient);
         Transport.send(message);
-        System.out.println("votre demande d'encadrement est accepter ");
+        System.out.println("votre demande d'encadrement est refusee ");
     }
 
     private static Message prepareMessage(Session session, String email, String recipient) {
@@ -49,7 +49,7 @@ public class RefDemandeMail {
             message.setFrom(new InternetAddress(email));
             message.setRecipient(Message.RecipientType.TO, new InternetAddress(recipient));
             message.setSubject("demande encadrement refusee");
-            message.setText("vous avez recu une demande d'encadrement est refusee");
+            message.setText("vous avez une demande d'encadrement qui a ete refusee");
             return message;
         } catch (Exception ex) {
             Logger.getLogger(JavaMailUtil.class.getName()).log(Level.SEVERE, null, ex);
