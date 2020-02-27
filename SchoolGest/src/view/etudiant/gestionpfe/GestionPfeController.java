@@ -16,6 +16,8 @@ import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Date;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -192,7 +194,6 @@ public class GestionPfeController implements Initializable {
         tablePfe.getColumns().addAll(colBtn,colBtnS);
     }
 
-    @FXML
     private void afficher(Event event) throws SQLException {
         colId.setCellValueFactory(c-> new SimpleStringProperty(c.getValue().getsId()));  
             colTitre.setCellValueFactory(c-> new SimpleStringProperty(c.getValue().getTitre()));
@@ -203,12 +204,30 @@ public class GestionPfeController implements Initializable {
             System.out.println(list);
             tablePfe.setItems(list);
     }   
-    public void getInstance(Utilisateur o){
+     public void getInstance(Utilisateur o){
        this.userId = o.getId(); 
     }
 
-        
-        
+    @FXML
+    private void afficherPan(Event event) {
+        try {  
+            colId.setCellValueFactory(c-> new SimpleStringProperty(c.getValue().getsId()));
+            colId.setVisible(false);
+            colTitre.setCellValueFactory(c-> new SimpleStringProperty(c.getValue().getTitre()));
+            colSujet.setCellValueFactory(c-> new SimpleStringProperty(c.getValue().getSujet()));
+            /*colNomEtudiant.setCellValueFactory(c-> new SimpleStringProperty(c.getValue().getNom_etudiant())); */ 
+            PfeService ps = new PfeService();
+            ObservableList<Pfe> list = ps.getMesPfe(userId);
+            System.out.println(list);
+            tablePfe.setItems(list);
+        } catch (SQLException ex) {
+            Logger.getLogger(GestionPfeController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
+}
+
+        
+        
+    
     
 
