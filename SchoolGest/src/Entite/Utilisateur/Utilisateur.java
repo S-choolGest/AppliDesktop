@@ -63,6 +63,15 @@ public class Utilisateur {
 		this.type = type;
 		this.profil = profil;
 	}
+        public Utilisateur(int id, String nom, String prenom, String email, String password, String cin,int type) {
+		this.id = id;
+		this.nom = nom;
+		this.prenom = prenom;
+		this.email = email;
+		this.password = password;
+		this.cin = cin;
+		this.type = type;
+	}
 
 	public int getId() {
 		return id;

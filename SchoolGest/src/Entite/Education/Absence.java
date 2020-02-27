@@ -19,25 +19,10 @@ public class Absence {
     private String matiere;
     private Timestamp timestamp;
     private int IdEtudiant;
-    private boolean etat;
+    private String NomEtudiant;
+    private String etat;
 
-    public Absence(int id, String matiere, Timestamp date, boolean etat ) {
-        this.id = id;
-        this.matiere = matiere;
-        this.timestamp = date;
-        this.etat = etat;
-        
-    }
-
-    public Absence(int id, String matiere, Timestamp timestamp,  boolean etat ,int IdEtudiant) {
-        this.id = id;
-        this.matiere = matiere;
-        this.timestamp = timestamp;
-        this.IdEtudiant = IdEtudiant;
-        this.etat = etat;
-    }
-
-    public Absence( String matiere, String date, boolean etat ,int IdEtudiant)  {
+    public Absence( String matiere, String date, String etat ,int IdEtudiant)  {
         this.matiere = matiere;
         try{
             Date dateTime= new SimpleDateFormat("yyyy/MM/dd hh:mm:ss").parse(date);
@@ -50,10 +35,43 @@ public class Absence {
         this.IdEtudiant = IdEtudiant;
     }
 
-    public Absence(String matiere, Timestamp date, boolean etat) {
+    public Absence(int id, String matiere, Timestamp date, String Etat, int IdEtudiant) {
+        this.id = id;
         this.matiere = matiere;
         this.timestamp = date;
+        this.IdEtudiant = IdEtudiant;
+        this.etat = Etat;
+    }
+
+    public Absence(String matiere, Timestamp date, String Etat, int IdEtudiant) {
+        this.matiere = matiere;
+        this.timestamp = date;
+        this.IdEtudiant = IdEtudiant;
+        this.etat = Etat;
+    }
+
+    public Absence(int id,String matiere, Timestamp timestamp, String NomEtudiant, String etat) {
+        this.id = id;
+        this.matiere = matiere;
+        this.timestamp = timestamp;
+        this.NomEtudiant = NomEtudiant;
         this.etat = etat;
+    }
+    
+    
+    
+    public Absence(int id, String matiere, String DateTime, String etat, int Idetudiant) {
+        this.id = id;
+        this.matiere = matiere;
+        try{
+            Date dateTime= new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").parse(DateTime);
+            long dateL = dateTime.getTime();
+            timestamp = new Timestamp(dateL);
+         } catch(ParseException e) {
+             e.printStackTrace();
+        }
+        this.etat = etat;
+        this.IdEtudiant = Idetudiant;
     }
 
     public int getIdEtudiant() {
@@ -61,11 +79,15 @@ public class Absence {
     }
     
       public String getIdEtudiantS() {
-        return Integer.toString(IdEtudiant);
+        return NomEtudiant;
     }
     
     public String getIdS() {
         return Integer.toString(id);
+    }
+    
+    public int getId() {
+        return id;
     }
 
     public String getMatiere() {
@@ -76,11 +98,9 @@ public class Absence {
         return timestamp.toString();
     }
     
+    
     public String getetat(){
-        if(etat == false){
-            return "Justifier";
-        }else
-        return "non Justifier";
+       return etat;
     }
 
     public void setId(int id) {
@@ -99,33 +119,24 @@ public class Absence {
         this.IdEtudiant = IdEtudiant;
     }
 
-    public void setEtat(boolean etat) {
+    public void setEtat(String etat) {
         this.etat = etat;
     }
 
     @Override
     public String toString() {
-        String Etat ;
+
        String result = "Absence{" + "id=" + id + ", matiere=" + matiere + ", date=" + timestamp  ;
-       if(this.etat == false){
-           Etat = "Justifier";
-       }else {
-           Etat = "non Justifier";
-       }
        
-       return result +",Etat="+ Etat+  " , Etudiant="+IdEtudiant+"}";
+       return result +",Etat="+ etat+  " , Etudiant="+NomEtudiant+"}";
     }
     
     public String afficherAbsEtu(){
         String Etat ;
        String result = "Absence{" + "matiere=" + matiere + ", date=" + timestamp ;
-       if(this.etat == false){
-           Etat = "Justifier";
-       }else {
-           Etat = "non Justifier";
-       }
+      
        
-       return result +",Etat="+ Etat +"} ";
+       return result +",Etat="+ etat +"} ";
     }
 
     

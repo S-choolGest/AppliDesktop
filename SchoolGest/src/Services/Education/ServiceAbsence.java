@@ -7,6 +7,7 @@ package Services.Education;
 
 import Entite.Education.Absence;
 import Entite.Utilisateur.Etudiant;
+import Entite.Utilisateur.Utilisateur;
 import IServices.Education.IServicesAbsences;
 import Utils.DataBase;
 import java.sql.Connection;
@@ -34,16 +35,16 @@ public class ServiceAbsence implements IServicesAbsences<Absence> {
     }
     @Override
     public void ajouter(Absence a) throws SQLException {
+        System.out.println("im in ajouter");
         ste = con.createStatement();
-        String requeteInsert = "INSERT INTO `EduTek`.`absence` (`id`, `matiere`, `date`, `etat`,`idEtudiant`) VALUES (NULL, '" +  a.getMatiere() + "', '" + a.getDate() + "', '"+a.getetat() + "','"+a.getIdEtudiant()+"');";
-        
+        String requeteInsert = "INSERT INTO `absence` (`id`, `matiere`, `date`, `etat`,`idEtudiant`) VALUES (NULL, '" +  a.getMatiere() + "', '" + a.getDate() + "', '"+a.getetat() + "','"+a.getIdEtudiant()+"');";
         ste.executeUpdate(requeteInsert);
     }
 
     @Override
     public boolean delete(Absence a) throws SQLException {
         ste = con.createStatement();
-        String requeteInsert = "DELETE FROM `EduTek`.`absence` WHERE `matiere` = '"+a.getMatiere()+"'"+"and"+"`date` = '"+a.getDate()+"'"  ;
+        String requeteInsert = "DELETE FROM `absence` WHERE `id` = '"+a.getIdS()+"'";
         if(ste.executeUpdate(requeteInsert) == 1){
             System.out.println("Suppression effectué");
             return true;
@@ -55,7 +56,10 @@ public class ServiceAbsence implements IServicesAbsences<Absence> {
     @Override
     public boolean update(Absence a) throws SQLException {
          ste = con.createStatement();
-         String requeteInsert ="UPDATE `absence` SET `date`= '"+a.getDate()+"',`etat`='"+a.getetat()+"'WHERE `matiere` = '"+a.getMatiere()+"'";
+         System.out.println(a.getId());
+         System.out.println(a.getetat());
+         System.out.println(a.getDate());
+         String requeteInsert ="UPDATE `absence` SET `etat`='"+a.getetat()+"' WHERE `id` = '"+a.getId()+"'";
          if(ste.executeUpdate(requeteInsert) == 1){
             System.out.println("modification effectué");
             return true;
@@ -72,8 +76,8 @@ public class ServiceAbsence implements IServicesAbsences<Absence> {
     while (rs.next()) {                
                int id=rs.getInt(1);
                String matiere=rs.getString(2);
-               Timestamp date=rs.getTimestamp(3);
-               boolean Etat=rs.getBoolean(4);
+               String Etat=rs.getString(3);
+               Timestamp date=rs.getTimestamp(4);
                int IdEtudiant = rs.getInt(5);
                Absence p = new Absence(id,matiere,date, Etat,IdEtudiant);
      arr.add(p);
@@ -81,35 +85,110 @@ public class ServiceAbsence implements IServicesAbsences<Absence> {
     return arr;
     }
     
-     public ObservableList<Absence> readAllV2() throws SQLException {
+    public ObservableList<Absence> readAllV2() throws SQLException {
     ObservableList<Absence> AbsenceData = FXCollections.observableArrayList();
     ste=con.createStatement();
-    ResultSet rs=ste.executeQuery("select * from absence");
-    while (rs.next()) {                
-               int id=rs.getInt(1);
+    ResultSet rs=ste.executeQuery("SELECT a.id , a.matiere , a.etat , a.date , (SELECT u.nom WHERE a.idEtudiant = u.id) FROM absence a , utilisateur u WHERE a.idEtudiant = u.id");
+    while (rs.next()) {      
+               int id = rs.getInt(1);
                String matiere=rs.getString(2);
-               Timestamp date=rs.getTimestamp(3);
-               boolean Etat=rs.getBoolean(4);
-               int IdEtudiant = rs.getInt(5);
-               Absence p = new Absence(id,matiere,date, Etat,IdEtudiant);
+               Timestamp date=rs.getTimestamp(4);
+               String Etat=rs.getString(5);
+               String nomEtudiant = rs.getString(3);
+               Absence p = new Absence(id,matiere,date, Etat,nomEtudiant);
+     AbsenceData.add(p);
+     }
+    return AbsenceData;
+    }
+    public ObservableList<Absence> readAllVEtudiant(Utilisateur a) throws SQLException {
+    ObservableList<Absence> AbsenceData = FXCollections.observableArrayList();
+    ste=con.createStatement();
+    ResultSet rs=ste.executeQuery("SELECT a.id , a.matiere , a.etat , a.date , (SELECT u.nom WHERE a.idEtudiant = u.id) FROM absence a , utilisateur u  WHERE a.idEtudiant = u.id and a.idEtudiant= "+a.getId());
+    while (rs.next()) {      
+               int id = rs.getInt(1);
+               String matiere=rs.getString(2);
+               Timestamp date=rs.getTimestamp(4);
+               String Etat=rs.getString(5);
+               String nomEtudiant = rs.getString(3);
+               Absence p = new Absence(id,matiere,date, Etat,nomEtudiant);
      AbsenceData.add(p);
      }
     return AbsenceData;
     }
     
-    
-    public List readAbsStudent(Etudiant e)throws SQLException{
-         List<Absence> arr=new ArrayList<>();
-        ste=con.createStatement();
-        ResultSet rs=ste.executeQuery("select * from absence where `idEtudiant`= " +e.getIdEtudiant()); 
-         while (rs.next()) {       
+    public ObservableList<Absence> readAllVEtudiantParent(Utilisateur a) throws SQLException {
+    ObservableList<Absence> AbsenceData = FXCollections.observableArrayList();
+    ste=con.createStatement();
+    ResultSet rs=ste.executeQuery("SELECT a.id , a.matiere , a.etat , a.date , (SELECT u.nom WHERE a.idEtudiant = u.id) FROM absence a , utilisateur u WHERE a.idEtudiant = u.id and a.idEtudiant= (SELECT e.id FROM etudiant e WHERE e.cin_p =" +a.getCin() +")");
+    while (rs.next()) {      
+               int id = rs.getInt(1);
                String matiere=rs.getString(2);
-               Timestamp date=rs.getTimestamp(3);
-               boolean Etat=rs.getBoolean(4);
-               Absence p = new Absence(matiere,date, Etat);
-     arr.add(p);
+               Timestamp date=rs.getTimestamp(4);
+               String Etat=rs.getString(5);
+               String nomEtudiant = rs.getString(3);
+               Absence p = new Absence(id,matiere,date, Etat,nomEtudiant);
+     AbsenceData.add(p);
      }
-    return arr;
+    return AbsenceData;
     }
     
+     
+    public ObservableList<String> readAllS() throws SQLException {
+    ObservableList<String> AbsenceData = FXCollections.observableArrayList();
+    ste=con.createStatement();
+    ResultSet rs=ste.executeQuery("select * from absence");
+    while (rs.next()) {                
+               int id=rs.getInt(1);
+               String matiere=rs.getString(2);
+               Timestamp date=rs.getTimestamp(4);
+               String Etat=rs.getString(3);
+               int IdEtudiant = rs.getInt(5);
+               //Absence p = new Absence(id,matiere,date, Etat,IdEtudiant);
+     AbsenceData.add(date.toString());
+     }
+    return AbsenceData;
+    }
+    
+    
+    public int readAbsStudent(String nom)throws SQLException{
+        int id = -1;
+        ste=con.createStatement();
+        ResultSet rs=ste.executeQuery("select id from utilisateur u where u.nom ='" +nom+"'"); 
+        while (rs.next()) {       
+               id =rs.getInt(1);
+        }
+        return id;
+    }
+    
+    public ObservableList<Absence> readAllV2(Etudiant e) throws SQLException {
+    ObservableList<Absence> AbsenceData = FXCollections.observableArrayList();
+    ste=con.createStatement();
+    ResultSet rs=ste.executeQuery("SELECT a.id , a.matiere , a.etat , a.date , (SELECT e.nom WHERE"+e.getId()+"= e.id) FROM absence a , etudiant e WHERE "+e.getId()+"= e.id");
+    while (rs.next()) {      
+               int id = rs.getInt(1);
+               String matiere=rs.getString(2);
+               Timestamp date=rs.getTimestamp(4);
+               String Etat=rs.getString(5);
+               String nomEtudiant = rs.getString(3);
+               Absence p = new Absence(id,matiere,date, Etat,nomEtudiant);
+     AbsenceData.add(p);
+     }
+    return AbsenceData;
+    }
+    
+    public ObservableList<Absence> readEduAbs(String cin) throws SQLException {
+    ObservableList<Absence> AbsenceData = FXCollections.observableArrayList();
+    ste=con.createStatement();
+    ResultSet rs=ste.executeQuery("SELECT a.id , a.matiere , a.etat , a.date , (SELECT u.nom WHERE a.idEtudiant = u.id) FROM absence a , utilisateur u WHERE a.idEtudiant = u.id and u.cin='"+cin+"'");
+    while (rs.next()) {      
+               int id = rs.getInt(1);
+               String matiere=rs.getString(2);
+               Timestamp date=rs.getTimestamp(4);
+               String Etat=rs.getString(5);
+               String nomEtudiant = rs.getString(3);
+               Absence p = new Absence(id,matiere,date, Etat,nomEtudiant);
+     AbsenceData.add(p);
+     }
+    return AbsenceData;
+    }
 }

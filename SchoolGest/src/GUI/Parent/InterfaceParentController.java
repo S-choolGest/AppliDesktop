@@ -6,6 +6,7 @@
 package GUI.Parent;
 
 import Entite.Utilisateur.Utilisateur;
+import GUI.Absence.AddAbsence1Controller;
 import GUI.Bibliotheque.Catalogue_bibliothecaireController;
 import GUI.Bibliotheque.Update_accountController;
 import com.jfoenix.controls.JFXButton;
@@ -88,6 +89,17 @@ public class InterfaceParentController implements Initializable {
 	private void charger_absences(ActionEvent event) {
 		info_vue = false;
 		info.setVisible(info_vue);
+                FXMLLoader loader = new FXMLLoader
+                        (getClass()
+                         .getResource("../Absence/GestionAbsence.fxml"));
+            try {
+                Parent root = loader.load();
+                AddAbsence1Controller apc = loader.getController();
+                apc.getInstance(user);
+                body.getChildren().add(root);
+            }catch (IOException ex) {
+                System.out.println(ex.getMessage());
+                }
 	}
 
 	@FXML

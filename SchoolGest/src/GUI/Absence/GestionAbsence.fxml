@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.chart.BarChart?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<TabPane fx:id="TabGestion" prefHeight="564.0" prefWidth="987.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.Absence.AddAbsence1Controller">
+  <tabs>
+    <Tab text="Ajouter Absence">
+      <content>
+        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+               <children>
+                  <Label layoutX="47.0" layoutY="75.0" text="Matiére" />
+                  <Label layoutX="37.0" layoutY="130.0" text="NomEtudiant" />
+                  <Label layoutX="30.0" layoutY="183.0" text="DateAbsence" />
+                  <ChoiceBox fx:id="IDTime" layoutX="207.0" layoutY="237.0" prefHeight="31.0" prefWidth="220.0" />
+                  <Label layoutX="37.0" layoutY="242.0" text="TempsAbsence" />
+                  <Button fx:id="ValidBTN" layoutX="38.0" layoutY="312.0" mnemonicParsing="false" onAction="#Ajouter" text="Valider" />
+                  <DatePicker fx:id="DateAbs" layoutX="207.0" layoutY="178.0" />
+                  <ChoiceBox fx:id="TextMatiere" layoutX="206.0" layoutY="70.0" prefHeight="31.0" prefWidth="219.0" />
+                  <Label layoutX="54.0" layoutY="23.0" text="classe" />
+                  <ChoiceBox fx:id="classeName" layoutX="207.0" layoutY="18.0" prefHeight="31.0" prefWidth="219.0" />
+                  <ChoiceBox fx:id="TextEtudiant" layoutX="207.0" layoutY="125.0" prefHeight="31.0" prefWidth="216.0" />
+               </children></AnchorPane>
+      </content>
+    </Tab>
+    <Tab fx:id="AfficherAbs" text="Afficher Absence">
+      <content>
+        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="361.0" prefWidth="344.0">
+               <children>
+                  <TableView fx:id="Table" layoutX="15.0" layoutY="64.0" prefHeight="397.0" prefWidth="968.0">
+                    <columns>
+                        <TableColumn fx:id="IDColumn" prefWidth="75.0" text="id" />
+                      <TableColumn fx:id="ColumnMatiere" prefWidth="234.0" text="Matiére" />
+                        <TableColumn fx:id="ColumnDate" prefWidth="181.0" text="Date Absence" />
+                        <TableColumn fx:id="ColumnEtat" minWidth="0.0" prefWidth="127.0" text="Etat" />
+                        <TableColumn fx:id="ColumnIDEtu" prefWidth="104.0" text="NomEtudiant" />
+                    </columns>
+                     
+                  </TableView>
+                  <Button fx:id="Rafraichir" layoutX="434.0" layoutY="470.0" mnemonicParsing="false" onAction="#Rafraichir" text="Rafraichir" />
+                  <TextField fx:id="RechercheEtudiantAbs" layoutX="728.0" layoutY="14.0" onAction="#RechercheEtudiantAbs" />
+                  <Label layoutX="606.0" layoutY="19.0" text="CIN Etudiant" />
+               </children></AnchorPane>
+      </content>
+    </Tab>
+      <Tab fx:id="ModifierAbs" text="Modifier Absence">
+        <content>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+               <children>
+                  <Label layoutX="58.0" layoutY="55.0" text="Nom Etudiant" />
+                  <TextField fx:id="TextIDEtudiantM" layoutX="183.0" layoutY="50.0" prefHeight="31.0" prefWidth="218.0" />
+                  <ChoiceBox fx:id="ChoiceEtat" layoutX="182.0" layoutY="125.0" prefHeight="31.0" prefWidth="220.0" />
+                  <Label layoutX="58.0" layoutY="130.0" text="Etat" />
+                  <Button fx:id="BTNModifier" layoutX="60.0" layoutY="211.0" mnemonicParsing="false" onAction="#modifier" text="Valider" />
+               </children>
+            </AnchorPane>
+        </content>
+      </Tab>
+      <Tab fx:id="showStat" onSelectionChanged="#showStat" text="Statistique">
+        <content>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+               <children>
+                  <BarChart fx:id="barchart" layoutX="31.0" layoutY="63.0" prefHeight="443.0" prefWidth="942.0">
+                    <xAxis>
+                      <CategoryAxis side="BOTTOM" fx:id="xAxis" />
+                    </xAxis>
+                    <yAxis>
+                      <NumberAxis fx:id="yaxis" side="LEFT" />
+                    </yAxis>
+                  </BarChart>
+                  <ChoiceBox layoutX="190.0" layoutY="14.0" prefHeight="31.0" prefWidth="173.0" />
+                  <Label layoutX="46.0" layoutY="19.0" text="Jour de la semaine" />
+               </children>
+            </AnchorPane>
+        </content>
+      </Tab>
+  </tabs>
+</TabPane>

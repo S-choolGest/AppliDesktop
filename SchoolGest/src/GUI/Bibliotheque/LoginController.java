@@ -128,6 +128,7 @@ public class LoginController implements Initializable {
 				loader.setLocation(getClass().getResource("../Professeur/InterfaceProfesseur.fxml"));
 				Parent n = (Parent) loader.load();
 				InterfaceProfesseurController user = loader.getController();
+                                
 				user.getInfo(u);
 				Stage stage = new Stage();
 				stage.setTitle("Edutech : Professeur");

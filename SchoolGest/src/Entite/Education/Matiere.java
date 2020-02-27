@@ -18,25 +18,20 @@ public class Matiere {
     private int idMatiere;
     private String nomMatiere;
     private int coefMatiere;
-    private List<Cours> cours;
     
 
     public Matiere() {
-        this.cours = new ArrayList<>();
+        
     }
 
-    public Matiere( String nomMatiere, int coefficient, List<Cours> cours) {
+    public Matiere( String nomMatiere, int coefficient) {
         
         this.nomMatiere = nomMatiere;
         this.coefMatiere = coefficient;
-        this.cours = cours;
+       
     }
 
-    public Matiere(String nomMatiere, int coefficient) {
-        this.nomMatiere = nomMatiere;
-        this.coefMatiere = coefficient;
-    }
-
+    
     
 
     public String getNomMatiere() {
