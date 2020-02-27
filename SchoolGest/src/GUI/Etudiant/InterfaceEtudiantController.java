@@ -165,8 +165,8 @@ public class InterfaceEtudiantController implements Initializable {
 		nom.setText(u.getNom());
 		prenom.setText(u.getPrenom());
 		email.setText(u.getEmail());
-		String updateprojectstyle="-fx-image:url('"+this.user.getProfil()+"');";
-		profil_picture.setStyle(updateprojectstyle);
+//		String updateprojectstyle="-fx-image:url('"+this.user.getProfil()+"');";
+//		profil_picture.setStyle(updateprojectstyle);
 		this.user = u;
 	}
 

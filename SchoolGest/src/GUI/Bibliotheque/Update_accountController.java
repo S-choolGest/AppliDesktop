@@ -32,13 +32,10 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import javafx.util.Duration;
 import javax.imageio.ImageIO;
 import rest.file.uploader.tn.FileUploader;
-import tray.animations.AnimationType;
-import tray.notification.NotificationType;
-import tray.notification.TrayNotification;
 
 /**
  * FXML Controller class
@@ -99,12 +96,10 @@ public class Update_accountController implements Initializable {
 			String date = dateformat.format(datel);
 			int num = Integer.valueOf(tel.getText());
 			if (tel.getText().length() == 8) {
-				System.out.println("picture2 " + picture);
-				if (picture.equals("")) {
-					picture = "http://localhost/upload/uploads/icons8_user_male_200px.png";
-				}
-				System.out.println("picture3 " + picture);
-				Utilisateur b = new Utilisateur(this.user.getId(), nom.getText(), prenom.getText(), email.getText(), password.getText(), cin.getText(), num, date, adresse.getText(), this.user.getType(), picture);
+//				if(this.picture.equals("")){
+//					this.picture = "http://localhost/upload/uploads/icons8_user_male_200px.png";
+//				}
+				Utilisateur b = new Utilisateur(this.user.getId(), nom.getText(), prenom.getText(), email.getText(), password.getText(), cin.getText(), num, date, adresse.getText(), this.user.getType(), this.picture);
 				Boolean rs = false;
 				if (password.getText().length() != 0 && password2.getText().length() != 0) {
 					if (password.getText().equals(password2.getText())) {
@@ -124,8 +119,8 @@ public class Update_accountController implements Initializable {
 					error.setText("Mot de passe modifié");
 
 				} else {
-					System.out.println("echec de mise à jour du mot de passe !!!");
-					error.setText("echec de mise à jour du mot de passe !!!");
+					System.out.println("Mot de passe inchangé !!!");
+					error.setText("Mot de passe inchangé !!!");
 				}
 			} else {
 				error.setText("Le numéro de téléphone est un nombre de 8 chiffres !!!");
@@ -145,29 +140,15 @@ public class Update_accountController implements Initializable {
 		Webcam webcam = Webcam.getDefault();
 		webcam.open();
 		try {
-			ImageIO.write(webcam.getImage(), "png", new File(this.user.getId() + ".png"));
+			ImageIO.write(webcam.getImage(), "png", new File("profil_img.png"));
 		} catch (IOException ex) {
 			System.out.println("error");
 			Logger.getLogger(CameraController.class.getName()).log(Level.SEVERE, null, ex);
 		}
 		webcam.close();
-		try {
-			FileUploader fu = new FileUploader("localhost/upload");
-
-			//Upload
-			String fileNameInServer = fu.upload("C:/Users/william/Documents/AppliDesktop/AppliDesktop/SchoolGest/profil_img.png");
-			picture = "http://localhost/upload/uploads/" + fileNameInServer;
-			System.out.println("picture " + picture);
-//			TrayNotification tray = new TrayNotification("Capture webcam","Photo de profil enregistré", NotificationType.SUCCESS);
-//			tray.setAnimationType(AnimationType.SLIDE);
-//			tray.showAndDismiss(Duration.seconds(10));
-			//Delete
-//        if(fu.delete(fileNameInServer)){
-//            System.out.println("File "+fileNameInServer+" deleted.");
-//        }
-		} catch (Exception ex) {
-			ex.printStackTrace();
-		}
+		FileUploader fu = new FileUploader("localhost/upload");
+		String fileNameInServer = fu.upload("profil_img.png");
+		this.picture = "http://localhost/upload/uploads/" + fileNameInServer;
 //		FXMLLoader loader = new FXMLLoader();
 //		loader.setLocation(getClass().getResource("camera.fxml"));
 //		Parent n = (Parent) loader.load();
@@ -217,9 +198,22 @@ public class Update_accountController implements Initializable {
 			LocalDate datel = LocalDate.parse(u.getDateNaissance(), formatter);
 			date_naissance.setValue(datel);
 		}
+		
 	}
 
 	public void getStage(Stage stage) {
 		this.stage = stage;
+	}
+
+	@FXML
+	private void edit_picture(ActionEvent event) throws IOException {
+		FileChooser filechooser = new FileChooser();
+		File file = filechooser.showOpenDialog(this.stage);
+		if (file.isFile() && file.getName().contains(".jpg") || file.getName().contains(".png") || file.getName().contains(".bmp")) {
+			System.out.println("hi!!!" + file);
+			FileUploader fu = new FileUploader("localhost/upload");
+			String fileNameInServer = fu.upload(file.toString());
+			this.picture = "http://localhost/upload/uploads/" + fileNameInServer;
+		}
 	}
 }

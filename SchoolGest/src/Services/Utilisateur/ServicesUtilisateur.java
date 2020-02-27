@@ -9,6 +9,7 @@ import Entite.Utilisateur.Bibliothecaire;
 import Entite.Utilisateur.Utilisateur;
 import IServices.Bibliotheque.IServicesUtilisateur;
 import Utils.DataBase;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -16,8 +17,11 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import rest.file.uploader.tn.FileUploader;
 
 /**
  *
@@ -62,6 +66,19 @@ public class ServicesUtilisateur implements IServicesUtilisateur<Utilisateur> {
 
 	@Override
 	public Boolean update(Utilisateur t) throws SQLException {
+		try {
+			Utilisateur u = search(t.getId());
+			if (!u.getProfil().equals("")) {
+				FileUploader fu = new FileUploader("localhost/upload");
+				if (fu.delete(u.getProfil())) {
+					System.out.println("File " + u.getProfil() + " deleted.");
+				}
+			} else {
+				t.setProfil(u.getProfil());
+			}
+		} catch (IOException ex) {
+			Logger.getLogger(ServicesUtilisateur.class.getName()).log(Level.SEVERE, null, ex);
+		}
 		PreparedStatement pre = con.prepareStatement("update `edutech`.`utilisateur` set `nom` = ?, `prenom` = ?, `email` = ?, `cin` = ?, `numTel` = ?, `datenaissance` = ?, `adresse` = ?, `profil` = ? where `id` = ?;");
 		pre.setString(1, t.getNom());
 		pre.setString(2, t.getPrenom());
@@ -94,7 +111,7 @@ public class ServicesUtilisateur implements IServicesUtilisateur<Utilisateur> {
 
 	@Override
 	public Utilisateur search(int id) throws SQLException {
-		PreparedStatement pre = con.prepareStatement("select id, nom, prenom, email, password, cin, numtel, datenaissance, adresse, type from utilisateur where id = ?");
+		PreparedStatement pre = con.prepareStatement("select id, nom, prenom, email, password, cin, numtel, datenaissance, adresse, type, profil from utilisateur where id = ?");
 		pre.setInt(1, id);
 		ResultSet rs = pre.executeQuery();
 		while (rs.next()) {
@@ -107,7 +124,8 @@ public class ServicesUtilisateur implements IServicesUtilisateur<Utilisateur> {
 			String datenaissance = rs.getString(8);
 			String adresse = rs.getString(9);
 			int type = rs.getInt(10);
-			Utilisateur b = new Utilisateur(id, nom, prenom, email, password, cin, numtel, datenaissance, adresse, type);
+			String profil = rs.getString(11);
+			Utilisateur b = new Utilisateur(id, nom, prenom, email, password, cin, numtel, datenaissance, adresse, type, profil);
 			return b;
 		}
 		return null;
@@ -146,6 +164,7 @@ public class ServicesUtilisateur implements IServicesUtilisateur<Utilisateur> {
 		}
 		return -1;
 	}
+
 	public int recuperer_id_by_cin(String cin) throws SQLException {
 		PreparedStatement pre = con.prepareStatement("select id from utilisateur where cin = ?");
 		pre.setString(1, cin);
@@ -154,5 +173,19 @@ public class ServicesUtilisateur implements IServicesUtilisateur<Utilisateur> {
 			return rs.getInt(1);
 		}
 		return -1;
+	}
+
+	public boolean delete_profil(int id) throws SQLException, IOException {
+		Utilisateur u = search(id);
+		if (u.getProfil().equals("")) {
+			return false;
+		} else {
+			FileUploader fu = new FileUploader("localhost/upload");
+			if (fu.delete(u.getProfil())) {
+				System.out.println("File " + u.getProfil() + " deleted.");
+			}
+			return true;
+		}
+
 	}
 }

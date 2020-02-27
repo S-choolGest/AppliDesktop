@@ -138,7 +138,7 @@
                </font>
             </JFXPasswordField>
             <Label layoutX="47.0" layoutY="528.0" prefHeight="25.0" prefWidth="152.0" text="Modifier mot de passe" textFill="#909090" />
-            <JFXButton fx:id="upload_image" layoutX="216.0" layoutY="684.0" prefHeight="25.0" prefWidth="136.0" ripplerFill="#c79fc5" text="télécharger une image" textFill="#a0adc9" />
+            <JFXButton fx:id="upload_image" layoutX="216.0" layoutY="684.0" onAction="#edit_picture" prefHeight="25.0" prefWidth="136.0" ripplerFill="#c79fc5" text="télécharger une image" textFill="#a0adc9" />
          </children>
       </Pane>
    </children>

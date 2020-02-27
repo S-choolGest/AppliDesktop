@@ -14,6 +14,7 @@ import Services.Bibliotheque.ServicesLivres;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
 import java.io.File;
+import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.time.LocalDate;
@@ -47,6 +48,9 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import org.controlsfx.control.textfield.AutoCompletionBinding;
+import org.controlsfx.control.textfield.TextFields;
+import rest.file.uploader.tn.FileUploader;
 
 /**
  * FXML Controller class
@@ -163,12 +167,10 @@ public class Catalogue_bibliothecaireController implements Initializable {
 	private DatePicker date_sortiea;
 	@FXML
 	private TextField quantitea;
-	@FXML
-	private ImageView imagea;
 	private String imga = "http://localhost/mobile/book.jpg";
 	@FXML
 	private Pane img_livre_edit;
-//	private AutoCompletionBinding<String> autoCompleteCategorie;
+	private AutoCompletionBinding<String> autoCompleteCategorie;
 
 	/**
 	 * Initializes the controller class.
@@ -232,6 +234,7 @@ public class Catalogue_bibliothecaireController implements Initializable {
 				j++;
 			}
 			VBox livre = new VBox();
+			this.img = l.getImg();
 			Image img = new Image(l.getImg());
 			ImageView imgv = new ImageView();
 			imgv.setImage(img);
@@ -264,7 +267,7 @@ public class Catalogue_bibliothecaireController implements Initializable {
 							field_titre.setText(titre.getText());
 							field_auteur.setText(auteur.getText());
 							field_categorie.setText(categorie.getText());
-							DateTimeFormatter formatter = DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM);
+//							DateTimeFormatter formatter = DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM);
 //							LocalDate dateA = LocalDate.parse(day_ajout.getText()+" "+month_ajout.getText()+" "+year_ajout.getText(), formatter);
 //							field_date_ajout.setValue(dateA);
 //							LocalDate dateS = LocalDate.parse(day_sortie.getText()+" "+month_sortie.getText()+" "+year_sortie.getText()+" 11:05:30", formatter);
@@ -275,7 +278,7 @@ public class Catalogue_bibliothecaireController implements Initializable {
 							day_ajout1.setText(day_ajout.getText());
 							month_ajout1.setText(month_ajout.getText());
 							year_ajout1.setText(year_ajout.getText());
-							img_livre1.getChildren().add(img_livre.getChildren().get(0));
+//							img_livre1.getChildren().add(img_livre.getChildren().get(0));
 						}
 					});
 				}
@@ -305,10 +308,11 @@ public class Catalogue_bibliothecaireController implements Initializable {
 	@FXML
 	private void editer_livre(MouseEvent event) {
 		try {
+			System.out.println("zezae"+this.img);
 			LocalDate datel = field_date_sortie.getValue();
 			DateTimeFormatter dateformat = DateTimeFormatter.ofPattern("yyyy/MM/dd");
 			String datef = dateformat.format(datel);
-			Livre l = new Livre(Integer.valueOf(identifiant.getText()), field_titre.getText(), field_editeur.getText(), field_auteur.getText(), field_categorie.getText(), datef, Integer.valueOf(taille.getText()), Integer.valueOf(field_quantite.getText()), "http://localhost/mobile/livre.png");
+			Livre l = new Livre(Integer.valueOf(identifiant.getText()), field_titre.getText(), field_editeur.getText(), field_auteur.getText(), field_categorie.getText(), datef, Integer.valueOf(taille.getText()), Integer.valueOf(field_quantite.getText()), this.img);
 			if (l.getAuteur().equals("") || l.getCategorie().equals("") || l.getDateSortie().equals("") || l.getEditeur().equals("") || l.getTaille() < 5 || l.getTitre().equals("")) {
 				error.setText("Vérifier vos données !!!");
 			} else {
@@ -324,6 +328,7 @@ public class Catalogue_bibliothecaireController implements Initializable {
 				}
 			}
 		} catch (Exception e) {
+			System.out.println(e);
 			error.setText("Vérifier vos données !!!(quantite, bibliotheque id et pages doivent être des nombres)");
 		}
 	}
@@ -407,11 +412,12 @@ public class Catalogue_bibliothecaireController implements Initializable {
 				page_detail.setVisible(false);
 				page_edit.setVisible(false);
 				afficher_page_catalogue(bib);
+				error1.setText("Ajout réussi");
 			} else {
-				error.setText("Ajout impossible !!!");
+				error1.setText("Ajout impossible !!!");
 			}
 		} catch (Exception e) {
-			error.setText(e.getMessage());
+			error1.setText(e.getMessage());
 		}
 	}
 
@@ -419,18 +425,21 @@ public class Catalogue_bibliothecaireController implements Initializable {
 	private void charger_ajout(MouseEvent event) throws SQLException {
 		page_ajout.setVisible(true);
 		try {
-//			autoCompleteCategorie = TextFields.bindAutoCompletion(categoriea, ser.getCategories(this.bib.getId()));
+			autoCompleteCategorie = TextFields.bindAutoCompletion(categoriea, ser.getCategories(this.bib.getId()));
 		} catch (Exception e) {
 			aucun_livre.setVisible(true);
 		}
 	}
 
 	@FXML
-	private void add_image(MouseEvent event) {
+	private void add_image(MouseEvent event) throws IOException {
 		FileChooser filechooser = new FileChooser();
 		File file = filechooser.showOpenDialog(this.stage);
 		if (file.isFile() && file.getName().contains(".jpg") || file.getName().contains(".png") || file.getName().contains(".bmp")) {
-			System.out.println("hi!!!");
+			System.out.println("hi!!!" + file);
+			FileUploader fu = new FileUploader("localhost/upload");
+			String fileNameInServer = fu.upload(file.toString());
+			this.imga = "http://localhost/upload/uploads/" + fileNameInServer;
 		}
 	}
 
@@ -439,11 +448,14 @@ public class Catalogue_bibliothecaireController implements Initializable {
 	}
 
 	@FXML
-	private void edit_image(MouseEvent event) {
+	private void edit_image(MouseEvent event) throws IOException {
 		FileChooser filechooser = new FileChooser();
 		File file = filechooser.showOpenDialog(this.stage);
 		if (file.isFile() && file.getName().contains(".jpg") || file.getName().contains(".png") || file.getName().contains(".bmp")) {
-			System.out.println("his!!!");
+			System.out.println("hi!!!" + file);
+			FileUploader fu = new FileUploader("localhost/upload");
+			String fileNameInServer = fu.upload(file.toString());
+			this.img = "http://localhost/upload/uploads/" + fileNameInServer;
 		}
 	}
 }

@@ -76,7 +76,7 @@ public class LoginController implements Initializable {
 		if (emailL.length() == 0 || pwd.length() == 0) {
 			error.setText("Remplir tous les champs !!!");
 		} else {
-			try {
+			//try {
 				Utilisateur u = ser.recuperer_type_compte(emailL, pwd);
 				System.out.println(u.getType());
 				if (u.getType() == 5) {
@@ -171,10 +171,10 @@ public class LoginController implements Initializable {
 					user.getStage(stage);
 					stage.show();
 				}
-			} catch (Exception e) {
-				error.setText("Login ou mot de passe incorrect !!!");
-				System.out.println(e);
-			}
+//			} catch (Exception e) {
+//				error.setText("Login ou mot de passe incorrect !!!");
+//				System.out.println(e);
+//			}
 
 		}
 //		} catch (Exception e) {
