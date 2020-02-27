@@ -13,9 +13,11 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 /**
  *
@@ -58,8 +60,33 @@ public class ServicesFormulaire implements IServicesFormulaire<Formulaire> {
 
     //modification formulaire
     @Override
-    public void update(Formulaire f) throws SQLException {
+    public boolean update(Formulaire f) throws SQLException {
+        ste = con.createStatement();
+        String req = "update formulaire set objet = '"
+                +f.getObjet()
+                +"',descriptionFormulaire='"
+                +f.getDescription()
+                +"',fichier='"
+                +f.getFichier()
+                /*
+                +"',validation='"
+                +f.isValidation()*/
+                +"',dateEnvoi='"
+                +f.getDateEnvoi()
+                +"' where idFormulaire = '"
+                +f.getIdFormulaire()+"'";
+        if(ste.executeUpdate(req)==1){
+            System.out.println("modification effectué");
+            return  true;
+        };
+        System.out.println("modification échoué");
+        return false;
+        
+    }
+        
+        /*
         try {
+            
             String req = "UPDATE Formulaire SET 'objet'" + f.getObjet()+ ",'descriptionFormulaire'" + f.getDescription()+",'fichier'" + f.getFichier()+";";  
             PreparedStatement ste = con.prepareStatement(req);
             ste.executeUpdate();
@@ -67,12 +94,13 @@ public class ServicesFormulaire implements IServicesFormulaire<Formulaire> {
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
         }
-    }
+        */
+    
 
     //affichage de la liste
     @Override
-    public List<Formulaire> readall() throws SQLException {
-        List<Formulaire> arr = new ArrayList<>();
+    public ObservableList<Formulaire> readall() throws SQLException {
+        ObservableList<Formulaire> arr = FXCollections.observableArrayList();
         ste = con.createStatement();
         ResultSet rs = ste.executeQuery("select * from formulaire");
         while (rs.next()) {
@@ -81,7 +109,7 @@ public class ServicesFormulaire implements IServicesFormulaire<Formulaire> {
             String description = rs.getString("descriptionFormulaire");
             String fichier = rs.getString("fichier");
             boolean validation = rs.getBoolean(5);
-            Date dateEnvoi = rs.getDate(6);
+            Timestamp dateEnvoi = rs.getTimestamp(6);
             Formulaire f = new Formulaire(idFormulaire, objet, description, fichier, validation, dateEnvoi);
             arr.add(f);
         }
@@ -95,15 +123,15 @@ public class ServicesFormulaire implements IServicesFormulaire<Formulaire> {
             String req = "select * from Formulaire where id = '" + idFormulaire + "'";
             ResultSet rs = st.executeQuery(req);
             if (rs.next()) {
-                return new Formulaire(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getBoolean(5), rs.getDate(6));
+                return new Formulaire(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getBoolean(5), rs.getTimestamp(6));
             }
         } catch (SQLException ex) {
             System.err.println(ex.getMessage());
         }
         return null;
     }
-    /*
-    //recherche simple
+    
+    
     public List<Formulaire> getSimpleFormilaireParMotCle(String motCle) {
         Statement st;
         List<Formulaire> ls = new ArrayList();
@@ -112,14 +140,14 @@ public class ServicesFormulaire implements IServicesFormulaire<Formulaire> {
             String req = "select * from Formulaire where objet like '%" + motCle + "%' or descriptionFormulaire like '%" + motCle + "%' or dateEnvoie like '%"+motCle+"%'";
             ResultSet rs = st.executeQuery(req);
             while (rs.next()) {
-                ls.add(new Formulaire(rs.getString(2), rs.getString(3), rs.getDate(6)));
+                ls.add(new Formulaire(rs.getString(2), rs.getString(3), rs.getTimestamp(6)));
             }
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
         }
         return ls;
     }
-    */
+    
 
     //confirmer un formulaire
     @Override
@@ -148,8 +176,8 @@ public class ServicesFormulaire implements IServicesFormulaire<Formulaire> {
                 String description = rs.getString("descriptionFormulaire");
                 String fichier = rs.getString("fichier");
                 boolean validation = rs.getBoolean(5);
-                Date dateEnvoi = rs.getDate(6);
-                Formulaire f = new Formulaire(idFormulaire, objet, description, fichier, validation, dateEnvoi);
+                Timestamp dateEnvoi = rs.getTimestamp(6);
+                Formulaire f = new Formulaire(idFormulaire, objet, description, fichier, validation, (Timestamp) dateEnvoi);
                 arr.add(f);
             }
         } catch (SQLException ex) {
@@ -172,7 +200,7 @@ public class ServicesFormulaire implements IServicesFormulaire<Formulaire> {
                 String description = rs.getString("descriptionFormulaire");
                 String fichier = rs.getString("fichier");
                 boolean validation = rs.getBoolean(5);
-                Date dateEnvoi = rs.getDate(6);
+                Timestamp dateEnvoi = rs.getTimestamp(6);
                 Formulaire f = new Formulaire(idFormulaire, objet, description, fichier, validation, dateEnvoi);
                 arr.add(f);
             }
