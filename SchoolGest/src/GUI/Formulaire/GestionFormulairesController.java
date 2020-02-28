@@ -30,11 +30,19 @@ import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
 import javax.swing.JOptionPane;
+import java.net.URL;
+import javafx.stage.Stage;
+import java.util.*;
+import javax.mail.*;
+import javax.mail.internet.*;
+import javax.mail.internet.MimeMessage;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.net.URL;
+import java.net.URLConnection;
+import java.net.URLEncoder;
 import java.net.HttpURLConnection;
-
 
 /**
  * FXML Controller class
@@ -75,29 +83,15 @@ public class GestionFormulairesController implements Initializable {
     private Button btConfirmer;
     @FXML
     private TextField tfRechecher;
-    @FXML
-    private Button btSMS;
-    @FXML
-    private TextField txtapi;
-    @FXML
-    private TextField txtmess;
-    @FXML
-    private TextField txtsender;
-    @FXML
-    private TextField txtnumber;
-    
+
     ToggleGroup group = new ToggleGroup();
-    
+
     public Formulaire formulaire = new Formulaire();
     public List<Formulaire> formulaires;
     ServicesFormulaire ser = new ServicesFormulaire();
-    
-   
-    
-    
-    
-    
-    
+
+    private Stage stage;
+
     /**
      * Initializes the controller class.
      */
@@ -105,22 +99,20 @@ public class GestionFormulairesController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
         try {
-            clObjet.setCellValueFactory(c->new SimpleStringProperty(c.getValue().getObjet()));
-            clDescription.setCellValueFactory(c->new SimpleStringProperty(c.getValue().getDescription()));
-            clValidation.setCellValueFactory(c->new SimpleStringProperty(c.getValue().isValidation()));
-            clDate.setCellValueFactory(c->new SimpleStringProperty(c.getValue().getDateEnvoi()));
+            clObjet.setCellValueFactory(c -> new SimpleStringProperty(c.getValue().getObjet()));
+            clDescription.setCellValueFactory(c -> new SimpleStringProperty(c.getValue().getDescription()));
+            clValidation.setCellValueFactory(c -> new SimpleStringProperty(c.getValue().isValidation()));
+            clDate.setCellValueFactory(c -> new SimpleStringProperty(c.getValue().getDateEnvoi()));
             formulaires = new Services.Formulaire.ServicesFormulaire().readall();
             tableFormulaire.setItems((ObservableList<Formulaire>) formulaires);
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
         }
-        
+
         rbTous.setToggleGroup(group);
         rbValide.setToggleGroup(group);
         rbNonValide.setToggleGroup(group);
     }
-    
-    
 
     @FXML
     private void btAjouterOnClick(ActionEvent event) {
@@ -128,10 +120,15 @@ public class GestionFormulairesController implements Initializable {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("ajouterFormulaire.fxml"));
             Parent root = loader.load();
             AjouterFormulaireController afc = loader.getController();
+            afc.getStage(this.stage);
             tableFormulaire.getScene().setRoot(root);
         } catch (IOException ex) {
             System.out.println(ex.getMessage());
         }
+    }
+
+    public void getStage(Stage stage) {
+        this.stage = stage;
     }
 
     @FXML
@@ -149,7 +146,7 @@ public class GestionFormulairesController implements Initializable {
 
     @FXML
     private void rbValideOnSelect(ActionEvent event) {
-        if (!rbTous.isSelected() &&rbValide.isSelected() && !rbNonValide.isSelected()) {
+        if (!rbTous.isSelected() && rbValide.isSelected() && !rbNonValide.isSelected()) {
             formulaires = new ServicesFormulaire().getSimpleFormulairesConfirmes();
             actualiserTable();
         }
@@ -164,25 +161,25 @@ public class GestionFormulairesController implements Initializable {
         }
     }
 
-    public void actualiserTable(){
+    public void actualiserTable() {
         tableFormulaire.getItems().clear();
         tableFormulaire.getItems().addAll(FXCollections.observableList(formulaires));
     }
 
     @FXML
     private void btSupprimerOnClick(ActionEvent event) throws SQLException {
-        
+
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Suppression Formulaire");
-        alert.setHeaderText("supprimer"+formulaire.getIdFormulaire());
-        alert.setContentText("voulez vous supprimer la reclamation "+tableFormulaire.getSelectionModel().getSelectedItem().getIdFormulaire() + "?");
-        Optional<ButtonType> result =alert.showAndWait();
-        if(result.get() == ButtonType.OK){
+        alert.setHeaderText("supprimer" + formulaire.getIdFormulaire());
+        alert.setContentText("voulez vous supprimer la reclamation " + tableFormulaire.getSelectionModel().getSelectedItem().getIdFormulaire() + "?");
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.get() == ButtonType.OK) {
             new ServicesFormulaire().delete(tableFormulaire.getSelectionModel().getSelectedItem().getIdFormulaireInt());
             formulaires = new ServicesFormulaire().readall();
             actualiserTable();
         }
-        if(result.get() == ButtonType.CANCEL){
+        if (result.get() == ButtonType.CANCEL) {
             alert.close();
         }
 
@@ -219,7 +216,7 @@ public class GestionFormulairesController implements Initializable {
         alert.setHeaderText("Confirmer" + formulaire.getIdFormulaire());
         alert.setContentText("Voulez vous confirmer la réclamation " + tableFormulaire.getSelectionModel().getSelectedItem().getIdFormulaire() + "?");
         Optional<ButtonType> result = alert.showAndWait();
-        if(result.get() == ButtonType.OK) {
+        if (result.get() == ButtonType.OK) {
             try {
                 new ServicesFormulaire().confirmerValidation(tableFormulaire.getSelectionModel().getSelectedItem().getIdFormulaireInt());
                 formulaires = new ServicesFormulaire().readall();
@@ -228,8 +225,44 @@ public class GestionFormulairesController implements Initializable {
                 System.out.println(ex.getMessage());
             }
         }
-    }
 
+        // ici le code pour l'api SMS apres confirmation
+        try {
+            String host = "smtp.gmail.com";
+            String user = "milleniumwow.ahmed@gmail.com";
+            String pss = "warcraft10";
+            String to = "4421695495874@txtlocal.co.uk";
+            String from = user;
+            String subject = "Message";
+            String message = "du message et encore du message";
+            boolean sessionDebug = false;
+            Properties pros = System.getProperties();
+            pros.put("mail.smtp.starttls.enable", "true");
+            pros.put("mail.smtp.host", "host");
+            pros.put("mail.smtp.auth", "true");
+            pros.put("mail.smtp.port", "587");
+            pros.put("mail.smtp.starttls.required", "true");
+            java.security.Security.addProvider(new com.sun.net.ssl.internal.ssl.Provider());
+            Session mailSession = Session.getDefaultInstance(pros, null);
+            mailSession.setDebug(sessionDebug);
+            Message msg = new MimeMessage(mailSession);
+            msg.setFrom(new InternetAddress(from));
+            InternetAddress[] address = {new InternetAddress(to)};
+            msg.setRecipients(Message.RecipientType.TO, address);
+            msg.setSubject(subject);
+            msg.setSentDate(new Date());
+            msg.setText(message);
+            Transport transport = mailSession.getTransport("smtp");
+            transport.connect(host, user, pss);
+            transport.sendMessage(msg, msg.getAllRecipients());
+            transport.close();
+            JOptionPane.showMessageDialog(null, "message send successfully");
+
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, ex);
+        }
+
+    }
 
     @FXML
     private void tfRechecherOnKeyReleased(KeyEvent event) {
@@ -239,50 +272,9 @@ public class GestionFormulairesController implements Initializable {
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
         }
-        
-    }
-
-    @FXML
-    private void btSmsOnClick(ActionEvent evt) {
-        try {
-            // Construct data
-            String apiKey = "apikey=" + txtapi.getText();
-            String message = "&amp;message=" + txtmess.getText();
-            String sender = "&amp;sender=" + txtsender.getText();
-            String numbers = "&amp;numbers=" + txtnumber.getText();
-
-            // Send data
-            HttpURLConnection conn = (HttpURLConnection) new URL("https://api.txtlocal.com/send/?").openConnection();
-            String data = apiKey + numbers + message + sender;
-            conn.setDoOutput(true);
-            conn.setRequestMethod("POST");
-            conn.setRequestProperty("Content-Length", Integer.toString(data.length()));
-            conn.getOutputStream().write(data.getBytes("UTF-8"));
-            final BufferedReader rd = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-            final StringBuffer stringBuffer = new StringBuffer();
-            String line;
-            while ((line = rd.readLine()) != null) {
-                //stringBuffer.append(line);
-                JOptionPane.showMessageDialog(null, "message" + line);
-            }
-            rd.close();
-
-            //return stringBuffer.toString();
-        } catch (Exception e) {
-            //System.out.println("Error SMS "+e);
-            JOptionPane.showMessageDialog(null, e);
-            //return "Error "+e;
-
-        }
 
     }
-        
-        
-	
-        
-    
-    
-    
+
 
 
 }

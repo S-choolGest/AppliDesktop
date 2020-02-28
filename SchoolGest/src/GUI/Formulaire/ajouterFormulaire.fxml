@@ -29,5 +29,6 @@
       <Button fx:id="btAnnuler" layoutX="761.0" layoutY="328.0" mnemonicParsing="false" onAction="#btAnnulerOnClick" prefHeight="26.0" prefWidth="81.0" style="-fx-background-color: #2D75E8;" text="Retour" textFill="WHITE" />
       <Label fx:id="error" alignment="CENTER" layoutX="148.0" layoutY="354.0" prefHeight="35.0" prefWidth="302.0" textFill="#cf0000" />
       <Label fx:id="reussi" alignment="CENTER" layoutX="148.0" layoutY="396.0" prefHeight="35.0" prefWidth="302.0" textFill="#06bd00" />
+      <Button fx:id="btParcourir" layoutX="736.0" layoutY="193.0" mnemonicParsing="false" onAction="#edit_fichier" prefHeight="26.0" prefWidth="81.0" style="-fx-background-color: #2D75E8;" text="parcourir" textFill="WHITE" />
    </children>
 </AnchorPane>

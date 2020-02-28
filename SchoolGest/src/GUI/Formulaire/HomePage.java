@@ -29,8 +29,18 @@ public class HomePage extends Application {
     public void start(Stage primaryStage) {
         Parent root;
         try {
-            root = FXMLLoader.load(getClass().getResource("gestionFormulaires.fxml"));
-            Scene scene = new Scene(root);
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("gestionFormulaires.fxml"));
+            Parent n = (Parent) loader.load();
+            GestionFormulairesController  gf= loader.getController();
+            gf.getStage(primaryStage);
+
+  
+                
+            
+//          root = FXMLLoader.load(getClass().getResource("gestionFormulaires.fxml"));
+//          GestionFormulairesController g = new GestionFormulairesController();
+            Scene scene = new Scene(n);
             primaryStage.setTitle("gestion formulaire");
             primaryStage.setScene(scene);
             primaryStage.show();

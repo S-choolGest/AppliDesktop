@@ -6,6 +6,7 @@
 package GUI.Formulaire;
 
 import Entite.Formulaire.Formulaire;
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Optional;
@@ -22,6 +23,9 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
+import rest.file.uploader.tn.FileUploader;
 
 
 /**
@@ -47,6 +51,10 @@ public class AjouterFormulaireController implements Initializable {
     private Label error;
     @FXML
     private Label reussi;
+    @FXML
+    private Button btParcourir;
+    private Stage stage;
+    private String url_pdf;
 
     /**
      * Initializes the controller class.
@@ -83,19 +91,36 @@ public class AjouterFormulaireController implements Initializable {
         alert.setTitle("Interruption !");
         alert.setHeaderText("Annuler l'ajout");
         alert.setContentText("voulez vous vraiment abondonner l'ajout?");
-        Optional<ButtonType> result =alert.showAndWait();
-        if(result.get() == ButtonType.OK){
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.get() == ButtonType.OK) {
             Parent root = FXMLLoader.load(getClass().getResource("gestionFormulaires.fxml"));
             btAnnuler.getScene().setRoot(root);
         }
-        if(result.get() == ButtonType.CANCEL){
+        if (result.get() == ButtonType.CANCEL) {
             alert.close();
         }
-        
+
     }
-    
-    
-    
-    
+
+    public void getStage(Stage stage) {
+        this.stage = stage;
+    }
+
+    @FXML
+    private void edit_fichier(ActionEvent event) throws IOException {
+
+        FileChooser filechooser = new FileChooser();
+        File file = filechooser.showOpenDialog(this.stage);
+        if (file.isFile() && file.getName().contains(".pdf")) {
+            System.out.println("hi!!!" + file);
+            FileUploader fu = new FileUploader("localhost/pidev");
+            String fileNameInServer = fu.upload(file.toString());
+            this.url_pdf = "http://localhost/pidev/uploads/" + fileNameInServer;
+            tfFichier.setText(url_pdf);
+        }
+
+    }
+
+
     
 }
