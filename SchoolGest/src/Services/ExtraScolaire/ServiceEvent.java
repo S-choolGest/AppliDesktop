@@ -53,6 +53,7 @@ public class ServiceEvent  implements IService {
     	               
     	               Eventt p = new Eventt(idEvent, nomEvent, description, date);
     	     AbsenceData.add(p);
+                System.out.println(p);
     	     }
     	    return AbsenceData;
     	    }

@@ -284,7 +284,7 @@ private void addButtonToTable() {
          String nomEvent = TextnomEventM.getText();
          System.out.print(nomEvent);
             String description = TextdescriptionM.getText();
-       // int Idetudiant = Integer.parseInt(TextIDEtudiantM.getText());
+      
 
         LocalDate date_abs=DateEventt.getValue();
         DateTimeFormatter dateFormatter=DateTimeFormatter.ofPattern("yyyy/MM/dd");
@@ -311,7 +311,7 @@ private void addButtonToTable() {
     private void oo(Event event) {
         // TODO Auto-generated method stub
 		final Mapa example = new Mapa("test");
-		//example.
+		example.generateMarker(maps.getCenter());
     }
     
     
@@ -326,7 +326,6 @@ private void addButtonToTable() {
       app.setVisible(true);
     }
 
-    
 }
 
 

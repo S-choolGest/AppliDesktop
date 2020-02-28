@@ -9,6 +9,7 @@ import Entite.Utilisateur.*;
 import GUI.Absence.AddAbsence1Controller;
 import GUI.Bibliotheque.*;
 import GUI.Bibliotheque.Utilisateur.Bibliotheque_user_menuController;
+import GUI.ExtraScolaire.User_ExtraScolaireController;
 import com.jfoenix.controls.JFXButton;
 import java.io.IOException;
 import java.net.URL;
@@ -139,9 +140,15 @@ public class InterfaceEtudiantController implements Initializable {
 	}
 
 	@FXML
-	private void charger_evenements(ActionEvent event) {
+	private void charger_evenements(ActionEvent event) throws SQLException, IOException {
 		info_vue = false;
 		info.setVisible(info_vue);
+		body.getChildren().clear();
+		FXMLLoader loader = new FXMLLoader();
+		loader.setLocation(getClass().getResource("../ExtraScolaire/User_ExtraScolaire.fxml"));
+		Parent n = (Parent) loader.load();
+		User_ExtraScolaireController emp = loader.getController();
+		body.getChildren().add(n);
 	}
 
 	@FXML

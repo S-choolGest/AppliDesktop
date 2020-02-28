@@ -42,7 +42,9 @@ public class User_ExtraScolaireController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        // TODO 
+        
+        afficher(null);
     }    
 
     @FXML
