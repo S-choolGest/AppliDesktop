@@ -20,6 +20,8 @@ import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -75,13 +77,51 @@ public class Consulter_empruntController implements Initializable {
 	@Override
 	public void initialize(URL url, ResourceBundle rb) {
 		// TODO
+		for (int i = 0; i < 6; i++) {
+			ordre.add(true);
+		}
+		aucun_emprunt.setVisible(false);
+		choix_etat_emprunt.getItems().addAll("tout", "attente", "refus", "accepte", "rendu");
+		choix_tri_emprunt.getItems().addAll("aucun", "titre", "auteur", "editeur", "datesortie", "categorie");
+		choix_etat_emprunt.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>() {
+			@Override
+			public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+				try {
+					filterByEtat(choix_etat_emprunt.getItems().get((Integer) newValue));
+					etat = choix_etat_emprunt.getItems().get((Integer) newValue);
+				} catch (SQLException ex) {
+					Logger.getLogger(HomeController.class.getName()).log(Level.SEVERE, null, ex);
+				}
+			}
+		});
+
+		choix_tri_emprunt.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>() {
+			@Override
+			public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+				try {
+					triEmprunts(choix_tri_emprunt.getItems().get((Integer) newValue), ordre.get((int) newValue), etat);
+//					if(ordre.get((int) newValue) == false) ordre.get((int) newValue) = true;
+//					ordre.get((int) newValue) == !ordre.get((int) newValue);
+				} catch (SQLException ex) {
+					Logger.getLogger(HomeController.class.getName()).log(Level.SEVERE, null, ex);
+				}
+			}
+		});
 	}
 
 	@FXML
 	private void rechercher_emprunt(KeyEvent event) throws SQLException {
-		afficher_emprunts();
+		aucun_emprunt.setVisible(false);
+		List<LivreEmprunte> emprunts = new ArrayList<>();
+		liste_emprunt.getChildren().clear();
+		emprunts = ser_livre.search(user.getId(), search_emprunt.getText());
+		if (emprunts.size() == 0) {
+			aucun_emprunt.setVisible(true);
+		} else {
+			afficher_emprunts(emprunts);
+			aucun_emprunt.setVisible(false);
+		}
 	}
-
 
 	@FXML
 	private void back(MouseEvent event) throws SQLException, IOException {
@@ -103,16 +143,23 @@ public class Consulter_empruntController implements Initializable {
 	public void getInfo(Utilisateur u) throws SQLException, SQLException {
 		this.user = u;
 //		afficher_page_emprunt(null);
+		List<LivreEmprunte> emprunts = new ArrayList<>();
+		emprunts = ser_livre.search(user.getId(), "");
+		liste_emprunt.getChildren().clear();
+		if (emprunts.size() == 0) {
+			aucun_emprunt.setVisible(true);
+		} else {
+			afficher_emprunts(emprunts);
+			aucun_emprunt.setVisible(false);
+		}
 	}
-	
+
 	public void getBody(AnchorPane body) {
 		this.body = body;
 	}
-	
-	private void afficher_emprunts() throws SQLException {
+
+	private void afficher_emprunts(List<LivreEmprunte> emprunts) throws SQLException {
 		liste_emprunt.getChildren().clear();
-		List<LivreEmprunte> emprunts = new ArrayList<>();
-		emprunts = ser_livre.search(user.getId(), search_emprunt.getText());
 		List<Node> node_emprunt = new ArrayList<>();
 		for (LivreEmprunte e : emprunts) {
 			try {
