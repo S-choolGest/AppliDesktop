@@ -189,6 +189,7 @@ public class InterfaceEtudiantController implements Initializable {
 		Parent n = (Parent) loader.load();
 		Update_accountController del = loader.getController();
 		del.getInfos(this.user);
+		del.getStage(stage);
 		Stage stage = new Stage();
 		stage.setTitle("Edutech : Etudiant : Edit account");
 		Scene scene = new Scene(n);
