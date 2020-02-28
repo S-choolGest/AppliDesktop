@@ -98,7 +98,7 @@ public class InterfaceAdminController implements Initializable {
 	private void charger_matieres(ActionEvent event) throws IOException {
 		 body.getChildren().clear();
 		FXMLLoader loader = new FXMLLoader();
-		loader.setLocation(getClass().getResource("../Education/adminMatiere.fxml"));
+		loader.setLocation(getClass().getResource("../Education/admineMatiere.fxml"));
 		Parent n = (Parent) loader.load();
 		FXMLController emp = loader.getController();
 		body.getChildren().add(n);

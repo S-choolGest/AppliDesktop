@@ -12,10 +12,10 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="0.0" prefWidth="0.0" stylesheets="@../image/cssMenu.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.Education.FXMLController">
+<AnchorPane prefHeight="500.0" prefWidth="1084.0" style="-fx-background-image: écoles.jpeg;" stylesheets="@../image/cssMenu.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.Education.FXMLController">
 	
     <children>
-		<TabPane fx:id="tabPane" layoutY="32.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="669.0" prefWidth="1100.0" side="LEFT" tabClosingPolicy="UNAVAILABLE" tabMinHeight="70.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+		<TabPane fx:id="tabPane" layoutY="32.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="623.0" prefWidth="1084.0" side="LEFT" tabClosingPolicy="UNAVAILABLE" tabMinHeight="70.0" AnchorPane.bottomAnchor="16.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
 			<tabs>
 				<Tab>
 					<graphic>
@@ -25,7 +25,7 @@
                      </font></Label>
 					</graphic>
 					<content>
-						<AnchorPane>
+						<AnchorPane style="-fx-background-image: écoles.jpeg;">
                         <children>
       <Button id="button" layoutX="568.0" layoutY="91.0" mnemonicParsing="false" onAction="#ajouterSpecialite" stylesheets="@../image/cssMenu.css" text="Ajouter Specialité" textAlignment="CENTER">
                            <font>
@@ -43,12 +43,12 @@
                               <Font name="System Bold" size="18.0" />
                            </font>
                         </Label>
-                        <ScrollPane layoutX="263.0" layoutY="232.0" prefHeight="368.0" prefWidth="444.0">
+                        <ScrollPane layoutX="308.0" layoutY="173.0" prefHeight="298.0" prefWidth="362.0">
                           <content>
-                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="365.0" prefWidth="445.0">
+                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="365.0" prefWidth="389.0">
                                  <children>
                                       
-                                                      <javafx.scene.control.TableView fx:id="tableSpecialite" editable="true" layoutX="131.0" layoutY="-18.0" prefHeight="365.0" prefWidth="445.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                      <javafx.scene.control.TableView fx:id="tableSpecialite" editable="true" layoutX="131.0" layoutY="-18.0" prefHeight="365.0" prefWidth="429.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="16.0" AnchorPane.topAnchor="0.0">
                                        <columnResizePolicy>
                                           <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                                        </columnResizePolicy>
@@ -79,24 +79,24 @@
                               <content>
                                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                        <children>
-                                          <ComboBox fx:id="comboModuleSpecialite" layoutX="753.0" layoutY="382.0" prefWidth="150.0" />
-                                          <ComboBox fx:id="comboSpecialite" layoutX="753.0" layoutY="302.0" prefWidth="150.0" />
-                                          <Label layoutX="630.0" layoutY="301.0" text="Specialité :">
+                                          <ComboBox fx:id="comboModuleSpecialite" layoutX="753.0" layoutY="330.0" prefWidth="150.0" />
+                                          <ComboBox fx:id="comboSpecialite" layoutX="753.0" layoutY="250.0" prefWidth="150.0" />
+                                          <Label layoutX="630.0" layoutY="249.0" text="Specialité :">
                                              <font>
                                                 <Font name="System Bold" size="18.0" />
                                              </font>
                                           </Label>
-                                          <Label layoutX="630.0" layoutY="381.0" text="Module :">
+                                          <Label layoutX="630.0" layoutY="329.0" text="Module :">
                                              <font>
                                                 <Font name="System Bold" size="18.0" />
                                              </font>
                                           </Label>
-                                          <Label layoutX="621.0" layoutY="231.0" text="Affecter un module à une specialité" underline="true">
+                                          <Label layoutX="621.0" layoutY="179.0" text="Affecter un module à une specialité" underline="true">
                                              <font>
                                                 <Font name="System Bold" size="18.0" />
                                              </font>
                                           </Label>
-                                          <Button fx:id="affecterModuleAuSpecialite" layoutX="676.0" layoutY="456.0" mnemonicParsing="false" onAction="#affecterModuleAuSpecialite" prefHeight="32.0" prefWidth="190.0" text="Affecter">
+                                          <Button fx:id="affecterModuleAuSpecialite" layoutX="676.0" layoutY="404.0" mnemonicParsing="false" onAction="#affecterModuleAuSpecialite" prefHeight="32.0" prefWidth="190.0" text="Affecter">
                                              <font>
                                                 <Font name="System Bold" size="12.0" />
                                              </font>
@@ -106,28 +106,28 @@
                                                 <Font name="System Bold" size="18.0" />
                                              </font>
                                           </Label>
-                                          <TextField fx:id="ajoutModuleField" layoutX="418.0" layoutY="65.0" />
-                                          <Label layoutX="329.0" layoutY="64.0" text="Module :">
+                                          <TextField fx:id="ajoutModuleField" layoutX="367.0" layoutY="71.0" />
+                                          <Label layoutX="278.0" layoutY="70.0" text="Module :">
                                              <font>
                                                 <Font name="System Bold" size="18.0" />
                                              </font>
                                           </Label>
-                                          <Button layoutX="578.0" layoutY="65.0" mnemonicParsing="false" onAction="#ajouterModule" text="Ajouter module" textAlignment="CENTER">
+                                          <Button layoutX="527.0" layoutY="71.0" mnemonicParsing="false" onAction="#ajouterModule" text="Ajouter module" textAlignment="CENTER">
                                              <font>
                                                 <Font name="System Bold" size="12.0" />
                                              </font>
                                           </Button>
-                                          <Label fx:id="ajoutModuleLabel" layoutX="700.0" layoutY="68.0" textAlignment="CENTER" textFill="RED">
+                                          <Label fx:id="ajoutModuleLabel" layoutX="649.0" layoutY="74.0" textAlignment="CENTER" textFill="RED">
                                              <font>
                                                 <Font name="System Bold" size="12.0" />
                                              </font>
                                           </Label>
-                                          <Label fx:id="affecterModuleLabel" layoutX="620.0" layoutY="518.0" textFill="RED">
+                                          <Label fx:id="affecterModuleLabel" layoutX="620.0" layoutY="450.0" textFill="RED">
                                              <font>
                                                 <Font name="System Bold" size="12.0" />
                                              </font>
                                           </Label>
-                                          <ScrollPane layoutX="97.0" layoutY="181.0" prefHeight="400.0" prefWidth="395.0">
+                                          <ScrollPane layoutX="97.0" layoutY="181.0" prefHeight="262.0" prefWidth="395.0">
                                             <content>
                                               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="398.0" prefWidth="395.0">
                                                    <children>
@@ -144,6 +144,11 @@
                                                 </AnchorPane>
                                             </content>
                                           </ScrollPane>
+                                          <Label layoutX="9.0" layoutY="108.0" prefHeight="27.0" prefWidth="990.0" text="                                                                                                                                                                                                     " textAlignment="RIGHT" underline="true">
+                                             <font>
+                                                <Font name="System Bold" size="18.0" />
+                                             </font>
+                                          </Label>
                                        </children>
                                     </AnchorPane>
                               </content>
@@ -220,11 +225,11 @@
                                                 <Font name="System Bold" size="18.0" />
                                              </font>
                                           </Label>
-                                          <ScrollPane layoutX="69.0" layoutY="192.0" prefHeight="400.0" prefWidth="395.0">
+                                          <ScrollPane layoutX="69.0" layoutY="221.0" prefHeight="263.0" prefWidth="347.0">
                                             <content>
-                                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="399.0" prefWidth="394.0">
+                                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="399.0" prefWidth="344.0">
                                                    <children>
-                                                      <TableView fx:id="tableMatiere" layoutX="-18.0" layoutY="-84.0" prefHeight="399.0" prefWidth="394.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                      <TableView fx:id="tableMatiere" layoutX="-18.0" layoutY="-84.0" prefHeight="399.0" prefWidth="344.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                                         <columns>
                                                             <TableColumn fx:id="nomMatiere" prefWidth="75.0" text="Matière" />
                                                             <TableColumn fx:id="coefMatiere" prefWidth="75.0" text="Coefficient" />
