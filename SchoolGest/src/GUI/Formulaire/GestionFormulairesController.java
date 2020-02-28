@@ -6,6 +6,7 @@
 package GUI.Formulaire;
 
 import Entite.Formulaire.Formulaire;
+import Entite.Utilisateur.Utilisateur;
 import Services.Formulaire.ServicesFormulaire;
 import java.io.IOException;
 import java.sql.SQLException;
