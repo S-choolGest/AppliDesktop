@@ -5,6 +5,7 @@
  */
 package view.etudiant.gestionDemandeEncadrement;
 
+import Entite.Utilisateur.Utilisateur;
 import Entite.pfe.DemandeEncadrement;
 import Entite.pfe.Pfe;
 import Services.Pfe.DemandeEncadrementService;
@@ -32,7 +33,7 @@ import javafx.scene.control.TextField;
  * @author TOSHIBA
  */
 public class GestionDemandeEncadrementController implements Initializable {
-
+    int id;
     
     @FXML
     private TabPane panGestionDemande;
@@ -91,11 +92,12 @@ public class GestionDemandeEncadrementController implements Initializable {
     @FXML
     private void afficher (Event event) throws SQLException
     {
+        System.out.println(this.id);
         DemandeEncadrementService des =new DemandeEncadrementService();
             colTitre.setCellValueFactory(c->new SimpleStringProperty(c.getValue().getTitre()));
             colSujet.setCellValueFactory(c->new SimpleStringProperty(c.getValue().getSujet()));
             colEtat.setCellValueFactory(c->new SimpleStringProperty(c.getValue().getEtat()));
-            ObservableList<DemandeEncadrement> list =des.getMesDemandesEtudiant(1);/*a changer avec Auth id*/
+            ObservableList<DemandeEncadrement> list =des.getMesDemandesEtudiant(id);/*a changer avec Auth id*/
             tableDemandeEncadrementEtudiant.setItems(list);
             
     }
@@ -104,12 +106,17 @@ public class GestionDemandeEncadrementController implements Initializable {
     private void initializePan(Event event) {
         try {
             PfeService pes = new PfeService();
-            ObservableList<Pfe> list= pes.getMesPfe();
+            ObservableList<Pfe> list= pes.getMesPfe(id);
             selectPfe.setItems(list);
         } catch (Exception ex) {
             txtSujet.setVisible(true);
         }
         
+    }
+    
+    public void getInstance(Utilisateur o){
+       this.id = o.getId(); 
+        System.out.println(id);
     }
     
 }

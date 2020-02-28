@@ -1,9 +1,5 @@
-
-
 package Services.ExtraScolaire;
-
 import IServices.ExtraScolaire.*;
-
 
 import Utils.DataBase;
 import javafx.collections.FXCollections;
@@ -101,7 +97,7 @@ public class ServiceEvent  implements IService {
     
  
    
-    public boolean update(Eventt a) throws SQLException {
+  /*  public boolean update(Eventt a) throws SQLException {
         ste = con.createStatement();
         //String requeteInsert ="UPDATE `edutech`.`event` SET `timestamp`= '"+a.getDate()+"',`nomEvent` = '"+a.getNomEvent()+"',`description` = '"+a.getDescription()+"' WHERE `idEvent` = '"+a.getIdEvent()+"'";
         String requeteInsert ="UPDATE `edutech`.`event` SET `description` = '"+a.getDescription()+"', `nomEvent` = '"+a.getNomEvent()+"',`timestamp`= '"+a.getDate()+"'  WHERE `idEvent` = '"+a.getIdEvent()+"'";
@@ -112,6 +108,19 @@ public class ServiceEvent  implements IService {
        };
        System.out.println("modification non effectué");
        return false;
+   }*/
+      public void update1(String desc,String nom,String date,int id) throws SQLException {
+        
+        //String requeteInsert ="UPDATE `edutech`.`event` SET `timestamp`= '"+a.getDate()+"',`nomEvent` = '"+a.getNomEvent()+"',`description` = '"+a.getDescription()+"' WHERE `idEvent` = '"+a.getIdEvent()+"'";
+        PreparedStatement requeteInsert;
+            requeteInsert = con.prepareStatement("UPDATE event SET `description` = ?, `nomEvent` = ?,`timestamp`= ?  WHERE `idEvent` = '"+id+"' ;");
+        requeteInsert.setString(1, desc);
+        requeteInsert.setString(2, nom);
+        requeteInsert.setString(3, date);
+        
+        requeteInsert.execute();
+       
+    
    }
     
     

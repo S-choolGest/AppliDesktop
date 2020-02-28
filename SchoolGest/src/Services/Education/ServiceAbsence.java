@@ -133,18 +133,14 @@ public class ServiceAbsence implements IServicesAbsences<Absence> {
     }
     
      
-    public ObservableList<String> readAllS() throws SQLException {
-    ObservableList<String> AbsenceData = FXCollections.observableArrayList();
+    public ObservableList<Timestamp> readAllS() throws SQLException {
+    ObservableList<Timestamp> AbsenceData = FXCollections.observableArrayList();
     ste=con.createStatement();
-    ResultSet rs=ste.executeQuery("select * from absence");
+    ResultSet rs=ste.executeQuery("select date from absence");
     while (rs.next()) {                
-               int id=rs.getInt(1);
-               String matiere=rs.getString(2);
-               Timestamp date=rs.getTimestamp(4);
-               String Etat=rs.getString(3);
-               int IdEtudiant = rs.getInt(5);
-               //Absence p = new Absence(id,matiere,date, Etat,IdEtudiant);
-     AbsenceData.add(date.toString());
+    Timestamp date=rs.getTimestamp(1);
+               
+     AbsenceData.add(date);
      }
     return AbsenceData;
     }

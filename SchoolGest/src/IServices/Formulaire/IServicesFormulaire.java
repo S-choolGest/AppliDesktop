@@ -22,6 +22,7 @@ public interface IServicesFormulaire<F> {
     public void confirmerValidation(int idFormulaire)throws SQLException;
     public List<Formulaire> getSimpleFormulairesNonConfirmes()throws SQLException;
     public List<Formulaire> getSimpleFormulairesConfirmes() throws SQLException;
+    public List<Formulaire> search(String t) throws SQLException;
 
     
 }

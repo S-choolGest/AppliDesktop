@@ -28,6 +28,8 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import view.etudiant.gestionDemandeEncadrement.GestionDemandeEncadrementController;
+import view.etudiant.gestionpfe.GestionPfeController;
 import javafx.stage.StageStyle;
 
 /**
@@ -123,6 +125,17 @@ public class InterfaceEtudiantController implements Initializable {
 	private void charger_encadrement(ActionEvent event) {
 		info_vue = false;
 		info.setVisible(info_vue);
+                body.getChildren().clear();
+                FXMLLoader loader = new FXMLLoader();
+		loader.setLocation(getClass().getResource("../../view/etudiant/gestionDemandeEncadrement/gestionDemandeEncadrement.fxml"));
+		try{
+                Parent n = (Parent) loader.load();
+                GestionDemandeEncadrementController gd  = loader.getController();
+                gd.getInstance(user);
+                body.getChildren().add(n);
+                }catch(IOException ex){
+                  System.out.println(ex);      
+                }
 	}
 
 	@FXML
@@ -220,7 +233,21 @@ public class InterfaceEtudiantController implements Initializable {
 		info.setVisible(info_vue);
 	}
 
-	@FXML
-	private void charger_pfe(ActionEvent event) {
-	}
+    @FXML
+    private void charger_pfe(ActionEvent event) {
+                info_vue = false;
+		info.setVisible(info_vue);
+                body.getChildren().clear();
+
+                FXMLLoader loader = new FXMLLoader();
+		loader.setLocation(getClass().getResource("../../view/etudiant/gestionpfe/GestionPfe.fxml"));
+		try{
+                Parent n = (Parent) loader.load();
+                GestionPfeController gpc  = loader.getController();
+                gpc.getInstance(user);
+                body.getChildren().add(n);
+                }catch(IOException ex){
+                  System.out.println(ex);      
+                }
+    }
 }

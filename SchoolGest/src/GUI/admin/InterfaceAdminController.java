@@ -11,6 +11,7 @@ import GUI.Bibliotheque.Catalogue_bibliothecaireController;
 import GUI.Bibliotheque.Update_accountController;
 import GUI.Bibliotheque.Utilisateur.Bibliotheque_user_menuController;
 import GUI.Bibliotheque.admin.GestionBibliothequeController;
+import GUI.ExtraScolaire.Choix_ExtraScolaireController;
 import com.jfoenix.controls.JFXButton;
 import java.io.IOException;
 import java.net.URL;
@@ -134,9 +135,15 @@ public class InterfaceAdminController implements Initializable {
 	}
 
 	@FXML
-	private void charger_evenements(ActionEvent event) {
+	private void charger_evenements(ActionEvent event)throws IOException {
 		info_vue = false;
 		info.setVisible(info_vue);
+		body.getChildren().clear();
+		FXMLLoader loader = new FXMLLoader();
+		loader.setLocation(getClass().getResource("../ExtraScolaire/Choix_ExtraScolaire.fxml"));
+		Parent n = (Parent) loader.load();
+		Choix_ExtraScolaireController emp = loader.getController();
+		body.getChildren().add(n);
 	}
 
 	@FXML

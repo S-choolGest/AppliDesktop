@@ -20,7 +20,7 @@
                      <children>
                         <TextField fx:id="tfTitre" layoutX="219.0" layoutY="53.0" />
                         <TextArea fx:id="tfSujet" layoutX="216.0" layoutY="127.0" prefHeight="137.0" prefWidth="150.0" />
-                        <Button layoutX="265.0" layoutY="297.0" mnemonicParsing="false" onAction="#ajouterPfe" text="Button" />
+                        <Button layoutX="265.0" layoutY="297.0" mnemonicParsing="false" onAction="#ajouterPfe" text="Ajouter" />
                         <Label layoutX="76.0" layoutY="65.0" text="titre" />
                         <Label layoutX="76.0" layoutY="177.0" text="sujet" />
                         <Label layoutX="263.0" layoutY="14.0" text="Ajouter pfe" />
@@ -43,7 +43,7 @@
                   </AnchorPane>
             </content>
           </Tab>
-            <Tab fx:id="panAfficherPfe" onSelectionChanged="#afficher" text="Afficher Pfe">
+            <Tab fx:id="panAfficherPfe" onSelectionChanged="#afficherPan" text="Afficher Pfe">
               <content>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>

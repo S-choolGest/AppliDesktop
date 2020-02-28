@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<TabPane fx:id="tabGestion" prefHeight="564.0" prefWidth="746.0" style="-fx-background-color: #183A56;" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.ExtraScolaire.AddClubController">
+   <tabs>
+      <Tab text="Ajouter Un Club">
+         <content>
+            <AnchorPane maxHeight="1.7976931348623157E308" minHeight="0.0" minWidth="0.0" prefHeight="500.0" prefWidth="321.0" style="-fx-background-color: E7EFFA;">
+               <children>
+                  <Label layoutX="161.0" layoutY="232.0" text="Nom du Club">
+                     <font>
+                        <Font size="19.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="132.0" layoutY="307.0" prefHeight="28.0" prefWidth="185.0" text="Description du Club">
+                     <font>
+                        <Font size="19.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="TextnomEvent" layoutX="399.0" layoutY="226.0" prefHeight="41.0" prefWidth="254.0" style="-fx-border-color: black; -fx-background-color: white;" />
+                  <TextField fx:id="Textdescription" layoutX="398.0" layoutY="306.0" prefHeight="41.0" prefWidth="257.0" style="-fx-background-color: white; -fx-border-color: black;" />
+                  <Button fx:id="ValidBTN" layoutX="350.0" layoutY="422.0" mnemonicParsing="false" onAction="#Ajouter" prefHeight="39.0" prefWidth="124.0" style="-fx-background-color: #132F45; -fx-border-color: white;" text="Ajouter" textFill="WHITE" />
+                  <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="317.0" layoutY="53.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../image/icons8_strike_128px.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </AnchorPane>
+         </content>
+      </Tab>
+      <Tab fx:id="AfficherAbs" onSelectionChanged="#afficher" text="Afficher La Liste Des Clubs">
+         <content>
+            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="361.0" prefWidth="344.0" style="-fx-background-color: E7EFFA;">
+               <children>
+                  <TableView fx:id="Table" layoutX="21.0" layoutY="71.0" prefHeight="397.0" prefWidth="699.0" style="-fx-background-color: E7EFFA;">
+                     <columns>
+                        <TableColumn fx:id="ColumnnomEvent" prefWidth="182.0" text="Nom Du Club" />
+                        <TableColumn fx:id="Columndescription" prefWidth="516.0" text="Description Du Club" />
+                     </columns>
+                  </TableView>
+                  <TextField fx:id="tf_nom_chcercher" layoutX="86.0" layoutY="30.0" />
+                  <ImageView fitHeight="28.0" fitWidth="32.0" layoutX="48.0" layoutY="29.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../image/téléchargement%20(1).png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="33.0" fitWidth="31.0" layoutX="383.0" layoutY="27.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../image/25756.png" />
+                     </image>
+                  </ImageView>
+                  <Button fx:id="btn_chercher_guide" layoutX="31.0" layoutY="30.0" mnemonicParsing="false" onAction="#chercherGuides" opacity="0.0" text="Button" />
+                  <Button fx:id="btn_trier_guide" layoutX="385.0" layoutY="31.0" mnemonicParsing="false" onAction="#trierGuides" opacity="0.0" prefHeight="18.0" prefWidth="31.0" text="Button" />
+               </children>
+            </AnchorPane>
+         </content>
+      </Tab>
+      <Tab fx:id="ModifierEvent" text="Modifier Un Club">
+         <content>
+            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: E7EFFA;">
+               <children>
+                  <TextField fx:id="TextIDEvent" layoutX="412.0" layoutY="220.0" prefHeight="38.0" prefWidth="218.0" />
+                  <Label layoutX="235.0" layoutY="225.0" text="Identifiant Du Club">
+                     <font>
+                        <Font size="19.0" />
+                     </font></Label>
+                  <Label layoutX="240.0" layoutY="295.0" prefHeight="28.0" prefWidth="149.0" text="Nom Du Club">
+                     <font>
+                        <Font size="19.0" />
+                     </font></Label>
+                  <TextField fx:id="TextdescriptionM" layoutX="412.0" layoutY="354.0" prefHeight="31.0" prefWidth="218.0" />
+                  <Button layoutX="372.0" layoutY="416.0" mnemonicParsing="false" onAction="#Modifier" prefHeight="32.0" prefWidth="108.0" style="-fx-background-color: #132F45;" text="Mette A Jour" textFill="WHITE" />
+                  <TextField fx:id="TextnomEventM" layoutX="412.0" layoutY="287.0" prefHeight="36.0" prefWidth="219.0" />
+                  <Label layoutX="237.0" layoutY="356.0" text="Catégorie Du Club">
+                     <font>
+                        <Font size="19.0" />
+                     </font></Label>
+                  <ImageView fitHeight="155.0" fitWidth="167.0" layoutX="334.0" layoutY="39.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../image/settings.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </AnchorPane>
+         </content>
+      </Tab>
+      
+   </tabs>
+</TabPane>

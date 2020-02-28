@@ -13,6 +13,7 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
 <TabPane fx:id="TabGestion" prefHeight="564.0" prefWidth="987.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.Absence.AddAbsence1Controller">
   <tabs>
@@ -71,15 +72,18 @@
         <content>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                <children>
-                  <BarChart fx:id="barchart" layoutX="31.0" layoutY="63.0" prefHeight="443.0" prefWidth="942.0">
+                  <BarChart fx:id="barchart" animated="false" layoutX="31.0" layoutY="63.0" prefHeight="443.0" prefWidth="930.0">
                     <xAxis>
                       <CategoryAxis side="BOTTOM" fx:id="xAxis" />
                     </xAxis>
                     <yAxis>
-                      <NumberAxis fx:id="yaxis" side="LEFT" />
+                      <NumberAxis fx:id="yaxis" animated="false" autoRanging="false" minWidth="-Infinity" minorTickCount="1" minorTickLength="0.0" side="LEFT" tickLabelFill="#e40f0f" tickLength="1.0" tickUnit="1.0" upperBound="25.0">
+                           <tickLabelFont>
+                              <Font size="14.0" />
+                           </tickLabelFont></NumberAxis>
                     </yAxis>
                   </BarChart>
-                  <ChoiceBox layoutX="190.0" layoutY="14.0" prefHeight="31.0" prefWidth="173.0" />
+                  <ChoiceBox fx:id="ChoiceJourS" layoutX="190.0" layoutY="14.0" prefHeight="31.0" prefWidth="173.0" />
                   <Label layoutX="46.0" layoutY="19.0" text="Jour de la semaine" />
                </children>
             </AnchorPane>

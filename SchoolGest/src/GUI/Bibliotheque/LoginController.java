@@ -78,7 +78,7 @@ public class LoginController implements Initializable {
 		} else {
 			//try {
 				Utilisateur u = ser.recuperer_type_compte(emailL, pwd);
-				System.out.println(u.getType());
+//				System.out.println(u.getType());
 				if (u.getType() == 5) {
 					FXMLLoader loader = new FXMLLoader();
 					loader.setLocation(getClass().getResource("../Bibliotheque/bibliothecaire/Interface_bibliothecaire.fxml"));

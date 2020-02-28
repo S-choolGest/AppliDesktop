@@ -16,6 +16,7 @@ import java.sql.Statement;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -68,9 +69,6 @@ public class ServicesFormulaire implements IServicesFormulaire<Formulaire> {
                 +f.getDescription()
                 +"',fichier='"
                 +f.getFichier()
-                /*
-                +"',validation='"
-                +f.isValidation()*/
                 +"',dateEnvoi='"
                 +f.getDateEnvoi()
                 +"' where idFormulaire = '"
@@ -84,17 +82,6 @@ public class ServicesFormulaire implements IServicesFormulaire<Formulaire> {
         
     }
         
-        /*
-        try {
-            
-            String req = "UPDATE Formulaire SET 'objet'" + f.getObjet()+ ",'descriptionFormulaire'" + f.getDescription()+",'fichier'" + f.getFichier()+";";  
-            PreparedStatement ste = con.prepareStatement(req);
-            ste.executeUpdate();
-            System.out.println("Formulaire modifié");
-        } catch (SQLException ex) {
-            System.out.println(ex.getMessage());
-        }
-        */
     
 
     //affichage de la liste
@@ -132,20 +119,14 @@ public class ServicesFormulaire implements IServicesFormulaire<Formulaire> {
     }
     
     
-    public List<Formulaire> getSimpleFormilaireParMotCle(String motCle) {
-        Statement st;
-        List<Formulaire> ls = new ArrayList();
-        try {
-            st = con.createStatement();
-            String req = "select * from Formulaire where objet like '%" + motCle + "%' or descriptionFormulaire like '%" + motCle + "%' or dateEnvoie like '%"+motCle+"%'";
-            ResultSet rs = st.executeQuery(req);
-            while (rs.next()) {
-                ls.add(new Formulaire(rs.getString(2), rs.getString(3), rs.getTimestamp(6)));
-            }
-        } catch (SQLException ex) {
-            System.out.println(ex.getMessage());
-        }
-        return ls;
+    
+    public List<Formulaire> search(String t) throws SQLException {
+        List<Formulaire> formulaire = new ArrayList<>();
+        formulaire = readall();
+        List<Formulaire> fo = formulaire.stream()
+                .filter(a -> a.getObjet().contains(t) || a.getDescription().contains(t) || a.getDateEnvoi().contains(t))
+                .collect(Collectors.toList());
+        return fo;
     }
     
 

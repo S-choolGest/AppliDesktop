@@ -5,6 +5,7 @@
  */
 package view.etudiant.gestionpfe;
 
+import Entite.Utilisateur.Utilisateur;
 import Entite.pfe.Pfe;
 import Services.Pfe.PfeService;
 import java.net.URL;
@@ -15,6 +16,8 @@ import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Date;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -37,7 +40,7 @@ import javafx.util.Callback;
  * @author TOSHIBA
  */
 public class GestionPfeController implements Initializable {
-
+    int userId;
     @FXML
     private Tab panAjouterPfe;
     @FXML
@@ -65,7 +68,7 @@ public class GestionPfeController implements Initializable {
     private TableColumn<Pfe, String> colId;
     @FXML
     private TabPane panpfe;
-
+    
     /**
      * Initializes the controller class.
      */
@@ -81,7 +84,8 @@ public class GestionPfeController implements Initializable {
         String titre= tfTitre.getText();
         String sujet = tfSujet.getText();
         PfeService ps= new PfeService();
-        Pfe p = new Pfe(1, sujet, titre);/*a changer avec auth id */
+        
+        Pfe p = new Pfe(userId, sujet, titre);/*a changer avec auth id */
         ps.ajouterPfe(p);
     }
 
@@ -190,19 +194,40 @@ public class GestionPfeController implements Initializable {
         tablePfe.getColumns().addAll(colBtn,colBtnS);
     }
 
-    @FXML
     private void afficher(Event event) throws SQLException {
         colId.setCellValueFactory(c-> new SimpleStringProperty(c.getValue().getsId()));  
             colTitre.setCellValueFactory(c-> new SimpleStringProperty(c.getValue().getTitre()));
             colSujet.setCellValueFactory(c-> new SimpleStringProperty(c.getValue().getSujet()));  
             colNomEtudiant.setCellValueFactory(c-> new SimpleStringProperty(c.getValue().getNom_etudiant()));  
             PfeService ps = new PfeService();
-            ObservableList<Pfe> list = ps.readAllOb();
+            ObservableList<Pfe> list = ps.getMesPfe(userId);
             System.out.println(list);
             tablePfe.setItems(list);
+    }   
+     public void getInstance(Utilisateur o){
+       this.userId = o.getId(); 
     }
+
+    @FXML
+    private void afficherPan(Event event) {
+        try {  
+            colId.setCellValueFactory(c-> new SimpleStringProperty(c.getValue().getsId()));
+            colId.setVisible(false);
+            colTitre.setCellValueFactory(c-> new SimpleStringProperty(c.getValue().getTitre()));
+            colSujet.setCellValueFactory(c-> new SimpleStringProperty(c.getValue().getSujet()));
+            /*colNomEtudiant.setCellValueFactory(c-> new SimpleStringProperty(c.getValue().getNom_etudiant())); */ 
+            PfeService ps = new PfeService();
+            ObservableList<Pfe> list = ps.getMesPfe(userId);
+            System.out.println(list);
+            tablePfe.setItems(list);
+        } catch (SQLException ex) {
+            Logger.getLogger(GestionPfeController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+}
+
         
         
-    }
+    
     
 
