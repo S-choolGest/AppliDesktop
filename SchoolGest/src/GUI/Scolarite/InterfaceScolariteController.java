@@ -5,10 +5,12 @@
  */
 package GUI.Scolarite;
 
+import Entite.Formulaire.Formulaire;
 import Entite.Utilisateur.Utilisateur;
 import GUI.Absence.AddAbsence1Controller;
 import GUI.Bibliotheque.Catalogue_bibliothecaireController;
 import GUI.Bibliotheque.Update_accountController;
+import GUI.Formulaire.GestionFormulairesController;
 import com.jfoenix.controls.JFXButton;
 import java.io.IOException;
 import java.net.URL;
@@ -120,6 +122,16 @@ public class InterfaceScolariteController implements Initializable {
 	private void charger_reclamations(ActionEvent event) {
 		info_vue = false;
 		info.setVisible(info_vue);
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("../Formulaire/gestionFormulaire.fxml"));
+                try{
+                Parent root = loader.load();
+                GestionFormulairesController apc = loader.getController();
+                apc.getInstance(user);
+                body.getChildren().add(root);
+                }catch(IOException ex){
+                    System.out.println(ex.getMessage());
+                }
+                
 	}
 
 	@FXML
@@ -207,4 +219,6 @@ public class InterfaceScolariteController implements Initializable {
 		info_vue = false;
 		info.setVisible(info_vue);
 	}
+        
+        
 }
