@@ -13,7 +13,7 @@
    <children>
       <Pane layoutX="330.0" prefHeight="472.0" prefWidth="491.0" style="-fx-background-color: #183A56;">
          <children>
-            <JFXButton fx:id="supprimer" buttonType="RAISED" layoutX="341.0" layoutY="424.0" onAction="#supprimer_bibliothecaire" prefHeight="34.0" prefWidth="113.0" ripplerFill="#63c2d0" style="-fx-background-color: red;" text="supprimer" textFill="WHITE" />
+            <JFXButton fx:id="supprimer" buttonType="RAISED" layoutX="341.0" layoutY="424.0" onAction="#supprimer_utilisateur" prefHeight="34.0" prefWidth="113.0" ripplerFill="#63c2d0" style="-fx-background-color: red;" text="supprimer" textFill="WHITE" />
             <Label layoutX="48.0" layoutY="185.0" prefHeight="25.0" prefWidth="113.0" text="Nom &amp; Prénom" textFill="WHITE">
                <font>
                   <Font size="14.0" />
@@ -39,29 +39,29 @@
                   <Font size="14.0" />
                </font>
             </Label>
-            <JFXTextField fx:id="cin" focusColor="#3cb4c6" layoutX="51.0" layoutY="143.0" onKeyPressed="#rechercher_bibliothecaire" onKeyReleased="#rechercher_bibliothecaire" prefHeight="34.0" prefWidth="293.0" style="-fx-text-inner-color: white;" unFocusColor="#7d837e">
+            <JFXTextField fx:id="cin" focusColor="#3cb4c6" layoutX="51.0" layoutY="143.0" onKeyPressed="#rechercher_utilisateur" onKeyReleased="#rechercher_utilisateur" prefHeight="34.0" prefWidth="293.0" style="-fx-text-inner-color: white;" unFocusColor="#7d837e">
                <font>
                   <Font size="14.0" />
                </font>
             </JFXTextField>
-            <Label layoutX="53.0" layoutY="21.0" prefHeight="74.0" prefWidth="360.0" style="-fx-background-color: #173752;" text="Supprimer Bibliothécaire" textFill="#da7878">
+            <Label layoutX="53.0" layoutY="21.0" prefHeight="74.0" prefWidth="360.0" style="-fx-background-color: #173752;" text="Supprimer Utilisateur" textFill="#da7878">
                <font>
                   <Font size="32.0" />
                </font>
             </Label>
             <ImageView fx:id="close" fitHeight="34.0" fitWidth="40.0" layoutX="451.0" layoutY="4.0" onMouseClicked="#close_window" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@images/icons8_close_window_50px_1.png" />
+                  <Image url="@../images/icons8_close_window_50px_1.png" />
                </image>
             </ImageView>
-            <Label fx:id="error" layoutX="26.0" layoutY="416.0" prefHeight="25.0" prefWidth="299.0" textFill="RED" />
+            <Label fx:id="error" layoutX="12.0" layoutY="343.0" prefHeight="74.0" prefWidth="466.0" textFill="RED" />
          </children>
       </Pane>
       <Pane prefHeight="472.0" prefWidth="330.0" style="-fx-background-color: #132F45;">
          <children>
             <ImageView fitHeight="215.0" fitWidth="183.0" layoutX="76.0" layoutY="117.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@images/logo_ecole.png" />
+                  <Image url="@../images/logo_ecole.png" />
                </image>
             </ImageView>
          </children>

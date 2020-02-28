@@ -10,6 +10,7 @@ import GUI.Absence.AddAbsence1Controller;
 import GUI.Bibliotheque.Catalogue_bibliothecaireController;
 import GUI.Bibliotheque.Update_accountController;
 import GUI.Bibliotheque.Utilisateur.Bibliotheque_user_menuController;
+import GUI.Bibliotheque.admin.BibliothecairesController;
 import GUI.Bibliotheque.admin.GestionBibliothequeController;
 import GUI.ExtraScolaire.Choix_ExtraScolaireController;
 import com.jfoenix.controls.JFXButton;
@@ -88,9 +89,18 @@ public class InterfaceAdminController implements Initializable {
 	}
 
 	@FXML
-	private void charger_utilisateurs(ActionEvent event) {
+	private void charger_utilisateurs(ActionEvent event) throws SQLException, IOException {
 		info_vue = false;
 		info.setVisible(info_vue);
+		body.getChildren().clear();
+		FXMLLoader loader = new FXMLLoader();
+		loader.setLocation(getClass().getResource("../Bibliotheque/admin/Bibliothecaires.fxml"));
+		Parent n = (Parent) loader.load();
+		BibliothecairesController emp = loader.getController();
+		emp.getStage(stage);
+		emp.getBody(body);
+		emp.getInfo(user);
+		body.getChildren().add(n);
 	}
 
 	@FXML
@@ -109,17 +119,17 @@ public class InterfaceAdminController implements Initializable {
 	private void charger_absences(ActionEvent event) {
 		info_vue = false;
 		info.setVisible(info_vue);
-                FXMLLoader loader = new FXMLLoader
-                        (getClass()
-                         .getResource("../Absence/GestionAbsence.fxml"));
-            try {
-                Parent root = loader.load();
-                AddAbsence1Controller apc = loader.getController();
-                apc.getInstance(user);
-                body.getChildren().add(root);
-            }catch (IOException ex) {
-                System.out.println(ex.getMessage());
-                }
+		body.getChildren().clear();
+		FXMLLoader loader = new FXMLLoader(getClass()
+				.getResource("../Absence/GestionAbsence.fxml"));
+		try {
+			Parent root = loader.load();
+			AddAbsence1Controller apc = loader.getController();
+			apc.getInstance(user);
+			body.getChildren().add(root);
+		} catch (IOException ex) {
+			System.out.println(ex.getMessage());
+		}
 	}
 
 	@FXML
@@ -135,7 +145,7 @@ public class InterfaceAdminController implements Initializable {
 	}
 
 	@FXML
-	private void charger_evenements(ActionEvent event)throws IOException {
+	private void charger_evenements(ActionEvent event) throws IOException {
 		info_vue = false;
 		info.setVisible(info_vue);
 		body.getChildren().clear();

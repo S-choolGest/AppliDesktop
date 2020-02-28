@@ -47,9 +47,8 @@
       </Label>
       <Label layoutX="729.0" layoutY="151.0" text="Email" textFill="#655d5d" />
       <Label layoutX="651.0" layoutY="217.0" prefHeight="17.0" prefWidth="407.0" text="Veillez cliquer sur la bibliothèque dans la liste située à gauche puis affecter" />
-      <JFXButton fx:id="affecter" buttonType="RAISED" layoutX="766.0" layoutY="257.0" onAction="#affecter_bibliothecaire" prefHeight="34.0" prefWidth="113.0" ripplerFill="#63c2d0" style="-fx-background-color: #3283B6;" text="Affecter" textFill="WHITE" />
+      <JFXButton fx:id="affecter" buttonType="RAISED" layoutX="808.0" layoutY="257.0" onAction="#affecter_bibliothecaire" prefHeight="34.0" prefWidth="113.0" ripplerFill="#63c2d0" style="-fx-background-color: #3283B6;" text="Affecter" textFill="WHITE" />
       <Label fx:id="error" layoutX="647.0" layoutY="324.0" prefHeight="73.0" prefWidth="416.0" textFill="RED" wrapText="true" />
       <JFXButton fx:id="modifier" buttonType="RAISED" layoutX="185.0" layoutY="79.0" onAction="#modifier_bibliotheque" prefHeight="34.0" prefWidth="92.0" ripplerFill="#63c2d0" style="-fx-background-color: #3283B6;" text="Modifier" textFill="WHITE" />
-      <JFXButton fx:id="btn_retirer" buttonType="RAISED" layoutX="909.0" layoutY="257.0" onAction="#retirer_affectation" prefHeight="34.0" prefWidth="92.0" ripplerFill="#63c2d0" style="-fx-background-color: red;" text="retirer" textFill="WHITE" />
    </children>
 </AnchorPane>

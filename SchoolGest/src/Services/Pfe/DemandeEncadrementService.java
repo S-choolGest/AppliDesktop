@@ -40,7 +40,7 @@ import tray.notification.TrayNotification;
     @Override
     public void ajouterDemande(DemandeEncadrement d) throws SQLException {
         st = conx.createStatement();
-        String request = "INSERT INTO `encadrement` (`id`, `id_pfe`, `id_prof`, `etat`) VALUES (NULL,'"+d.getId_pfe()+"','"+d.getId_prof()+"','"+d.getEtat()+")"; 
+        String request = "INSERT INTO `encadrement` (`id`, `id_pfe`, `id_prof`, `etat`) VALUES (NULL,'"+d.getId_pfe()+"','"+d.getId_prof()+"','"+d.getEtat()+"')"; 
         st.executeUpdate(request);
         String mail = getMailParId(d.getId_prof());
         System.out.println(mail);

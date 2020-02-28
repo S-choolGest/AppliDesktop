@@ -8,7 +8,10 @@ package GUI.Bibliotheque.admin;
 import Entite.Bibliotheque.Livre;
 import Entite.Utilisateur.Bibliothecaire;
 import Entite.Utilisateur.Utilisateur;
+import Entite.Utilisateur.UtilisateurView;
 import Services.Utilisateur.ServicesBibliothecaire;
+import Services.Utilisateur.ServicesUtilisateur;
+import Services.Utilisateur.ServicesUtilisateurView;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXScrollPane;
 import com.jfoenix.controls.JFXTextField;
@@ -33,6 +36,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 /**
  * FXML Controller class
@@ -42,22 +46,22 @@ import javafx.stage.Stage;
 public class BibliothecairesController implements Initializable {
 
 	@FXML
-	private TableView<Bibliothecaire> list_bibliothecaire;
-	private TableColumn<Bibliothecaire, Integer> id;
+	private TableView<UtilisateurView> list_bibliothecaire;
+	private TableColumn<UtilisateurView, Integer> id;
 	@FXML
-	private TableColumn<Bibliothecaire, String> nom;
+	private TableColumn<UtilisateurView, String> nom;
 	@FXML
-	private TableColumn<Bibliothecaire, String> prenom;
+	private TableColumn<UtilisateurView, String> prenom;
 	@FXML
-	private TableColumn<Bibliothecaire, String> email;
+	private TableColumn<UtilisateurView, String> email;
 	@FXML
-	private TableColumn<Bibliothecaire, String> cin;
+	private TableColumn<UtilisateurView, String> cin;
 	@FXML
-	private TableColumn<Bibliothecaire, String> adresse;
+	private TableColumn<UtilisateurView, String> adresse;
 	@FXML
-	private TableColumn<Bibliothecaire, String> datenaissance;
+	private TableColumn<UtilisateurView, String> datenaissance;
 	@FXML
-	private TableColumn<Bibliothecaire, Integer> tel;
+	private TableColumn<UtilisateurView, Integer> tel;
 	@FXML
 	private JFXTextField field_rechercher_bibliothecaire;
 	@FXML
@@ -67,9 +71,15 @@ public class BibliothecairesController implements Initializable {
 	@FXML
 	private AnchorPane bibliothecaires;
 	private ServicesBibliothecaire ser = new ServicesBibliothecaire();
+	private ServicesUtilisateur ser_user = new ServicesUtilisateur();
 	@FXML
-	private TableColumn<Bibliothecaire, ImageView> img;
-
+	private TableColumn<UtilisateurView, ImageView> img;
+	private AnchorPane body;
+	private Stage stage;
+	public Utilisateur user;
+	@FXML
+	private TableColumn<UtilisateurView, String> type;
+	private ServicesUtilisateurView ser_view = new ServicesUtilisateurView();
 	/**
 	 * Initializes the controller class.
 	 */
@@ -82,7 +92,20 @@ public class BibliothecairesController implements Initializable {
 			Logger.getLogger(BibliothecairesController.class.getName()).log(Level.SEVERE, null, ex);
 		}
 	}
+	
+	public void getBody(AnchorPane body) {
+		this.body = body;
+	}
 
+	public void getStage(Stage stage) {
+		this.stage = stage;
+	}
+
+	public void getInfo(Utilisateur u) throws SQLException, SQLException {
+		this.user = u;
+		refresh_view_bibliothecaire("");
+	}
+	
 	@FXML
 	private void rechercher_bibliothecaire(KeyEvent event) throws SQLException {
 		refresh_view_bibliothecaire(field_rechercher_bibliothecaire.getText());
@@ -95,9 +118,10 @@ public class BibliothecairesController implements Initializable {
 		loader.setLocation(getClass().getResource("register.fxml"));
 		Parent n = (Parent) loader.load();
 		Stage stage = new Stage();
-		stage.setTitle("Ajouter bibliothecaire ");
+		stage.setTitle("Ajouter Utilisateur ");
 		Scene scene = new Scene(n);
 		stage.setResizable(false);
+		stage.initStyle(StageStyle.UNDECORATED);
 //        scene.setFill(javafx.scene.paint.Color.TRANSPARENT);
 		stage.setScene(scene);
 		stage.show();
@@ -105,31 +129,36 @@ public class BibliothecairesController implements Initializable {
 	}
 
 	@FXML
-	private void supprimer_bibliothecaire(ActionEvent event) throws IOException {
+	private void supprimer_bibliothecaire(ActionEvent event) throws IOException, SQLException {
 //		bibliothecaires.getChildren().clear();
 		FXMLLoader loader = new FXMLLoader();
 		loader.setLocation(getClass().getResource("delete_account.fxml"));
 		Parent n = (Parent) loader.load();
 		Delete_accountController del = loader.getController();
 		Stage stage = new Stage();
-		stage.setTitle("Supprimer bibliothecaire ");
+		stage.setTitle("Supprimer Utilisateur ");
 		Scene scene = new Scene(n);
 		stage.setResizable(false);
+		del.getStage(stage);
+		del.getBody(body);
+//		del.getInfo(list_bibliothecaire.getSelectionModel().getSelectedItem());
+		stage.initStyle(StageStyle.UNDECORATED);
 //        scene.setFill(javafx.scene.paint.Color.TRANSPARENT);
 		stage.setScene(scene);
 		stage.show();
 	}
 
 	private void refresh_view_bibliothecaire(String input_text) throws SQLException {
-		ObservableList<Bibliothecaire> list = getBibiothecaireList(input_text);
-		nom.setCellValueFactory(new PropertyValueFactory<Bibliothecaire, String>("nom"));
-		prenom.setCellValueFactory(new PropertyValueFactory<Bibliothecaire, String>("prenom"));
-		email.setCellValueFactory(new PropertyValueFactory<Bibliothecaire, String>("email"));
-		cin.setCellValueFactory(new PropertyValueFactory<Bibliothecaire, String>("cin"));
-		adresse.setCellValueFactory(new PropertyValueFactory<Bibliothecaire, String>("adresse"));
-		datenaissance.setCellValueFactory(new PropertyValueFactory<Bibliothecaire, String>("dateNaissance"));
-		tel.setCellValueFactory(new PropertyValueFactory<Bibliothecaire, Integer>("numTel"));
-		img.setCellValueFactory(new PropertyValueFactory<Bibliothecaire, ImageView>("profil"));
+		ObservableList<UtilisateurView> list = getUtilisateurList(input_text);
+		nom.setCellValueFactory(new PropertyValueFactory<UtilisateurView, String>("nom"));
+		prenom.setCellValueFactory(new PropertyValueFactory<UtilisateurView, String>("prenom"));
+		email.setCellValueFactory(new PropertyValueFactory<UtilisateurView, String>("email"));
+		cin.setCellValueFactory(new PropertyValueFactory<UtilisateurView, String>("cin"));
+		adresse.setCellValueFactory(new PropertyValueFactory<UtilisateurView, String>("adresse"));
+		datenaissance.setCellValueFactory(new PropertyValueFactory<UtilisateurView, String>("dateNaissance"));
+		tel.setCellValueFactory(new PropertyValueFactory<UtilisateurView, Integer>("numTel"));
+		img.setCellValueFactory(new PropertyValueFactory<UtilisateurView, ImageView>("profil"));
+		type.setCellValueFactory(new PropertyValueFactory<UtilisateurView, String>("type"));
 		list_bibliothecaire.setItems(list);
 	}
 
@@ -137,6 +166,14 @@ public class BibliothecairesController implements Initializable {
 		ObservableList<Bibliothecaire> list = FXCollections.observableArrayList();
 		for (Bibliothecaire l : ser.search(input_text)) {
 			list.add(l);
+		}
+		return list;
+	}
+
+	private ObservableList<UtilisateurView> getUtilisateurList(String input_text) throws SQLException {
+		ObservableList<UtilisateurView> list = FXCollections.observableArrayList();
+		for (Utilisateur l : ser_user.search(input_text)) {
+			list.add(ser_view.transform(l));
 		}
 		return list;
 	}

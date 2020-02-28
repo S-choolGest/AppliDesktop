@@ -311,7 +311,7 @@ private void addButtonToTable() {
     private void oo(Event event) {
         // TODO Auto-generated method stub
 		final Mapa example = new Mapa("test");
-		example.generateMarker(maps.getCenter());
+		//example.generateMarker(maps.getCenter());
     }
     
     

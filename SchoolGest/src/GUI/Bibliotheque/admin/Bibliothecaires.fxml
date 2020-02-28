@@ -12,18 +12,19 @@
 
 <AnchorPane id="AnchorPane" fx:id="bibliothecaires" prefHeight="554.0" prefWidth="1070.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.Bibliotheque.admin.BibliothecairesController">
    <children>
-      <ScrollPane layoutX="65.0" layoutY="107.0" prefHeight="437.0" prefWidth="980.0">
+      <ScrollPane layoutX="10.0" layoutY="107.0" prefHeight="437.0" prefWidth="1035.0">
          <content>
-            <TableView fx:id="list_bibliothecaire" prefHeight="435.0" prefWidth="976.0">
+            <TableView fx:id="list_bibliothecaire" prefHeight="435.0" prefWidth="1033.0">
                <columns>
-                  <TableColumn fx:id="nom" prefWidth="147.0" text="Nom" />
-                  <TableColumn fx:id="prenom" prefWidth="140.0" text="Prénom" />
+                  <TableColumn fx:id="nom" prefWidth="134.0" text="Nom" />
+                  <TableColumn fx:id="prenom" prefWidth="153.0" text="Prénom" />
                   <TableColumn fx:id="email" prefWidth="143.0" text="Email" />
-                  <TableColumn fx:id="cin" prefWidth="104.0" text="CIN" />
-                  <TableColumn fx:id="adresse" prefWidth="119.0" text="Adresse" />
-                  <TableColumn fx:id="datenaissance" prefWidth="113.0" text="Date de naissance" />
-                  <TableColumn fx:id="tel" prefWidth="91.0" text="Téléphone" />
-                  <TableColumn fx:id="img" prefWidth="115.0" text="profil" />
+                  <TableColumn fx:id="cin" prefWidth="90.0" text="CIN" />
+                  <TableColumn fx:id="adresse" prefWidth="111.0" text="Adresse" />
+                  <TableColumn fx:id="datenaissance" prefWidth="136.0" text="Date de naissance" />
+                  <TableColumn fx:id="tel" prefWidth="88.0" text="Téléphone" />
+                  <TableColumn fx:id="img" minWidth="3.0" prefWidth="115.0" text="profil" />
+                  <TableColumn fx:id="type" prefWidth="62.0" text="Type" />
                </columns>
             </TableView>
          </content>

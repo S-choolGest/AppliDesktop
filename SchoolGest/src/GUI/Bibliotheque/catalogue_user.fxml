@@ -103,7 +103,7 @@
             </Label>
             <Label fx:id="month_ajout" layoutX="557.0" layoutY="81.0" text="AUG" textFill="#3a1c9d" />
             <Label fx:id="year_ajout" layoutX="557.0" layoutY="99.0" text="2018" textFill="#aeacac" />
-            <Label fx:id="identifiant" layoutX="260.0" layoutY="53.0" text="Id: 20178" textFill="#b2b0b0">
+            <Label fx:id="identifiant" layoutX="260.0" layoutY="53.0" text="Id: 20178" textFill="#b2b0b0" visible="false">
                <font>
                   <Font size="14.0" />
                </font>

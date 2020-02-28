@@ -79,6 +79,8 @@ public class InterfaceEtudiantController implements Initializable {
 	public Utilisateur user;
 	@FXML
 	private JFXButton pfe;
+	@FXML
+	private ImageView profil_picture;
 
 	/**
 	 * Initializes the controller class.

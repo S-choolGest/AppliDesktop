@@ -35,7 +35,7 @@ public class ServiceAbsence implements IServicesAbsences<Absence> {
     }
     @Override
     public void ajouter(Absence a) throws SQLException {
-        System.out.println("im in ajouter");
+        System.out.println("im in ajouter"+a.getIdEtudiant());
         ste = con.createStatement();
         String requeteInsert = "INSERT INTO `absence` (`id`, `matiere`, `date`, `etat`,`idEtudiant`) VALUES (NULL, '" +  a.getMatiere() + "', '" + a.getDate() + "', '"+a.getetat() + "','"+a.getIdEtudiant()+"');";
         ste.executeUpdate(requeteInsert);
