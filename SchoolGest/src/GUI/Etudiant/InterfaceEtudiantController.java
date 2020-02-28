@@ -28,6 +28,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 /**
  * FXML Controller class
@@ -74,7 +75,7 @@ public class InterfaceEtudiantController implements Initializable {
 	private Stage stage;
 	public Utilisateur user;
 	@FXML
-	private ImageView profil_picture;
+	private JFXButton pfe;
 
 	/**
 	 * Initializes the controller class.
@@ -82,7 +83,7 @@ public class InterfaceEtudiantController implements Initializable {
 	@Override
 	public void initialize(URL url, ResourceBundle rb) {
 		// TODO
-	}	
+	}
 
 	@FXML
 	private void charger_matieres(ActionEvent event) {
@@ -100,19 +101,17 @@ public class InterfaceEtudiantController implements Initializable {
 	private void charger_absences(ActionEvent event) {
 		info_vue = false;
 		info.setVisible(info_vue);
-                FXMLLoader loader = new FXMLLoader
-                        (getClass()
-                         .getResource("../Absence/GestionAbsence.fxml"));
-            try {
-                Parent root = loader.load();
-                AddAbsence1Controller apc = loader.getController();
-                apc.getInstance(user);
-                body.getChildren().add(root);
-            }catch (IOException ex) {
-                System.out.println(ex.getMessage());
-                }
-    }
-	
+		FXMLLoader loader = new FXMLLoader(getClass()
+				.getResource("../Absence/GestionAbsence.fxml"));
+		try {
+			Parent root = loader.load();
+			AddAbsence1Controller apc = loader.getController();
+			apc.getInstance(user);
+			body.getChildren().add(root);
+		} catch (IOException ex) {
+			System.out.println(ex.getMessage());
+		}
+	}
 
 	@FXML
 	private void charger_reclamations(ActionEvent event) {
@@ -133,7 +132,7 @@ public class InterfaceEtudiantController implements Initializable {
 	}
 
 	@FXML
-	private void charger_bibliotheque(ActionEvent event) throws SQLException, IOException{
+	private void charger_bibliotheque(ActionEvent event) throws SQLException, IOException {
 		info_vue = false;
 		info.setVisible(info_vue);
 		body.getChildren().clear();
@@ -160,7 +159,8 @@ public class InterfaceEtudiantController implements Initializable {
 		info.toFront();
 		body.toBack();
 	}
-	public void getInfo(Utilisateur u){
+
+	public void getInfo(Utilisateur u) {
 		this.user = u;
 		nom.setText(u.getNom());
 		prenom.setText(u.getPrenom());
@@ -193,6 +193,7 @@ public class InterfaceEtudiantController implements Initializable {
 		stage.setTitle("Edutech : Etudiant : Edit account");
 		Scene scene = new Scene(n);
 		stage.setResizable(false);
+		stage.initStyle(StageStyle.UNDECORATED);
 //        scene.setFill(javafx.scene.paint.Color.TRANSPARENT);
 		stage.setScene(scene);
 		stage.show();
@@ -201,7 +202,8 @@ public class InterfaceEtudiantController implements Initializable {
 	public void getStage(Stage stage) {
 		this.stage = stage;
 	}
-	public void close(Stage s){
+
+	public void close(Stage s) {
 		logout.setOnMouseClicked(new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent event) {
@@ -215,5 +217,9 @@ public class InterfaceEtudiantController implements Initializable {
 	private void cacher_info(MouseEvent event) {
 		info_vue = false;
 		info.setVisible(info_vue);
+	}
+
+	@FXML
+	private void charger_pfe(ActionEvent event) {
 	}
 }

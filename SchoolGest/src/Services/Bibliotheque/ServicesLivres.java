@@ -47,6 +47,7 @@ public class ServicesLivres implements IServices<Livre> {
 		livres = readAll();
 		Livre livr = livres.stream().filter(a -> a.getId()==l.getId()).findAny().orElse(null);
 		if (livr == null) {
+			System.out.println(l);
 			PreparedStatement pre = con.prepareStatement("insert INTO `edutech`.`livre` (`id_bibliotheque`, `titre`, `auteur`, `editeur`, `categorie`, `datesortie`, `taille`, `quantite`, `dateajout`, `img`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, current_timestamp,?);");
 			pre.setInt(1, l.getId_bibliotheque());
 			pre.setString(2, l.getTitre());
