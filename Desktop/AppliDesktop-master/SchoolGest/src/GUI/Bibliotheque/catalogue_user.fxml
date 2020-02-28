@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" prefHeight="560.0" prefWidth="1029.0" style="-fx-background-color: #E7EFFA;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.Bibliotheque.Catalogue_userController">
+   <children>
+      <ScrollPane fx:id="page_liste_livre" layoutY="54.0" prefHeight="501.0" prefWidth="1029.0" style="-fx-background-color: #E7EFFA;">
+         <content>
+            <VBox fx:id="catalogues" prefHeight="496.0" prefWidth="1027.0" style="-fx-background-color: #E7EFFA;" />
+         </content>
+      </ScrollPane>
+      <Pane fx:id="aucun_livre" layoutX="188.0" layoutY="128.0" prefHeight="284.0" prefWidth="678.0" style="-fx-background-color: #E7EFFA;">
+         <children>
+            <Label layoutX="126.0" layoutY="83.0" text="Aucun Livre" textFill="#8d8787">
+               <font>
+                  <Font size="80.0" />
+               </font>
+            </Label>
+         </children>
+      </Pane>
+      <Pane fx:id="page_detail" layoutX="194.0" layoutY="72.0" prefHeight="472.0" prefWidth="657.0" style="-fx-background-color: #D3E2F5;">
+         <children>
+            <Pane fx:id="img_livre" layoutX="23.0" layoutY="12.0" prefHeight="399.0" prefWidth="200.0" />
+            <Separator layoutX="251.0" layoutY="119.0" prefHeight="17.0" prefWidth="394.0" />
+            <Label layoutX="260.0" layoutY="20.0" text="Détail du livre" textFill="#3a1c9d">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+            </Label>
+            <Label layoutX="260.0" layoutY="198.0" text="Editeur" textFill="#aeacac">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <Label layoutX="260.0" layoutY="145.0" text="Titre" textFill="#aeacac">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <Label fx:id="editeur" layoutX="267.0" layoutY="224.0" text="Brad Pitt" textFill="#4d4c4c">
+               <font>
+                  <Font size="13.0" />
+               </font>
+            </Label>
+            <Label fx:id="titre" layoutX="268.0" layoutY="171.0" prefHeight="19.0" prefWidth="138.0" text="titre du livre" textFill="#4d4c4c">
+               <font>
+                  <Font size="13.0" />
+               </font>
+            </Label>
+            <Label layoutX="461.0" layoutY="196.0" text="Catégorie" textFill="#aeacac">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <Label fx:id="categorie" layoutX="475.0" layoutY="222.0" prefHeight="19.0" prefWidth="80.0" style="-fx-background-color: #aeacac;" text="Toggle" textFill="#fffefe">
+               <font>
+                  <Font size="13.0" />
+               </font>
+            </Label>
+            <Pane fx:id="emprunter" layoutX="315.0" layoutY="376.0" prefHeight="70.0" prefWidth="183.0" style="-fx-background-color: #F0F0F0;">
+               <children>
+                  <Label layoutX="61.0" layoutY="22.0" text="Emprunter" textFill="#504df2">
+                     <font>
+                        <Font size="13.0" />
+                     </font>
+                  </Label>
+               </children>
+            </Pane>
+            <Label layoutX="397.0" layoutY="52.0" text="Date de sortie" textFill="#3a1c9d">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <Label fx:id="day_sortie" layoutX="397.0" layoutY="74.0" text="16" textFill="#aeacac">
+               <font>
+                  <Font name="System Bold" size="36.0" />
+               </font>
+            </Label>
+            <Label fx:id="month_sortie" layoutX="446.0" layoutY="82.0" text="APR" textFill="#3a1c9d" />
+            <Label fx:id="year_sortie" layoutX="446.0" layoutY="100.0" text="2018" textFill="#aeacac" />
+            <Separator layoutX="494.0" layoutY="49.0" orientation="VERTICAL" prefHeight="64.0" prefWidth="0.0" />
+            <Label layoutX="508.0" layoutY="53.0" text="Date d'ajout" textFill="#3a1c9d">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <Label fx:id="day_ajout" layoutX="508.0" layoutY="73.0" text="25" textFill="#aeacac">
+               <font>
+                  <Font name="System Bold" size="36.0" />
+               </font>
+            </Label>
+            <Label fx:id="month_ajout" layoutX="557.0" layoutY="81.0" text="AUG" textFill="#3a1c9d" />
+            <Label fx:id="year_ajout" layoutX="557.0" layoutY="99.0" text="2018" textFill="#aeacac" />
+            <Label fx:id="identifiant" layoutX="260.0" layoutY="53.0" text="Id: 20178" textFill="#b2b0b0">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <Label layoutX="465.0" layoutY="143.0" text="Auteur" textFill="#aeacac">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <Label fx:id="auteur" layoutX="472.0" layoutY="169.0" text="Brad Pitt" textFill="#4d4c4c">
+               <font>
+                  <Font size="13.0" />
+               </font>
+            </Label>
+            <Label layoutX="263.0" layoutY="254.0" text="Nombre de pages" textFill="#aeacac">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <Label fx:id="taille" layoutX="271.0" layoutY="278.0" text="200" textFill="#4d4c4c">
+               <font>
+                  <Font size="13.0" />
+               </font>
+            </Label>
+            <Label layoutX="471.0" layoutY="252.0" text="Nombre d'exemplaires" textFill="#aeacac">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <Label fx:id="quantite" layoutX="478.0" layoutY="278.0" text="200" textFill="#4d4c4c">
+               <font>
+                  <Font size="13.0" />
+               </font>
+            </Label>
+            <Label fx:id="error_emprunter" layoutX="229.0" layoutY="445.0" prefHeight="25.0" prefWidth="394.0" textFill="RED">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <DatePicker fx:id="date_debut" layoutX="259.0" layoutY="337.0" promptText="date début" />
+            <DatePicker fx:id="date_fin" layoutX="443.0" layoutY="337.0" promptText="date fin" />
+            <Label layoutX="261.0" layoutY="321.0" text="Du" />
+            <Label layoutX="445.0" layoutY="321.0" text="au" />
+            <Label layoutX="261.0" layoutY="301.0" prefHeight="17.0" prefWidth="103.0" text="Période d'emprunt" textFill="#aeacac" />
+         </children>
+         <effect>
+            <DropShadow color="#d7d2d2" height="50.0" radius="24.5" width="50.0" />
+         </effect>
+      </Pane>
+      <Label layoutX="34.0" layoutY="24.0" text="Trier par" />
+      <ChoiceBox fx:id="choix_tri_livre" layoutX="114.0" layoutY="20.0" prefWidth="150.0" />
+      <ChoiceBox fx:id="choix_categorie" layoutX="515.0" layoutY="17.0" prefWidth="150.0" />
+      <Label layoutX="395.0" layoutY="24.0" text="filtrer par catégorie" />
+      <ImageView fitHeight="31.0" fitWidth="33.0" layoutX="819.0" layoutY="20.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@images/icons8_search_30px.png" />
+         </image>
+      </ImageView>
+      <JFXTextField fx:id="search" layoutX="851.0" layoutY="14.0" onKeyPressed="#afficher_livre" onKeyReleased="#afficher_livre" prefHeight="31.0" prefWidth="150.0" promptText="rechercher" />
+      <ImageView fx:id="btn_back" fitHeight="31.0" fitWidth="39.0" layoutX="3.0" layoutY="545.0" onMouseClicked="#back" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../image/icons8_back_500px_1.png" />
+         </image>
+      </ImageView>
+   </children>
+</AnchorPane>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane fx:id="body" onMouseClicked="#cacher_note" prefHeight="460.0" prefWidth="621.0" style="-fx-background-color: #E7EFFA;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.ExtraScolaire.User_ExtraScolaireController">
+   <children>
+      <AnchorPane layoutX="10.0" layoutY="10.0" minHeight="0.0" minWidth="0.0" prefHeight="361.0" prefWidth="344.0" />
+      <TableView fx:id="Table" layoutX="14.0" layoutY="14.0" prefHeight="397.0" prefWidth="787.0" style="-fx-background-color: E7EFFA;">
+         <columns>
+            <TableColumn fx:id="ColumnnomEvent" prefWidth="150.0" text="Je veux Assister à ... ?" />
+            <TableColumn fx:id="Columndescription" prefWidth="208.0" text="Pourqui ?" />
+            <TableColumn fx:id="ColumnDate" prefWidth="200.0" text="Par Rapport à Moi " />
+         </columns>
+      </TableView>
+   </children>
+</AnchorPane>

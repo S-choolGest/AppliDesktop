@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.etudiant.gestionpfe.GestionPfeController">
+   <children>
+      <TabPane fx:id="panpfe" layoutY="-3.0" prefHeight="400.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE">
+        <tabs>
+          <Tab fx:id="panAjouterPfe" text="Ajouter Pfe">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <TextField fx:id="tfTitre" layoutX="219.0" layoutY="53.0" />
+                        <TextArea fx:id="tfSujet" layoutX="216.0" layoutY="127.0" prefHeight="137.0" prefWidth="150.0" />
+                        <Button layoutX="265.0" layoutY="297.0" mnemonicParsing="false" onAction="#ajouterPfe" text="Ajouter" />
+                        <Label layoutX="76.0" layoutY="65.0" text="titre" />
+                        <Label layoutX="76.0" layoutY="177.0" text="sujet" />
+                        <Label layoutX="263.0" layoutY="14.0" text="Ajouter pfe" />
+                     </children>
+                  </AnchorPane>
+            </content>
+          </Tab>
+          <Tab fx:id="panModifierPfe" text="Modfier Pfe">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <TextField fx:id="tfModifierTitre" layoutX="226.0" layoutY="70.0" />
+                        <TextArea fx:id="tfModfierSujet" layoutX="226.0" layoutY="120.0" prefHeight="164.0" prefWidth="149.0" />
+                        <Label layoutX="77.0" layoutY="70.0" text="Titre" />
+                        <Label layoutX="91.0" layoutY="186.0" text="Sujet" />
+                        <Button layoutX="255.0" layoutY="301.0" mnemonicParsing="false" onAction="#modifierPfe" text="Modifier" />
+                        <TextField fx:id="tfIdPfe" layoutX="226.0" layoutY="33.0" />
+                        <Label layoutX="87.0" layoutY="37.0" text="Id pfe" />
+                     </children>
+                  </AnchorPane>
+            </content>
+          </Tab>
+            <Tab fx:id="panAfficherPfe" onSelectionChanged="#afficherPan" text="Afficher Pfe">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <TableView fx:id="tablePfe" layoutY="6.0" prefHeight="375.0" prefWidth="600.0">
+                          <columns>
+                            <TableColumn fx:id="colTitre" prefWidth="148.0" text="Titre" />
+                              <TableColumn fx:id="colSujet" prefWidth="275.0" text="Sujet" />
+                              <TableColumn fx:id="colId" minWidth="0.0" prefWidth="34.0" text="id" />
+                          </columns>
+                        </TableView>
+                     </children>
+                  </AnchorPane>
+              </content>
+            </Tab>
+        </tabs>
+      </TabPane>
+   </children>
+</AnchorPane>

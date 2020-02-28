@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.Bibliotheque.bibliothecaire.Interface_bibliothecaireController">
+   <top>
+      <Pane prefHeight="81.0" prefWidth="1280.0" style="-fx-background-color: #132F45;" BorderPane.alignment="CENTER">
+         <children>
+            <ImageView fitHeight="79.0" fitWidth="77.0" layoutX="14.0" layoutY="4.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../image/icons8_home_500px.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="59.0" fitWidth="61.0" layoutX="1117.0" layoutY="12.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/icons8_user_male_200px.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="btn_info" fitHeight="20.0" fitWidth="28.0" layoutX="1167.0" layoutY="42.0" onMouseClicked="#afficher_info" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../image/icons8_expand_arrow_80px.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="btn_close" fitHeight="33.0" fitWidth="47.0" layoutX="1247.0" onMouseClicked="#close" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../image/icons8_close_window_96px.png" />
+               </image>
+            </ImageView>
+            <Label layoutX="86.0" layoutY="22.0" text="Accueil" textFill="WHITE">
+               <font>
+                  <Font name="Cambria Math" size="36.0" />
+               </font>
+            </Label>
+            <Pane fx:id="info" layoutX="1083.0" layoutY="62.0" prefHeight="151.0" prefWidth="168.0" style="-fx-background-color: #183A56;" visible="false">
+               <children>
+                  <Label fx:id="nom" layoutX="5.0" layoutY="14.0" prefHeight="21.0" prefWidth="156.0" text="NOM " textFill="WHITE">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="prenom" layoutX="6.0" layoutY="41.0" prefHeight="21.0" prefWidth="154.0" text="PRENOM" textFill="WHITE">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="email" layoutX="4.0" layoutY="69.0" prefHeight="21.0" prefWidth="161.0" text="email" textFill="WHITE">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </Label>
+                  <ImageView fx:id="logout" fitHeight="45.0" fitWidth="48.0" layoutX="73.0" layoutY="92.0" onMouseClicked="#deconnecter" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../image/icons8_exit_500px.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="edit" fitHeight="40.0" fitWidth="42.0" layoutX="22.0" layoutY="95.0" onMouseClicked="#charger_edit_account" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../image/icons8_edit_user_500px_1.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </Pane>
+            <ImageView fitHeight="79.0" fitWidth="77.0" layoutX="444.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../image/icons8_book_shelf_100px.png" />
+               </image>
+            </ImageView>
+            <Label layoutX="528.0" layoutY="12.0" prefHeight="58.0" prefWidth="314.0" text="Bibliothécaire" textFill="WHITE">
+               <font>
+                  <Font name="Cambria Math" size="51.0" />
+               </font>
+            </Label>
+            <ImageView fitHeight="79.0" fitWidth="77.0" layoutX="842.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../image/icons8_book_shelf_100px.png" />
+               </image>
+            </ImageView>
+         </children>
+      </Pane>
+   </top>
+   <left>
+      <Pane prefHeight="473.0" prefWidth="208.0" style="-fx-background-color: #183A56;" BorderPane.alignment="CENTER">
+         <children>
+            <JFXButton id="button" fx:id="catalogue" layoutY="50.0" onAction="#charger_catalogue" prefHeight="51.0" prefWidth="209.0" ripplerFill="#4c93d7" stylesheets="@../cssMenu.css" text="Catalogue" textFill="WHITE">
+               <font>
+                  <Font size="18.0" />
+               </font>
+               <graphic>
+                  <ImageView fitHeight="28.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../image/icons8_book_shelf_96px.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </JFXButton>
+            <JFXButton id="button" fx:id="reservations" layoutY="179.0" onAction="#charger_reservations" prefHeight="51.0" prefWidth="209.0" ripplerFill="#4c93d7" stylesheets="@../cssMenu.css" text="Réservations" textFill="WHITE">
+               <font>
+                  <Font size="18.0" />
+               </font>
+               <graphic>
+                  <ImageView fitHeight="28.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../image/icons8_ticket_purchase_96px_1.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </JFXButton>
+            <JFXButton id="button" fx:id="emprunts" layoutY="116.0" onAction="#charger_emprunts" prefHeight="51.0" prefWidth="209.0" ripplerFill="#4c93d7" stylesheets="@../cssMenu.css" text="Emprunts" textFill="WHITE">
+               <font>
+                  <Font size="18.0" />
+               </font>
+               <graphic>
+                  <ImageView fitHeight="28.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../image/icons8_strike_128px.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </JFXButton>
+         </children>
+      </Pane>
+   </left>
+   <bottom>
+      <Pane prefHeight="60.0" prefWidth="1280.0" style="-fx-background-color: #132F45;" BorderPane.alignment="CENTER" />
+   </bottom>
+   <center>
+      <AnchorPane fx:id="body" onMouseClicked="#cacher_info" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #E7EFFA;" BorderPane.alignment="CENTER" />
+   </center>
+</BorderPane>

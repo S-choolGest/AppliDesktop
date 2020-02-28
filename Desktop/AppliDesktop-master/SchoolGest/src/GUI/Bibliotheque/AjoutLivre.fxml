@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane id="AnchorPane" prefHeight="579.0" prefWidth="1072.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.171" fx:controller="GUI.Bibliotheque.AjoutLivreController">
+   <children>
+      <Pane layoutX="214.0" layoutY="30.0" prefHeight="519.0" prefWidth="619.0" style="-fx-background-color: #D6D8D7;">
+         <children>
+            <Label layoutX="186.0" layoutY="14.0" style="-fx-background-color: #CCCECD;" text="Ajout d'un nouveau  livre" textFill="#638ab9">
+               <font>
+                  <Font name="System Bold Italic" size="21.0" />
+               </font>
+            </Label>
+            <Label layoutX="135.0" layoutY="66.0" text="Titre">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <TextField fx:id="titre" layoutX="224.0" layoutY="60.0" prefHeight="37.0" prefWidth="283.0">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </TextField>
+            <Label layoutX="127.0" layoutY="118.0" text="Auteur">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <TextField fx:id="auteur" layoutX="225.0" layoutY="112.0" prefHeight="37.0" prefWidth="283.0">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </TextField>
+            <Label layoutX="126.0" layoutY="170.0" text="Editeur">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <TextField fx:id="editeur" layoutX="225.0" layoutY="164.0" prefHeight="37.0" prefWidth="283.0">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </TextField>
+            <Label layoutX="121.0" layoutY="220.0" text="Catégorie">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <TextField fx:id="categorie" layoutX="223.0" layoutY="214.0" prefHeight="37.0" prefWidth="283.0">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </TextField>
+            <Label layoutX="129.0" layoutY="268.0" text="pages">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <TextField fx:id="taille" layoutX="224.0" layoutY="262.0" prefHeight="37.0" prefWidth="283.0">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </TextField>
+            <Label layoutX="110.0" layoutY="318.0" text="date de sortie">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <DatePicker fx:id="date_sortie" layoutX="227.0" layoutY="310.0" prefHeight="37.0" prefWidth="283.0" />
+            <Label layoutX="129.0" layoutY="364.0" text="quantité">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <TextField fx:id="quantite" layoutX="225.0" layoutY="358.0" prefHeight="37.0" prefWidth="283.0">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </TextField>
+            <Label fx:id="error" layoutX="9.0" layoutY="438.0" prefHeight="45.0" prefWidth="601.0" textFill="RED" wrapText="true" />
+            <Label layoutX="137.0" layoutY="413.0" text="Image">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <ImageView fx:id="image" fitHeight="37.0" fitWidth="42.0" layoutX="227.0" layoutY="407.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/icons8_image_file_512px.png" />
+               </image>
+            </ImageView>
+            <JFXButton id="button" fx:id="ajouter" layoutX="421.0" layoutY="483.0" onAction="#ajouter_livre" prefHeight="37.0" prefWidth="84.0" ripplerFill="#23a0c3" style="-fx-background-color: #3283B6;" stylesheets="@cssMenu.css" text="Ajouter" textFill="WHITE" />
+         </children>
+      </Pane>
+   </children>
+</AnchorPane>
