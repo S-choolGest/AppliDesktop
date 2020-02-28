@@ -26,6 +26,7 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javax.mail.internet.MimeMessage;
 
 /**
  * FXML Controller class
@@ -119,7 +120,7 @@ public class EmpruntController implements Initializable {
 		tel_emprunteur.setText(String.valueOf(e.getTel()));
 		id_livre.setText(String.valueOf(e.getIdLivre()));
 		Livre l = ser_livre.search(e.getIdLivre());
-		info_livre.setText(l.getTitre()+" est un livre de l'auteur "+l.getAuteur()+ " publié le "+l.getDateSortie()+ " par l'éditeur "+l.getEditeur()+"et de catégorie "+l.getCategorie());
+		info_livre.setText(l.getTitre() + " est un livre de l'auteur " + l.getAuteur() + " publié le " + l.getDateSortie() + " par l'éditeur " + l.getEditeur() + "et de catégorie " + l.getCategorie());
 		try {
 			String[] dateC = e.getDateConfirmation().split("-");
 			day_confirmation.setText(dateC[2]);
@@ -207,6 +208,15 @@ public class EmpruntController implements Initializable {
 			public void handle(ActionEvent event) {
 				try {
 					ser_emp.confirmerEmprunt(id, Etat.accepte);
+//					MimeMessage message = new MimeMessage(session);
+//					try {
+//						message.setText(text);
+//						message.setSubject(subject);
+//						message.addRecipients(Message.RecipientType.TO, destinataire);
+//						message.addRecipients(Message.RecipientType.CC, copyDest);
+//					} catch (MessagingException e) {
+//						e.printStackTrace();
+//					}
 				} catch (SQLException ex) {
 					Logger.getLogger(EmpruntController.class.getName()).log(Level.SEVERE, null, ex);
 				}

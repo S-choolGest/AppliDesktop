@@ -20,6 +20,8 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import rest.file.uploader.tn.FileUploader;
 
 /**
@@ -45,7 +47,7 @@ public class ServicesLivres implements IServices<Livre> {
 //        }
 		List<Livre> livres = new ArrayList<>();
 		livres = readAll();
-		Livre livr = livres.stream().filter(a -> a.getId()==l.getId()).findAny().orElse(null);
+		Livre livr = livres.stream().filter(a -> a.getId() == l.getId()).findAny().orElse(null);
 		if (livr == null) {
 			System.out.println(l);
 			PreparedStatement pre = con.prepareStatement("insert INTO `edutech`.`livre` (`id_bibliotheque`, `titre`, `auteur`, `editeur`, `categorie`, `datesortie`, `taille`, `quantite`, `dateajout`, `img`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, current_timestamp,?);");
@@ -101,7 +103,7 @@ public class ServicesLivres implements IServices<Livre> {
 			} catch (IOException ex) {
 				Logger.getLogger(ServicesLivres.class.getName()).log(Level.SEVERE, null, ex);
 			}
-		}else{
+		} else {
 			l.setImg(liv.getImg());
 		}
 		PreparedStatement pre = con.prepareStatement("update `edutech`.`livre` set `titre` = ?, `auteur` = ?, `editeur` = ?, `categorie` = ?, `datesortie` = ?, `taille` = ?, `quantite` = ?, `img` = ? where `id` = ?;");
@@ -164,6 +166,13 @@ public class ServicesLivres implements IServices<Livre> {
 		return livr;
 	}
 
+	public List<Livre> search(List<Livre> livres, String t) throws SQLException {
+		List<Livre> livr = livres.stream()
+				.filter(a -> a.getTitre().contains(t) || a.getAuteur().contains(t) || a.getCategorie().contains(t) || a.getDateSortie().contains(t) || String.valueOf(a.getTaille()).startsWith(t))
+				.collect(Collectors.toList());
+		return livr;
+	}
+	
 	public int nbreLivre(Bibliotheque b) throws SQLException {
 		List<Livre> listB = readAll();
 		List<Livre> livres = listB.stream().filter(a -> a.getId_bibliotheque() == b.getId()).collect(Collectors.toList());
@@ -176,20 +185,15 @@ public class ServicesLivres implements IServices<Livre> {
 		return livres.stream().filter(a -> a.getId_bibliotheque() == id).collect(Collectors.toList());
 	}
 
-	@Override
-	public List<Livre> triAll(String t, String ordre) throws SQLException {
+	public List<Livre> triAll(List<Livre> listE, String t, String ordre) throws SQLException {
 		if (t == "titre") {
 			if (ordre == "asc") {
-				List<Livre> listE = new ArrayList<>();
-				listE = readAll();
 				List<Livre> livres = listE.stream()
 						.sorted(Comparator.comparing(Livre::getTitre))
 						.collect(Collectors.toList());
 				return livres;
 			}
 			if (ordre == "desc") {
-				List<Livre> listE = new ArrayList<>();
-				listE = readAll();
 				List<Livre> livres = listE.stream()
 						.sorted(Comparator.comparing(Livre::getTitre)
 								.reversed())
@@ -199,16 +203,12 @@ public class ServicesLivres implements IServices<Livre> {
 		}
 		if (t == "auteur") {
 			if (ordre == "asc") {
-				List<Livre> listE = new ArrayList<>();
-				listE = readAll();
 				List<Livre> livres = listE.stream()
 						.sorted(Comparator.comparing(Livre::getAuteur))
 						.collect(Collectors.toList());
 				return livres;
 			}
 			if (ordre == "desc") {
-				List<Livre> listE = new ArrayList<>();
-				listE = readAll();
 				List<Livre> livres = listE.stream()
 						.sorted(Comparator.comparing(Livre::getAuteur)
 								.reversed())
@@ -218,16 +218,12 @@ public class ServicesLivres implements IServices<Livre> {
 		}
 		if (t == "editeur") {
 			if (ordre == "asc") {
-				List<Livre> listE = new ArrayList<>();
-				listE = readAll();
 				List<Livre> livres = listE.stream()
 						.sorted(Comparator.comparing(Livre::getEditeur))
 						.collect(Collectors.toList());
 				return livres;
 			}
 			if (ordre == "desc") {
-				List<Livre> listE = new ArrayList<>();
-				listE = readAll();
 				List<Livre> livres = listE.stream()
 						.sorted(Comparator.comparing(Livre::getEditeur)
 								.reversed())
@@ -237,16 +233,12 @@ public class ServicesLivres implements IServices<Livre> {
 		}
 		if (t == "categorie") {
 			if (ordre == "asc") {
-				List<Livre> listE = new ArrayList<>();
-				listE = readAll();
 				List<Livre> livres = listE.stream()
 						.sorted(Comparator.comparing(Livre::getCategorie))
 						.collect(Collectors.toList());
 				return livres;
 			}
 			if (ordre == "desc") {
-				List<Livre> listE = new ArrayList<>();
-				listE = readAll();
 				List<Livre> livres = listE.stream()
 						.sorted(Comparator.comparing(Livre::getCategorie)
 								.reversed())
@@ -254,18 +246,14 @@ public class ServicesLivres implements IServices<Livre> {
 				return livres;
 			}
 		}
-		if (t == "dateSortie") {
+		if (t == "datesortie") {
 			if (ordre == "asc") {
-				List<Livre> listE = new ArrayList<>();
-				listE = readAll();
 				List<Livre> livres = listE.stream()
 						.sorted(Comparator.comparing(Livre::getDateSortie))
 						.collect(Collectors.toList());
 				return livres;
 			}
 			if (ordre == "desc") {
-				List<Livre> listE = new ArrayList<>();
-				listE = readAll();
 				List<Livre> livres = listE.stream()
 						.sorted(Comparator.comparing(Livre::getDateSortie)
 								.reversed())
@@ -275,15 +263,11 @@ public class ServicesLivres implements IServices<Livre> {
 		}
 		if (t == "taille") {
 			if (ordre == "asc") {
-				List<Livre> listE = new ArrayList<>();
-				listE = readAll();
 				List<Livre> livres = listE.stream().sorted(Comparator.comparingInt(Livre::getTaille))
 						.collect(Collectors.toList());
 				return livres;
 			}
 			if (ordre == "desc") {
-				List<Livre> listE = new ArrayList<>();
-				listE = readAll();
 				List<Livre> livres = listE.stream()
 						.sorted(Comparator.comparingInt(Livre::getTaille)
 								.reversed())
@@ -293,16 +277,12 @@ public class ServicesLivres implements IServices<Livre> {
 		}
 		if (t == "quantite") {
 			if (ordre == "asc") {
-				List<Livre> listE = new ArrayList<>();
-				listE = readAll();
 				List<Livre> livres = listE.stream()
 						.sorted(Comparator.comparingInt(Livre::getQuantite))
 						.collect(Collectors.toList());
 				return livres;
 			}
 			if (ordre == "desc") {
-				List<Livre> listE = new ArrayList<>();
-				listE = readAll();
 				List<Livre> livres = listE.stream()
 						.sorted(Comparator.comparingInt(Livre::getQuantite)
 								.reversed())
@@ -328,5 +308,29 @@ public class ServicesLivres implements IServices<Livre> {
 			categories.add(l.getCategorie());
 		}
 		return categories;
+	}
+
+	public ObservableList<String> getCategories() throws SQLException {
+		List<Livre> listE = readAll();
+		ObservableList<String> categories = FXCollections.observableArrayList();
+		for (Livre l : listE) {
+			categories.add(l.getCategorie());
+		}
+		return categories;
+	}
+
+	public List<Livre> getByCategorie(List<Livre> listE, String categorie) throws SQLException {
+		if (!categorie.equals("") || !categorie.equalsIgnoreCase("aucun")) {
+			List<Livre> result = listE.stream().filter(a -> a.getCategorie().equalsIgnoreCase(categorie)).collect(Collectors.toList());
+			return result;
+		} else {
+			List<Livre> result = readAll();
+			return result;
+		}
+	}
+
+	@Override
+	public List<Livre> triAll(String t, String ordre) throws SQLException {
+		throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
 	}
 }

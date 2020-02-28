@@ -22,6 +22,9 @@ import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -111,179 +114,84 @@ public class Catalogue_userController implements Initializable {
 	@FXML
 	private ImageView btn_back;
 	private AnchorPane body;
+	@FXML
+	private ImageView ordre_tri;
+	private Boolean order = true;
+	private String critere_tri = "";
+	List<Livre> livres = new ArrayList<>();
+	private String cat = "";
+
 	/**
 	 * Initializes the controller class.
 	 */
 	@Override
 	public void initialize(URL url, ResourceBundle rb) {
-		// TODO
-	}	
+		try {
+			// TODO
+			livres = ser.readAll();
+		} catch (SQLException ex) {
+			Logger.getLogger(Catalogue_userController.class.getName()).log(Level.SEVERE, null, ex);
+		}
+		choix_tri_livre.getItems().addAll("aucun", "titre", "auteur", "editeur", "datesortie", "categorie");
+		choix_tri_livre.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>() {
+			@Override
+			public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+				try {
+					critere_tri = choix_tri_livre.getItems().get((Integer) newValue);
+					if (choix_tri_livre.getItems().get((Integer) newValue).equals("aucun")) {
+						afficher_livre(livres);
+					} else {
+						List<Livre> livres1 = ser.triAll(livres, choix_tri_livre.getItems().get((Integer) newValue), "asc");
+						livres = livres1;
+						afficher_livre(livres1);
+					}
+				} catch (SQLException ex) {
+					Logger.getLogger(HomeController.class.getName()).log(Level.SEVERE, null, ex);
+				}
+			}
+		});
+		try {
+			choix_categorie.getItems().add("aucun");
+			choix_categorie.getItems().addAll(ser.getCategories());
+		} catch (SQLException ex) {
+			Logger.getLogger(Catalogue_userController.class.getName()).log(Level.SEVERE, null, ex);
+		}
+		choix_categorie.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>() {
+			@Override
+			public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+				try {
+					livres = ser.readAll();
+					cat = choix_categorie.getItems().get((Integer) newValue);
+					if (choix_categorie.getItems().get((Integer) newValue).equalsIgnoreCase("aucun")) {
+						afficher_livre(livres);
+					} else {
+						List<Livre> livres1 = ser.getByCategorie(livres, cat);
+						livres = livres1;
+						afficher_livre(livres1);
+					}
+				} catch (SQLException ex) {
+					Logger.getLogger(HomeController.class.getName()).log(Level.SEVERE, null, ex);
+				}
+			}
+		});
+	}
+
 	public void getStage(Stage stage) {
 		this.stage = stage;
 	}
-	public void getInfo(Utilisateur u) throws SQLException, SQLException{
+
+	public void getInfo(Utilisateur u) throws SQLException, SQLException {
 		this.user = u;
 		afficher_page_catalogue(null);
 	}
+
 	private void afficher_page_catalogue(MouseEvent event) throws SQLException {
-		catalogues.setSpacing(30);
-		page_detail.setVisible(false);
-		aucun_livre.setVisible(false);
-		List<Livre> livres = ser.search(search.getText());
-		if(livres == null){
-			aucun_livre.setVisible(true);
-		}else{
-		int i = 4;
-		catalogues.getChildren().clear();
-		List<HBox> lines = new ArrayList<HBox>();
-		HBox line_livre = new HBox(40);
-		lines.add(line_livre);
-		int j = 0;
-		for (Livre l : livres) {
-			if (i == 0) {
-				i = 4;
-				line_livre = new HBox(40);
-				lines.add(line_livre);
-				j++;
-			}
-			VBox livre = new VBox();
-			Image img = new Image(l.getImg());
-			ImageView imgv = new ImageView();
-			imgv.setImage(img);
-			imgv.setFitWidth(200);
-			imgv.setFitHeight(200);
-			Button show = new Button("afficher détail");
-			Label titre = new Label(l.getTitre() + " est un livre " + l.getCategorie() + " de " + l.getAuteur());
-			livre.getChildren().add(imgv);
-//			livre.getChildren().add(titre);
-			livre.getChildren().add(show);
-			show.setOnAction(new EventHandler<ActionEvent>() {
-				@Override
-				public void handle(ActionEvent event) {
-					error_emprunter.setText("");
-					page_detail.setVisible(true);
-					titre.setText(l.getTitre());
-					identifiant.setText(" Id : " + String.valueOf(l.getId()));
-					taille.setText(String.valueOf(l.getTaille()));
-					quantite.setText(String.valueOf(l.getQuantite()));
-					auteur.setText(l.getAuteur());
-					editeur.setText(l.getEditeur());
-					categorie.setText(l.getCategorie());
-					try {
-						String[] date = l.getDateSortie().split("-");
-						day_sortie.setText(date[2]);
-						month_sortie.setText(date[1]);
-						year_sortie.setText(date[0]);
-					} catch (Exception ex) {
-						System.out.println(ex);
-						day_sortie.setText("jj");
-						month_sortie.setText("mois");
-						year_sortie.setText("année");
-					}
-					try {
-						String[] date = l.getDateajout().split("-");
-						day_ajout.setText(date[2]);
-						month_ajout.setText(date[1]);
-						year_ajout.setText(date[0]);
-					} catch (Exception ex) {
-						System.out.println(ex);
-						day_ajout.setText("jj");
-						month_ajout.setText("mois");
-						year_ajout.setText("année");
-					}
-					Image img = new Image(l.getImg());
-					ImageView imgv = new ImageView();
-					imgv.setImage(img);
-					imgv.setFitWidth(200);
-					imgv.setFitHeight(400);
-					img_livre.getChildren().add(imgv);
-					page_liste_livre.setOnMouseClicked(new EventHandler<MouseEvent>() {
-						@Override
-						public void handle(MouseEvent event) {
-							page_detail.setVisible(false);
-						}
-					});
-					emprunter.setOnMouseClicked(new EventHandler<MouseEvent>() {
-						@Override
-						public void handle(MouseEvent event) {
-							try {
-								if (date_debut.getValue() == null || date_fin.getValue() == null) {
-									error_emprunter.setText("Veillez définir la période d'emprunt !!!");
-								} else {
-									DateTimeFormatter dateformat = DateTimeFormatter.ofPattern("yyyy/MM/dd");
-									String datedebut = dateformat.format(date_debut.getValue());
-									String datefin = dateformat.format(date_fin.getValue());
-									if(datedebut.compareTo(datefin)<0)
-									error_emprunter.setText(ser_emp.emprunter(user.getId(), l.getId(), datedebut, datefin));
-									else
-										error_emprunter.setText("Date de début > date de fin");
-								}
-							} catch (SQLException ex) {
-								Logger.getLogger(bibliotheque_userController.class.getName()).log(Level.SEVERE, null, ex);
-							}
-						}
-					});
-				}
-			});
-			imgv.setOnMouseClicked(new EventHandler<MouseEvent>() {
-				@Override
-				public void handle(MouseEvent event) {
-					page_detail.setVisible(true);
-					titre.setText(l.getTitre());
-					identifiant.setText(" Id : " + String.valueOf(l.getId()));
-					taille.setText(String.valueOf(l.getTaille()));
-					quantite.setText(String.valueOf(l.getQuantite()));
-					auteur.setText(l.getAuteur());
-					editeur.setText(l.getEditeur());
-					categorie.setText(l.getCategorie());
-					try {
-						String[] date = l.getDateSortie().split("-");
-						day_sortie.setText(date[2]);
-						month_sortie.setText(date[1]);
-						year_sortie.setText(date[0]);
-					} catch (Exception ex) {
-						System.out.println(ex);
-						day_sortie.setText("jj");
-						month_sortie.setText("mois");
-						year_sortie.setText("année");
-					}
-					try {
-						String[] date = l.getDateajout().split("-");
-						day_ajout.setText(date[2]);
-						month_ajout.setText(date[1]);
-						year_ajout.setText(date[0]);
-					} catch (Exception ex) {
-						System.out.println(ex);
-						day_ajout.setText("jj");
-						month_ajout.setText("mois");
-						year_ajout.setText("année");
-					}
-					Image img = new Image(l.getImg());
-					ImageView imgv = new ImageView();
-					imgv.setImage(img);
-					imgv.setFitWidth(200);
-					imgv.setFitHeight(400);
-					img_livre.getChildren().add(imgv);
-					page_liste_livre.setOnMouseClicked(new EventHandler<MouseEvent>() {
-						@Override
-						public void handle(MouseEvent event) {
-							page_detail.setVisible(false);
-						}
-					});
-				}
-			});
-			lines.get(j).getChildren().add(livre);
-			i--;
-		}
-		for (HBox hb : lines) {
-			catalogues.getChildren().add(hb);
-		}
-		}
+		afficher_livre(livres);
 	}
 
 	@FXML
 	private void afficher_livre(KeyEvent event) throws SQLException {
-		afficher_page_catalogue(null);
+		afficher_livre(ser.search(livres, search.getText()));
 	}
 
 	@FXML
@@ -295,11 +203,195 @@ public class Catalogue_userController implements Initializable {
 		Bibliotheque_user_menuController emp = loader.getController();
 		emp.getStage(stage);
 		emp.getBody(body);
-		emp.getInfo(user);	
+		emp.getInfo(user);
 		this.body.getChildren().add(n);
 	}
 
 	public void getBody(AnchorPane body) {
 		this.body = body;
+	}
+
+	public void afficher_livre(List<Livre> livres) {
+		catalogues.setSpacing(30);
+		page_detail.setVisible(false);
+		aucun_livre.setVisible(false);
+		if (livres == null) {
+			aucun_livre.setVisible(true);
+		} else {
+			int i = 4;
+			catalogues.getChildren().clear();
+			List<HBox> lines = new ArrayList<HBox>();
+			HBox line_livre = new HBox(40);
+			lines.add(line_livre);
+			int j = 0;
+			for (Livre l : livres) {
+				if (i == 0) {
+					i = 4;
+					line_livre = new HBox(40);
+					lines.add(line_livre);
+					j++;
+				}
+				VBox livre = new VBox();
+				Image img = new Image(l.getImg());
+				ImageView imgv = new ImageView();
+				imgv.setImage(img);
+				imgv.setFitWidth(200);
+				imgv.setFitHeight(200);
+				Button show = new Button("afficher détail");
+				Label titre = new Label(l.getTitre() + " est un livre " + l.getCategorie() + " de " + l.getAuteur());
+				livre.getChildren().add(imgv);
+//			livre.getChildren().add(titre);
+				livre.getChildren().add(show);
+				show.setOnAction(new EventHandler<ActionEvent>() {
+					@Override
+					public void handle(ActionEvent event) {
+						error_emprunter.setText("");
+						page_detail.setVisible(true);
+						titre.setText(l.getTitre());
+						identifiant.setText(" Id : " + String.valueOf(l.getId()));
+						taille.setText(String.valueOf(l.getTaille()));
+						quantite.setText(String.valueOf(l.getQuantite()));
+						auteur.setText(l.getAuteur());
+						editeur.setText(l.getEditeur());
+						categorie.setText(l.getCategorie());
+						try {
+							String[] date = l.getDateSortie().split("-");
+							day_sortie.setText(date[2]);
+							month_sortie.setText(date[1]);
+							year_sortie.setText(date[0]);
+						} catch (Exception ex) {
+							System.out.println(ex);
+							day_sortie.setText("jj");
+							month_sortie.setText("mois");
+							year_sortie.setText("année");
+						}
+						try {
+							String[] date = l.getDateajout().split("-");
+							day_ajout.setText(date[2]);
+							month_ajout.setText(date[1]);
+							year_ajout.setText(date[0]);
+						} catch (Exception ex) {
+							System.out.println(ex);
+							day_ajout.setText("jj");
+							month_ajout.setText("mois");
+							year_ajout.setText("année");
+						}
+						Image img = new Image(l.getImg());
+						ImageView imgv = new ImageView();
+						imgv.setImage(img);
+						imgv.setFitWidth(200);
+						imgv.setFitHeight(400);
+						img_livre.getChildren().add(imgv);
+						page_liste_livre.setOnMouseClicked(new EventHandler<MouseEvent>() {
+							@Override
+							public void handle(MouseEvent event) {
+								page_detail.setVisible(false);
+							}
+						});
+						emprunter.setOnMouseClicked(new EventHandler<MouseEvent>() {
+							@Override
+							public void handle(MouseEvent event) {
+								try {
+									if (date_debut.getValue() == null || date_fin.getValue() == null) {
+										error_emprunter.setText("Veillez définir la période d'emprunt !!!");
+									} else {
+										DateTimeFormatter dateformat = DateTimeFormatter.ofPattern("yyyy/MM/dd");
+										String datedebut = dateformat.format(date_debut.getValue());
+										String datefin = dateformat.format(date_fin.getValue());
+										if (datedebut.compareTo(datefin) < 0) {
+											error_emprunter.setText(ser_emp.emprunter(user.getId(), l.getId(), datedebut, datefin));
+										} else {
+											error_emprunter.setText("Date de début > date de fin");
+										}
+									}
+								} catch (SQLException ex) {
+									Logger.getLogger(bibliotheque_userController.class.getName()).log(Level.SEVERE, null, ex);
+								}
+							}
+						});
+					}
+				});
+				imgv.setOnMouseClicked(new EventHandler<MouseEvent>() {
+					@Override
+					public void handle(MouseEvent event) {
+						page_detail.setVisible(true);
+						titre.setText(l.getTitre());
+						identifiant.setText(" Id : " + String.valueOf(l.getId()));
+						taille.setText(String.valueOf(l.getTaille()));
+						quantite.setText(String.valueOf(l.getQuantite()));
+						auteur.setText(l.getAuteur());
+						editeur.setText(l.getEditeur());
+						categorie.setText(l.getCategorie());
+						try {
+							String[] date = l.getDateSortie().split("-");
+							day_sortie.setText(date[2]);
+							month_sortie.setText(date[1]);
+							year_sortie.setText(date[0]);
+						} catch (Exception ex) {
+							System.out.println(ex);
+							day_sortie.setText("jj");
+							month_sortie.setText("mois");
+							year_sortie.setText("année");
+						}
+						try {
+							String[] date = l.getDateajout().split("-");
+							day_ajout.setText(date[2]);
+							month_ajout.setText(date[1]);
+							year_ajout.setText(date[0]);
+						} catch (Exception ex) {
+							System.out.println(ex);
+							day_ajout.setText("jj");
+							month_ajout.setText("mois");
+							year_ajout.setText("année");
+						}
+						Image img = new Image(l.getImg());
+						ImageView imgv = new ImageView();
+						imgv.setImage(img);
+						imgv.setFitWidth(200);
+						imgv.setFitHeight(400);
+						img_livre.getChildren().add(imgv);
+						page_liste_livre.setOnMouseClicked(new EventHandler<MouseEvent>() {
+							@Override
+							public void handle(MouseEvent event) {
+								page_detail.setVisible(false);
+							}
+						});
+					}
+				});
+				lines.get(j).getChildren().add(livre);
+				i--;
+			}
+			for (HBox hb : lines) {
+				catalogues.getChildren().add(hb);
+			}
+		}
+	}
+
+	@FXML
+	private void change_order(MouseEvent event) {
+		ordre_tri.setRotate(180);
+		order = !order;
+		try {
+			if (critere_tri.equals("")) {
+				List<Livre> livres = ser.readAll();
+				afficher_livre(livres);
+			} else if (critere_tri.equals("aucun")) {
+				List<Livre> livres1 = ser.readAll();
+				livres = livres1;
+				afficher_livre(livres);
+			} else {
+				List<Livre> livres1 = new ArrayList<>();
+				if (order == true) {
+					livres1 = ser.triAll(livres, critere_tri, "asc");
+					livres = livres1;
+				} else {
+					livres1 = ser.triAll(livres, critere_tri, "desc");
+					livres = livres1;
+				}
+				afficher_livre(livres);
+			}
+		} catch (SQLException ex) {
+			Logger.getLogger(HomeController.class.getName()).log(Level.SEVERE, null, ex);
+		}
 	}
 }

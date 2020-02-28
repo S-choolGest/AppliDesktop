@@ -88,7 +88,7 @@
    <left>
       <Pane prefHeight="473.0" prefWidth="208.0" style="-fx-background-color: #183A56;" BorderPane.alignment="CENTER">
          <children>
-            <JFXButton id="button" fx:id="matieres" layoutY="34.0" onAction="#charger_matieres" prefHeight="51.0" prefWidth="209.0" ripplerFill="#4c93d7" stylesheets="@../InterfaceAdmin/cssMenu.css" text="Matières" textFill="WHITE">
+            <JFXButton id="button" fx:id="matieres" layoutY="34.0" onAction="#charger_matieres" prefHeight="51.0" prefWidth="209.0" ripplerFill="#4c93d7" stylesheets="@../image/cssMenu.css" text="Matières" textFill="WHITE">
                <font>
                   <Font size="18.0" />
                </font>
