@@ -58,7 +58,7 @@ public class ServicesBibliotheque implements IServices<Bibliotheque> {
 			return false;
 		}
 	}
-	
+
 	@Override
 	public boolean update(Bibliotheque b) throws SQLException {
 		PreparedStatement pre = con.prepareStatement("update `edutech`.`Bibliotheque` set `nom` = ?, `capacite` = ?, `adresse` = ? where `id` = ?;");
@@ -70,15 +70,31 @@ public class ServicesBibliotheque implements IServices<Bibliotheque> {
 	}
 
 	public boolean affecter(Bibliotheque b) throws SQLException {
+		Bibliotheque bb = getBibliotheque(b.getEmail());
+		if (bb == null) {
+			int id_bibliothecaire = ser.searchByEmail(b.getEmail());
+			if (id_bibliothecaire == -1) {
+				return false;
+			}
+			PreparedStatement pre = con.prepareStatement("update `edutech`.`Bibliotheque` set `id_bibliothecaire` = ? where `id` = ?;");
+			pre.setInt(1, id_bibliothecaire);
+			pre.setInt(2, b.getId());
+			return pre.executeUpdate() != 0;
+		}else{
+			return desaffecter(bb);
+		}
+	}
+
+	public boolean desaffecter(Bibliotheque b) throws SQLException {
 		int id_bibliothecaire = ser.searchByEmail(b.getEmail());
-		if(id_bibliothecaire == -1)
+		if (id_bibliothecaire == -1) {
 			return false;
+		}
 		PreparedStatement pre = con.prepareStatement("update `edutech`.`Bibliotheque` set `id_bibliothecaire` = ? where `id` = ?;");
-		pre.setInt(1, id_bibliothecaire);
+		pre.setInt(1, -1);
 		pre.setInt(2, b.getId());
 		return pre.executeUpdate() != 0;
 	}
-
 	@Override
 	public List<Bibliotheque> readAll() throws SQLException {
 		List<Bibliotheque> listB = new ArrayList<>();
@@ -123,7 +139,8 @@ public class ServicesBibliotheque implements IServices<Bibliotheque> {
 		Bibliotheque bib = listB.stream().filter(a -> a.getAdresse().equals(text)).findAny().orElse(null);
 		return bib;
 	}
-	public Bibliotheque getBibliotheque(String email) throws SQLException{
+
+	public Bibliotheque getBibliotheque(String email) throws SQLException {
 		List<Bibliotheque> listB = readAll();
 		Bibliotheque bib = listB.stream().filter(a -> a.getEmail().equals(email)).findAny().orElse(null);
 		return bib;

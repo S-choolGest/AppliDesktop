@@ -167,7 +167,7 @@ public class Catalogue_bibliothecaireController implements Initializable {
 	private DatePicker date_sortiea;
 	@FXML
 	private TextField quantitea;
-	private String imga = "http://localhost/mobile/book.jpg";
+	private String imga = "";
 	@FXML
 	private Pane img_livre_edit;
 	private AutoCompletionBinding<String> autoCompleteCategorie;
@@ -215,6 +215,7 @@ public class Catalogue_bibliothecaireController implements Initializable {
 	}
 
 	private void afficher_page_catalogue(Bibliotheque bib) throws SQLException {
+		aucun_livre.setVisible(false);
 		catalogues.setSpacing(30);
 		List<Livre> livres = ser.readAllBibliotheque(bib.getId());
 		int i = 4;
@@ -308,7 +309,7 @@ public class Catalogue_bibliothecaireController implements Initializable {
 	@FXML
 	private void editer_livre(MouseEvent event) {
 		try {
-			System.out.println("zezae"+this.img);
+			System.out.println("zezae" + this.img);
 			LocalDate datel = field_date_sortie.getValue();
 			DateTimeFormatter dateformat = DateTimeFormatter.ofPattern("yyyy/MM/dd");
 			String datef = dateformat.format(datel);
@@ -394,30 +395,40 @@ public class Catalogue_bibliothecaireController implements Initializable {
 
 	@FXML
 	private void afficher_livre(KeyEvent event) {
+		
 	}
 
 	@FXML
 	private void ajouter_livre(ActionEvent event) {
-		try {
-			LocalDate datel = date_sortie.getValue();
-			DateTimeFormatter dateformat = DateTimeFormatter.ofPattern("yyyy/MM/dd");
-			String datef = dateformat.format(datel);
-			int taillef = Integer.valueOf(taillea.getText());
-			int quantitef = Integer.valueOf(quantitea.getText());
-			int id_bibliothequef = this.bib.getId();
-			Livre l = new Livre(id_bibliothequef, titrea.getText(), editeura.getText(), auteura.getText(), categoriea.getText(), datef, taillef, quantitef, this.imga, null);
-			if (ser.ajouter(l)) {
-				error.setText("Ajout réussi ");
-				page_ajout.setVisible(false);
-				page_detail.setVisible(false);
-				page_edit.setVisible(false);
-				afficher_page_catalogue(bib);
-				error1.setText("Ajout réussi");
+		if (imga.equals("")) {
+			error1.setText("Veillez ajouter une image !!!");
+		} else {
+			if (titrea.getText().equals("") || auteura.getText().equals("") || editeura.getText().equals("") || categoriea.getText().equals("") || taillea.getText().equals("") || date_sortiea.getValue().equals("") || quantitea.getText().equals("")) {
+				error1.setText("Champ vide !!!");
 			} else {
-				error1.setText("Ajout impossible !!!");
+				try {
+					LocalDate datel = date_sortiea.getValue();
+					DateTimeFormatter dateformat = DateTimeFormatter.ofPattern("yyyy/MM/dd");
+					String datef = dateformat.format(datel);
+					int taillef = Integer.valueOf(taillea.getText());
+					int quantitef = Integer.valueOf(quantitea.getText());
+					int id_bibliothequef = this.bib.getId();
+					Livre l = new Livre(id_bibliothequef, titrea.getText(), editeura.getText(), auteura.getText(), categoriea.getText(), datef, taillef, quantitef, this.imga, null);
+					if (ser.ajouter(l)) {
+						error1.setText("Ajout réussi ");
+						page_ajout.setVisible(false);
+						page_detail.setVisible(false);
+						page_edit.setVisible(false);
+						afficher_page_catalogue(bib);
+						error1.setText("Ajout réussi");
+					} else {
+						error1.setText("Ajout impossible !!!");
+					}
+				} catch (Exception e) {
+					System.out.println(e);
+					error1.setText(e.getMessage());
+				}
 			}
-		} catch (Exception e) {
-			error1.setText(e.getMessage());
 		}
 	}
 
@@ -451,11 +462,16 @@ public class Catalogue_bibliothecaireController implements Initializable {
 	private void edit_image(MouseEvent event) throws IOException {
 		FileChooser filechooser = new FileChooser();
 		File file = filechooser.showOpenDialog(this.stage);
-		if (file.isFile() && file.getName().contains(".jpg") || file.getName().contains(".png") || file.getName().contains(".bmp")) {
-			System.out.println("hi!!!" + file);
-			FileUploader fu = new FileUploader("localhost/upload");
-			String fileNameInServer = fu.upload(file.toString());
-			this.img = "http://localhost/upload/uploads/" + fileNameInServer;
+		try {
+			if (file.isFile() && file.getName().contains(".jpg") || file.getName().contains(".png") || file.getName().contains(".bmp")) {
+				System.out.println("hi!!!" + file);
+				FileUploader fu = new FileUploader("localhost/upload");
+				String fileNameInServer = fu.upload(file.toString());
+				this.img = "http://localhost/upload/uploads/" + fileNameInServer;
+			}
+		} catch (Exception e) {
+			System.out.println(e);
+			error.setText("Aucun fichier choisi");
 		}
 	}
 }

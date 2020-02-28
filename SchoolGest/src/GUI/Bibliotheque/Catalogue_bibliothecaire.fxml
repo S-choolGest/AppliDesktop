@@ -235,7 +235,7 @@
                   <DropShadow color="#d7d2d2" height="50.0" radius="24.5" width="50.0" />
                </effect>
             </Pane>
-            <Pane fx:id="page_ajout" layoutX="224.0" layoutY="36.0" prefHeight="472.0" prefWidth="657.0" style="-fx-background-color: #E8F9EA;">
+            <Pane fx:id="page_ajout" layoutX="224.0" layoutY="36.0" prefHeight="472.0" prefWidth="657.0" style="-fx-background-color: #E8F9EA;" visible="false">
                <children>
                   <Label layoutX="213.0" layoutY="-4.0" text="Ajout d'un nouveau  livre" textFill="#638ab9">
                      <font>
@@ -314,7 +314,7 @@
                         <Font size="16.0" />
                      </font>
                   </Label>
-                  <ImageView fx:id="btn_add" fitHeight="37.0" fitWidth="42.0" layoutX="266.0" layoutY="349.0" onMouseClicked="#add_image" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="imagea" fitHeight="37.0" fitWidth="42.0" layoutX="266.0" layoutY="349.0" onMouseClicked="#add_image" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@images/icons8_image_file_512px.png" />
                      </image>

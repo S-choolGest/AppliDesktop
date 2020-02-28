@@ -130,6 +130,9 @@ public class Catalogue_userController implements Initializable {
 		page_detail.setVisible(false);
 		aucun_livre.setVisible(false);
 		List<Livre> livres = ser.search(search.getText());
+		if(livres == null){
+			aucun_livre.setVisible(true);
+		}else{
 		int i = 4;
 		catalogues.getChildren().clear();
 		List<HBox> lines = new ArrayList<HBox>();
@@ -274,6 +277,7 @@ public class Catalogue_userController implements Initializable {
 		}
 		for (HBox hb : lines) {
 			catalogues.getChildren().add(hb);
+		}
 		}
 	}
 

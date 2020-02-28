@@ -30,6 +30,7 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import view.etudiant.gestionDemandeEncadrement.GestionDemandeEncadrementController;
 import view.etudiant.gestionpfe.GestionPfeController;
+import javafx.stage.StageStyle;
 
 /**
  * FXML Controller class
@@ -84,7 +85,7 @@ public class InterfaceEtudiantController implements Initializable {
 	@Override
 	public void initialize(URL url, ResourceBundle rb) {
 		// TODO
-	}	
+	}
 
 	@FXML
 	private void charger_matieres(ActionEvent event) {
@@ -102,19 +103,17 @@ public class InterfaceEtudiantController implements Initializable {
 	private void charger_absences(ActionEvent event) {
 		info_vue = false;
 		info.setVisible(info_vue);
-                FXMLLoader loader = new FXMLLoader
-                        (getClass()
-                         .getResource("../Absence/GestionAbsence.fxml"));
-            try {
-                Parent root = loader.load();
-                AddAbsence1Controller apc = loader.getController();
-                apc.getInstance(user);
-                body.getChildren().add(root);
-            }catch (IOException ex) {
-                System.out.println(ex.getMessage());
-                }
-    }
-	
+		FXMLLoader loader = new FXMLLoader(getClass()
+				.getResource("../Absence/GestionAbsence.fxml"));
+		try {
+			Parent root = loader.load();
+			AddAbsence1Controller apc = loader.getController();
+			apc.getInstance(user);
+			body.getChildren().add(root);
+		} catch (IOException ex) {
+			System.out.println(ex.getMessage());
+		}
+	}
 
 	@FXML
 	private void charger_reclamations(ActionEvent event) {
@@ -146,7 +145,7 @@ public class InterfaceEtudiantController implements Initializable {
 	}
 
 	@FXML
-	private void charger_bibliotheque(ActionEvent event) throws SQLException, IOException{
+	private void charger_bibliotheque(ActionEvent event) throws SQLException, IOException {
 		info_vue = false;
 		info.setVisible(info_vue);
 		body.getChildren().clear();
@@ -173,7 +172,8 @@ public class InterfaceEtudiantController implements Initializable {
 		info.toFront();
 		body.toBack();
 	}
-	public void getInfo(Utilisateur u){
+
+	public void getInfo(Utilisateur u) {
 		this.user = u;
 		nom.setText(u.getNom());
 		prenom.setText(u.getPrenom());
@@ -202,10 +202,12 @@ public class InterfaceEtudiantController implements Initializable {
 		Parent n = (Parent) loader.load();
 		Update_accountController del = loader.getController();
 		del.getInfos(this.user);
+		del.getStage(stage);
 		Stage stage = new Stage();
 		stage.setTitle("Edutech : Etudiant : Edit account");
 		Scene scene = new Scene(n);
 		stage.setResizable(false);
+		stage.initStyle(StageStyle.UNDECORATED);
 //        scene.setFill(javafx.scene.paint.Color.TRANSPARENT);
 		stage.setScene(scene);
 		stage.show();
@@ -214,7 +216,8 @@ public class InterfaceEtudiantController implements Initializable {
 	public void getStage(Stage stage) {
 		this.stage = stage;
 	}
-	public void close(Stage s){
+
+	public void close(Stage s) {
 		logout.setOnMouseClicked(new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent event) {

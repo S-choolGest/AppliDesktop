@@ -71,7 +71,7 @@ public class ServicesEmprunt implements IServices<Emprunt> {
 			return "livre deja emprunte !!!";
 		}
 		long nbr_livre_indispo = listE.stream().filter(e -> e.getId() == id_livre && e.getEtat().toString() != "rendu" && e.getEtat().toString() != "refus"
-				&& ((e.getDateFin().compareTo(date_debut) > 0) || (e.getDateDebut().compareTo(date_fin) < 0)))
+				&& ((e.getDateDebut().compareTo(date_debut) < 0 && (e.getDateFin().compareTo(date_debut) > 0)) || (e.getDateDebut().compareTo(date_fin) < 0 && e.getDateFin().compareTo(date_fin) > 0)))
 				.count();
 		if (l.getQuantite() - nbr_livre_indispo > 0) {
 			PreparedStatement pre = con.prepareStatement("insert INTO `edutech`.`emprunt` (`idemprunteur`, `idlivre`, `etat`, `dateEmprunt`, `datedebut`, `datefin`) VALUES (?, ?, ?, current_timestamp, ?, ?);");

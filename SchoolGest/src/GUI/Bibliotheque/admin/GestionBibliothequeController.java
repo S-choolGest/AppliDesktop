@@ -74,6 +74,8 @@ public class GestionBibliothequeController implements Initializable {
 	private AnchorPane body;
 	private Stage stage;
 	public Utilisateur user;
+	@FXML
+	private JFXButton btn_retirer;
 
 	/**
 	 * Initializes the controller class.
@@ -138,6 +140,7 @@ public class GestionBibliothequeController implements Initializable {
 				try {
 					if (ser.affecter(b)) {
 						error.setText("Affectation Réussite");
+						rechercher_bibliotheque(null);
 					} else {
 						error.setText("Aucun bibliothécaire trouvé!!!");
 					}
@@ -208,5 +211,16 @@ public class GestionBibliothequeController implements Initializable {
 	public void getInfo(Utilisateur u) throws SQLException, SQLException {
 		this.user = u;
 		refresh_view_bibliotheque("");
+	}
+
+	@FXML
+	private void retirer_affectation(ActionEvent event) throws SQLException {
+		Bibliotheque b = list_bibliotheque.getSelectionModel().getSelectedItem();
+		if (ser.desaffecter(b)) {
+			error.setText("Désaffectation Réussite");
+			rechercher_bibliotheque(null);
+		} else {
+			error.setText("veillez selectionner une bibliothèque dans la liste à gauche");
+		}
 	}
 }
