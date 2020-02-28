@@ -1,6 +1,5 @@
 package mapa;
 import java.awt.BorderLayout;
-
 import java.util.concurrent.TimeUnit;
 
 import javax.swing.JFrame;
@@ -16,10 +15,6 @@ public class Mapa extends MapView{
  * The map object
  */
 	private static Map maps;
-
-    public static LatLng getCenter() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
 
 /**
  * Editable circle options 
@@ -177,6 +172,14 @@ public class Mapa extends MapView{
 	}
 	
 
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		final Mapa example = new Mapa("test");
+		example.generateMarker(maps.getCenter());
+		
+	
+
+	}
 
 
 

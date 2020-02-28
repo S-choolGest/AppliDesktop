@@ -25,7 +25,7 @@ public class HomePage extends Application {
     public void start(Stage primaryStage) {
         try {
             Parent root = FXMLLoader
-        .load(getClass().getResource("AddEvent2.fxml"));
+        .load(getClass().getResource("User_ExtraScolaire.fxml"));
             
             Scene scene = new Scene(root);
             

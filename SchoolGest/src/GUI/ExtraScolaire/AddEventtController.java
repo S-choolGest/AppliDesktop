@@ -14,6 +14,10 @@ import javafx.event.Event;
 import Extra_Scolaire.Eventt;
 import Services.ExtraScolaire.*;
 import java.io.IOException;
+import java.sql.ResultSet;
+import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -33,7 +37,12 @@ import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 import javafx.util.Callback;
+
+import mail.MailApp;
+import javax.swing.JFrame;
 import mapa.Mapa;
 
 
@@ -85,7 +94,15 @@ public class AddEventtController implements Initializable {
     @FXML
     private TextField TextnomEventM;
     @FXML
-    private Tab ModifierEvent1;
+    private Button btn_mail;
+    @FXML
+    private ImageView imageEvents;
+    @FXML
+    private TextField tf_nom_chcercher;
+    @FXML
+    private Tab AfficherAbs1;
+    @FXML
+    private AnchorPane maps;
 
     
     
@@ -94,8 +111,8 @@ public class AddEventtController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) 
     {     addButtonToTable(); 
         //Separator separator = new Separator();
-         ObservableList<?> Time = FXCollections.observableArrayList("9:00:00", "10:00:00","11:00:00","14:00:00");
-         ObservableList<?> Time2 = FXCollections.observableArrayList("9:00:00", "10:00:00","11:00:00","14:00:00");
+         ObservableList<?> Time = FXCollections.observableArrayList("9:00:00", "10:00:00","11:00:00","13:00:00","14:00:00","15:00:00","16:00:00","17:00:00");
+         ObservableList<?> Time2 = FXCollections.observableArrayList("9:00:00", "10:00:00","11:00:00","13:00:00","14:00:00","15:00:00","16:00:00","17:00:00");
 
          IDTime.setItems((ObservableList<String>) Time);
          modiftime.setItems((ObservableList<String>) Time2);
@@ -263,7 +280,9 @@ private void addButtonToTable() {
     private void Modifier(ActionEvent event) {
          try {
         int id =  Integer.parseInt(TextIDEvent.getText());
+        System.out.print(id);
          String nomEvent = TextnomEventM.getText();
+         System.out.print(nomEvent);
             String description = TextdescriptionM.getText();
        // int Idetudiant = Integer.parseInt(TextIDEtudiantM.getText());
 
@@ -273,25 +292,41 @@ private void addButtonToTable() {
 
         //String etat =ChoiceEtat.getSelectionModel().getSelectedItem();
         String time = modiftime.getSelectionModel().getSelectedItem();
-        String DateTime = DateS +" "+time;
+        String DateTime = DateS+" "+time;
+        
         System.out.println(DateTime);
 
 
-            Eventt p = new Eventt(id, nomEvent,description, DateTime);
-        sa.update(p);
+           
+        //sa.update(p);
+                sa.update1(description,nomEvent,DateTime,id);
         
         } catch (SQLException ex) {
             System.out.println(ex);
         }
     }
 
+    
     @FXML
     private void oo(Event event) {
-        final Mapa example = new Mapa("test");
-		example.generateMarker(Mapa.getCenter());
+        // TODO Auto-generated method stub
+		final Mapa example = new Mapa("test");
+		//example.
     }
     
-   
+    
+   @FXML
+    private void envoyer_mail(ActionEvent event) {
+        FXMLLoader loader = new FXMLLoader
+                      (getClass()
+                        .getResource("AddEvent2.fxml"));
+        MailApp app = new MailApp();
+        app.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+       app.setSize(800,400);
+      app.setVisible(true);
+    }
+
+    
 }
 
 
