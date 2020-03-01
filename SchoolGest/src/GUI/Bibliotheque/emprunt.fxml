@@ -95,7 +95,7 @@
             </Label>
             <Label fx:id="month_retour" layoutX="805.0" layoutY="25.0" text="AUG" textFill="#3a1c9d" />
             <Label fx:id="year_retour" layoutX="805.0" layoutY="43.0" text="2018" textFill="#aeacac" />
-            <Label fx:id="id_emprunt" layoutX="331.0" layoutY="24.0" text="Id : 20178" textFill="#b2b0b0">
+            <Label fx:id="id_emprunt" layoutX="331.0" layoutY="24.0" text="Id : 20178" textFill="#b2b0b0" visible="false">
                <font>
                   <Font size="14.0" />
                </font>
@@ -173,7 +173,7 @@
             <Label fx:id="month_debut" layoutX="628.0" layoutY="98.0" text="AUG" textFill="#3a1c9d" />
             <Label fx:id="year_debut" layoutX="628.0" layoutY="116.0" text="2018" textFill="#aeacac" />
             <Separator layoutX="508.0" layoutY="68.0" prefHeight="4.0" prefWidth="327.0" />
-            <Label fx:id="id_livre" layoutX="415.0" layoutY="24.0" text="Id : 20178" textFill="#b2b0b0">
+            <Label fx:id="id_livre" layoutX="415.0" layoutY="24.0" text="Id : 20178" textFill="#b2b0b0" visible="false">
                <font>
                   <Font size="14.0" />
                </font>

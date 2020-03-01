@@ -14,7 +14,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<TabPane fx:id="tabGestion" prefHeight="564.0" prefWidth="830.0" style="-fx-background-color: E7EFFA;" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.ExtraScolaire.AddEventtController">
+<TabPane fx:id="tabGestion" prefHeight="564.0" prefWidth="830.0" style="-fx-background-color: E7EFFA;" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.ExtraScolaire.AddEventtController">
   <tabs>
     <Tab text="Ajouter Event">
       <content>
@@ -53,7 +53,7 @@
     </Tab>
     
     
-     <Tab fx:id="AfficherAbs" onSelectionChanged="#afficher" text="Afficher Absence">
+     <Tab fx:id="AfficherAbs" onSelectionChanged="#afficher" text="Afficher liste évènements">
       <content>
         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="361.0" prefWidth="344.0">
                <children>

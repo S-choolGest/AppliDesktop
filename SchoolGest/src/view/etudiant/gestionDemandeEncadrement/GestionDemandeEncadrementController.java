@@ -85,6 +85,7 @@ public class GestionDemandeEncadrementController implements Initializable {
             txtAcc.setVisible(true);
             txtRef.setVisible(false);
         } catch (Exception ex) {
+			System.out.println(ex);
             txtRef.setVisible(true);
             txtAcc.setVisible(false);
         }
@@ -106,7 +107,7 @@ public class GestionDemandeEncadrementController implements Initializable {
     private void initializePan(Event event) {
         try {
             PfeService pes = new PfeService();
-            ObservableList<Pfe> list= pes.getMesPfe(id);
+            ObservableList<Pfe> list= pes.readAllOb();
             selectPfe.setItems(list);
         } catch (Exception ex) {
             txtSujet.setVisible(true);

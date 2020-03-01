@@ -217,7 +217,7 @@ public class GestionPfeController implements Initializable {
             colSujet.setCellValueFactory(c-> new SimpleStringProperty(c.getValue().getSujet()));
             /*colNomEtudiant.setCellValueFactory(c-> new SimpleStringProperty(c.getValue().getNom_etudiant())); */ 
             PfeService ps = new PfeService();
-            ObservableList<Pfe> list = ps.getMesPfe(userId);
+            ObservableList<Pfe> list = ps.readAllOb();
             System.out.println(list);
             tablePfe.setItems(list);
         } catch (SQLException ex) {

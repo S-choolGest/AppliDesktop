@@ -12,6 +12,8 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
@@ -26,12 +28,14 @@
                   <Label layoutX="30.0" layoutY="183.0" text="DateAbsence" />
                   <ChoiceBox fx:id="IDTime" layoutX="207.0" layoutY="237.0" prefHeight="31.0" prefWidth="220.0" />
                   <Label layoutX="37.0" layoutY="242.0" text="TempsAbsence" />
-                  <Button fx:id="ValidBTN" layoutX="38.0" layoutY="312.0" mnemonicParsing="false" onAction="#Ajouter" text="Valider" />
+                  <Button fx:id="ValidBTN" layoutX="38.0" layoutY="312.0" mnemonicParsing="false" onAction="#Ajouter" style="-fx-background-color: red;" text="Valider" textFill="#fcfcfc" />
                   <DatePicker fx:id="DateAbs" layoutX="207.0" layoutY="178.0" />
                   <ChoiceBox fx:id="TextMatiere" layoutX="206.0" layoutY="70.0" prefHeight="31.0" prefWidth="219.0" />
                   <Label layoutX="54.0" layoutY="23.0" text="classe" />
                   <ChoiceBox fx:id="classeName" layoutX="207.0" layoutY="18.0" prefHeight="31.0" prefWidth="219.0" />
                   <ChoiceBox fx:id="TextEtudiant" layoutX="207.0" layoutY="125.0" prefHeight="31.0" prefWidth="216.0" />
+                  <Label fx:id="AjoutVerif" layoutX="211.0" layoutY="317.0" text="Veuillez remplir tout les champs" textFill="#c91010" visible="false" />
+                  <Label fx:id="ajoutVerifAccomp" layoutX="264.0" layoutY="364.0" text="Ajout accompli" textFill="#0c5e1e" visible="false" />
                </children></AnchorPane>
       </content>
     </Tab>
@@ -41,7 +45,7 @@
                <children>
                   <TableView fx:id="Table" layoutX="15.0" layoutY="64.0" prefHeight="397.0" prefWidth="968.0">
                     <columns>
-                        <TableColumn fx:id="IDColumn" prefWidth="75.0" text="id" />
+                        <TableColumn fx:id="IDColumn" prefWidth="75.0" text="id" visible="false" />
                       <TableColumn fx:id="ColumnMatiere" prefWidth="234.0" text="Matiére" />
                         <TableColumn fx:id="ColumnDate" prefWidth="181.0" text="Date Absence" />
                         <TableColumn fx:id="ColumnEtat" minWidth="0.0" prefWidth="127.0" text="Etat" />
@@ -49,9 +53,8 @@
                     </columns>
                      
                   </TableView>
-                  <Button fx:id="Rafraichir" layoutX="434.0" layoutY="470.0" mnemonicParsing="false" onAction="#Rafraichir" text="Rafraichir" />
                   <TextField fx:id="RechercheEtudiantAbs" layoutX="728.0" layoutY="14.0" onAction="#RechercheEtudiantAbs" />
-                  <Label layoutX="606.0" layoutY="19.0" text="CIN Etudiant" />
+                  <Label fx:id="cinetudiant" layoutX="606.0" layoutY="19.0" text="CIN Etudiant" />
                </children></AnchorPane>
       </content>
     </Tab>
@@ -63,7 +66,8 @@
                   <TextField fx:id="TextIDEtudiantM" layoutX="183.0" layoutY="50.0" prefHeight="31.0" prefWidth="218.0" />
                   <ChoiceBox fx:id="ChoiceEtat" layoutX="182.0" layoutY="125.0" prefHeight="31.0" prefWidth="220.0" />
                   <Label layoutX="58.0" layoutY="130.0" text="Etat" />
-                  <Button fx:id="BTNModifier" layoutX="60.0" layoutY="211.0" mnemonicParsing="false" onAction="#modifier" text="Valider" />
+                  <Button fx:id="BTNModifier" layoutX="60.0" layoutY="211.0" mnemonicParsing="false" onAction="#modifier" style="-fx-background-color: red;" text="Valider" textFill="#f5f5f5" />
+                  <Label fx:id="ChampsModif" layoutX="257.0" layoutY="216.0" text="Veuillez remplir les champs" textFill="#f20c0c" visible="false" />
                </children>
             </AnchorPane>
         </content>
@@ -85,6 +89,11 @@
                   </BarChart>
                   <ChoiceBox fx:id="ChoiceJourS" layoutX="190.0" layoutY="14.0" prefHeight="31.0" prefWidth="173.0" />
                   <Label layoutX="46.0" layoutY="19.0" text="Jour de la semaine" />
+                  <ImageView fx:id="btn_refresh" fitHeight="35.0" fitWidth="34.0" layoutX="418.0" layoutY="12.0" onMouseClicked="#showStat" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../image/icons8_refresh_52px_1.png" />
+                     </image>
+                  </ImageView>
                </children>
             </AnchorPane>
         </content>

@@ -148,7 +148,7 @@
                   </ImageView>
                </graphic>
             </JFXButton>
-            <JFXButton id="button" fx:id="evenements" layoutY="481.0" onAction="#charger_evenements" prefHeight="51.0" prefWidth="209.0" ripplerFill="#4c93d7" stylesheets="@../InterfaceAdmin/cssMenu.css" text="Evènements" textFill="WHITE">
+            <JFXButton id="button" fx:id="evenements" layoutY="520.0" onAction="#charger_evenements" prefHeight="51.0" prefWidth="209.0" ripplerFill="#4c93d7" stylesheets="@../InterfaceAdmin/cssMenu.css" text="Evènements" textFill="WHITE">
                <font>
                   <Font size="18.0" />
                </font>
@@ -160,7 +160,7 @@
                   </ImageView>
                </graphic>
             </JFXButton>
-            <JFXButton id="button" fx:id="bibliotheque" layoutY="420.0" onAction="#charger_bibliotheque" prefHeight="51.0" prefWidth="209.0" ripplerFill="#4c93d7" stylesheets="@../InterfaceAdmin/cssMenu.css" text="Bibliothèques" textFill="WHITE">
+            <JFXButton id="button" fx:id="bibliotheque" layoutY="457.0" onAction="#charger_bibliotheque" prefHeight="51.0" prefWidth="209.0" ripplerFill="#4c93d7" stylesheets="@../InterfaceAdmin/cssMenu.css" text="Bibliothèques" textFill="WHITE">
                <font>
                   <Font size="18.0" />
                </font>
@@ -180,6 +180,18 @@
                   <ImageView fitHeight="28.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../image/icons8_scorecard_80px.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </JFXButton>
+            <JFXButton id="button" fx:id="pfe" layoutY="410.0" onAction="#charger_pfe" prefHeight="51.0" prefWidth="209.0" ripplerFill="#4c93d7" stylesheets="@../InterfaceAdmin/cssMenu.css" text="PFE" textFill="WHITE">
+               <font>
+                  <Font size="18.0" />
+               </font>
+               <graphic>
+                  <ImageView fitHeight="28.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../image/icons8_certificate_96px.png" />
                      </image>
                   </ImageView>
                </graphic>

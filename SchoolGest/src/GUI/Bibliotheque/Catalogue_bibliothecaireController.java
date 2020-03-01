@@ -324,13 +324,14 @@ public class Catalogue_bibliothecaireController implements Initializable {
 					refresh_detail_livre(l, 2);
 					page_detail.setVisible(true);
 					page_edit.setVisible(false);
+					error.setText("Modification réussite");
 				} else {
 					error.setText("Impossible de modifer le livre " + l.getId());
 				}
 			}
 		} catch (Exception e) {
 			System.out.println(e);
-			error.setText("Vérifier vos données !!!(quantite, bibliotheque id et pages doivent être des nombres)");
+//			error.setText("Vérifier vos données !!!(quantite, bibliotheque id et pages doivent être des nombres)");
 		}
 	}
 

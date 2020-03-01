@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import rest.file.uploader.tn.FileUploader;
@@ -39,7 +40,7 @@ public class ServicesUtilisateur implements IServicesUtilisateur<Utilisateur> {
 
 	@Override
 	public String ajouter(Utilisateur t) throws SQLException {
-		if (search(t.getId()) == null) {
+		//if (search(t.getId()) == null) {
 			PreparedStatement pre = con.prepareStatement("insert INTO `edutech`.`utilisateur` (`nom`, `prenom`, `email`, `password`, `cin`, `numTel`, `datenaissance`, `adresse`, `type`, `profil`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?);");
 			pre.setString(1, t.getNom());
 			pre.setString(2, t.getPrenom());
@@ -53,9 +54,9 @@ public class ServicesUtilisateur implements IServicesUtilisateur<Utilisateur> {
 			pre.setString(10, t.getProfil());
 			pre.executeUpdate();
 			return "ajout reussie";
-		}
-		System.out.println("Bibliothecaire existant !!!");
-		return "Bibliothecaire existant !!!";
+//		}
+//		System.out.println("Bibliothecaire existant !!!");
+//		return "Bibliothecaire existant !!!";
 	}
 
 	@Override
@@ -102,14 +103,46 @@ public class ServicesUtilisateur implements IServicesUtilisateur<Utilisateur> {
 
 	@Override
 	public List<Utilisateur> readAll() throws SQLException {
-		throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+		List<Utilisateur> listB = new ArrayList<>();
+		ste = con.createStatement();
+		ResultSet rs = ste.executeQuery("select id, nom, prenom, email, password, cin, numtel, datenaissance, adresse, type, profil from utilisateur");
+		while (rs.next()) {
+			int id = rs.getInt(1);
+			String nom = rs.getString(2);
+			String prenom = rs.getString(3);
+			String email = rs.getString(4);
+			String password = rs.getString(5);
+			String cin = rs.getString(6);
+			int numtel = rs.getInt(7);
+			String datenaissance = rs.getString(8);
+			String adresse = rs.getString(9);
+			int type = rs.getInt(10);
+			String profil = rs.getString(11);
+			Utilisateur b = new Utilisateur(id, nom, prenom, email, password, cin, numtel, datenaissance, adresse, type, profil);
+			listB.add(b);
+		}
+		return listB;
 	}
 
 	@Override
 	public List<Utilisateur> search(String t) throws SQLException {
-		throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+		List<Utilisateur> utilisateurs = new ArrayList<>();
+		utilisateurs = readAll();
+		List<Utilisateur> bib = utilisateurs.stream()
+				.filter(a -> (a.getAdresse() != null && a.getDateNaissance() != null && (a.getCin().contains(t) || a.getNom().contains(t) || a.getPrenom().contains(t) || a.getEmail().contains(t) || String.valueOf(a.getNumTel()).startsWith(t) || a.getDateNaissance().contains(t) || a.getAdresse().contains(t)))
+				||
+						(a.getAdresse() == null && a.getDateNaissance() == null && (a.getCin().contains(t) || a.getNom().contains(t) || a.getPrenom().contains(t) || a.getEmail().contains(t) || String.valueOf(a.getNumTel()).startsWith(t))))
+				.collect(Collectors.toList());
+		return bib;
 	}
-
+	
+	public Utilisateur searchByCIN(String cin) throws SQLException {
+		List<Utilisateur> listE = new ArrayList<>();
+		listE = readAll();
+		Utilisateur result = listE.stream().filter(a -> a.getCin().equals(cin)).findAny().orElse(null);
+		return result;
+	}
+	
 	@Override
 	public Utilisateur search(int id) throws SQLException {
 		PreparedStatement pre = con.prepareStatement("select id, nom, prenom, email, password, cin, numtel, datenaissance, adresse, type, profil from utilisateur where id = ?");

@@ -35,7 +35,7 @@
                   <Font size="14.0" />
                </font>
             </Label>
-            <Label layoutX="249.0" layoutY="72.0" text="Livre Id" textFill="#aeacac">
+            <Label layoutX="249.0" layoutY="72.0" text="Livre Id" textFill="#aeacac" visible="false">
                <font>
                   <Font size="14.0" />
                </font>
@@ -95,7 +95,7 @@
             </Label>
             <Label fx:id="month_retour" layoutX="805.0" layoutY="24.0" text="AUG" textFill="#3a1c9d" />
             <Label fx:id="year_retour" layoutX="805.0" layoutY="42.0" text="2018" textFill="#aeacac" />
-            <Label fx:id="id_emprunt" layoutX="242.0" layoutY="52.0" text="Id : 20178" textFill="#b2b0b0">
+            <Label fx:id="id_emprunt" layoutX="242.0" layoutY="52.0" text="Id : 20178" textFill="#b2b0b0" visible="false">
                <font>
                   <Font size="14.0" />
                </font>

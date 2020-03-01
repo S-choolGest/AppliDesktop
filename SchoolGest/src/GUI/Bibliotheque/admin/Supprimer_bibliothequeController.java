@@ -60,7 +60,7 @@ public class Supprimer_bibliothequeController implements Initializable {
 			int id = ser.searchByAdresse(adresse.getText()).getId();
 			if (ser.delete(id)) {
 				error.setText("Suppression reussite !!!");
-				this.g_bib.rechercher_bibliotheque(null);
+				//this.g_bib.rechercher_bibliotheque(null);
 			} else {
 				error.setText("Echec de suppression !!!");
 			}

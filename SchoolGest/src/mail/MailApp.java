@@ -86,8 +86,8 @@ public class MailApp extends JFrame
                 String subject = sub_text.getText();
                 String message =  msg_text.getText();
                 
-                String user = "aziz.jawedi@esprit.tn";
-                String pass = "171JMT1114";
+                String user = "rayen.goucha@esprit.tn";
+                String pass = "Rayengoucha97!";
 
                 SendMail.send(to,subject, message, user, pass);
             }           
