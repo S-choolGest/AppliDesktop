@@ -117,12 +117,12 @@
                                                 <Font name="System Bold" size="12.0" />
                                              </font>
                                           </Button>
-                                          <Label fx:id="ajoutModuleLabel" layoutX="649.0" layoutY="74.0" textAlignment="CENTER" textFill="RED">
+                                          <Label fx:id="ajoutModuleLabel" layoutX="649.0" layoutY="74.0" textAlignment="CENTER" textFill="GREEN">
                                              <font>
                                                 <Font name="System Bold" size="12.0" />
                                              </font>
                                           </Label>
-                                          <Label fx:id="affecterModuleLabel" layoutX="620.0" layoutY="450.0" textFill="RED">
+                                          <Label fx:id="affecterModuleLabel" layoutX="620.0" layoutY="450.0" textFill="GREEN">
                                              <font>
                                                 <Font name="System Bold" size="12.0" />
                                              </font>
@@ -175,7 +175,7 @@
                               <content>
                                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                        <children>
-                                          <TextField fx:id="ajoutMatiereField" layoutX="542.0" layoutY="90.0" />
+                                          <TextField fx:id="ajoutMatiereField" layoutX="243.0" layoutY="90.0" />
                                           <Label layoutX="69.0" layoutY="89.0" text="Nom du matière :">
                                              <font>
                                                 <Font name="System Bold" size="18.0" />
@@ -186,13 +186,16 @@
                                                 <Font name="System Bold" size="12.0" />
                                              </font>
                                           </Button>
-                                          <TextField fx:id="ajoutcoefMatiereField" layoutX="235.0" layoutY="90.0" />
+                                          <TextField fx:id="ajoutcoefMatiereField" layoutX="552.0" layoutY="90.0" />
                                           <Label layoutX="427.0" layoutY="89.0" text="Coefficient :">
                                              <font>
                                                 <Font name="System Bold" size="18.0" />
                                              </font>
                                           </Label>
-                                          <Label fx:id="ajoutMatiereLabel" layoutX="843.0" layoutY="94.0" prefHeight="17.0" prefWidth="82.0" />
+                                          <Label fx:id="ajoutMatiereLabel" layoutX="843.0" layoutY="94.0" textFill="GREEN">
+                                             <font>
+                                                <Font name="System Bold" size="12.0" />
+                                             </font></Label>
                                           <Label layoutX="25.0" layoutY="28.0" prefHeight="27.0" prefWidth="990.0" text="                                                                   GESTION DES MATIERES                                                                                      " textAlignment="RIGHT" underline="true">
                                              <font>
                                                 <Font name="System Bold" size="18.0" />
