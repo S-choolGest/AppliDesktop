@@ -30,7 +30,7 @@
           </Tab>
         </tabs>
       </TabPane>
-      <Button layoutX="14.0" layoutY="438.0" mnemonicParsing="false" stylesheets="@../image/cssMenu.css" text="&lt;Back">
+      <Button layoutX="14.0" layoutY="438.0" mnemonicParsing="false" onAction="#Back" stylesheets="@../image/cssMenu.css" text="&lt;Back">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>

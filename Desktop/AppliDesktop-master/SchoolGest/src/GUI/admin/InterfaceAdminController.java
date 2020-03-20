@@ -98,7 +98,7 @@ public class InterfaceAdminController implements Initializable {
 	private void charger_matieres(ActionEvent event) throws IOException {
 		 body.getChildren().clear();
 		FXMLLoader loader = new FXMLLoader();
-		loader.setLocation(getClass().getResource("../Education/adminMatiere.fxml"));
+		loader.setLocation(getClass().getResource("../Education/admineMatiere.fxml"));
 		Parent n = (Parent) loader.load();
 		FXMLController emp = loader.getController();
 		body.getChildren().add(n);
@@ -111,20 +111,14 @@ public class InterfaceAdminController implements Initializable {
 	}
 
 	@FXML
-	private void charger_absences(ActionEvent event) {
-		info_vue = false;
-		info.setVisible(info_vue);
-                FXMLLoader loader = new FXMLLoader
-                        (getClass()
-                         .getResource("../Absence/GestionAbsence.fxml"));
-            try {
-                Parent root = loader.load();
-                AddAbsence1Controller apc = loader.getController();
-                apc.getInstance(user);
-                body.getChildren().add(root);
-            }catch (IOException ex) {
-                System.out.println(ex.getMessage());
-                }
+	private void charger_absences(ActionEvent event) throws IOException {
+		 body.getChildren().clear();
+		FXMLLoader loader = new FXMLLoader();
+		loader.setLocation(getClass().getResource("../Absence/GestionAbsence.fxml"));
+		Parent n = (Parent) loader.load();
+		GUI.Absence.AddAbsence1Controller emp = loader.getController();
+		body.getChildren().add(n);
+                
 	}
 
 	@FXML

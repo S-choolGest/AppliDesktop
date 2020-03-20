@@ -396,7 +396,7 @@ public class FXMLController implements Initializable {
 
     @FXML
     public void affecterMatiereAuModule() throws SQLException {
-        String selectedModule = (String) comboModule.getSelectionModel().getSelectedItem();
+        String selectedModule =  comboModule.getSelectionModel().getSelectedItem().toString();
 
         ResultSet rs;
         String req = "select idModule from module where nomModule='" + selectedModule + "'";
@@ -416,15 +416,14 @@ public class FXMLController implements Initializable {
 
         pst.executeUpdate();
         (new ServiceModule()).calculCoefModule();
-        Parent root;
-
-        try {
-            root = FXMLLoader.load(getClass().getResource("../coursInterfaces/template.fxml"));
-            affecterMatiereAuModule.getScene().setRoot(root);
-
-        } catch (IOException ex) {
-            Logger.getLogger(FXMLController.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        tableModule.getItems().clear();
+                                            tableModule.getItems().setAll(new ServiceModule().getAllModule());
+                                            comboModule.getItems().clear();
+                                            comboModule.getItems().setAll(new ServiceModule().getAllModule());
+                                            comboMatiere.getItems().clear();
+                                            comboModule.getItems().setAll(new ServiceMatiere().getAllMatiere());
+                                            comboModuleSpecialite.getItems().clear();
+                                            comboModuleSpecialite.getItems().setAll(new ServiceModule().getAllModule());
 
     }
 
