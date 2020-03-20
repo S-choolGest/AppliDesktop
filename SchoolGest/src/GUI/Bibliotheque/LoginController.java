@@ -207,17 +207,17 @@ public class LoginController implements Initializable {
 
 	@FXML
 	private void deplacer_window(MouseEvent event) {
-		this.stage.setX(event.getScreenX() - sx);
-		this.stage.setY(event.getScreenY() - sy);
+		this.stage.setX(event.getScreenX() - sx - stagex);
+		this.stage.setY(event.getScreenY() - sy - stagey);
 		this.stage.setOpacity(0.9);
 	}
 
 	@FXML
 	private void recuperer_position(MouseEvent event) {
-		sx = event.getScreenX() - event.getSceneX();
-		sy = event.getScreenY() - event.getSceneY();
-		stagex = event.getSceneX();
-		stagey = event.getSceneY();
+		sx = event.getScreenX() - this.stage.getX();
+		sy = event.getScreenY() - this.stage.getY();
+		stagex = event.getX();
+		stagey = event.getY();
 		System.out.println("posx = " + event.getX());
 		System.out.println("posy = " + event.getY());
 	}

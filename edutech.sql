@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Client :  127.0.0.1
--- Généré le :  Sam 22 Février 2020 à 10:23
+-- Généré le :  Ven 20 Mars 2020 à 16:37
 -- Version du serveur :  5.7.14
 -- Version de PHP :  7.0.10
 
@@ -27,12 +27,19 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `absence` (
-  `idAbsence` int(11) NOT NULL,
-  `idMatiere` int(11) NOT NULL,
-  `dateAbs` date NOT NULL,
-  `id_etudiant` int(11) NOT NULL,
-  `etatAbs` enum('abs_jstf','abs_non_jstf') NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  `id` int(11) NOT NULL,
+  `matiere` varchar(20) NOT NULL,
+  `etat` varchar(20) NOT NULL,
+  `date` timestamp NOT NULL,
+  `idEtudiant` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Contenu de la table `absence`
+--
+
+INSERT INTO `absence` (`id`, `matiere`, `etat`, `date`, `idEtudiant`) VALUES
+(5, 'maths', 'justifié', '2020-02-05 12:30:00', 5);
 
 -- --------------------------------------------------------
 
@@ -51,11 +58,16 @@ CREATE TABLE `attestation` (
 --
 
 CREATE TABLE `bibliothecaire` (
-  `id` int(11) NOT NULL,
-  `id_bibliotheque` int(11) DEFAULT NULL,
-  `heure_debut` time DEFAULT NULL,
-  `heure_arret` time DEFAULT NULL
+  `id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Contenu de la table `bibliothecaire`
+--
+
+INSERT INTO `bibliothecaire` (`id`) VALUES
+(2),
+(13);
 
 -- --------------------------------------------------------
 
@@ -66,15 +78,22 @@ CREATE TABLE `bibliothecaire` (
 CREATE TABLE `bibliotheque` (
   `id` int(11) NOT NULL,
   `nom` varchar(255) NOT NULL,
-  `capacite` int(11) NOT NULL
+  `capacite` int(11) NOT NULL,
+  `adresse` varchar(255) NOT NULL,
+  `id_bibliothecaire` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Contenu de la table `bibliotheque`
 --
 
-INSERT INTO `bibliotheque` (`id`, `nom`, `capacite`) VALUES
-(1, 'biblio_1', 1200);
+INSERT INTO `bibliotheque` (`id`, `nom`, `capacite`, `adresse`, `id_bibliothecaire`) VALUES
+(1, 'biblio_1', 1200, 'sfax', NULL),
+(2, 'biblio2', 132, 'Tunis', NULL),
+(3, 'biblio3', 132, 'sousse', NULL),
+(4, 'biblio4', 200, 'Bizerte', 13),
+(8, 'biblio5', 132, 'Ariana', 2),
+(11, 'nom', 2, 'adresse', NULL);
 
 -- --------------------------------------------------------
 
@@ -84,8 +103,16 @@ INSERT INTO `bibliotheque` (`id`, `nom`, `capacite`) VALUES
 
 CREATE TABLE `classe` (
   `idClasse` int(11) NOT NULL,
-  `numClasse` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  `nomClasse` varchar(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Contenu de la table `classe`
+--
+
+INSERT INTO `classe` (`idClasse`, `nomClasse`) VALUES
+(1, '3a11'),
+(2, '3a12');
 
 -- --------------------------------------------------------
 
@@ -96,8 +123,15 @@ CREATE TABLE `classe` (
 CREATE TABLE `club` (
   `idClub` int(11) NOT NULL,
   `nomClub` varchar(255) NOT NULL,
-  `categorieClub` enum('entreuprenariat','sport','social') NOT NULL
+  `categorieClub` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Contenu de la table `club`
+--
+
+INSERT INTO `club` (`idClub`, `nomClub`, `categorieClub`) VALUES
+(1, 'yujik', 'yujik');
 
 -- --------------------------------------------------------
 
@@ -134,22 +168,21 @@ CREATE TABLE `emprunt` (
   `etat` blob NOT NULL,
   `dateEmprunt` date NOT NULL,
   `dateConfirmation` date DEFAULT NULL,
-  `dateRendu` date DEFAULT NULL
+  `dateRendu` date DEFAULT NULL,
+  `datedebut` date NOT NULL,
+  `datefin` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Contenu de la table `emprunt`
 --
 
-INSERT INTO `emprunt` (`id`, `idEmprunteur`, `idLivre`, `etat`, `dateEmprunt`, `dateConfirmation`, `dateRendu`) VALUES
-(11, 1, 11, 0x72656e6475, '2020-02-19', '2020-02-20', '2020-02-20'),
-(12, 1, 12, 0x7265667573, '2020-02-19', '2020-02-20', NULL),
-(14, 1, 13, 0x72656e6475, '2020-02-20', '2020-02-21', '2020-02-21'),
-(15, 2, 11, 0x7265667573, '2020-02-21', '2020-02-21', NULL),
-(16, 2, 12, 0x7265667573, '2020-02-21', '2020-02-21', NULL),
-(17, 2, 13, 0x7265667573, '2020-02-21', '2020-02-21', NULL),
-(21, 3, 11, 0x617474656e7465, '2020-02-21', NULL, NULL),
-(22, 3, 13, 0x617474656e7465, '2020-02-21', NULL, NULL);
+INSERT INTO `emprunt` (`id`, `idEmprunteur`, `idLivre`, `etat`, `dateEmprunt`, `dateConfirmation`, `dateRendu`, `datedebut`, `datefin`) VALUES
+(34, 3, 23, 0x7265667573, '2020-02-28', '2020-02-28', NULL, '2020-02-04', '2020-02-14'),
+(35, 3, 24, 0x617474656e7465, '2020-02-28', NULL, NULL, '2020-02-04', '2020-02-14'),
+(40, 14, 23, 0x617474656e7465, '2020-02-28', NULL, NULL, '2020-01-31', '2020-02-01'),
+(41, 3, 25, 0x617474656e7465, '2020-02-28', NULL, NULL, '2020-01-28', '2020-01-29'),
+(42, 14, 24, 0x617474656e7465, '2020-02-28', NULL, NULL, '2020-01-30', '2020-03-07');
 
 -- --------------------------------------------------------
 
@@ -160,8 +193,16 @@ INSERT INTO `emprunt` (`id`, `idEmprunteur`, `idLivre`, `etat`, `dateEmprunt`, `
 CREATE TABLE `encadrement` (
   `id` int(11) NOT NULL,
   `id_pfe` int(11) NOT NULL,
+  `id_prof` int(11) NOT NULL,
   `etat` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Contenu de la table `encadrement`
+--
+
+INSERT INTO `encadrement` (`id`, `id_pfe`, `id_prof`, `etat`) VALUES
+(1, 1, 19, 'acceptee');
 
 -- --------------------------------------------------------
 
@@ -171,31 +212,36 @@ CREATE TABLE `encadrement` (
 
 CREATE TABLE `etudiant` (
   `id` int(11) NOT NULL,
-  `niveauE` enum('premiere','deuxieme','troisieme','quatreieme','cinquieme') NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  `idclasse` int(11) NOT NULL,
+  `cin_p` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Contenu de la table `etudiant`
 --
 
-INSERT INTO `etudiant` (`id`, `niveauE`) VALUES
-(1, 'premiere'),
-(2, 'troisieme');
+INSERT INTO `etudiant` (`id`, `idclasse`, `cin_p`) VALUES
+(3, 1, 456);
 
 -- --------------------------------------------------------
 
 --
--- Structure de la table `events`
+-- Structure de la table `event`
 --
 
-CREATE TABLE `events` (
+CREATE TABLE `event` (
   `idEvent` int(11) NOT NULL,
   `nomEvent` varchar(255) NOT NULL,
   `description` varchar(255) NOT NULL,
-  `typeEvent` enum('conference','workshop','forum','competition') NOT NULL,
-  `dateEvent` date NOT NULL,
-  `idEmprunt` int(11) NOT NULL
+  `timestamp` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Contenu de la table `event`
+--
+
+INSERT INTO `event` (`idEvent`, `nomEvent`, `description`, `timestamp`) VALUES
+(1, 'rtyui', 'tyzazae', '2020-02-12 09:00:00');
 
 -- --------------------------------------------------------
 
@@ -234,11 +280,12 @@ CREATE TABLE `livre` (
 --
 
 INSERT INTO `livre` (`id`, `id_bibliotheque`, `titre`, `auteur`, `editeur`, `categorie`, `dateSortie`, `taille`, `quantite`, `img`, `dateajout`) VALUES
-(11, 2, 'koo', 'ccc2', 'bbb2', 'ddd2', '2020-01-02', 504, 300, 'http://localhost/mobile/book.jpg', '2020-02-13'),
-(12, 1, 'titre1', 'auteur1', 'editeur1', 'categorie1', '2020-02-18', 200, 30, 'http://localhost/mobile/book.jpg', '2020-02-12'),
-(13, 1, 'titre2', 'auteur2', 'editeur2', 'categorie2', '2020-02-05', 100, 2, 'http://localhost/mobile/book.jpg', '2020-02-11'),
-(14, 1, 'titre3', 'auteur3', 'editeur3', 'categorie3', '2020-01-29', 300, 12, 'http://localhost/mobile/book.jpg', '2020-02-18'),
-(15, 1, 'titt', 'auza', 'aezr', 'ae', '2020-02-11', 123, 12, 'http://localhost/mobile/book.jpg', '2020-02-22');
+(22, 4, 'rayen', 'rayen', 'goucha', 'blague', '2020-02-06', 201, 1, 'http://localhost/upload/uploads/f_5e587123a0ef7.jpg', '2020-02-28'),
+(23, 4, 'king', 'king', 'king', 'king', '2020-02-11', 100, 12, 'http://localhost/upload/uploads/f_5e5858932b4e8.png', '2020-02-28'),
+(24, 4, 'kingarthh', 'kingarthh', 'kingarthh', 'kingarthh', '2020-03-06', 100, 12, 'http://localhost/upload/uploads/f_5e5858b28f38f.png', '2020-02-28'),
+(25, 4, 'musso', 'musso', 'musso', 'musso', '2020-04-11', 100, 12, 'http://localhost/upload/uploads/f_5e5858db0f322.jpg', '2020-02-28'),
+(26, 8, 'titre1rayen', 'auteur1', 'editeur1', 'categorie1', '2020-02-04', 200, 1, 'http://localhost/upload/uploads/f_5e58de7894ed8.jpg', '2020-02-28'),
+(27, 8, 'livrevalidation', 'auteurvalidation', 'validation', 'categorie1', '2020-02-05', 0, -1, 'http://localhost/upload/uploads/f_5e58ea5a699c0.jpg', '2020-02-28');
 
 -- --------------------------------------------------------
 
@@ -247,10 +294,17 @@ INSERT INTO `livre` (`id`, `id_bibliotheque`, `titre`, `auteur`, `editeur`, `cat
 --
 
 CREATE TABLE `matiere` (
-  `idMatiere` int(11) NOT NULL,
-  `nomMatiere` varchar(255) NOT NULL,
-  `coefMatiere` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  `idmatiere` int(11) NOT NULL,
+  `nomMatiere` varchar(30) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Contenu de la table `matiere`
+--
+
+INSERT INTO `matiere` (`idmatiere`, `nomMatiere`) VALUES
+(1, 'maths'),
+(2, 'français');
 
 -- --------------------------------------------------------
 
@@ -306,6 +360,13 @@ CREATE TABLE `pfe` (
   `titre` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Contenu de la table `pfe`
+--
+
+INSERT INTO `pfe` (`id`, `id_etudiant`, `sujet`, `titre`) VALUES
+(1, 3, 'sujet pfe', 'pfe');
+
 -- --------------------------------------------------------
 
 --
@@ -315,6 +376,13 @@ CREATE TABLE `pfe` (
 CREATE TABLE `professeur` (
   `id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Contenu de la table `professeur`
+--
+
+INSERT INTO `professeur` (`id`) VALUES
+(19);
 
 -- --------------------------------------------------------
 
@@ -391,7 +459,7 @@ CREATE TABLE `utilisateur` (
   `numTel` int(11) NOT NULL,
   `datenaissance` date DEFAULT NULL,
   `adresse` varchar(255) DEFAULT NULL,
-  `type` int(11) NOT NULL DEFAULT '0' COMMENT '0 : etudiant, 1 : professeur, 2 :scolarite, 3: admin, 4 : parent',
+  `type` int(11) NOT NULL DEFAULT '0' COMMENT '0 : etudiant, 1 : professeur, 2 :scolarite, 3: admin, 4 : parent, 5 : bibliothecaire',
   `profil` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -400,9 +468,15 @@ CREATE TABLE `utilisateur` (
 --
 
 INSERT INTO `utilisateur` (`id`, `nom`, `prenom`, `email`, `password`, `cin`, `numTel`, `datenaissance`, `adresse`, `type`, `profil`) VALUES
-(1, 'arthur', 'william', 'admin@gmail.com', 'admin', '532132', 55555555, NULL, NULL, 3, NULL),
-(2, 'biblio', 'thecaire', 'biblio@gmail.com', '123', 'zea654e6za5', 45656454, '2020-02-02', 'ariana', 5, NULL),
-(3, 'arthur', 'william', 'william@gmail.com', 'william', 'cze45zae', 4654654, '2020-02-04', 'bizerte', 0, NULL);
+(1, 'arthur', 'william', 'admin@gmail.com', 'admin', '532132', 55555555, '1981-02-10', 'tunis', 3, 'http://localhost/upload/uploads/f_5e59128538540.png'),
+(2, 'biblio', 'thecaire', 'biblio@gmail.com', '123', 'zea654e6za5', 45656454, '2020-02-02', 'ariana', 5, 'http://localhost/upload/uploads/icons8_user_male_200px.png'),
+(3, 'arthur', 'william', 'william@gmail.com', 'william', 'cze45zae', 4654654, '2020-02-04', 'bizerte', 0, 'http://localhost/upload/uploads/icons8_user_male_200px.png'),
+(5, 'arthur', 'william', 'a', 'az', '5321', 55349497, '2020-02-05', 'tunis', 5, 'http://localhost/upload/uploads/icons8_user_male_200px.png'),
+(13, 'aazza', 'ezrzze', 'b', 'b', 'aze', 45645645, '2020-02-02', 'zez', 5, 'http://localhost/upload/uploads/icons8_user_male_200px.png'),
+(14, 'aza', 'eza', 'ac', 'ac', '456', 56455665, '2020-02-14', 'az', 0, 'http://localhost/upload/uploads/icons8_user_male_200px.png'),
+(16, 'mehdi', 'mehdi', 'mehdi@gmail.com', '111', '111', 45612345, '2020-02-05', 'tunis', 4, 'https://localhost/upload/uploads/icons8_user_male_200px.png'),
+(18, 'mehdi', 'mehdi', 'mehdai@gmail.com', '111zae', '111zae', 45612345, '2020-02-05', 'tunis', 4, 'https://localhost/upload/uploads/icons8_user_male_200px.png'),
+(19, 'prof', 'prof', 'prof@gmail.com', 'a', 'cacaca', 45645665, '2020-02-12', 'tunis', 1, 'http://localhost/upload/uploads/icons8_user_male_200px.png');
 
 --
 -- Index pour les tables exportées
@@ -412,7 +486,8 @@ INSERT INTO `utilisateur` (`id`, `nom`, `prenom`, `email`, `password`, `cin`, `n
 -- Index pour la table `absence`
 --
 ALTER TABLE `absence`
-  ADD PRIMARY KEY (`idAbsence`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `fk_absence_idetudiant` (`idEtudiant`);
 
 --
 -- Index pour la table `attestation`
@@ -430,13 +505,9 @@ ALTER TABLE `bibliothecaire`
 -- Index pour la table `bibliotheque`
 --
 ALTER TABLE `bibliotheque`
-  ADD PRIMARY KEY (`id`);
-
---
--- Index pour la table `classe`
---
-ALTER TABLE `classe`
-  ADD PRIMARY KEY (`idClasse`);
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `adresse` (`adresse`),
+  ADD UNIQUE KEY `unique_id_bibliothecaire` (`id_bibliothecaire`);
 
 --
 -- Index pour la table `club`
@@ -469,7 +540,8 @@ ALTER TABLE `emprunt`
 --
 ALTER TABLE `encadrement`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `fk_pfe_encardrement` (`id_pfe`);
+  ADD KEY `fk_pfe_encardrement` (`id_pfe`),
+  ADD KEY `encadrement_ibfk_1` (`id_prof`);
 
 --
 -- Index pour la table `etudiant`
@@ -478,10 +550,10 @@ ALTER TABLE `etudiant`
   ADD PRIMARY KEY (`id`);
 
 --
--- Index pour la table `events`
+-- Index pour la table `event`
 --
-ALTER TABLE `events`
-  ADD PRIMARY KEY (`idEvent`,`idEmprunt`);
+ALTER TABLE `event`
+  ADD PRIMARY KEY (`idEvent`);
 
 --
 -- Index pour la table `formulaire`
@@ -493,13 +565,14 @@ ALTER TABLE `formulaire`
 -- Index pour la table `livre`
 --
 ALTER TABLE `livre`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `fk_livre_bibliotheque` (`id_bibliotheque`);
 
 --
 -- Index pour la table `matiere`
 --
 ALTER TABLE `matiere`
-  ADD PRIMARY KEY (`idMatiere`);
+  ADD PRIMARY KEY (`idmatiere`);
 
 --
 -- Index pour la table `membrescolarite`
@@ -523,7 +596,8 @@ ALTER TABLE `parent`
 -- Index pour la table `pfe`
 --
 ALTER TABLE `pfe`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `fk_etudiant_pfe` (`id_etudiant`);
 
 --
 -- Index pour la table `professeur`
@@ -577,7 +651,7 @@ ALTER TABLE `utilisateur`
 -- AUTO_INCREMENT pour la table `absence`
 --
 ALTER TABLE `absence`
-  MODIFY `idAbsence` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT pour la table `attestation`
 --
@@ -587,17 +661,12 @@ ALTER TABLE `attestation`
 -- AUTO_INCREMENT pour la table `bibliotheque`
 --
 ALTER TABLE `bibliotheque`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
---
--- AUTO_INCREMENT pour la table `classe`
---
-ALTER TABLE `classe`
-  MODIFY `idClasse` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 --
 -- AUTO_INCREMENT pour la table `club`
 --
 ALTER TABLE `club`
-  MODIFY `idClub` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idClub` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT pour la table `cours`
 --
@@ -612,17 +681,17 @@ ALTER TABLE `demande`
 -- AUTO_INCREMENT pour la table `emprunt`
 --
 ALTER TABLE `emprunt`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=43;
 --
--- AUTO_INCREMENT pour la table `etudiant`
+-- AUTO_INCREMENT pour la table `encadrement`
 --
-ALTER TABLE `etudiant`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+ALTER TABLE `encadrement`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
--- AUTO_INCREMENT pour la table `events`
+-- AUTO_INCREMENT pour la table `event`
 --
-ALTER TABLE `events`
-  MODIFY `idEvent` int(11) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `event`
+  MODIFY `idEvent` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT pour la table `formulaire`
 --
@@ -632,12 +701,12 @@ ALTER TABLE `formulaire`
 -- AUTO_INCREMENT pour la table `livre`
 --
 ALTER TABLE `livre`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 --
 -- AUTO_INCREMENT pour la table `matiere`
 --
 ALTER TABLE `matiere`
-  MODIFY `idMatiere` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idmatiere` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT pour la table `membrescolarite`
 --
@@ -657,12 +726,12 @@ ALTER TABLE `parent`
 -- AUTO_INCREMENT pour la table `pfe`
 --
 ALTER TABLE `pfe`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT pour la table `professeur`
 --
 ALTER TABLE `professeur`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 --
 -- AUTO_INCREMENT pour la table `reclamation`
 --
@@ -692,7 +761,7 @@ ALTER TABLE `specialite`
 -- AUTO_INCREMENT pour la table `utilisateur`
 --
 ALTER TABLE `utilisateur`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 --
 -- Contraintes pour les tables exportées
 --
@@ -702,6 +771,12 @@ ALTER TABLE `utilisateur`
 --
 ALTER TABLE `bibliothecaire`
   ADD CONSTRAINT `fk_user_bibliothecaire` FOREIGN KEY (`id`) REFERENCES `utilisateur` (`id`);
+
+--
+-- Contraintes pour la table `bibliotheque`
+--
+ALTER TABLE `bibliotheque`
+  ADD CONSTRAINT `fk_id_bibliothecaire` FOREIGN KEY (`id_bibliothecaire`) REFERENCES `bibliothecaire` (`id`);
 
 --
 -- Contraintes pour la table `emprunt`
@@ -714,19 +789,26 @@ ALTER TABLE `emprunt`
 -- Contraintes pour la table `encadrement`
 --
 ALTER TABLE `encadrement`
+  ADD CONSTRAINT `encadrement_ibfk_1` FOREIGN KEY (`id_prof`) REFERENCES `professeur` (`id`),
   ADD CONSTRAINT `fk_pfe_encardrement` FOREIGN KEY (`id_pfe`) REFERENCES `pfe` (`id`);
 
 --
 -- Contraintes pour la table `etudiant`
 --
 ALTER TABLE `etudiant`
-  ADD CONSTRAINT `fk_utilisateur_etudiant` FOREIGN KEY (`id`) REFERENCES `utilisateur` (`id`);
+  ADD CONSTRAINT `fk_etudiant_idetudiant` FOREIGN KEY (`id`) REFERENCES `utilisateur` (`id`);
+
+--
+-- Contraintes pour la table `livre`
+--
+ALTER TABLE `livre`
+  ADD CONSTRAINT `fk_livre_bibliotheque` FOREIGN KEY (`id_bibliotheque`) REFERENCES `bibliotheque` (`id`);
 
 --
 -- Contraintes pour la table `pfe`
 --
 ALTER TABLE `pfe`
-  ADD CONSTRAINT `fk_etudiant_pfe` FOREIGN KEY (`id`) REFERENCES `etudiant` (`id`);
+  ADD CONSTRAINT `fk_etudiant_pfe` FOREIGN KEY (`id_etudiant`) REFERENCES `etudiant` (`id`);
 
 --
 -- Contraintes pour la table `professeur`
